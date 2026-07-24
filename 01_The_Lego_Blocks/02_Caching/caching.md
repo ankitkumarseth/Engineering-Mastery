@@ -103,3 +103,5 @@ Even within the database, there are multiple levels of caching available.
 
 ## Conclusion
 Overall, caching data is an essential technique for optimizing system performance and reducing response time. From the front end to the back end, there are many layers of caching to improve the efficiency of various applications and systems.
+
+*(Source: [ByteByteGo Caching Video](https://youtu.be/dGAgxozNWFE?si=sH9B-VvsPdHxxkB_))*
