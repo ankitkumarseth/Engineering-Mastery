@@ -6,7 +6,10 @@ This repository is a comprehensive curriculum and reference guide for mastering 
 
 ### 01. The Lego Blocks
 - [Load Balancers](01_The_Lego_Blocks/01_Load_Balancers/)
-- *(More topics to be added)*
+- [Caching](01_The_Lego_Blocks/02_Caching/)
+- [CDNs](01_The_Lego_Blocks/03_CDNs/)
+- [API Gateways](01_The_Lego_Blocks/04_API_Gateways/)
+- [Network Protocols](01_The_Lego_Blocks/05_Network_Protocols/)
 
 ### 02. The Glue
 - *(Topics to be added)*

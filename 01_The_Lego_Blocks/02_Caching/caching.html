@@ -1246,64 +1246,80 @@ body .markdown-body
 }
 </style><title>caching</title></head><body data-theme="auto"><article class="markdown-body"><h1 id="02-caching">02 - Caching<a class="headerlink" href="#02-caching" title="Permanent link"></a></h1>
 <p>Caching is a common technique in modern computing to enhance system performance and reduce response time. From the front end to the back end, caching plays a crucial role in improving the efficiency of various applications and systems.</p>
-<p><img alt="What is caching" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/02_Caching/images/1.%20what%20is%20caching.png" /></p>
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/02_Caching/images/1.%20what%20is%20caching.png" width="800" alt="What is caching" /></p>
+
 <p>A typical system architecture involves several layers of caching. At each layer, there are multiple strategies and mechanisms for caching data, depending on the requirements and constraints of the specific application.</p>
-<p><img alt="Layers of caching" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/02_Caching/images/2.%20Layers%20of%20caching.png" /></p>
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/02_Caching/images/2.%20Layers%20of%20caching.png" width="800" alt="Layers of caching" /></p>
+
 <hr />
 <h2 id="1-hardware-caches">1. Hardware Caches<a class="headerlink" href="#1-hardware-caches" title="Permanent link"></a></h2>
 <p>Before diving into a typical system architecture, let’s zoom in and look at how prevalent caching is within each computer itself.</p>
 <p>Let’s first look at computer hardware. The most common hardware caches are L1, L2, and L3 caches.</p>
-<p><img alt="Computer Caches" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/02_Caching/images/3.%20Computer%20Caches.png" /></p>
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/02_Caching/images/3.%20Computer%20Caches.png" width="800" alt="Computer Caches" /></p>
+
 <ul>
 <li><strong>L1 Cache:</strong> The smallest and fastest cache, typically integrated into the CPU itself. It stores frequently accessed data and instructions, allowing the CPU to quickly access them without having to fetch them from slower memory.</li>
 <li><strong>L2 Cache:</strong> Larger but slower than L1 cache, and is typically located on the CPU die or on a separate chip.</li>
 <li><strong>L3 Cache:</strong> Even larger and slower than L2 cache, and is often shared between multiple CPU cores.</li>
 </ul>
 <p>Another common hardware cache is the <strong>Translation Lookaside Buffer (TLB)</strong>. It stores recently used virtual-to-physical address translations. It is used by the CPU to quickly translate virtual memory addresses to physical memory addresses, reducing the time needed to access data from memory.</p>
-<p><img alt="TLB" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/02_Caching/images/4.%20TLB.png" /></p>
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/02_Caching/images/4.%20TLB.png" width="800" alt="TLB" /></p>
+
 <hr />
 <h2 id="2-operating-system-caches">2. Operating System Caches<a class="headerlink" href="#2-operating-system-caches" title="Permanent link"></a></h2>
 <p>At the operating system level, there are page caches and other file system caches.</p>
 <h3 id="page-cache">Page Cache<a class="headerlink" href="#page-cache" title="Permanent link"></a></h3>
 <p>The Page cache is managed by the operating system and resides in main memory. It is used to store recently used disk blocks in memory. When a program requests data from the disk, the operating system can quickly retrieve the data from memory instead of reading it from disk.</p>
-<p><img alt="OS Page Cache" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/02_Caching/images/5.%20OS%20Page%20Cache.png" /></p>
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/02_Caching/images/5.%20OS%20Page%20Cache.png" width="800" alt="OS Page Cache" /></p>
+
 <h3 id="inode-cache">Inode Cache<a class="headerlink" href="#inode-cache" title="Permanent link"></a></h3>
 <p>There are other caches managed by the operating system, such as the inode cache. These caches are used to speed up file system operations by reducing the number of disk accesses required to access files and directories.</p>
-<p><img alt="OS Inode Cache" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/02_Caching/images/6.%20%20OS%20Inode%20cache.png" /></p>
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/02_Caching/images/6.%20%20OS%20Inode%20cache.png" width="800" alt="OS Inode Cache" /></p>
+
 <hr />
 <h2 id="3-application-system-architecture-caching">3. Application System Architecture Caching<a class="headerlink" href="#3-application-system-architecture-caching" title="Permanent link"></a></h2>
 <p>Now let’s zoom out and look at how caching is used in a typical application system architecture.</p>
 <h3 id="client-side-browser-caching">Client-Side / Browser Caching<a class="headerlink" href="#client-side-browser-caching" title="Permanent link"></a></h3>
 <p>On the application front end, web browsers can cache HTTP responses to enable faster retrieval of data. </p>
-<p><img alt="Client Side Cache 1" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/02_Caching/images/7.%20Client%20Side%20Cache%201.png" /></p>
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/02_Caching/images/7.%20Client%20Side%20Cache%201.png" width="800" alt="Client Side Cache 1" /></p>
+
 <p>When we request data over HTTP for the first time, and it is returned with an expiration policy in the HTTP header; if we request the same data again, the browser returns the data from its cache if available.</p>
-<p><img alt="Client Side Cache 2" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/02_Caching/images/8.%20Client%20Side%20Cache%202.png" /></p>
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/02_Caching/images/8.%20Client%20Side%20Cache%202.png" width="800" alt="Client Side Cache 2" /></p>
+
 <h3 id="content-delivery-networks-cdns">Content Delivery Networks (CDNs)<a class="headerlink" href="#content-delivery-networks-cdns" title="Permanent link"></a></h3>
 <p>Content Delivery Networks (CDNs) are widely used to improve the delivery of static content, such as images, videos, and other web assets. One of the ways that CDNs speeds up content delivery is through caching.</p>
-<p><img alt="CDN Caching 1" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/02_Caching/images/9.%20CDN%20Caching%201.png" /></p>
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/02_Caching/images/9.%20CDN%20Caching%201.png" width="800" alt="CDN Caching 1" /></p>
+
 <p>When a user requests content from a CDN, the CDN network looks for the requested content in its cache.</p>
-<p><img alt="CDN Caching 2" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/02_Caching/images/10.%20CDN%20Caching%202.png" /></p>
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/02_Caching/images/10.%20CDN%20Caching%202.png" width="800" alt="CDN Caching 2" /></p>
+
 <p>If the content is not already in the cache, the CDN fetches it from the origin server and caches it on its edge servers. When another user requests the same content, the CDN can deliver the content directly from its cache, eliminating the need to fetch it from the origin server again.</p>
-<p><img alt="CDN Caching 3" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/02_Caching/images/11.%20CDN%20Caching%203.png" /></p>
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/02_Caching/images/11.%20CDN%20Caching%203.png" width="800" alt="CDN Caching 3" /></p>
+
 <h3 id="load-balancer-caching">Load Balancer Caching<a class="headerlink" href="#load-balancer-caching" title="Permanent link"></a></h3>
 <p>Some load balancers can cache resources to reduce the load on back-end servers. When a user requests content from a server behind a load balancer, the load balancer can cache the response and serve it directly to future users who request the same content. This can improve response times and reduce the load on back-end servers.</p>
-<p><img alt="LB Caching" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/02_Caching/images/12.%20LB%20Caching.png" /></p>
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/02_Caching/images/12.%20LB%20Caching.png" width="800" alt="LB Caching" /></p>
+
 <h3 id="messaging-infrastructure">Messaging Infrastructure<a class="headerlink" href="#messaging-infrastructure" title="Permanent link"></a></h3>
 <p>Caching does not always have to be in memory. In the messaging infrastructure, message brokers such as Kafka can cache a massive amount of messages on disk. This allows consumers to retrieve the messages at their own pace. The messages can be cached for a long period of time based on the retention policy.</p>
-<p><img alt="Kafka Caching" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/02_Caching/images/13.%20Kafka%20Caching.png" /></p>
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/02_Caching/images/13.%20Kafka%20Caching.png" width="800" alt="Kafka Caching" /></p>
+
 <h3 id="distributed-caches">Distributed Caches<a class="headerlink" href="#distributed-caches" title="Permanent link"></a></h3>
 <p>Distributed caches such as Redis can store key-value pairs in memory, providing high read/write performance compared to traditional databases.</p>
-<p><img alt="Redis Caching" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/02_Caching/images/14.%20Redis%20caching.png" /></p>
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/02_Caching/images/14.%20Redis%20caching.png" width="800" alt="Redis Caching" /></p>
+
 <h3 id="search-engines">Search Engines<a class="headerlink" href="#search-engines" title="Permanent link"></a></h3>
 <p>Full-text search engines like Elastic Search can index data for document search and log search, providing quick and efficient access to specific data.</p>
-<p><img alt="Elastic Caching" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/02_Caching/images/15.%20Elastic%20Caching.png" /></p>
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/02_Caching/images/15.%20Elastic%20Caching.png" width="800" alt="Elastic Caching" /></p>
+
 <h3 id="database-caching">Database Caching<a class="headerlink" href="#database-caching" title="Permanent link"></a></h3>
 <p>Even within the database, there are multiple levels of caching available. 
 * Data is typically written to a write-ahead log (WAL) before being indexed in a B-tree.
 * The <strong>buffer pool</strong> is a memory area used to cache query results.
 * <strong>Materialized views</strong> can precompute query results for faster performance.
 * The <strong>transaction log</strong> records all transactions and updates to the database, while the <strong>replication log</strong> tracks the replication state in a database cluster.</p>
-<p><img alt="RDBMS Cache" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/02_Caching/images/16.%20RDBMS%20Cache.png" /></p>
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/02_Caching/images/16.%20RDBMS%20Cache.png" width="800" alt="RDBMS Cache" /></p>
+
 <hr />
 <h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link"></a></h2>
 <p>Overall, caching data is an essential technique for optimizing system performance and reducing response time. From the front end to the back end, there are many layers of caching to improve the efficiency of various applications and systems.</p>

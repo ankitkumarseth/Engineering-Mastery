@@ -1247,46 +1247,53 @@ body .markdown-body
 </style><title>load_balancers</title></head><body data-theme="auto"><article class="markdown-body"><h1 id="system-design-load-balancers">System Design: Load Balancers<a class="headerlink" href="#system-design-load-balancers" title="Permanent link"></a></h1>
 <p>Load balancers are a fundamental piece of infrastructure that underpins scalable and reliable applications. Whether building web applications, APIs, or complex distributed systems, understanding how load balancers function is critical.</p>
 <p>At its core, a load balancer acts as a <strong>traffic director</strong> for incoming requests. </p>
-<p><img alt="Traffic Director" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/intro_traffic_director.png" /></p>
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/intro_traffic_director.png" width="800" alt="Traffic Director" /></p>
+
 <p>It is a hardware device or a software component that distributes network or application traffic across multiple servers.</p>
-<p><img alt="API Routing" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/intro_api_routing.png" /></p>
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/intro_api_routing.png" width="800" alt="API Routing" /></p>
+
 <p>This ensures that no single server becomes overwhelmed when multiple clients make requests simultaneously.</p>
-<p><img alt="Handling Multiple Clients" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/intro_multiple_clients.png" /></p>
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/intro_multiple_clients.png" width="800" alt="Handling Multiple Clients" /></p>
+
 <h2 id="why-do-we-need-load-balancers">Why do we need Load Balancers?<a class="headerlink" href="#why-do-we-need-load-balancers" title="Permanent link"></a></h2>
 <blockquote>
 <p>[!NOTE]
 This traffic distribution isn&rsquo;t just about avoiding overloads; it&rsquo;s about laying the groundwork for a more robust and efficient system.</p>
 </blockquote>
-<p><img alt="Load Balancer Benefits" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/benefits_overview.png" /></p>
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/benefits_overview.png" width="800" alt="Load Balancer Benefits" /></p>
+
 <ol>
 <li><strong>Distribute Workload</strong>: Prevents any single server from becoming a bottleneck, ensuring consistent performance.</li>
 <li><strong>Dynamic Scaling</strong>: Enables us to add or remove resources dynamically as demand shifts (e.g. during peaks and valleys of daily traffic).</li>
 <li><strong>Reduce Latency</strong>: By intelligently distributing requests, load balancers improve response times.</li>
 <li><strong>Enhance Availability</strong>: Provides redundancy and failover options. If a backend server or internal network experiences issues, the application remains accessible.</li>
 </ol>
-<p><img alt="Failover and Availability" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/benefits_failover.png" /></p>
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/benefits_failover.png" width="800" alt="Failover and Availability" /></p>
+
 <hr />
 <h2 id="types-of-load-balancers-by-deployment">Types of Load Balancers (By Deployment)<a class="headerlink" href="#types-of-load-balancers-by-deployment" title="Permanent link"></a></h2>
 <p>There are three primary environments where load balancers operate.</p>
-<p><img alt="Deployment Types Overview" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/deployment_types_overview.png" /></p>
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/deployment_types_overview.png" width="800" alt="Deployment Types Overview" /></p>
+
 <ul>
 <li>
 <p><strong>Hardware Load Balancers</strong>: Dedicated physical appliances known for robust performance and stability. Designed for high-demand enterprise environments in dedicated data centers.
-<img alt="Hardware Load Balancers in Datacenter" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/deployment_hardware_datacenter.png" /></p>
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/deployment_hardware_datacenter.png" width="800" alt="Hardware Load Balancers in Datacenter" /></p></p>
 </li>
 <li>
 <p><strong>Software Load Balancers</strong>: Run on commodity hardware, offering greater flexibility and cost-effectiveness. Suitable for a wider range of applications.
-<img alt="Software Load Balancers" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/deployment_software.png" /></p>
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/deployment_software.png" width="800" alt="Software Load Balancers" /></p></p>
 </li>
 <li>
 <p><strong>Cloud-based Load Balancers</strong>: Managed services offered by cloud providers like AWS, GCP, and Azure. This approach reduces operational overhead by shifting the management burden to the cloud provider.
-<img alt="Cloud-Based Load Balancers" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/deployment_cloud.png" /></p>
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/deployment_cloud.png" width="800" alt="Cloud-Based Load Balancers" /></p></p>
 </li>
 </ul>
 <hr />
 <h2 id="types-of-load-balancers-by-network-layer">Types of Load Balancers (By Network Layer)<a class="headerlink" href="#types-of-load-balancers-by-network-layer" title="Permanent link"></a></h2>
 <p>Load balancers are most commonly classified by the OSI Network Layer at which they operate.</p>
-<p><img alt="Network Layer Types Overview" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/network_layer_types_overview.png" /></p>
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/network_layer_types_overview.png" width="800" alt="Network Layer Types Overview" /></p>
+
 <h3 id="layer-4-load-balancers">Layer 4 Load Balancers<a class="headerlink" href="#layer-4-load-balancers" title="Permanent link"></a></h3>
 <ul>
 <li><strong>Operates at:</strong> The Transport Layer.</li>
@@ -1298,9 +1305,12 @@ This traffic distribution isn&rsquo;t just about avoiding overloads; it&rsquo;s 
 <p>[!TIP]
 Use Layer 4 load balancers for pure speed and simplicity.</p>
 </blockquote>
-<p><img alt="Layer 4 OSI Model" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/network_layer_4_osi.png" />
-<img alt="Layer 4 Routing Example 1" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/network_layer_4_routing_1.png" />
-<img alt="Layer 4 Routing Example 2" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/network_layer_4_routing_2.png" /></p>
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/network_layer_4_osi.png" width="800" alt="Layer 4 OSI Model" /></p>
+
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/network_layer_4_routing_1.png" width="800" alt="Layer 4 Routing Example 1" /></p>
+
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/network_layer_4_routing_2.png" width="800" alt="Layer 4 Routing Example 2" /></p>
+
 <h3 id="layer-7-load-balancers">Layer 7 Load Balancers<a class="headerlink" href="#layer-7-load-balancers" title="Permanent link"></a></h3>
 <ul>
 <li><strong>Operates at:</strong> The Application Layer.</li>
@@ -1308,13 +1318,16 @@ Use Layer 4 load balancers for pure speed and simplicity.</p>
 <li><strong>Pros:</strong> Allows for content-based routing (e.g., routing a user to a specific microservice based on their URL) and advanced features like <strong>SSL Termination</strong>.</li>
 <li><strong>Cons:</strong> Gives you more control but requires more processing power to read the packets.</li>
 </ul>
-<p><img alt="Layer 7 OSI Model" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/network_layer_7_osi.png" />
-<img alt="Layer 7 Routing Example" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/network_layer_7_routing.png" /></p>
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/network_layer_7_osi.png" width="800" alt="Layer 7 OSI Model" /></p>
+
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/network_layer_7_routing.png" width="800" alt="Layer 7 Routing Example" /></p>
+
 <blockquote>
 <p>[!IMPORTANT]
 <strong>SSL Termination:</strong> Layer 7 load balancers can handle encryption and decryption at the balancer itself, improving backend performance by offloading the cryptographic work and centralizing SSL certificate management.</p>
 </blockquote>
-<p><img alt="SSL Offloading" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/network_layer_7_ssl_offloading.png" /></p>
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/network_layer_7_ssl_offloading.png" width="800" alt="SSL Offloading" /></p>
+
 <h3 id="global-server-load-balancers-gslb">Global Server Load Balancers (GSLB)<a class="headerlink" href="#global-server-load-balancers-gslb" title="Permanent link"></a></h3>
 <ul>
 <li><strong>Operates at:</strong> A global, geographic level.</li>
@@ -1322,32 +1335,37 @@ Use Layer 4 load balancers for pure speed and simplicity.</p>
 <li><strong>Mechanism:</strong> Uses DNS-based routing or anycast networking to direct users to the nearest available data center.</li>
 <li><strong>Use Case:</strong> Essential for applications with a global user base that require low-latency access and high resilience against regional failovers.</li>
 </ul>
-<p><img alt="Global Server Load Balancing Brands" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/gslb_overview_brands.png" />
-<img alt="Global Map Distribution" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/gslb_map_distribution.png" />
-<img alt="Global Routing via IP" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/gslb_routing_ip.png" />
-<img alt="Global Client Connections" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/gslb_client_connections.png" /></p>
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/gslb_overview_brands.png" width="800" alt="Global Server Load Balancing Brands" /></p>
+
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/gslb_map_distribution.png" width="800" alt="Global Map Distribution" /></p>
+
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/gslb_routing_ip.png" width="800" alt="Global Routing via IP" /></p>
+
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/gslb_client_connections.png" width="800" alt="Global Client Connections" /></p>
+
 <hr />
 <h2 id="load-balancing-algorithms">Load Balancing Algorithms<a class="headerlink" href="#load-balancing-algorithms" title="Permanent link"></a></h2>
 <p>How do load balancers actually distribute traffic? It depends on the chosen algorithm. Selecting the right one significantly impacts efficiency.</p>
-<p><img alt="Algorithms Overview" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/algorithms_overview.png" /></p>
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/algorithms_overview.png" width="800" alt="Algorithms Overview" /></p>
+
 <h3 id="1-round-robin">1. Round Robin<a class="headerlink" href="#1-round-robin" title="Permanent link"></a></h3>
 <p>The simplest method. It sequentially distributes requests across available servers, rotating through them in a continuous loop.
-<img alt="Round Robin" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/algorithms_1_round_robin.png" /></p>
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/algorithms_1_round_robin.png" width="800" alt="Round Robin" /></p></p>
 <h3 id="2-sticky-round-robin-sticky-sessions">2. Sticky Round Robin (Sticky Sessions)<a class="headerlink" href="#2-sticky-round-robin-sticky-sessions" title="Permanent link"></a></h3>
 <p>Ties a client to a specific server by creating a session ID (usually via a cookie or client IP). Once created, all requests from that client go to the same server. Helpful for applications relying on server-side session data, though it makes scaling more complex.
-<img alt="Sticky Sessions Diagram" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/algorithms_2_sticky_sessions.png" /></p>
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/algorithms_2_sticky_sessions.png" width="800" alt="Sticky Sessions Diagram" /></p></p>
 <h3 id="3-weighted-round-robin">3. Weighted Round Robin<a class="headerlink" href="#3-weighted-round-robin" title="Permanent link"></a></h3>
 <p>Assigns weights to each server, allowing the balancer to send a proportionally higher number of requests to more capable servers, and fewer to those with limited resources.
-<img alt="Weighted Round Robin" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/algorithms_3_weighted_round_robin.png" /></p>
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/algorithms_3_weighted_round_robin.png" width="800" alt="Weighted Round Robin" /></p></p>
 <h3 id="4-ip-url-hashing">4. IP / URL Hashing<a class="headerlink" href="#4-ip-url-hashing" title="Permanent link"></a></h3>
 <p>Uses a hash function to consistently route the same IP or URL to the same server. This stateless approach is particularly useful for caching static content.
-<img alt="IP Hashing Formula" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/algorithms_4_ip_url_hash.png" /></p>
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/algorithms_4_ip_url_hash.png" width="800" alt="IP Hashing Formula" /></p></p>
 <h3 id="5-least-connections">5. Least Connections<a class="headerlink" href="#5-least-connections" title="Permanent link"></a></h3>
 <p>Directs traffic to the server with the fewest active connections at any given time, ensuring a more evenly distributed load.
-<img alt="Least Connections Load Balancing" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/algorithms_5_least_connections.png" /></p>
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/algorithms_5_least_connections.png" width="800" alt="Least Connections Load Balancing" /></p></p>
 <h3 id="6-least-time">6. Least Time<a class="headerlink" href="#6-least-time" title="Permanent link"></a></h3>
 <p>Routes requests to the fastest or most responsive server, ensuring a snappy user experience and reduced latency.
-<img alt="Least Time Routing" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/algorithms_6_least_time.png" /></p>
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/algorithms_6_least_time.png" width="800" alt="Least Time Routing" /></p></p>
 <hr />
 <h2 id="key-metrics-to-monitor">Key Metrics to Monitor<a class="headerlink" href="#key-metrics-to-monitor" title="Permanent link"></a></h2>
 <p>Load balancers provide vital metrics for monitoring system health and performance:</p>
@@ -1357,6 +1375,7 @@ Use Layer 4 load balancers for pure speed and simplicity.</p>
 <li><strong>Health Metrics</strong>: Server health checks and failure rates alert you to backend issues.</li>
 <li><strong>Error Metrics</strong>: HTTP error rates and dropped connections identify potential connectivity problems.</li>
 </ul>
-<p><img alt="Monitoring Metrics" src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/metrics_monitoring.png" /></p>
+<p align="center"><img src="/Users/ankitkumar/Workspace/System-Design-Mastery/01_The_Lego_Blocks/01_Load_Balancers/images/metrics_monitoring.png" width="800" alt="Monitoring Metrics" /></p>
+
 <hr />
 <p><em>Source: <a href="https://youtu.be/LQuuoHTyYz8?si=HmniSxlrroZDaVYr">ByteByteGo Load Balancers Video</a></em></p></article></body></html>
