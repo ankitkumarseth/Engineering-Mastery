@@ -39,8 +39,12 @@ There are two common approaches to resolving this:
 1. **Last Writer Wins (LWW):** We attach a Lamport timestamp to both writes. The database simply accepts the write with the highest timestamp and silently discards the other. (Warning: This causes data loss).
 2. **Multi-value Registers:** We use Vector Clocks. The database detects that the writes are concurrent, keeps *both* values (called siblings), and forces the application to merge them later.
 
-**Exercise 17**
-Apache Cassandra uses a replication approach similar to the one described here, but it uses physical timestamps instead of logical timestamps. Write a critique of this approach based on the blog post: https://www.datastax.com/blog/2013/09/why-cassandra-doesnt-need-vector-clocks. What do you think of its arguments and why? What facts are missing from it? What recommendation would you make to someone considering using Cassandra?
+> [!IMPORTANT]
+> **Staff Critique: Cassandra's Physical LWW vs. Vector Clocks**
+> While Cassandra chose physical NTP timestamps over Vector Clocks to avoid "sibling explosion" (complex multi-version merges in application code), physical Last-Write-Wins (LWW) has severe production hazards:
+> 1. **Silent Data Loss**: If a node's clock drifts forward by even 20ms, all concurrent writes on accurate nodes are silently overwritten and lost.
+> 2. **Clock Stepping**: If NTP steps backwards, writes made during the step appear to have occurred in the past and are permanently ignored.
+> **Principal Recommendation**: For Cassandra, either (a) use **Lightweight Transactions (LWT)** (Paxos-based linearizability) for critical state, or (b) design schemas using **immutable append-only time-series data** so that updates never overwrite existing cells.
 
 ---
 
@@ -145,3 +149,33 @@ If update functions $f$ and $g$ commute (i.e., $f(g(x)) = g(f(x))$), replicas ca
 * Total order broadcast: required for arbitrary deterministic logic.
 * Causal broadcast: required if concurrent updates commute.
 * Reliable broadcast: required if *all* updates commute.
+
+---
+
+## Staff / Principal Interview Strategy: Replication Topologies & Quorums
+
+In Staff and Principal system design rounds, replication is the primary mechanism for balancing the CAP/PACELC trade-offs:
+
+### 1. Quorum Tuning Framework ($W + R > N$)
+When an interviewer asks you to configure a leaderless distributed datastore (DynamoDB, Cassandra):
+* **The Pigeonhole Principle**: If $W + R > N$, the set of nodes written to ($W$) and the set of nodes read from ($R$) must overlap by at least one node containing the latest write.
+* **Tuning Trade-offs**:
+  * **Balanced (Standard Quorum)**: $N=3, W=2, R=2$. Tolerates 1 node failure for both reads and writes.
+  * **Read-Optimized**: $N=3, W=3, R=1$. Reads are ultra-fast local single-node lookups, but write availability is fragile (a single node downtime blocks all writes).
+  * **Write-Optimized**: $N=3, W=1, R=3$. High write throughput and write availability, but reads are expensive and require querying all nodes.
+
+### 2. Quorums Do NOT Guarantee Linearizability (Edge Case)
+> [!WARNING]
+> A common interview trap: *"Does $W + R > N$ guarantee strict linearizability?"*
+> **Answer: NO.**
+> If Client 1 writes with $W=2$ (writing to Node A and Node B), but the write to Node B is delayed in transit:
+> 1. Client 2 reads with $R=2$ from (Node A, Node C) $\to$ sees the new value on Node A.
+> 2. Client 3 immediately reads with $R=2$ from (Node B, Node C) $\to$ sees old stale value on both!
+> A reader observed a newer value, followed immediately by another reader observing an older value. To achieve true linearizability in Dynamo-style quorums, readers must perform **Read Repair synchronously before returning** or use Paxos/Raft consensus.
+
+### 3. Asynchronous Replication & Replication Lag Mitigations
+In Single-Leader architectures (PostgreSQL, MySQL, MongoDB):
+* **The Risk**: Read replicas lag behind the primary by hundreds of milliseconds under high write load.
+* **Mitigations**:
+  * **Read-Your-Own-Writes**: Route reads for the specific user who just mutated state to the Primary DB for 5 seconds (or until the replica's replication LSN surpasses the write's commit LSN); route general browsing traffic to Read Replicas.
+  * **Monotonic Reads**: Hash user IDs to specific read replicas so a user never reads from a replica that is further behind than the one they previously queried.

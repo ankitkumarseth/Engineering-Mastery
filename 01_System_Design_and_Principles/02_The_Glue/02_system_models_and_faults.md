@@ -87,7 +87,11 @@ To design a distributed algorithm, we must clearly define our "System Model"—t
 > * A fair-loss link can be turned into a reliable link by continually **retrying** lost messages and using **deduplication** on the recipient side.
 > * An arbitrary link can be converted into a fair-loss link using cryptographic protocols like **TLS**, which prevents eavesdropping and tampering.
 
-> **Exercise 3.** Say you have a client-server RPC system in which a client repeats an RPC request until it receives a response. How could the server deduplicate the requests?
+> [!TIP]
+> **Staff Insight: Deduplication & FIFO Ordering Over Unreliable Networks**
+> 1. **Deduplication**: Sender embeds a monotonically increasing `(client_id, sequence_no)`. The server stores the highest processed `sequence_no` per `client_id` in transactional storage; duplicates are dropped.
+> 2. **FIFO Delivery over Crash-Stop**: Sender sequences messages. Receiver buffers out-of-order arrivals in a priority queue and only delivers message $k$ when message $k-1$ has been acknowledged and delivered.
+> 3. **FIFO Delivery over Crash-Recovery**: The receiver must persist its `last_delivered_seq` to durable storage (Write-Ahead Log / disk) before passing the message to the application so that upon crash reboot, it does not re-deliver duplicate state or skip sequences.
 
 ### 2. Node Behaviour
 * **Crash-stop:** If a node crashes, it stops executing forever (never comes back online).
@@ -99,31 +103,48 @@ To design a distributed algorithm, we must clearly define our "System Model"—t
 * **Asynchronous:** No timing guarantees at all. Messages can be delayed infinitely.
 * **Partially Synchronous:** The system is usually synchronous, but occasionally experiences unpredictable, unbounded delays (network partitions, CPU spikes). **This is the most accurate model for real-world systems.**
 
-> **Exercise 4.** Reliable network links allow messages to be reordered. Give pseudocode for an algorithm that strengthens the properties of a reliable point-to-point link such that messages are received in the order they were sent (this is called a FIFO link), assuming an asynchronous crash-stop system model.
->
-> **Exercise 5.** How do we need to change the algorithm from Exercise 4 if we assume a crash-recovery model instead of a crash-stop model?
+* In a purely asynchronous system, perfect failure detectors do not exist because you cannot distinguish a crashed node from a slow network.
+* In partially synchronous systems, we use **Eventually Perfect Failure Detectors**, which might mistakenly flag a slow node as dead, but eventually get it right.
 
 ---
 
-## 2.4 Fault Tolerance and High Availability
+## Staff / Principal Interview Strategy: System Models & Fault Tolerance
 
-We build distributed systems to achieve higher availability than a single machine can offer.
+In Staff and Principal architecture reviews, interviewers test your understanding of real-world distributed failure boundaries:
 
-**Availability:** The fraction of time a service is functioning correctly (uptime).
-* **Two nines (99%):** ~3.7 days of downtime per year.
-* **Three nines (99.9%):** ~8.8 hours of downtime per year.
-* **Four nines (99.99%):** ~53 minutes of downtime per year.
-* **Five nines (99.999%):** ~5.3 minutes of downtime per year.
+### 1. The Industry Standard Model: Partially Synchronous + Crash-Recovery
+Never assume a synchronous network in a cloud environment (AWS, GCP, Azure). 
+* **The Reality**: Modern cloud infrastructure is **Partially Synchronous**: the network is normally fast, but unpredictable GC pauses, noisy neighbors, and cross-AZ network partitions cause arbitrary delays.
+* **The Implication**: Algorithms that depend on strict time bounds (like distributed locks without leases) will fail. Systems must be designed assuming that *any* node can freeze for 30 seconds and wake up thinking it is still the leader.
 
-> [!TIP]
-> **SLO vs SLA**
-> * **Service-Level Objective (SLO):** The target availability (e.g., "99.9% of requests succeed in <200ms").
-> * **Service-Level Agreement (SLA):** The legal contract that dictates the financial penalties if the SLO is violated.
+### 2. The Zombie Leader Problem & Fencing Tokens
+Consider a classic distributed lock or leader: Node 1 acquires a lock, but hits a 45-second Stop-the-World JVM GC pause. The lock service times out and assigns the lock to Node 2. Node 1 wakes up from GC, unaware that time passed, and writes to storage.
 
-**Single Point of Failure (SPOF)**
-A system component is a Single Point of Failure (SPOF) if its failure causes the entire system to fail. Fault-tolerant systems are explicitly designed to avoid having any SPOF.
+```mermaid
+sequenceDiagram
+    autonumber
+    participant N1 as Node 1 (Old Leader)
+    participant ZK as Lock Service (ZooKeeper/etcd)
+    participant N2 as Node 2 (New Leader)
+    participant S as Shared Storage
 
-**Failure Detectors:**
-To tolerate faults, we must first detect them. A timeout-based failure detector sends a heartbeat message and assumes the node is dead if it doesn't reply in time.
-* In a purely asynchronous system, perfect failure detectors do not exist because you cannot distinguish a crashed node from a slow network.
-* In partially synchronous systems, we use **Eventually Perfect Failure Detectors**, which might mistakenly flag a slow node as dead, but eventually get it right.
+    N1->>ZK: Acquire Lock (Granted: Epoch 33)
+    Note over N1: Long GC Pause (30s)...
+    Note over ZK: Lease expires! Elects Node 2
+    N2->>ZK: Acquire Lock (Granted: Epoch 34)
+    N2->>S: Write data with Fencing Token = 34 (Accepted)
+    Note over N1: Wakes up from GC!
+    N1->>S: Write data with Fencing Token = 33 (REJECTED!)
+    Note over S: Storage rejects 33 because 34 is already written.
+```
+
+* **The Defense: Fencing Tokens**: Every time the lock service grants a lock or elects a leader, it issues a monotonically increasing **Fencing Token (Epoch number)**. The storage layer checks the token on every write: if a write arrives with a token lower than the highest token observed, it is **instantly rejected**.
+
+### 3. Quorum Math: Preventing Split-Brain
+When network partitions slice a cluster of $N$ nodes into two isolated halves, both halves might attempt to elect a leader, leading to **Split-Brain** (data corruption via dual writes).
+* **The Invariant**: A leader must receive votes from a **Strict Majority Quorum**:
+  $$Q \ge \left\lfloor \frac{N}{2} \right\rfloor + 1$$
+* **Why an Odd Number of Nodes?**:
+  * 3 nodes tolerate 1 failure ($\lfloor 3/2 \rfloor + 1 = 2$).
+  * 4 nodes still only tolerate 1 failure ($\lfloor 4/2 \rfloor + 1 = 3$), while adding network complexity.
+  * Always deploy 3, 5, or 7 nodes for consensus clusters (ZooKeeper, etcd, Raft).

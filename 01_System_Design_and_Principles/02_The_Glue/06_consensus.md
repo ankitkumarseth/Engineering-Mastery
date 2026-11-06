@@ -246,13 +246,51 @@ function CommitLogEntries():
         commitLength := max(ready)
 ```
 
-**Exercise 18**
-Three nodes are executing the Raft algorithm. At one point in time, each node has the following log:
-- Node A: `(msg: m1, term: 1)`, `(msg: m2, term: 1)`
-- Node B: `(msg: m1, term: 1)`, `(msg: m4, term: 2)`, `(msg: m5, term: 2)`, `(msg: m6, term: 2)`
-- Node C: `(msg: m1, term: 1)`, `(msg: m4, term: 2)`, `(msg: m7, term: 3)`
+> [!IMPORTANT]
+> **Staff Insight: Raft Log Invariants & Leader Completeness**
+> 1. **Leader Completeness**: Raft guarantees that if a log entry is committed in a given term, that entry will be present in the logs of the leaders for all higher terms.
+> 2. **Election Restriction Rule**: A voter denies its vote if the candidate’s log is less up-to-date than its own (comparing `lastLogTerm` first, then `log.length`). Node A (holding older Term 1 entries) can never win an election over Node B or C holding Term 2/3 entries.
+> 3. **Log Reconciliation**: A newly elected leader never truncates its own log; it forces followers to match its log by decrementing `nextIndex[follower]` until a common ancestor is found, overwriting any uncommitted conflicting follower entries.
 
-(a) Explain what events may have occurred that caused the nodes to be in this state.
-(b) What are the possible values of the commitLength variable at each node?
-(c) Node A starts a leader election in term 4, while the nodes are in the state above. Is it possible for it to obtain a quorum of votes? What if the election was instead started by one of the other nodes?
-(d) Assume that node B is elected leader in term 4, while the nodes are in the state above. Give the sequence of messages exchanged between B and C following this election.
+---
+
+## Staff / Principal Interview Strategy: Consensus vs. Two-Phase Commit (2PC)
+
+The difference between **Consensus (Raft/Paxos)** and **Atomic Commitment (2PC)** is one of the most frequently tested concepts in Staff and Principal distributed systems rounds:
+
+```mermaid
+flowchart TD
+    subgraph Consensus ["Consensus (Raft / Paxos)"]
+        direction TB
+        C1["Goal: Replicate same state machine across identical nodes"]
+        C2["Agreement: Requires STRICT MAJORITY (⌊N/2⌋ + 1)"]
+        C3["Fault Tolerance: Tolerates minority node crashes cleanly"]
+        C4["Used In: etcd, ZooKeeper, CockroachDB ranges, Spanner groups"]
+    end
+
+    subgraph TwoPC ["Atomic Commitment (Two-Phase Commit - 2PC)"]
+        direction TB
+        T1["Goal: Coordinate all-or-nothing transactions across DIFFERENT shards"]
+        T2["Agreement: Requires 100% UNANIMOUS consent from all participants"]
+        T3["Fault Tolerance: FRAGILE. Blocks indefinitely if coordinator crashes mid-commit"]
+        T4["Used In: Distributed XA transactions, cross-shard RDBMS ACID"]
+    end
+```
+
+### 1. The Definitive Distinction
+| Dimension | **Consensus (Raft / Paxos)** | **Two-Phase Commit (2PC)** |
+| :--- | :--- | :--- |
+| **Problem Solved** | State Machine Replication (SMR) among homogeneous replicas. | Distributed Transaction Atomicity across heterogeneous systems. |
+| **Quorum Needed** | **Majority ($\lfloor N/2 \rfloor + 1$)**. | **Unanimous (100% of participants)**. |
+| **Crash Behavior** | Continuous progress if minority fails. | **Blocks indefinitely** holding locks if coordinator crashes in Phase 2. |
+| **Can a node vote NO?**| No (unless invalid term/log). | Yes (if constraint violated, aborts entire transaction). |
+
+### 2. How Modern Distributed Databases Combine Both (The Spanner Pattern)
+Google Spanner and CockroachDB combine both algorithms to achieve high-performance distributed transactions:
+* They use **Two-Phase Commit (2PC)** across different table partitions to commit multi-shard transactions.
+* **The Genius Fix for 2PC Blocking**: Each participant in the 2PC transaction is *not* a single physical server; it is a **Paxos/Raft Consensus Group**!
+* If the primary coordinator crashes mid-transaction, its Paxos group elects a new leader in milliseconds. The new leader recovers the coordinator's state and completes the 2PC protocol—**completely eliminating the 2PC blocking vulnerability**!
+
+### 3. The FLP Impossibility Result (Fischer, Lynch, Paterson)
+* **The Theorem**: In an asynchronous network, no deterministic consensus protocol can guarantee both **Safety** (never making a wrong decision) and **Liveness** (always reaching a decision) if even a single node can fail.
+* **How Real Systems Bypass FLP**: Real systems (Raft, Paxos) choose **Partial Synchrony**. They prioritize 100% Safety (never committing divergent data) and use randomized election timeouts to guarantee Liveness with high probability.

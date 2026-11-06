@@ -71,4 +71,61 @@ An API gateway is a critical piece of modern distributed infrastructure. To impr
 
 <p align="center"><img src="images/10.%20Conclusion%20.png" width="800" alt="Conclusion" /></p>
 
+---
+
+## Staff / Principal Interview Strategy: API Gateways vs. Service Mesh
+
+In Staff and Principal architecture rounds, interviewers will test your ability to separate perimeter ingress concerns from internal microservice mesh communication.
+
+### 1. North-South vs. East-West Traffic Separation
+
+```mermaid
+flowchart TD
+    Client["External Public Clients (Web / Mobile)"] -->|North-South Ingress| APIGW["<b>API Gateway (Edge)</b><br/>Public TLS Termination, WAF, JWT Validation,<br/>Tiered Rate Limiting, API Key Quotas"]
+    
+    subgraph K8sMesh ["Internal Kubernetes Cluster (Service Mesh - Envoy / Istio)"]
+        direction LR
+        S1["Service A (Orders)"] <-->|East-West mTLS| S2["Service B (Payments)"]
+        S2 <-->|East-West mTLS| S3["Service C (Ledger)"]
+    end
+    
+    APIGW -->|Route to Internal Ingress| S1
+```
+
+* **North-South (API Gateway)**:
+  * Manages untrusted public internet traffic entering the trusted internal network.
+  * Solves perimeter security: coarse-grained rate limiting (Token Bucket), DDoS scrubbing, client API keys, OAuth2/OIDC token exchange, and public API monetization.
+* **East-West (Service Mesh — Envoy / Istio)**:
+  * Manages trusted service-to-service communication inside the VPC or Kubernetes cluster.
+  * Solves zero-trust networking: automated **mutual TLS (mTLS)** rotation, distributed tracing context injection (`traceparent`), local circuit breaking, and canary traffic weight shifting (e.g., 95% v1, 5% v2).
+
+---
+
+### 2. The Backend-for-Frontend (BFF) Pattern
+* **The Monolithic Gateway Problem**: When a single API gateway tries to serve Mobile, Web, IoT, and Third-Party Partner APIs, it becomes a release bottleneck and returns bloated payloads that waste mobile cellular data.
+* **The BFF Solution**: Deploy lightweight, client-specific gateways:
+  * **Mobile BFF**: Aggregates 5 backend service calls into 1 compact JSON payload, strips unused fields to preserve battery and bandwidth.
+  * **Web BFF**: Delivers rich, fully hydrated payloads for large desktop screens.
+  * **Partner Public BFF**: Implements strict API quota throttling, billing webhooks, and public OpenAPI documentation.
+
+---
+
+### 3. The "Smart Endpoints, Dumb Pipes" Principle
+> [!CAUTION]
+> **Never Put Business Logic or Database Access in the API Gateway.**
+
+A classic anti-pattern is writing orchestration scripts or database lookups directly inside Kong, Apigee, or Spring Cloud Gateway filters.
+* **Why It Fails**: The gateway becomes a distributed monolith. Any bug in business logic can bring down the entire ingress infrastructure for all microservices, and deployments require cross-team coordination.
+* **The Principal Rule**: Keep the gateway **purely operational** (authentication, rate limiting, routing, telemetry). Business workflows belong inside domain orchestrators or dedicated application microservices.
+
+---
+
+### 4. High-Performance Token Validation (JWKS vs. Introspection)
+* **The Slow Way (Opaque Token Introspection)**: Calling the Identity Provider (IdP) over the network on every single request. Adds $20-50\text{ ms}$ of latency floor to every API call.
+* **The Staff Engineer Standard (Asymmetric Cryptographic Verification)**:
+  * The API Gateway periodically fetches and caches the IdP’s public **JSON Web Key Set (JWKS)** endpoint.
+  * When a request arrives with an `Authorization: Bearer <JWT>`, the gateway verifies the cryptographic signature locally using the cached public key.
+  * Signature verification completes in **$< 0.1\text{ ms}$** in memory with zero network round trips.
+
+---
 *(Source: [ByteByteGo API Gateway Video](https://youtu.be/6ULyxuHKxg8?si=mMWzwr0U0yae6YTR))*

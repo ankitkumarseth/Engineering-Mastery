@@ -113,6 +113,42 @@ File Transfer Protocol (FTP) allows efficient uploading and downloading of files
 
 ---
 
+## Staff / Principal Interview Strategy: Protocol Selection Matrix
+
+In distributed systems design, choosing the wrong communication protocol introduces severe latency floors and network head-of-line blocking. Here is the decision framework expected at the Staff and Principal level:
+
+### 1. Protocol Comparison Matrix
+
+| Protocol | Transport | Serialization | Bi-Directional? | Browser Native? | Best Use Case |
+| :--- | :--- | :--- | :---: | :---: | :--- |
+| **REST** | HTTP/1.1 or H2 | JSON / Text | No (Req/Res) | Yes | Public developer APIs, CRUD services, web applications. |
+| **gRPC** | HTTP/2 | Binary (Protobuf) | Yes (Streaming) | No (needs grpc-web) | East-West internal microservices, high-throughput RPCs. |
+| **GraphQL** | HTTP/1.1 or H2 | JSON | No (Subscriptions via WS) | Yes | Aggregation gateways (BFF), mobile apps needing sparse fields. |
+| **WebSocket**| TCP (Upgraded) | Binary / Text | Yes (Full Duplex) | Yes | Multiplayer games, collaborative editing (Figma), low-latency chat. |
+| **SSE (Server-Sent Events)** | HTTP/1.1 or H2 | Text (`text/event-stream`) | No (Server $\to$ Client) | Yes | Stock tickers, real-time dashboards, LLM token streaming (ChatGPT). |
+
+---
+
+### 2. HTTP/2 Multiplexing vs. HTTP/3 (QUIC) Connection Migration
+* **The HTTP/2 Head-of-Line Blocking Trap**:
+  * HTTP/2 multiplexes hundreds of logical streams over a single TCP connection.
+  * *The Flaw*: TCP guarantees in-order delivery. If a single TCP packet is dropped due to cellular packet loss, **the entire TCP connection stalls** until that lost packet is retransmitted—blocking all 100 multiplexed HTTP/2 streams!
+* **The HTTP/3 (QUIC over UDP) Revolution**:
+  * QUIC implements stream multiplexing at the **transport layer over UDP**.
+  * A lost packet on Stream A only pauses Stream A; Streams B through Z continue processing with zero latency impact.
+  * **Connection Migration**: Identified by a 64-bit Connection ID rather than the classic 4-tuple `(SrcIP, SrcPort, DstIP, DstPort)`. When a user walks out of their house and their phone switches from WiFi to 5G cellular, **the connection does not drop or re-handshake**—streaming video or active calls continue uninterrupted!
+
+---
+
+### 3. Enterprise Webhook Delivery Standard
+When designing asynchronous push notifications to external partners (e.g., Stripe, Mastercard, PayPal):
+1. **Cryptographic Signatures**: Always hash the payload using HMAC-SHA256 with a shared secret:
+   `X-Signature-SHA256: t=1614552000,v1=5257a863e5b...`
+   Recipients verify the signature to prevent tampering and replay attacks.
+2. **Idempotency Guarantees**: Send an immutable `X-Event-Id: evt_98234` so the recipient can de-duplicate retries.
+3. **Decoupled Delivery**: Never make webhook HTTP calls synchronously in the transaction thread. Push webhook delivery tasks into an asynchronous queue (SQS / Kafka) backed by a retry worker with exponential backoff (1m, 5m, 1h, 6h, 24h) and a Dead-Letter Queue (DLQ).
+
+---
 ## References
 * [8 Popular Network Protocols in 1 Video](https://youtu.be/P6SZLcGE4us?si=HRh6VQTZuAKgmwF1)
 * [REST API in 30 Seconds](https://youtu.be/hQUjpbb75eY?si=K5gXZNPWPgkk5oHX)

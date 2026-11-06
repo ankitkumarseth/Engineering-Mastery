@@ -89,7 +89,76 @@ By its very nature, a CDN is highly distributed. By maintaining copies of your c
 
 ---
 
-## Conclusion
-A modern CDN provides incredible benefits across Performance, Security, and Availability. As a general rule: **If we are serving HTTP traffic, we should be using a CDN.**
+## Staff / Principal Interview Strategy: CDNs & Edge Architecture
 
+In Staff and Principal system design rounds, an interviewer doesn't just want to hear *"we will put a CDN in front."* They expect you to articulate cache headers, origin shielding, cache invalidation strategies, and edge compute.
+
+### 1. Origin Shielding & Tiered Caching
+When operating a global CDN with 250+ Points of Presence (PoPs), an unshielded pull CDN creates a hidden bottleneck:
+* **The Origin Stampede Problem**: If a new image or breaking news article is published, a simultaneous cache miss across 250 PoPs results in **250 parallel requests hitting your origin database/storage cluster**.
+* **The Architecture Fix (Origin Shield)**: Introduce a centralized caching layer (Origin Shield) strategically co-located near your primary cloud region. Edge PoPs fetch from the Origin Shield rather than the origin directly, collapsing thousands of global misses into a single origin read.
+
+```mermaid
+flowchart TD
+    subgraph Users ["Global Clients"]
+        U1["User (London)"]
+        U2["User (Tokyo)"]
+        U3["User (Sydney)"]
+    end
+
+    subgraph Edge ["250+ Edge PoPs"]
+        E1["London Edge PoP"]
+        E2["Tokyo Edge PoP"]
+        E3["Sydney Edge PoP"]
+    end
+
+    subgraph Shield ["Origin Shield Layer"]
+        OS["Centralized Origin Shield (us-east-1)"]
+    end
+
+    subgraph OriginDB ["Backend Origin"]
+        Origin["Origin Application & Object Storage (S3)"]
+    end
+
+    U1 --> E1
+    U2 --> E2
+    U3 --> E3
+    E1 -- "Cache Miss" --> OS
+    E2 -- "Cache Miss" --> OS
+    E3 -- "Cache Miss" --> OS
+    OS -- "Single Collapsed Request" --> Origin
+```
+
+---
+
+### 2. Cache Invalidation: Content Addressing vs. Global Purge
+* **The Anti-Pattern (Manual URL Purging)**: Calling the CDN API to purge `/images/logo.png`. Global propagation across hundreds of PoPs takes seconds to minutes and can leave inconsistent edge states during network partitions.
+* **The Principal Pattern (Content-Addressed Hashing)**: Never mutate an asset in-place. Build systems with immutable asset hashing:
+  `/static/app.a8f9c2d.js`
+  * When code changes, deploy a new file with a new content hash. The HTML simply points to the new URL.
+  * **Benefit**: Invalidation is instant ($O(1)$) and cache hit rates approach $100\%$ with `Cache-Control: public, max-age=31536000, immutable`.
+
+---
+
+### 3. HTTP Header Mastery: `stale-while-revalidate`
+To achieve single-digit millisecond latency for semi-dynamic data (e.g., product pricing or catalog feeds), use the `stale-while-revalidate` directive:
+
+```http
+Cache-Control: public, max-age=60, stale-while-revalidate=300
+```
+
+* **How It Operates**:
+  * For the first 60 seconds: Served fresh from CDN cache.
+  * Between 60 and 360 seconds: CDN **immediately returns the cached stale data** to the client (sub-10ms response!), while *asynchronously* triggering a background fetch to the origin to update the cache for future requests.
+  * Clients **never** suffer origin latency on cache misses!
+
+---
+
+### 4. Edge Computing (Cloudflare Workers / Lambda@Edge)
+Modern CDNs are distributed application runtimes running lightweight V8 isolates:
+* **Edge Authentication**: Validating JWT signatures and verifying authorization claims at the edge before requests reach the origin VPC.
+* **A/B Testing & Geo-Routing**: Splitting traffic and injecting feature flags based on client IP geolocation without adding backend latency.
+* **Edge Bot Mitigation**: Running cryptographic challenges (Cloudflare Turnstile) to drop DDoS attacks at the perimeter.
+
+---
 *(Source: [ByteByteGo CDN Video](https://youtu.be/RI9np1LWzqw?si=U1dVTFLktMGkJfG2))*

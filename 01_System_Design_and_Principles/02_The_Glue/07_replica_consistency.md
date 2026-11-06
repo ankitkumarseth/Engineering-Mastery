@@ -212,14 +212,44 @@ Systems that prioritize Availability use **Optimistic Replication**. Nodes accep
 
 ---
 
-## Exercises
+## Staff / Principal Interview Strategy: Consistency Models & PACELC
 
-**Exercise 19:** Give pseudocode for the ABD algorithm.
+In Staff and Principal design interviews, you are expected to articulate consistency guarantees far beyond the introductory CAP theorem:
 
-**Exercise 20:** Is the following execution linearizable? If not, where does the violation occur?
+### 1. Linearizability vs. Serializability (The Ultimate Comparison)
+
+```mermaid
+flowchart LR
+    L["<b>Linearizability</b><br/>Single Object • Real-time Recency<br/><i>(Read sees latest write in global time)</i>"]
+    S["<b>Serializability</b><br/>Multi-Object • Transaction Isolation<br/><i>(Transactions run as if in some serial order)</i>"]
+    SS["<b>Strict Serializability</b><br/>Linearizability + Serializability<br/><i>(Gold Standard: Google Spanner, CockroachDB)</i>"]
+
+    L --> SS
+    S --> SS
 ```
-Node A: set(x, 1)                  cas(x, 1, 2) -> true                  cas(x, 2, 4) -> true
-Node B:            get(x) -> 4                            get(x) -> 2
-Node C:                   get(x) -> 1      get(x) -> 1
-Node D:                                           get(x) -> 2      set(x, 0)      cas(x, 0, 3) -> false
-```
+
+| Dimension | **Linearizability** | **Serializability** | **Strict Serializability** |
+| :--- | :--- | :--- | :--- |
+| **Scope** | Single object / register | Multiple objects / transactions | Multiple objects + real-time ordering |
+| **Core Guarantee** | Real-time recency: once a write returns, all subsequent reads globally must see it. | Multi-statement transactions execute as if they ran sequentially one-by-one. | Transactions are serializable AND respect global wall-clock time order. |
+| **Enforced By** | Consensus (Raft/Paxos), ABD algorithm | Two-Phase Locking (2PL), Serializable Snapshot Isolation (SSI) | Spanner TrueTime + Paxos + 2PC |
+
+### 2. The PACELC Theorem (Why CAP is Incomplete)
+CAP only describes system behavior during a rare **Network Partition ($P$)**. The **PACELC Theorem** (Daniel Abadi) explains how systems behave during normal operations:
+
+$$\text{If } \mathbf{P} \text{ (Partition)} \implies \text{Trade off } \mathbf{A} \text{ (Availability) vs. } \mathbf{C} \text{ (Consistency)}$$
+$$\text{Else } \mathbf{E} \implies \text{Trade off } \mathbf{L} \text{ (Latency) vs. } \mathbf{C} \text{ (Consistency)}$$
+
+* **$PA / EL$ Systems (DynamoDB, Cassandra)**:
+  * Under partition: Prioritize Availability ($PA$).
+  * Under normal operation: Prioritize low Latency over strict consistency ($EL$) by reading/writing to local nodes without waiting for global quorum sync.
+* **$PC / EC$ Systems (Spanner, CockroachDB, ZooKeeper, MongoDB default)**:
+  * Under partition: Prioritize Consistency ($PC$) by rejecting writes if a quorum cannot be reached.
+  * Under normal operation: Prioritize Consistency ($EC$) by paying the round-trip latency to replicate writes across quorums before acknowledging clients.
+
+### 3. The ABD Algorithm & Synchronous Read-Repair
+How do you achieve linearizable reads from a leaderless cluster without a leader?
+* **The Attiya-Bar-Noy-Dolev (ABD) Protocol**:
+  1. **Phase 1 (Read Quorum)**: Query a quorum of nodes, retrieve the value with the highest version/timestamp.
+  2. **Phase 2 (Write-Back Quorum)**: Before returning the value to the client, the reader **must write that highest value back to a quorum of nodes**.
+* **Why Phase 2 is Mandatory**: If a previous write died halfway through, the write-back ensures that any subsequent reader is guaranteed to observe the same or newer value, preventing time from moving backwards.

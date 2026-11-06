@@ -137,4 +137,52 @@ Load balancers provide vital metrics for monitoring system health and performanc
 <p align="center"><img src="images/metrics_monitoring.png" width="800" alt="Monitoring Metrics" /></p>
 
 ---
+
+## Staff / Principal Interview Strategy: Load Balancing at Scale
+
+When designing ingress infrastructure in a Staff or Principal system design interview, emphasize these core architectural decisions:
+
+### 1. The Two-Tier Ingress Pattern (L4 + L7 Chaining)
+Never propose a single monolithic load balancer for ultra-scale systems. The battle-tested enterprise standard is a **two-tier ingress hierarchy**:
+* **Tier 1 (L4 Ingress — e.g., AWS NLB, Google Maglev, Linux IPVS)**:
+  * Operates at the transport layer (TCP/UDP) using **Direct Server Return (DSR)** or consistent packet hashing.
+  * Provides line-rate packet distribution without terminating TCP connections or decrypting TLS.
+  * Distributes raw TCP streams evenly across a horizontally scalable fleet of L7 proxies.
+* **Tier 2 (L7 Application Ingress — e.g., Envoy Proxy, NGINX, HAProxy, AWS ALB)**:
+  * Terminates TLS/SSL, manages HTTP/2 multiplexing and gRPC streams, enforces WAF/mTLS security rules, evaluates JWTs, and executes content-based routing (e.g., `/checkout` $\to$ Payment Service).
+
+```mermaid
+flowchart TD
+    Client["Clients"] --> Anycast["BGP Anycast Routing"]
+    Anycast --> L4["Tier 1: L4 Load Balancers (Maglev / IPVS)<br/><i>High-Throughput Packet Distribution</i>"]
+    L4 --> L7_1["Tier 2: L7 Proxy Pod A (Envoy)"]
+    L4 --> L7_2["Tier 2: L7 Proxy Pod B (Envoy)"]
+    L4 --> L7_3["Tier 2: L7 Proxy Pod C (Envoy)"]
+    L7_1 --> S1["Payment Service"]
+    L7_2 --> S2["Order Service"]
+    L7_3 --> S3["User Service"]
+```
+
+### 2. The Sticky Sessions Anti-Pattern
+* **The Pitfall**: Storing session state on application servers and configuring sticky cookies (or IP hashing) on the load balancer.
+* **Why Staff Engineers Reject It**:
+  * Prevents even load distribution (a single power user or enterprise NAT proxy creates a massive hotspot on one backend server).
+  * Breaks auto-scaling: if a backend node crashes or scales down, all users attached to it lose their session and get logged out.
+* **The Principal Solution**: Keep application servers **strictly stateless**. Offload user sessions to an external, in-memory distributed store (e.g., Redis cluster) with session replication, allowing any server to handle any incoming request.
+
+### 3. DNS-based GSLB vs. BGP Anycast
+* **Geo-DNS (Route 53, Cloudflare DNS)**:
+  * Resolves domain to nearest datacenter IP based on client's resolver location.
+  * *Downside*: Recursive DNS caching ignores low TTLs; client ISP resolvers often cache IPs for hours, delaying failovers during regional outages.
+* **BGP Anycast (Google Front End, Cloudflare Edge)**:
+  * Single IP address advertised from hundreds of data centers globally via BGP routing.
+  * Routers automatically send packets down the shortest network path (lowest AS hops).
+  * *Advantage*: Instant regional failover (if a DC goes down, BGP withdraws the route in seconds without relying on client DNS caches).
+
+### 4. Mitigating Health Check Storms
+* When running $M$ load balancer instances checking $N$ backend servers at interval $T$, the aggregate health check load is $O(M \times N / T)$.
+* In a 50-proxy fleet monitoring 1,000 application pods every 2 seconds, backend pods receive 25,000 health check requests/sec!
+* **Mitigation**: Use centralized or agent-based health checking (e.g., Consul or Envoy discovery services) where nodes broadcast their health states to a registry rather than every proxy polling every pod directly.
+
+---
 *Source: [ByteByteGo Load Balancers Video](https://youtu.be/LQuuoHTyYz8?si=HmniSxlrroZDaVYr)*

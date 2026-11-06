@@ -21,7 +21,9 @@ Because the Earth's rotation is not perfectly constant, astronomical time drifts
 > * **Unix time:** The number of seconds since 1 January 1970 00:00:00 UTC (the "epoch"), excluding leap seconds.
 > * **ISO 8601:** Year, month, day, hour, minute, second, and timezone offset relative to UTC (e.g., `2021-11-09T09:50:17+00:00`).
 
-**Exercise 6.** Describe some problems that may arise from leap second smearing.
+> [!TIP]
+> **Staff Insight: Leap Second Smearing Pitfall**
+> While leap second smearing (stretching 1 second across 24 hours) prevents crashes in standard application software, it causes clocks to run ~11.6 ppm slower than true international atomic time (TAI). For high-frequency trading (HFT) or precision telecommunications, this frequency offset creates measurable clock divergence against external unsmeared feeds.
 
 ---
 
@@ -59,7 +61,9 @@ The round-trip network delay $\delta$ and estimated clock skew $\theta$ are calc
 *Assumption:* It assumes network latency is perfectly symmetric (takes the same amount of time to travel there as it does to come back).
 *Problem:* If network congestion causes asymmetric latency, the NTP time estimation will be inherently inaccurate.
 
-**Exercise 7.** What is the maximum possible error in the NTP client's estimate of skew with regard to one particular server, assuming that both nodes correctly follow the protocol?
+> [!NOTE]
+> **Staff Insight: Theoretical Error Bound of NTP**
+> For a round-trip network delay $\delta$, the maximum possible error in NTP’s estimated clock skew is bounded by $\pm \frac{\delta}{2}$ (the worst-case scenario where one leg of the network journey took virtually zero time and the return leg consumed the entire delay $\delta$). On public internet links with asymmetric routing, NTP cannot guarantee millisecond-level precision.
 
 ### Slewing vs Stepping
 If a computer's clock is out of sync, how does NTP fix it?
@@ -150,6 +154,35 @@ If two events happen on different nodes, and no messages are exchanged between t
 
 * Note: "Concurrent" in distributed systems does *not* mean they happened at the exact same physical time. It simply means they are completely independent and neither one influenced the other.
 
-**Exercise 8.** Prove that the happens-before relation is a strict partial order.
+> [!IMPORTANT]
+> **Trichotomy of Distributed Events**
+> For any two events $a$ and $b$ in a distributed system, exactly one of three mutually exclusive statements is true:
+> 1. $a \to b$ ($a$ causally preceded $b$)
+> 2. $b \to a$ ($b$ causally preceded $a$)
+> 3. $a \parallel b$ ($a$ and $b$ are concurrent / mutually independent)
 
-**Exercise 9.** Show that for any two events $a$ and $b$, exactly one of the three following statements must be true: either $a \to b$, or $b \to a$, or $a \parallel b$.
+---
+
+## Staff / Principal Interview Strategy: Time & Clocks in Production
+
+In Staff and Principal interviews, demonstrating awareness of physical clock drift and how real databases handle ordering is a major differentiator:
+
+### 1. The Cassandra / Dynamo LWW (Last-Write-Wins) Data Loss Trap
+Apache Cassandra uses physical wall-clock timestamps to resolve conflicting writes on the same key:
+* **The Disaster**: If Node A’s NTP clock drifts **$150\text{ ms}$ ahead** of Node B’s clock:
+  1. At 12:00:00.000, Client 1 writes `balance = $100` on Node A (timestamped `12:00:00.150` due to forward drift).
+  2. At 12:00:00.050, Client 2 updates `balance = $200` on Node B (timestamped `12:00:00.050` based on its accurate clock).
+  3. Cassandra resolves the conflict using Last-Write-Wins: it **silently discards Client 2’s update** because Node A’s drifted timestamp was higher!
+* **Staff Rule**: Never rely on physical NTP timestamps for strict write ordering or financial ledgers without logical clocks or consensus.
+
+### 2. Google Spanner's TrueTime API
+How did Google achieve external consistency across global datacenters without logical clocks?
+* Google installed atomic clocks and GPS receivers directly in every datacenter rack.
+* Because physical clocks still drift, Google’s `TrueTime.now()` returns a time **interval** rather than a single number:
+  $$\text{TrueTime} = [t_{\text{earliest}}, t_{\text{latest}}] \quad \text{where } \epsilon \le 7\text{ ms}$$
+* **Commit Wait**: When Spanner writes a transaction at timestamp $t$, it deliberately delays returning to the client until it is mathematically certain that $t_{\text{earliest}} > t$ (waiting $2\epsilon \approx 14\text{ ms}$). This guarantees that any subsequent transaction anywhere in the world will receive a strictly higher timestamp!
+
+### 3. Monotonic vs. Wall-Clock Clocks in Application Code
+When writing production Java / Go code:
+* **Latency & Timeouts**: Always use `System.nanoTime()` (Java) or `time.Since()` (Go), which read the CPU’s monotonic clock counter. Monotonic clocks can never step backwards.
+* **Timestamps & Wall Clock**: Use `System.currentTimeMillis()` or `Instant.now()` *only* for user-facing calendar timestamps or database created_at fields—never for measuring code elapsed time or timeout calculations.

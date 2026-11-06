@@ -48,7 +48,11 @@ sequenceDiagram
 
 In a URL, the part between `//` and the following `/` is the hostname. The rest is the path. The request includes the HTTP method (e.g., GET), user-agent, and accept header. The response contains the file requested and a content-type. Because these messages can be large, HTTP runs on top of TCP, which breaks the data into small network packets.
 
-> **Exercise 1.** A TCP connection allows two nodes to send each other arbitrarily long sequences of bytes. You decide that you want to send multiple requests and responses over the same TCP connection. What do you need to do in order to implement such a request-response protocol using TCP?
+> [!TIP]
+> **Staff Insight: Request-Response Framing over TCP**
+> Because TCP is an unformatted continuous byte stream without built-in message boundaries, multiplexing requests and responses requires two mechanisms:
+> 1. **Message Framing**: Either *Length-prefixed framing* (a 4-byte integer header indicating message payload size, used by gRPC and Kafka) or *Delimiter-based framing* (e.g., `\r\n\r\n` in HTTP/1.1).
+> 2. **Correlation IDs**: A unique `Request-ID` in the frame header so that responses arriving asynchronously or out of order can be mapped back to the originating caller thread.
 
 ---
 
@@ -101,7 +105,14 @@ Because waiting forever is not a good approach, the client will have to give up 
 > **Is Location Transparency achievable?**
 > Ideally, RPC hides where a resource is located, making it seem local. However, location transparency is practically a myth because developers must explicitly handle partial failures. If a client doesn't hear back, it might retry the request. If the request was actually processed, retrying could execute the action twice (e.g., charging a credit card twice). Thus, the application code must always be aware it is dealing with an unreliable network.
 
-> **Exercise 2.** How is RPC different from a local function call? Is location transparency achievable?
+> [!IMPORTANT]
+> **Staff Insight: Why Location Transparency is an Architectural Myth**
+> Local function calls are predictable: they either complete in nanoseconds, return an error, or crash the process cleanly. They pass memory references directly.
+> Remote Procedure Calls (RPC), by contrast, cross an unreliable network:
+> 1. **Non-deterministic latency**: A call can take 2ms or 20,000ms.
+> 2. **Partial Failures**: The client cannot distinguish whether the request was lost, the server crashed during processing, or the response packet was dropped.
+> 3. **Pass-by-value only**: Cannot pass pointers or shared memory objects; everything must be serialized.
+> Treating network calls as if they were local function calls leads developers to omit timeouts, circuit breakers, and idempotency keys. Modern architectures explicitly embrace **location awareness** instead of transparency.
 
 ### History of RPC
 * **1980s:** SunRPC / ONC RPC
@@ -161,3 +172,24 @@ service PaymentService {
     rpc ProcessPayment(PaymentRequest) returns (PaymentStatus) {}
 }
 ```
+
+---
+
+## Staff / Principal Interview Strategy: RPC & Network Foundations
+
+When designing service-to-service communication in a Staff or Principal architecture round:
+
+### 1. The Idempotency Key Architecture
+Because RPC timeouts leave execution status ambiguous (did the payment go through before the response packet was dropped?), **every mutating RPC must be idempotent**:
+* Client generates a unique UUID `Idempotency-Key` and transmits it in the RPC header.
+* The receiving service records the `Idempotency-Key` in a database with a unique constraint within the same transaction.
+* If a network timeout occurs and the client retries, the server detects the duplicate key, **skips re-execution**, and immediately returns the previously computed result.
+
+### 2. Fail-Open vs. Fail-Closed Decision Framework
+When an RPC dependency times out or trips a circuit breaker:
+* **Fail-Closed (Pessimistic)**: Abort and reject the user request. Mandatory for ledger transfers, debiting accounts, and authentication gates.
+* **Fail-Open (Optimistic)**: Return a fallback default or degraded payload. Mandatory for recommendation feeds, ad banners, and non-blocking risk scores (e.g., approve payments under $50 if fraud ML times out).
+
+### 3. REST vs. gRPC for Enterprise Microservices
+* **Public Perimeter (North-South)**: REST + JSON (widest client compatibility, browser native, HTTP caching).
+* **Internal Mesh (East-West)**: gRPC + Protocol Buffers (strictly-typed interface contracts, $5\times$ to $10\times$ faster binary serialization, HTTP/2 multiplexing over a single TCP connection, generated client SDKs across multiple languages).
