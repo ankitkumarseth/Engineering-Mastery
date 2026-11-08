@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="100%">
+  <defs>
+    <style>
+      .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 20px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 13px; fill: #64748b; }
+      .box-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 15px; font-weight: 700; }
+      .box-desc { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 12px; fill: #334155; }
+      .label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 11px; font-weight: 600; }
+    </style>
+    <linearGradient id="grad-root" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#eff6ff" />
+      <stop offset="100%" stop-color="#bfdbfe" />
+    </linearGradient>
+    <linearGradient id="grad-entity" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fdf4ff" />
+      <stop offset="100%" stop-color="#f5d0fe" />
+    </linearGradient>
+    <linearGradient id="grad-vo" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ecfdf5" />
+      <stop offset="100%" stop-color="#a7f3d0" />
+    </linearGradient>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#2563eb" />
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#dc2626" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="480" fill="#ffffff" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#e2e8f0" stroke-width="1.5" rx="10" />
+
+  <!-- Title -->
+  <text x="40" y="55" class="title">Tactical DDD: Aggregate Root &amp; Consistency Boundary</text>
+  <text x="40" y="78" class="subtitle">The Aggregate Root enforces all business invariants and acts as the sole transactional boundary</text>
+
+  <!-- Outer Aggregate Boundary Box -->
+  <rect x="250" y="110" width="600" height="320" rx="16" fill="#f8fafc" stroke="#6366f1" stroke-width="2.5" stroke-dasharray="8,6" />
+  <text x="270" y="140" class="box-title" fill="#4338ca">🛡️ Aggregate Boundary (1 Transaction = 1 Aggregate Commit)</text>
+
+  <!-- Inside: Aggregate Root -->
+  <rect x="280" y="165" width="260" height="235" rx="10" fill="url(#grad-root)" stroke="#2563eb" stroke-width="2" />
+  <text x="300" y="195" class="box-title" fill="#1e40af">Order (Aggregate Root)</text>
+  <text x="300" y="218" class="box-desc">• OrderId id (Identity)</text>
+  <text x="300" y="238" class="box-desc">• OrderStatus status</text>
+  <text x="300" y="258" class="box-desc">• List&lt;LineItem&gt; items</text>
+  <text x="300" y="278" class="box-desc">• Money totalAmount</text>
+  <text x="300" y="310" class="box-desc" font-weight="bold">Enforces Invariants:</text>
+  <text x="300" y="330" class="box-desc">✔ Max 10 items per order</text>
+  <text x="300" y="350" class="box-desc">✔ Cannot cancel if SHIPPED</text>
+  <text x="300" y="370" class="box-desc">✔ Total = sum(lineItem totals)</text>
+
+  <!-- Inside: Internal Entity (LineItem) -->
+  <rect x="580" y="165" width="240" height="105" rx="8" fill="url(#grad-entity)" stroke="#c084fc" stroke-width="1.5" />
+  <text x="600" y="195" class="box-title" fill="#7e22ce">LineItem (Internal Entity)</text>
+  <text x="600" y="218" class="box-desc">• ProductId productId (ID Ref)</text>
+  <text x="600" y="238" class="box-desc">• int quantity</text>
+  <text x="600" y="258" class="box-desc">• Money price</text>
+
+  <!-- Inside: Value Object (Money) -->
+  <rect x="580" y="295" width="240" height="105" rx="8" fill="url(#grad-vo)" stroke="#34d399" stroke-width="1.5" />
+  <text x="600" y="325" class="box-title" fill="#065f46">Money (Value Object)</text>
+  <text x="600" y="348" class="box-desc">• BigDecimal amount (Immutable)</text>
+  <text x="600" y="368" class="box-desc">• Currency currency (Immutable)</text>
+  <text x="600" y="388" class="box-desc">• Equals by value, not ID</text>
+
+  <!-- External Client Access -->
+  <rect x="35" y="180" width="160" height="80" rx="8" fill="#ffffff" stroke="#0284c7" stroke-width="1.5" />
+  <text x="50" y="215" class="box-title" fill="#0369a1">External Service</text>
+  <text x="50" y="238" class="box-desc">(e.g. PaymentService)</text>
+
+  <!-- Allowed Arrow: External -> Root -->
+  <path d="M 195 210 L 270 210" fill="none" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arrow-blue)" />
+  <text x="200" y="200" class="label" fill="#2563eb">ALLOWED</text>
+
+  <!-- Forbidden Arrow: External -> Internal Entity -->
+  <path d="M 195 240 Q 380 430 570 240" fill="none" stroke="#dc2626" stroke-width="2" stroke-dasharray="5,4" marker-end="url(#arrow-red)" />
+  <text x="340" y="445" class="label" fill="#dc2626">❌ FORBIDDEN: Direct access to internal Entity</text>
+</svg>

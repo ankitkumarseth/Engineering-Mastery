@@ -39,8 +39,27 @@ Comprehensive architecture frameworks, fundamental building blocks, distributed 
 
 ---
 
+### 02. Design Patterns, Microservices & Distributed Patterns
+Enterprise design patterns in modern Java, domain-driven decomposition, and distributed consistency.
+
+#### 01. GoF Design Patterns (Modern Java)
+* [Creational Patterns](02_Design_Patterns_and_Microservices/01_GoF_Design_Patterns/01_creational_patterns.md) — Volatile Double-Checked Locking, Bill Pugh, Enum Singleton, Builder pattern vs. Java Records, functional factories.
+* [Structural Patterns](02_Design_Patterns_and_Microservices/01_GoF_Design_Patterns/02_structural_patterns.md) — Dynamic Proxies vs. CGLIB, Spring AOP self-invocation traps, Decorator telemetry layering, and Adapter ACLs.
+* [Behavioral Patterns](02_Design_Patterns_and_Microservices/01_GoF_Design_Patterns/03_behavioral_patterns.md) — Strategy via lambdas, Map-injection in Spring, in-process vs. distributed Observers, Template Callbacks, and Chain of Responsibility.
+
+#### 02. Domain-Driven Design (DDD)
+* [Strategic DDD](02_Design_Patterns_and_Microservices/02_Domain_Driven_Design/01_strategic_ddd.md) — Ubiquitous Language, Subdomains (Core vs. Supporting vs. Generic), Bounded Contexts, and Context Mapping (ACL, Shared Kernel).
+* [Tactical DDD](02_Design_Patterns_and_Microservices/02_Domain_Driven_Design/02_tactical_ddd.md) — Entities vs. Value Objects, Aggregate Roots as transactional boundaries, and eradicating the Anemic Domain Model.
+
+#### 03. Microservice & Distributed Architecture Patterns
+* [Monolith Decomposition](02_Design_Patterns_and_Microservices/03_Microservice_Architecture/01_monolith_decomposition.md) — Strangler Fig migration pattern, Anti-Corruption Layer (ACL), and Database-per-Service vs. Shared Database.
+* [Distributed Transactions & Sagas](02_Design_Patterns_and_Microservices/03_Microservice_Architecture/02_distributed_transactions_and_sagas.md) — Saga Orchestration vs. Choreography, Pivot transactions, Compensating actions, and Semantic Locking.
+* [Event Sourcing & CQRS](02_Design_Patterns_and_Microservices/03_Microservice_Architecture/03_event_sourcing_and_cqrs.md) — The Dual-Write trap, Transactional Outbox Pattern with Debezium CDC, CQRS read projections, and Event Sourcing.
+* [Cloud-Native Architecture & Resilience](02_Design_Patterns_and_Microservices/03_Microservice_Architecture/04_cloud_native_and_resilience.md) — Modernized 12-Factor App, Sidecar & Ambassador patterns, and W3C TraceContext context propagation with OpenTelemetry.
+
+---
+
 ### 🚀 Upcoming Modules
-* **02. Design Patterns, Microservices & Distributed Patterns** (`CORE.4`)
 * **03. Java Deep Dive & Concurrency** (`CORE.5` & `CORE.6`)
 * **04. Spring Framework Ecosystem** (`CORE.7`)
 * **05. API Design & Gateway Patterns** (`CORE.8`)
