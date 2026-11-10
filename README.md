@@ -86,8 +86,32 @@ Core JVM memory layout, high-performance concurrency, JMM mechanics, low-latency
 
 ---
 
+### 04. Spring Framework Ecosystem: Boot 3, Cloud, Security & Streaming
+Modern Spring Boot 3 internals, bean lifecycle, reactive gateways, Resilience4j fault isolation, stateless OAuth2 Resource Server, and high-performance JPA persistence.
+
+#### 01. Spring Core Internals & Bean Lifecycle
+* [Spring Bean Lifecycle, Container Internals & Scopes Mastery](04_Spring_Framework_Ecosystem/01_Spring_Core_and_Internals/01_bean_lifecycle_and_container_internals.md) — BeanFactory vs. ApplicationContext, BeanDefinition, Aware hooks, BeanPostProcessor (BPP) vs. BeanFactoryPostProcessor (BFPP), the prototype-in-singleton injection trap (ObjectProvider, @Lookup), and 3-level singleton cache circular dependency resolution.
+* [Spring AOP Mechanics, Dynamic Proxies & @Transactional Internals](04_Spring_Framework_Ecosystem/01_Spring_Core_and_Internals/02_spring_aop_proxies_and_transactional.md) — JDK Dynamic Proxies vs. CGLIB bytecode subclassing, why Spring Boot 3 defaults to `proxyTargetClass=true`, the @Transactional self-invocation trap and 3 architectural antidotes, propagation levels (REQUIRED vs. REQUIRES_NEW), HikariCP connection starvation deadlocks, and `readOnly=true` dirty-checking optimization.
+
+#### 02. Spring Boot 3 Architecture & Production Readiness
+* [Spring Boot 3 Auto-Configuration, Custom Starters & GraalVM AOT](04_Spring_Framework_Ecosystem/02_Spring_Boot_3_and_Observability/01_autoconfiguration_starters_and_graalvm_aot.md) — @EnableAutoConfiguration mechanics, replacing `spring.factories` with `AutoConfiguration.imports`, @Conditional evaluation pipeline, anatomy of a production custom starter, Jakarta EE 10 migration, declarative HTTP Interfaces (@HttpExchange), and GraalVM Ahead-Of-Time (AOT) reachability metadata.
+* [Spring Boot 3 Production Observability, Micrometer & Telemetry](04_Spring_Framework_Ecosystem/02_Spring_Boot_3_and_Observability/02_production_observability_actuator_micrometer.md) — Deprecating Spring Cloud Sleuth for Micrometer Tracing, unified Observation API (metrics + traces in a single call), W3C Trace Context propagation, Java 21 Virtual Threads & MDC leak prevention, Kubernetes Liveness vs. Readiness cascade failure traps, and Actuator zero-trust security lockdown.
+
+#### 03. Spring Security 6 & OAuth2 Architecture
+* [Spring Security 6 Architecture, SecurityFilterChain & OAuth2 JWT Mastery](04_Spring_Framework_Ecosystem/03_Spring_Security_6_and_OAuth2/01_security_filter_chain_and_oauth2_jwt.md) — DelegatingFilterProxy to FilterChainProxy dispatch sequence, removing WebSecurityConfigurerAdapter for component-based SecurityFilterChain beans, SecurityContextHolder thread-local strategies, stateless OAuth2 Resource Server, NimbusJwtDecoder JWK Set caching, and custom Keycloak/Okta claim-to-authority converters.
+* [Transport & Application Security: mTLS, CORS Mechanics, CSRF & Method Security](04_Spring_Framework_Ecosystem/03_Spring_Security_6_and_OAuth2/02_application_security_mtls_cors_method_security.md) — Mutual TLS (mTLS) zero-trust encryption with Spring Boot 3.1+ SSL bundles, X.509 client certificate authentication, the CORS-vs-Security filter ordering trap, when to enable vs. disable CSRF in stateless REST APIs, and fine-grained method-level security with @EnableMethodSecurity and SpEL.
+
+#### 04. Spring Cloud, Stream & Enterprise Integration
+* [Spring Cloud Gateway, Resilience4j Circuit Breakers & Service Discovery](04_Spring_Framework_Ecosystem/04_Spring_Cloud_and_Enterprise_Integration/01_spring_cloud_gateway_and_resilience4j.md) — Reactive Netty event loop vs. blocking Zuul, route predicates & gateway filters, multi-tenant Redis Token Bucket rate limiting, Resilience4j Circuit Breaker 3-state machine (Closed, Open, Half-Open), TimeLimiter, Bulkhead, and why Kubernetes native CoreDNS renders Netflix Eureka obsolete.
+* [Spring Cloud Stream, Kafka Binders & Enterprise Integration Patterns (EIP)](04_Spring_Framework_Ecosystem/04_Spring_Cloud_and_Enterprise_Integration/02_spring_cloud_stream_and_integration_patterns.md) — Deprecating @StreamListener for pure Java functional programming (Supplier, Function, Consumer), deterministic dynamic binding conventions, Kafka consumer group partition load balancing, poison pill isolation via Dead Letter Queues (DLQ), ErrorHandlingDeserializer, and Spring Integration EIP Java DSL flows.
+
+#### 05. Spring Data JPA & Persistence Performance
+* [Spring Data JPA, The N+1 Problem & High-Performance Persistence](04_Spring_Framework_Ecosystem/05_Spring_Data_JPA_and_Persistence_Tuning/01_jpa_n_plus_one_and_performance_tuning.md) — Zero-allocation class-based DTO constructor projections, dynamic Specifications, the N+1 query problem, remediation via JOIN FETCH, MultipleBagFetchException, dynamic @EntityGraph, global batch fetching via `hibernate.default_batch_fetch_size`, persistence context first-level cache lifecycle, and JDBC write batching.
+* [Open-Session-In-View (OSIV) Anti-Pattern & HikariCP Pool Sizing](04_Spring_Framework_Ecosystem/05_Spring_Data_JPA_and_Persistence_Tuning/02_osiv_anti_pattern_and_hikaricp_tuning.md) — The catastrophic latency amplification of `spring.jpa.open-in-view=true`, connection hold duration during slow JSON rendering/network I/O, safely disabling OSIV, managing LazyInitializationException, Brett Wooldridge's HikariCP pool sizing formula ($Core \times 2 + Spindle$), Little's Law capacity planning ($L = \lambda \times W$), and leak detection thresholds.
+
+---
+
 ### 🚀 Upcoming Modules
-* **04. Spring Framework Ecosystem** (`CORE.6`)
 * **05. API Design & Gateway Patterns** (`CORE.7`)
 * **06. Apache Kafka & Event-Driven Architecture** (`CORE.8`)
 * **07. Storage Engines & Databases (Oracle, MongoDB, Redis, DDIA)** (`CORE.9`)

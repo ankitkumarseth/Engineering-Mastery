@@ -1,0 +1,169 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 680" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1117" />
+      <stop offset="100%" stop-color="#161b22" />
+    </linearGradient>
+    <linearGradient id="cardGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#21262d" />
+      <stop offset="100%" stop-color="#161b22" />
+    </linearGradient>
+    <linearGradient id="proxyGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8957e5" />
+      <stop offset="100%" stop-color="#a371f7" />
+    </linearGradient>
+    <linearGradient id="targetGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1f6feb" />
+      <stop offset="100%" stop-color="#388bfd" />
+    </linearGradient>
+    <linearGradient id="dangerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#da3633" />
+      <stop offset="100%" stop-color="#f85149" />
+    </linearGradient>
+    <linearGradient id="successGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#238636" />
+      <stop offset="100%" stop-color="#2ea043" />
+    </linearGradient>
+
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#58a6ff" />
+    </marker>
+    <marker id="arrowRed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f85149" />
+    </marker>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#3fb950" />
+    </marker>
+    <marker id="arrowPurple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#a371f7" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1100" height="680" fill="url(#bgGrad2)" rx="12" stroke="#30363d" stroke-width="2"/>
+
+  <!-- Title & Subtitle -->
+  <text x="40" y="45" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f0f6fc">Spring AOP Proxy Architecture &amp; The Self-Invocation Trap</text>
+  <text x="40" y="70" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e">Why calling a @Transactional or @Async method via 'this' completely bypasses transaction interception</text>
+
+  <!-- External Client / Controller -->
+  <g transform="translate(40, 110)">
+    <rect width="180" height="340" rx="8" fill="url(#cardGrad2)" stroke="#30363d" stroke-width="1.5"/>
+    <rect width="180" height="6" rx="3" fill="#58a6ff"/>
+    <text x="20" y="35" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#f0f6fc">Caller / Client</text>
+    <text x="20" y="58" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">e.g. OrderController</text>
+
+    <rect x="15" y="80" width="150" height="70" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="25" y="105" font-family="monospace" font-size="11" fill="#79c0ff">@Autowired</text>
+    <text x="25" y="125" font-family="monospace" font-size="11" fill="#c9d1d9">OrderService</text>
+    <text x="25" y="140" font-family="monospace" font-size="11" fill="#8b949e">orderService;</text>
+
+    <text x="20" y="180" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#c9d1d9">Invokes:</text>
+    <text x="20" y="202" font-family="monospace" font-size="11" fill="#7ee787">orderService</text>
+    <text x="20" y="220" font-family="monospace" font-size="11" fill="#7ee787"> .checkout();</text>
+
+    <rect x="15" y="250" width="150" height="75" rx="6" fill="#0d1117" stroke="#388bfd" stroke-dasharray="3 3"/>
+    <text x="25" y="275" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#58a6ff">Holds reference to:</text>
+    <text x="25" y="295" font-family="monospace" font-size="11" font-weight="700" fill="#a371f7">OrderService$$</text>
+    <text x="25" y="312" font-family="monospace" font-size="11" font-weight="700" fill="#a371f7">EnhancerBySpringCGLIB</text>
+  </g>
+
+  <!-- Arrow Client -> Proxy -->
+  <line x1="220" y1="210" x2="280" y2="210" stroke="#a371f7" stroke-width="2.5" marker-end="url(#arrowPurple)"/>
+
+  <!-- Spring CGLIB Proxy Container -->
+  <g transform="translate(280, 110)">
+    <rect width="360" height="340" rx="8" fill="url(#cardGrad2)" stroke="#a371f7" stroke-width="2"/>
+    <rect width="360" height="6" rx="3" fill="url(#proxyGrad2)"/>
+    <text x="20" y="35" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#a371f7">Dynamic Proxy (OrderService$$CGLIB)</text>
+    <text x="20" y="58" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">Intercepts public method calls via MethodInterceptor</text>
+
+    <!-- Interceptor 1: TransactionInterceptor -->
+    <rect x="20" y="80" width="320" height="65" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="35" y="103" font-family="monospace" font-size="12" font-weight="700" fill="#e3b341">1. TransactionInterceptor</text>
+    <text x="35" y="122" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Opens DB Connection, sets autocommit=false, starts TX</text>
+    <text x="35" y="137" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#7ee787">Binds ConnectionHolder to ThreadLocal</text>
+
+    <!-- Interceptor 2: Target Invocation -->
+    <rect x="20" y="155" width="320" height="60" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="35" y="178" font-family="monospace" font-size="12" font-weight="700" fill="#58a6ff">2. Delegate to Target Instance</text>
+    <text x="35" y="198" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Calls: <tspan fill="#79c0ff" font-family="monospace">target.checkout()</tspan></text>
+
+    <!-- Interceptor 3: Commit / Rollback -->
+    <rect x="20" y="225" width="320" height="65" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="35" y="248" font-family="monospace" font-size="12" font-weight="700" fill="#2ea043">3. Transaction Commit / Rollback</text>
+    <text x="35" y="267" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">If RuntimeException -> rollback(); else -> commit()</text>
+    <text x="35" y="282" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Unbinds ThreadLocal and returns connection to pool</text>
+
+    <text x="20" y="322" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#c9d1d9">✓ Interceptor chain fully active when invoked from outside</text>
+  </g>
+
+  <!-- Arrow Proxy -> Target -->
+  <line x1="640" y1="210" x2="710" y2="210" stroke="#58a6ff" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
+
+  <!-- Target Instance (Raw POJO) -->
+  <g transform="translate(710, 110)">
+    <rect width="350" height="340" rx="8" fill="url(#cardGrad2)" stroke="#1f6feb" stroke-width="2"/>
+    <rect width="350" height="6" rx="3" fill="url(#targetGrad)"/>
+    <text x="20" y="35" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#58a6ff">Target Bean Instance (Raw POJO)</text>
+    <text x="20" y="58" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">The underlying OrderServiceImpl instance</text>
+
+    <!-- Method A: checkout() -->
+    <rect x="20" y="80" width="310" height="100" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="30" y="102" font-family="monospace" font-size="11" fill="#e3b341">@Transactional</text>
+    <text x="30" y="120" font-family="monospace" font-size="12" font-weight="700" fill="#f0f6fc">public void checkout() {</text>
+    <text x="45" y="140" font-family="monospace" font-size="11" fill="#8b949e">// updates DB ...</text>
+    <text x="45" y="160" font-family="monospace" font-size="11" font-weight="700" fill="#f85149">this.sendAuditLog(); // TRAP!</text>
+    <text x="30" y="175" font-family="monospace" font-size="12" fill="#f0f6fc">}</text>
+
+    <!-- Self-invocation arrow inside target -->
+    <path d="M 190 165 C 240 185, 240 215, 190 235" fill="none" stroke="#f85149" stroke-width="3" stroke-dasharray="4 4" marker-end="url(#arrowRed)"/>
+    <rect x="210" y="185" width="125" height="26" rx="4" fill="#21262d" stroke="#f85149"/>
+    <text x="215" y="202" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" font-weight="700" fill="#f85149">Direct 'this' Call!</text>
+
+    <!-- Method B: sendAuditLog() -->
+    <rect x="20" y="215" width="310" height="105" rx="6" fill="#161b22" stroke="#da3633"/>
+    <text x="30" y="235" font-family="monospace" font-size="11" fill="#f85149">@Transactional(REQUIRES_NEW)</text>
+    <text x="30" y="252" font-family="monospace" font-size="12" font-weight="700" fill="#f0f6fc">public void sendAuditLog() {</text>
+    <text x="45" y="272" font-family="monospace" font-size="11" fill="#8b949e">// Expected independent TX,</text>
+    <text x="45" y="290" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#f85149">❌ BUT RUNS IN CALLER TX!</text>
+    <text x="30" y="308" font-family="monospace" font-size="12" fill="#f0f6fc">}</text>
+  </g>
+
+  <!-- Architectural Solutions Banner -->
+  <g transform="translate(40, 475)">
+    <rect width="1020" height="180" rx="8" fill="url(#cardGrad2)" stroke="#238636" stroke-width="1.5"/>
+    <rect width="1020" height="6" rx="3" fill="url(#successGrad)"/>
+    <text x="25" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#3fb950">Staff / Principal Architectural Antidotes for Self-Invocation</text>
+
+    <!-- Solution 1 -->
+    <g transform="translate(25, 45)">
+      <rect width="305" height="115" rx="6" fill="#161b22" stroke="#30363d"/>
+      <text x="15" y="25" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" font-weight="700" fill="#58a6ff">1. Extract Collaborator (Preferred)</text>
+      <text x="15" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Move <tspan fill="#79c0ff" font-family="monospace">sendAuditLog()</tspan> into dedicated</text>
+      <text x="15" y="66" font-family="monospace" font-size="11" fill="#7ee787">AuditLogService</text>
+      <text x="15" y="86" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#c9d1d9">Enforces Single Responsibility (SRP)</text>
+      <text x="15" y="104" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">and routes call through fresh CGLIB proxy.</text>
+    </g>
+
+    <!-- Solution 2 -->
+    <g transform="translate(355, 45)">
+      <rect width="305" height="115" rx="6" fill="#161b22" stroke="#30363d"/>
+      <text x="15" y="25" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" font-weight="700" fill="#58a6ff">2. Programmatic TransactionTemplate</text>
+      <text x="15" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Eliminate annotations entirely:</text>
+      <text x="15" y="68" font-family="monospace" font-size="11" fill="#7ee787">txTemplate.execute(status -> {</text>
+      <text x="25" y="86" font-family="monospace" font-size="11" fill="#c9d1d9">  sendAuditLog(); return null;</text>
+      <text x="15" y="104" font-family="monospace" font-size="11" fill="#7ee787">});</text>
+    </g>
+
+    <!-- Solution 3 -->
+    <g transform="translate(685, 45)">
+      <rect width="310" height="115" rx="6" fill="#161b22" stroke="#30363d"/>
+      <text x="15" y="25" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" font-weight="700" fill="#e3b341">3. Self-Injection with @Lazy / Provider</text>
+      <text x="15" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Inject proxy into target instance:</text>
+      <text x="15" y="68" font-family="monospace" font-size="11" fill="#7ee787">@Autowired @Lazy</text>
+      <text x="15" y="86" font-family="monospace" font-size="11" fill="#c9d1d9">private OrderService self;</text>
+      <text x="15" y="104" font-family="monospace" font-size="11" fill="#79c0ff">self.sendAuditLog();</text>
+    </g>
+  </g>
+</svg>

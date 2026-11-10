@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 700" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1117" />
+      <stop offset="100%" stop-color="#161b22" />
+    </linearGradient>
+    <linearGradient id="cardGrad3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#21262d" />
+      <stop offset="100%" stop-color="#161b22" />
+    </linearGradient>
+    <linearGradient id="headerGrad3" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#238636" />
+      <stop offset="100%" stop-color="#2ea043" />
+    </linearGradient>
+    <linearGradient id="condGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#d29922" />
+      <stop offset="100%" stop-color="#e3b341" />
+    </linearGradient>
+    <linearGradient id="aotGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8957e5" />
+      <stop offset="100%" stop-color="#a371f7" />
+    </linearGradient>
+
+    <marker id="arrowGreen3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#3fb950" />
+    </marker>
+    <marker id="arrowBlue3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#58a6ff" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1100" height="700" fill="url(#bgGrad3)" rx="12" stroke="#30363d" stroke-width="2"/>
+
+  <!-- Title & Subtitle -->
+  <text x="40" y="45" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f0f6fc">Spring Boot 3 Auto-Configuration &amp; AOT Engine</text>
+  <text x="40" y="70" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e">From @EnableAutoConfiguration and AutoConfiguration.imports to @Conditional evaluation and GraalVM AOT</text>
+
+  <!-- Step 1: Trigger -->
+  <g transform="translate(40, 105)">
+    <rect width="280" height="180" rx="8" fill="url(#cardGrad3)" stroke="#30363d" stroke-width="1.5"/>
+    <rect width="280" height="6" rx="3" fill="#58a6ff"/>
+    <text x="20" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#58a6ff">1. Trigger &amp; Selection</text>
+    <text x="20" y="55" font-family="monospace" font-size="11" fill="#7ee787">@SpringBootApplication</text>
+    <text x="35" y="75" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">meta-annotated with:</text>
+    <text x="35" y="95" font-family="monospace" font-size="11" fill="#e3b341">@EnableAutoConfiguration</text>
+    <text x="20" y="125" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#c9d1d9">Activates internal selector:</text>
+    <text x="20" y="145" font-family="monospace" font-size="11" fill="#79c0ff">AutoConfigurationImportSelector</text>
+    <text x="20" y="165" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">Queries candidate configurations</text>
+  </g>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="320" y1="195" x2="380" y2="195" stroke="#58a6ff" stroke-width="2" marker-end="url(#arrowBlue3)"/>
+
+  <!-- Step 2: Discovery File Shift -->
+  <g transform="translate(380, 105)">
+    <rect width="320" height="180" rx="8" fill="url(#cardGrad3)" stroke="#388bfd" stroke-width="1.5"/>
+    <rect width="320" height="6" rx="3" fill="#388bfd"/>
+    <text x="20" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#79c0ff">2. Discovery SPI Architecture</text>
+
+    <!-- Legacy Boot 2.x -->
+    <rect x="15" y="48" width="290" height="52" rx="4" fill="#161b22" stroke="#30363d"/>
+    <text x="25" y="68" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#f85149">❌ DEPRECATED IN BOOT 3 (Legacy):</text>
+    <text x="25" y="86" font-family="monospace" font-size="10" fill="#8b949e">META-INF/spring.factories</text>
+
+    <!-- Modern Boot 3.x -->
+    <rect x="15" y="105" width="290" height="68" rx="4" fill="#161b22" stroke="#238636"/>
+    <text x="25" y="123" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" font-weight="700" fill="#3fb950">✅ BOOT 3 STANDARD FILE:</text>
+    <text x="25" y="139" font-family="monospace" font-size="9" fill="#7ee787">META-INF/spring/</text>
+    <text x="25" y="152" font-family="monospace" font-size="8.5" fill="#7ee787">org.springframework.boot.autoconfigure.</text>
+    <text x="25" y="165" font-family="monospace" font-size="8.5" fill="#7ee787">  AutoConfiguration.imports</text>
+  </g>
+
+  <!-- Arrow 2 -> 3 -->
+  <line x1="700" y1="195" x2="760" y2="195" stroke="#58a6ff" stroke-width="2" marker-end="url(#arrowBlue3)"/>
+
+  <!-- Step 3: @AutoConfiguration Ordering -->
+  <g transform="translate(760, 105)">
+    <rect width="300" height="180" rx="8" fill="url(#cardGrad3)" stroke="#30363d" stroke-width="1.5"/>
+    <rect width="300" height="6" rx="3" fill="#58a6ff"/>
+    <text x="20" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#58a6ff">3. Dependency Topological Sort</text>
+    <text x="20" y="55" font-family="monospace" font-size="11" fill="#79c0ff">@AutoConfiguration</text>
+    <text x="20" y="75" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#c9d1d9">Replaces basic @Configuration.</text>
+    <text x="20" y="98" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Guarantees precise ordering via:</text>
+    <text x="20" y="120" font-family="monospace" font-size="10.5" fill="#e3b341">after = DataSourceAutoConfiguration</text>
+    <text x="20" y="140" font-family="monospace" font-size="10.5" fill="#e3b341">before = WebMvcAutoConfiguration</text>
+    <text x="20" y="165" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">Sorts candidate DAG before filtering</text>
+  </g>
+
+  <!-- Down Arrow to Phase 4 (Conditional Filtering) -->
+  <line x1="550" y1="285" x2="550" y2="335" stroke="#3fb950" stroke-width="2.5" marker-end="url(#arrowGreen3)"/>
+
+  <!-- Step 4: The @Conditional Evaluation Pipeline -->
+  <g transform="translate(40, 335)">
+    <rect width="1020" height="175" rx="8" fill="url(#cardGrad3)" stroke="#238636" stroke-width="2"/>
+    <rect width="1020" height="6" rx="3" fill="url(#headerGrad3)"/>
+    <text x="25" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#3fb950">4. Conditional Filtering Pipeline (OnCondition Evaluation)</text>
+
+    <!-- Condition 1 -->
+    <g transform="translate(25, 48)">
+      <rect width="305" height="110" rx="6" fill="#161b22" stroke="#30363d"/>
+      <text x="15" y="25" font-family="monospace" font-size="11" font-weight="700" fill="#e3b341">@ConditionalOnClass</text>
+      <text x="15" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Checks JVM ClassLoader:</text>
+      <text x="15" y="68" font-family="monospace" font-size="11" fill="#79c0ff">KafkaTemplate.class</text>
+      <text x="15" y="90" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#c9d1d9">If jar not present → Skip bean.</text>
+    </g>
+
+    <!-- Condition 2 -->
+    <g transform="translate(355, 48)">
+      <rect width="305" height="110" rx="6" fill="#161b22" stroke="#30363d"/>
+      <text x="15" y="25" font-family="monospace" font-size="11" font-weight="700" fill="#e3b341">@ConditionalOnMissingBean</text>
+      <text x="15" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">User-Override Precedence:</text>
+      <text x="15" y="68" font-family="monospace" font-size="11" fill="#79c0ff">SecurityFilterChain.class</text>
+      <text x="15" y="90" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#c9d1d9">Backs off if app declared one.</text>
+    </g>
+
+    <!-- Condition 3 -->
+    <g transform="translate(685, 48)">
+      <rect width="310" height="110" rx="6" fill="#161b22" stroke="#30363d"/>
+      <text x="15" y="25" font-family="monospace" font-size="11" font-weight="700" fill="#e3b341">@ConditionalOnProperty</text>
+      <text x="15" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Externalized Config Toggle:</text>
+      <text x="15" y="68" font-family="monospace" font-size="10.5" fill="#7ee787">prefix="app.feature",</text>
+      <text x="15" y="86" font-family="monospace" font-size="10.5" fill="#7ee787">name="enabled", havingValue="true"</text>
+      <text x="15" y="102" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">Evaluates Environment properties</text>
+    </g>
+  </g>
+
+  <!-- Step 5: GraalVM AOT Compilation & Native Image -->
+  <g transform="translate(40, 530)">
+    <rect width="1020" height="140" rx="8" fill="url(#cardGrad3)" stroke="#8957e5" stroke-width="1.5"/>
+    <rect width="1020" height="6" rx="3" fill="url(#aotGrad)"/>
+    <text x="25" y="30" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#a371f7">5. Spring Boot 3 GraalVM AOT Reachability Analysis</text>
+    <text x="25" y="55" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#c9d1d9">Ahead-Of-Time (AOT) compilation transforms dynamic runtime reflection into static, build-time generated code:</text>
+    <text x="25" y="78" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">• <tspan fill="#79c0ff" font-family="monospace">mvn spring-boot:process-aot</tspan> evaluates bean definitions, condition checks, and proxy generation at compile time.</text>
+    <text x="25" y="98" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">• Generates <tspan fill="#e3b341" font-family="monospace">reflect-config.json</tspan> and <tspan fill="#e3b341" font-family="monospace">proxy-config.json</tspan> reachability hints required by GraalVM native-image compiler.</text>
+    <text x="25" y="120" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#7ee787">🚀 Result: Native Linux ELF binary starts in 0.03 seconds with &lt; 40MB RSS memory footprint.</text>
+  </g>
+</svg>

@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 680" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1117" />
+      <stop offset="100%" stop-color="#161b22" />
+    </linearGradient>
+    <linearGradient id="cardGrad4" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#21262d" />
+      <stop offset="100%" stop-color="#161b22" />
+    </linearGradient>
+    <linearGradient id="obsGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1f6feb" />
+      <stop offset="100%" stop-color="#388bfd" />
+    </linearGradient>
+    <linearGradient id="metricGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#d29922" />
+      <stop offset="100%" stop-color="#e3b341" />
+    </linearGradient>
+    <linearGradient id="k8sGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#238636" />
+      <stop offset="100%" stop-color="#2ea043" />
+    </linearGradient>
+
+    <marker id="arrowBlue4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#58a6ff" />
+    </marker>
+    <marker id="arrowGold4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#d29922" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1100" height="680" fill="url(#bgGrad4)" rx="12" stroke="#30363d" stroke-width="2"/>
+
+  <!-- Title & Subtitle -->
+  <text x="40" y="45" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f0f6fc">Spring Boot 3 Enterprise Observability &amp; Telemetry Pipeline</text>
+  <text x="40" y="70" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e">Unifying Distributed Tracing (Micrometer Tracing/OTel), Metrics (Prometheus), MDC Logging &amp; K8s Probes</text>
+
+  <!-- Inbound Request Block -->
+  <g transform="translate(40, 105)">
+    <rect width="260" height="360" rx="8" fill="url(#cardGrad4)" stroke="#30363d" stroke-width="1.5"/>
+    <rect width="260" height="6" rx="3" fill="#58a6ff"/>
+    <text x="20" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#58a6ff">Inbound HTTP / Kafka</text>
+    <text x="20" y="55" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">Distributed Request Ingress</text>
+
+    <!-- W3C Traceparent Header Box -->
+    <rect x="15" y="75" width="230" height="90" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="25" y="98" font-family="monospace" font-size="11" font-weight="700" fill="#e3b341">W3C traceparent:</text>
+    <text x="25" y="118" font-family="monospace" font-size="10" fill="#79c0ff">00-4bf92f3577b34da6</text>
+    <text x="25" y="134" font-family="monospace" font-size="10" fill="#79c0ff">a3ce929d0e0e4736-01</text>
+    <text x="25" y="152" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">(Version-TraceId-SpanId-Flags)</text>
+
+    <text x="20" y="195" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#c9d1d9">Spring Observation Filter:</text>
+    <text x="20" y="215" font-family="monospace" font-size="10.5" fill="#7ee787">ServerHttpObservationFilter</text>
+    <text x="20" y="235" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Intercepts request, extracts</text>
+    <text x="20" y="252" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">TraceId and creates child Span.</text>
+
+    <!-- Virtual Thread MDC Box -->
+    <rect x="15" y="275" width="230" height="70" rx="6" fill="#161b22" stroke="#238636"/>
+    <text x="25" y="295" font-family="monospace" font-size="11" font-weight="700" fill="#7ee787">MDC Propagation</text>
+    <text x="25" y="315" font-family="monospace" font-size="10" fill="#c9d1d9">[traceId, spanId]</text>
+    <text x="25" y="332" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">Bound to ThreadLocal / VT</text>
+  </g>
+
+  <!-- Arrow Inbound -> Engine -->
+  <line x1="300" y1="280" x2="360" y2="280" stroke="#58a6ff" stroke-width="2.5" marker-end="url(#arrowBlue4)"/>
+
+  <!-- Core Observability Engine (Boot 3) -->
+  <g transform="translate(360, 105)">
+    <rect width="400" height="360" rx="8" fill="url(#cardGrad4)" stroke="#1f6feb" stroke-width="2"/>
+    <rect width="400" height="6" rx="3" fill="url(#obsGrad)"/>
+    <text x="25" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#58a6ff">Spring Boot 3 Observation API</text>
+    <text x="25" y="55" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">Single instrumented call produces BOTH Metrics &amp; Traces</text>
+
+    <!-- Observation API Card -->
+    <rect x="20" y="75" width="360" height="90" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="35" y="98" font-family="monospace" font-size="11" fill="#79c0ff">ObservationRegistry registry;</text>
+    <text x="35" y="118" font-family="monospace" font-size="11" fill="#e3b341">Observation.createNotStarted("order.pay", reg)</text>
+    <text x="35" y="136" font-family="monospace" font-size="11" fill="#c9d1d9">  .observe(() -> executePayment());</text>
+    <text x="35" y="153" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">Zero code duplication across metrics and tracing</text>
+
+    <!-- Micrometer Tracing Handler -->
+    <rect x="20" y="180" width="360" height="70" rx="6" fill="#161b22" stroke="#8957e5"/>
+    <text x="35" y="202" font-family="monospace" font-size="11" font-weight="700" fill="#a371f7">Micrometer Tracing Bridge</text>
+    <text x="35" y="222" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">OpenTelemetry (OTel) or Brave bridge</text>
+    <text x="35" y="238" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#79c0ff">Generates OTLP spans with span tags &amp; baggage</text>
+
+    <!-- Micrometer Meter Registry -->
+    <rect x="20" y="265" width="360" height="85" rx="6" fill="#161b22" stroke="#d29922"/>
+    <text x="35" y="287" font-family="monospace" font-size="11" font-weight="700" fill="#e3b341">PrometheusMeterRegistry</text>
+    <text x="35" y="307" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Records latency histograms, p99 timers, &amp; rates</text>
+    <text x="35" y="325" font-family="monospace" font-size="10" fill="#7ee787">http.server.requests.active, jvm.memory.used</text>
+    <text x="35" y="340" font-family="monospace" font-size="10" fill="#7ee787">hikaricp.connections.pending, executor.queued</text>
+  </g>
+
+  <!-- Arrow Engine -> Actuator Exporters -->
+  <line x1="760" y1="280" x2="820" y2="280" stroke="#58a6ff" stroke-width="2.5" marker-end="url(#arrowBlue4)"/>
+
+  <!-- Enterprise Actuator Outlets -->
+  <g transform="translate(820, 105)">
+    <rect width="240" height="360" rx="8" fill="url(#cardGrad4)" stroke="#30363d" stroke-width="1.5"/>
+    <rect width="240" height="6" rx="3" fill="#d29922"/>
+    <text x="20" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#e3b341">Actuator Outlets</text>
+    <text x="20" y="55" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">Telemetry Targets</text>
+
+    <!-- Outlet 1: OTLP -->
+    <rect x="15" y="75" width="210" height="70" rx="6" fill="#161b22" stroke="#8957e5"/>
+    <text x="25" y="98" font-family="monospace" font-size="11" font-weight="700" fill="#a371f7">OTLP Traces Export</text>
+    <text x="25" y="118" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">Streams via gRPC / HTTP</text>
+    <text x="25" y="134" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#79c0ff">→ Jaeger / Grafana Tempo</text>
+
+    <!-- Outlet 2: Prometheus -->
+    <rect x="15" y="160" width="210" height="85" rx="6" fill="#161b22" stroke="#d29922"/>
+    <text x="25" y="182" font-family="monospace" font-size="11" font-weight="700" fill="#e3b341">/actuator/prometheus</text>
+    <text x="25" y="202" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">Scraped by Prometheus</text>
+    <text x="25" y="220" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#7ee787">Provides raw text time series</text>
+    <text x="25" y="235" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#7ee787">for Grafana dashboards</text>
+
+    <!-- Outlet 3: Structured JSON Logs -->
+    <rect x="15" y="260" width="210" height="85" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="25" y="282" font-family="monospace" font-size="11" font-weight="700" fill="#f0f6fc">Structured JSON Logs</text>
+    <text x="25" y="302" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">Logstash / Vector ship to</text>
+    <text x="25" y="320" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#79c0ff">Elasticsearch / Loki with</text>
+    <text x="25" y="335" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#79c0ff">correlated trace IDs</text>
+  </g>
+
+  <!-- Lower Section: Kubernetes Native Health Probes (Liveness & Readiness) -->
+  <g transform="translate(40, 490)">
+    <rect width="1020" height="160" rx="8" fill="url(#cardGrad4)" stroke="#238636" stroke-width="1.5"/>
+    <rect width="1020" height="6" rx="3" fill="url(#k8sGrad)"/>
+    <text x="25" y="30" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#2ea043">Kubernetes Cloud-Native Health Probes: Liveness vs. Readiness</text>
+
+    <!-- Liveness -->
+    <g transform="translate(25, 45)">
+      <rect width="470" height="100" rx="6" fill="#161b22" stroke="#30363d"/>
+      <text x="20" y="25" font-family="monospace" font-size="12" font-weight="700" fill="#79c0ff">GET /actuator/health/liveness</text>
+      <text x="20" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Indicates whether internal application state is alive (no deadlock/OOM).</text>
+      <text x="20" y="68" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#f85149">⚠️ Failure Action: Kubelet KILLS the pod and restarts container.</text>
+      <text x="20" y="88" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#c9d1d9">Never check external dependencies (DB/Kafka) in liveness probe!</text>
+    </g>
+
+    <!-- Readiness -->
+    <g transform="translate(525, 45)">
+      <rect width="470" height="100" rx="6" fill="#161b22" stroke="#30363d"/>
+      <text x="20" y="25" font-family="monospace" font-size="12" font-weight="700" fill="#2ea043">GET /actuator/health/readiness</text>
+      <text x="20" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Indicates whether the application can safely accept client network traffic.</text>
+      <text x="20" y="68" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#e3b341">⚠️ Failure Action: K8s removes pod IP from Service endpoints.</text>
+      <text x="20" y="88" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#c9d1d9">Pod stays alive to finish in-flight requests or warm up local caches.</text>
+    </g>
+  </g>
+</svg>

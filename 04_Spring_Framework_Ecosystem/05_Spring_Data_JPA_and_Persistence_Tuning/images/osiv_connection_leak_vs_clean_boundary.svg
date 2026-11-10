@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 730" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad7" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1117" />
+      <stop offset="100%" stop-color="#161b22" />
+    </linearGradient>
+    <linearGradient id="cardGrad7" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#21262d" />
+      <stop offset="100%" stop-color="#161b22" />
+    </linearGradient>
+    <linearGradient id="badGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#da3633" />
+      <stop offset="100%" stop-color="#f85149" />
+    </linearGradient>
+    <linearGradient id="goodGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#238636" />
+      <stop offset="100%" stop-color="#2ea043" />
+    </linearGradient>
+
+    <marker id="arrowRed7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f85149" />
+    </marker>
+    <marker id="arrowGreen7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#3fb950" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1100" height="730" fill="url(#bgGrad7)" rx="12" stroke="#30363d" stroke-width="2"/>
+
+  <!-- Title & Subtitle -->
+  <text x="40" y="45" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f0f6fc">Open-Session-In-View (OSIV) Anti-Pattern vs. Clean Transaction Boundary</text>
+  <text x="40" y="70" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e">Why spring.jpa.open-in-view=true causes catastrophic HikariCP connection starvation under enterprise load</text>
+
+  <!-- TOP PANEL: The OSIV Anti-Pattern (Default) -->
+  <g transform="translate(40, 105)">
+    <rect width="1020" height="255" rx="8" fill="url(#cardGrad7)" stroke="#da3633" stroke-width="2"/>
+    <rect width="1020" height="6" rx="3" fill="url(#badGrad)"/>
+    <text x="25" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#f85149">ANTI-PATTERN: spring.jpa.open-in-view=true (Default Spring Boot Behavior)</text>
+    <text x="25" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Hibernate Session is kept open across the ENTIRE HTTP Request lifecycle</text>
+
+    <!-- Phase Boxes across Request Timeline -->
+    <!-- Step 1: Filter -->
+    <rect x="25" y="70" width="170" height="90" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="35" y="92" font-family="monospace" font-size="11" font-weight="700" fill="#e3b341">1. OpenEntityManager</text>
+    <text x="35" y="108" font-family="monospace" font-size="11" fill="#e3b341">   InViewInterceptor</text>
+    <text x="35" y="130" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">Opens Session</text>
+    <text x="35" y="146" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#f85149">Borrows DB Conn!</text>
+
+    <!-- Arrow 1 to 2 -->
+    <line x1="195" y1="115" x2="225" y2="115" stroke="#f85149" stroke-width="2" marker-end="url(#arrowRed7)"/>
+
+    <!-- Step 2: Controller -->
+    <rect x="225" y="70" width="170" height="90" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="235" y="92" font-family="monospace" font-size="11" font-weight="700" fill="#79c0ff">2. Controller Ingress</text>
+    <text x="235" y="112" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">Dispatches call</text>
+    <text x="235" y="130" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">to service layer</text>
+    <text x="235" y="146" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#f85149">Conn still held!</text>
+
+    <!-- Arrow 2 to 3 -->
+    <line x1="395" y1="115" x2="425" y2="115" stroke="#f85149" stroke-width="2" marker-end="url(#arrowRed7)"/>
+
+    <!-- Step 3: Service -->
+    <rect x="425" y="70" width="180" height="90" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="435" y="92" font-family="monospace" font-size="11" font-weight="700" fill="#3fb950">3. Service Layer</text>
+    <text x="435" y="112" font-family="monospace" font-size="10" fill="#79c0ff">@Transactional</text>
+    <text x="435" y="130" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">Executes SQL queries</text>
+    <text x="435" y="146" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#7ee787">Active DB Work: 4ms</text>
+
+    <!-- Arrow 3 to 4 -->
+    <line x1="605" y1="115" x2="635" y2="115" stroke="#f85149" stroke-width="2" marker-end="url(#arrowRed7)"/>
+
+    <!-- Step 4: JSON Serialization / External IO -->
+    <rect x="635" y="70" width="220" height="90" rx="6" fill="#161b22" stroke="#da3633"/>
+    <text x="645" y="92" font-family="monospace" font-size="11" font-weight="700" fill="#f85149">4. View / JSON Rendering</text>
+    <text x="645" y="112" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">Jackson serializes entities.</text>
+    <text x="645" y="128" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#f85149">Triggers lazy N+1 SQL queries!</text>
+    <text x="645" y="146" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#f85149">Network IO / Downstream calls</text>
+
+    <!-- Arrow 4 to 5 -->
+    <line x1="855" y1="115" x2="885" y2="115" stroke="#f85149" stroke-width="2" marker-end="url(#arrowRed7)"/>
+
+    <!-- Step 5: Filter Egress -->
+    <rect x="885" y="70" width="110" height="90" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="895" y="92" font-family="monospace" font-size="11" font-weight="700" fill="#e3b341">5. Egress</text>
+    <text x="895" y="112" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">Filter closes</text>
+    <text x="895" y="128" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">session &amp; finally</text>
+    <text x="895" y="146" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#2ea043">releases conn</text>
+
+    <!-- Summary Bar -->
+    <rect x="25" y="175" width="970" height="65" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="35" y="197" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" font-weight="700" fill="#f85149">💥 Total Connection Hold Duration: 250ms (for 4ms of SQL work!).</text>
+    <text x="35" y="215" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Holding connections during JSON rendering and network I/O exhausts the HikariCP pool.</text>
+    <text x="35" y="230" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Slow mobile clients or downstream latency cause total pool starvation and cascading 504 gateway timeouts.</text>
+  </g>
+
+  <!-- BOTTOM PANEL: Production Best Practice (OSIV Disabled) -->
+  <g transform="translate(40, 385)">
+    <rect width="1020" height="295" rx="8" fill="url(#cardGrad7)" stroke="#238636" stroke-width="2"/>
+    <rect width="1020" height="6" rx="3" fill="url(#goodGrad)"/>
+    <text x="25" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#3fb950">PRODUCTION STANDARD: spring.jpa.open-in-view=false (Strict Service Boundaries)</text>
+    <text x="25" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Database connection is borrowed and released STRICTLY inside the @Transactional service method</text>
+
+    <!-- Clean Timeline -->
+    <!-- Step 1: Controller -->
+    <rect x="25" y="70" width="220" height="90" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="35" y="92" font-family="monospace" font-size="11" font-weight="700" fill="#79c0ff">1. Controller Layer</text>
+    <text x="35" y="112" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">Receives HTTP request.</text>
+    <text x="35" y="130" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#7ee787">✓ Zero DB connection borrowed!</text>
+    <text x="35" y="146" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">Calls Service method.</text>
+
+    <!-- Arrow 1 to 2 -->
+    <line x1="245" y1="115" x2="285" y2="115" stroke="#3fb950" stroke-width="2" marker-end="url(#arrowGreen7)"/>
+
+    <!-- Step 2: Service Layer (Bounded Transaction) -->
+    <rect x="285" y="70" width="410" height="90" rx="6" fill="#161b22" stroke="#238636" stroke-width="2"/>
+    <text x="300" y="92" font-family="monospace" font-size="11" font-weight="700" fill="#3fb950">2. Service Method (@Transactional Boundary)</text>
+    <text x="300" y="112" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">• Acquires HikariCP Connection (0.1ms)</text>
+    <text x="300" y="128" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#79c0ff">• Executes JOIN FETCH / DTO Projection (3.8ms)</text>
+    <text x="300" y="146" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" font-weight="700" fill="#3fb950">• Transaction Commits → IMMEDIATELY RETURNS CONN TO POOL!</text>
+
+    <!-- Arrow 2 to 3 -->
+    <line x1="695" y1="115" x2="735" y2="115" stroke="#3fb950" stroke-width="2" marker-end="url(#arrowGreen7)"/>
+
+    <!-- Step 3: View / Response Serialization -->
+    <rect x="735" y="70" width="260" height="90" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="750" y="92" font-family="monospace" font-size="11" font-weight="700" fill="#79c0ff">3. View / JSON Serialization</text>
+    <text x="750" y="112" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">Jackson serializes detached DTO.</text>
+    <text x="750" y="130" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#7ee787">✓ Zero DB connection held!</text>
+    <text x="750" y="146" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">Immune to slow network clients.</text>
+
+    <!-- Summary Bar -->
+    <rect x="25" y="175" width="970" height="95" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="35" y="197" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" font-weight="700" fill="#3fb950">🚀 Total Connection Hold Duration: STRICTLY 4ms!</text>
+    <text x="35" y="217" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#c9d1d9">Enables 50x higher concurrent throughput on identical hardware with 10 HikariCP connections.</text>
+    <text x="35" y="237" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#8b949e">Note: Accessing uninitialized lazy collections outside the service layer throws LazyInitializationException.</text>
+    <text x="35" y="253" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#8b949e">This safely enforces that required relational data is explicitly fetched via JOIN FETCH or DTO Projections.</text>
+  </g>
+</svg>

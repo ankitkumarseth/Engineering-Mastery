@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 700" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad6" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1117" />
+      <stop offset="100%" stop-color="#161b22" />
+    </linearGradient>
+    <linearGradient id="cardGrad6" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#21262d" />
+      <stop offset="100%" stop-color="#161b22" />
+    </linearGradient>
+    <linearGradient id="gwGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1f6feb" />
+      <stop offset="100%" stop-color="#388bfd" />
+    </linearGradient>
+    <linearGradient id="resGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#d29922" />
+      <stop offset="100%" stop-color="#e3b341" />
+    </linearGradient>
+    <linearGradient id="stateGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8957e5" />
+      <stop offset="100%" stop-color="#a371f7" />
+    </linearGradient>
+
+    <marker id="arrowBlue6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#58a6ff" />
+    </marker>
+    <marker id="arrowGold6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#e3b341" />
+    </marker>
+    <marker id="arrowRed6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f85149" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1100" height="700" fill="url(#bgGrad6)" rx="12" stroke="#30363d" stroke-width="2"/>
+
+  <!-- Title & Subtitle -->
+  <text x="40" y="45" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f0f6fc">Spring Cloud Gateway &amp; Resilience4j Circuit Breaker Pipeline</text>
+  <text x="40" y="70" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e">Non-Blocking Netty Event Loop, Redis Token Bucket Rate Limiting, and Fault-Tolerant Circuit State Machine</text>
+
+  <!-- Inbound Traffic -->
+  <g transform="translate(40, 105)">
+    <rect width="210" height="360" rx="8" fill="url(#cardGrad6)" stroke="#30363d" stroke-width="1.5"/>
+    <rect width="210" height="6" rx="3" fill="#58a6ff"/>
+    <text x="20" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#58a6ff">1. Netty Ingress</text>
+    <text x="20" y="55" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Non-blocking EventLoop</text>
+
+    <rect x="15" y="75" width="180" height="85" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="25" y="98" font-family="monospace" font-size="11" fill="#7ee787">Route Predicates</text>
+    <text x="25" y="118" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">- Path=/api/v1/orders/**</text>
+    <text x="25" y="134" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">- Header=X-Tenant, US</text>
+    <text x="25" y="150" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">- Weight=group1, 80</text>
+
+    <rect x="15" y="175" width="180" height="85" rx="6" fill="#161b22" stroke="#d29922"/>
+    <text x="25" y="198" font-family="monospace" font-size="11" fill="#e3b341">Redis Token Bucket</text>
+    <text x="25" y="218" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">RateLimiter Filter</text>
+    <text x="25" y="234" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">Atomic Lua Script</text>
+    <text x="25" y="250" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#79c0ff">Replenish: 5k req/sec</text>
+
+    <text x="20" y="295" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#c9d1d9">If limit exceeded:</text>
+    <text x="20" y="315" font-family="monospace" font-size="11" fill="#f85149">HTTP 429 Too Many Req</text>
+    <text x="20" y="335" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">Zero backend impact</text>
+  </g>
+
+  <!-- Arrow Ingress -> Resilience4j -->
+  <line x1="250" y1="285" x2="310" y2="285" stroke="#58a6ff" stroke-width="2.5" marker-end="url(#arrowBlue6)"/>
+
+  <!-- Resilience4j Gateway Filter -->
+  <g transform="translate(310, 105)">
+    <rect width="450" height="360" rx="8" fill="url(#cardGrad6)" stroke="#d29922" stroke-width="2"/>
+    <rect width="450" height="6" rx="3" fill="url(#resGrad)"/>
+    <text x="25" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#e3b341">2. Resilience4j Gateway Filter Pipeline</text>
+    <text x="25" y="55" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">Fault tolerance and bulkhead isolation per microservice</text>
+
+    <!-- Circuit Breaker State Machine Subgraph -->
+    <g transform="translate(20, 75)">
+      <rect width="410" height="150" rx="6" fill="#161b22" stroke="#30363d"/>
+      <text x="15" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" font-weight="700" fill="#f0f6fc">Circuit Breaker State Machine</text>
+
+      <!-- CLOSED -->
+      <rect x="15" y="40" width="110" height="50" rx="6" fill="#0d1117" stroke="#2ea043" stroke-width="2"/>
+      <text x="35" y="62" font-family="monospace" font-size="12" font-weight="700" fill="#3fb950">CLOSED</text>
+      <text x="25" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9" fill="#8b949e">Healthy (Normal)</text>
+
+      <!-- Arrow CLOSED -> OPEN -->
+      <path d="M 125 55 L 165 55" stroke="#f85149" stroke-width="2" marker-end="url(#arrowRed6)"/>
+      <text x="130" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="8" fill="#f85149">>50% Fail</text>
+
+      <!-- OPEN -->
+      <rect x="165" y="40" width="110" height="50" rx="6" fill="#0d1117" stroke="#da3633" stroke-width="2"/>
+      <text x="195" y="62" font-family="monospace" font-size="12" font-weight="700" fill="#f85149">OPEN</text>
+      <text x="175" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9" fill="#8b949e">Fails Fast (Short)</text>
+
+      <!-- Arrow OPEN -> HALF_OPEN -->
+      <path d="M 275 65 L 305 65" stroke="#d29922" stroke-width="2" marker-end="url(#arrowGold6)"/>
+      <text x="272" y="58" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="8" fill="#e3b341">Wait 10s</text>
+
+      <!-- HALF_OPEN -->
+      <rect x="305" y="40" width="95" height="50" rx="6" fill="#0d1117" stroke="#e3b341" stroke-width="2"/>
+      <text x="312" y="62" font-family="monospace" font-size="11" font-weight="700" fill="#e3b341">HALF_OPEN</text>
+      <text x="315" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9" fill="#8b949e">Probe 10 Calls</text>
+
+      <!-- Return Arc HALF_OPEN -> CLOSED -->
+      <path d="M 350 90 C 350 120, 70 120, 70 90" fill="none" stroke="#2ea043" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arrowBlue6)"/>
+      <text x="180" y="112" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9" fill="#3fb950">Success Rate ≥ Threshold → Recover</text>
+    </g>
+
+    <!-- TimeLimiter & Bulkhead Details -->
+    <rect x="20" y="240" width="410" height="100" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="30" y="262" font-family="monospace" font-size="11" font-weight="700" fill="#79c0ff">TimeLimiter + Bulkhead Guards</text>
+    <text x="30" y="282" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">• TimeLimiter: Cancels Mono/Flux after 1000ms SLA timeout</text>
+    <text x="30" y="300" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">• Bulkhead: Limits max concurrent downstream calls to 100</text>
+    <text x="30" y="322" font-family="monospace" font-size="10.5" fill="#f85149">fallbackUri: forward:/fallback/order-degraded-cache</text>
+  </g>
+
+  <!-- Arrow Resilience4j -> Downstream -->
+  <line x1="760" y1="285" x2="820" y2="285" stroke="#58a6ff" stroke-width="2.5" marker-end="url(#arrowBlue6)"/>
+
+  <!-- Downstream Routing & Service Discovery -->
+  <g transform="translate(820, 105)">
+    <rect width="240" height="360" rx="8" fill="url(#cardGrad6)" stroke="#30363d" stroke-width="1.5"/>
+    <rect width="240" height="6" rx="3" fill="#2ea043"/>
+    <text x="20" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#2ea043">3. Destination Routing</text>
+    <text x="20" y="55" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Target Service Ingress</text>
+
+    <!-- Cloud-Native K8s DNS -->
+    <rect x="15" y="75" width="210" height="85" rx="6" fill="#161b22" stroke="#238636"/>
+    <text x="25" y="98" font-family="monospace" font-size="11" font-weight="700" fill="#7ee787">Kubernetes DNS (CoreDNS)</text>
+    <text x="25" y="118" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">http://order-service</text>
+    <text x="25" y="132" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">.prod.svc.cluster.local:8080</text>
+    <text x="25" y="148" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#c9d1d9">Preferred for cloud-native</text>
+
+    <!-- Spring Cloud Discovery (Eureka/Consul) -->
+    <rect x="15" y="175" width="210" height="85" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="25" y="198" font-family="monospace" font-size="11" font-weight="700" fill="#79c0ff">Spring Cloud Discovery</text>
+    <text x="25" y="218" font-family="monospace" font-size="10" fill="#79c0ff">lb://order-service</text>
+    <text x="25" y="234" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">Eureka / Consul registry</text>
+    <text x="25" y="250" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#8b949e">Client-side load balancing</text>
+
+    <text x="20" y="295" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#c9d1d9">Post-Filter Execution:</text>
+    <text x="20" y="315" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#8b949e">- Add response headers</text>
+    <text x="20" y="332" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#8b949e">- Calculate hop latency</text>
+  </g>
+
+  <!-- Bottom Comparison: Eureka vs Kubernetes Native Discovery -->
+  <g transform="translate(40, 490)">
+    <rect width="1020" height="175" rx="8" fill="url(#cardGrad6)" stroke="#8957e5" stroke-width="1.5"/>
+    <rect width="1020" height="6" rx="3" fill="url(#stateGrad)"/>
+    <text x="25" y="30" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#a371f7">Staff / Principal Architectural Trade-Off: Spring Cloud Eureka vs. Kubernetes Native Service Discovery</text>
+
+    <!-- Eureka Side -->
+    <g transform="translate(25, 45)">
+      <rect width="470" height="115" rx="6" fill="#161b22" stroke="#30363d"/>
+      <text x="20" y="24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" font-weight="700" fill="#e3b341">Spring Cloud Eureka / Consul (Application Layer)</text>
+      <text x="20" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">• Heavyweight: Requires dedicated Eureka Server clusters and client heartbeats.</text>
+      <text x="20" y="68" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">• Stale Registry Lag: Up to 30 seconds for heartbeat evictions (causes 503 errors).</text>
+      <text x="20" y="88" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">• Language Locked: Java-first; non-Java services struggle with SDK integration.</text>
+      <text x="20" y="105" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#f85149">⚠️ Obsolete in pure Kubernetes environments.</text>
+    </g>
+
+    <!-- K8s Side -->
+    <g transform="translate(525, 45)">
+      <rect width="470" height="115" rx="6" fill="#161b22" stroke="#30363d"/>
+      <text x="20" y="24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" font-weight="700" fill="#3fb950">Kubernetes CoreDNS + K8s Services (Infrastructure Layer)</text>
+      <text x="20" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">• Zero Application Overhead: Native DNS resolution baked into OS network stack.</text>
+      <text x="20" y="68" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">• Instant Endpoint Updates: Kube-proxy updates IP tables immediately on pod death.</text>
+      <text x="20" y="88" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">• Polyglot Support: Works seamlessly across Go, Node, Python, and Java services.</text>
+      <text x="20" y="105" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#7ee787">✅ Modern Enterprise Standard for microservice meshes.</text>
+    </g>
+  </g>
+</svg>
