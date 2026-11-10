@@ -111,8 +111,27 @@ Modern Spring Boot 3 internals, bean lifecycle, reactive gateways, Resilience4j 
 
 ---
 
+### 05. API Design, Gateway Patterns & Protocols
+Enterprise RESTful resource modeling, RFC 9457 Problem Details, keyset vs. offset pagination, Stripe-style idempotency pipelines, Redis Lua sliding window rate limiters, BFF gateway patterns, gRPC/Protobuf HTTP/2 multiplexing, GraphQL DataLoader N+1 mitigation, and OpenAPI/CDCT contract governance.
+
+#### 01. REST Standards & API Design
+* [REST Resource Modeling, Richardson Maturity & RFC 9457](05_API_Design_and_Gateway_Patterns/01_REST_Standards_and_API_Design/01_rest_resource_modeling_and_rfc9457.md) — Pragmatic REST resource modeling, nouns vs. verbs, sub-resource state transitions, HTTP verbs safety vs. idempotency matrix, semantic HTTP status codes, standard RFC 9457 Problem Details for HTTP APIs (superseding RFC 7807), why pure HATEOAS fails in high-scale industry APIs, and Spring Boot 3 `ProblemDetail` integration.
+
+#### 02. Advanced API Mechanics
+* [API Pagination Architecture: Keyset vs. Offset](05_API_Design_and_Gateway_Patterns/02_Advanced_API_Mechanics/01_pagination_keyset_vs_offset.md) — B-Tree index scan physics of `OFFSET 1000000`, quadratic database degradation, pagination data drift anomalies, Keyset $O(\log N)$ seeks, mandatory tie-breaker rule (`ORDER BY created_at DESC, id DESC`), opaque Base64 URL-safe cursor tokens, and runnable verification suite.
+* [Distributed Idempotency Pipelines & API Versioning](05_API_Design_and_Gateway_Patterns/02_Advanced_API_Mechanics/02_distributed_idempotency_and_versioning.md) — The 4-phase Stripe-style idempotency pipeline, SHA-256 payload fingerprinting to prevent parameter tampering, Redis distributed locks with exponential backoff & full jitter, and URL path vs. Custom Header vs. `Accept` content negotiation versioning strategies.
+
+#### 03. Rate Limiting & Traffic Management
+* [Rate Limiting Algorithms, Boundary Flaws & Redis Lua](05_API_Design_and_Gateway_Patterns/03_Rate_Limiting_and_Traffic_Management/01_rate_limiting_algorithms_and_redis_lua.md) — Comparative physics of 5 algorithms: Token Bucket, Leaky Bucket, Fixed Window, Sliding Window Log, and Sliding Window Counter. The $2\times$ boundary burst vulnerability of Fixed Window, Cloudflare's weighted Sliding Window Counter hybrid formula, atomic Redis Lua script, and fail-open vs. fail-closed availability trade-offs.
+* [API Gateway Patterns, Throttling Headers & BFF Architecture](05_API_Design_and_Gateway_Patterns/03_Rate_Limiting_and_Traffic_Management/02_api_gateway_patterns_and_throttling.md) — Cross-cutting concerns at the network edge, standard throttling response contracts (`HTTP 429 Too Many Requests`, `Retry-After: 30`, `X-RateLimit-*`), Backends-for-Frontends (BFF) pattern separating Mobile vs. Web vs. 3rd-Party Partner traffic, edge circuit breakers, and runnable multi-channel gateway routing engine.
+
+#### 04. Modern Protocols & API Contract Governance
+* [Modern Protocols Matrix: REST vs. gRPC vs. GraphQL](05_API_Design_and_Gateway_Patterns/04_Modern_Protocols_and_Governance/01_protocol_matrix_rest_grpc_graphql.md) — Architectural decision matrix, gRPC & Protobuf internals, HTTP/2 binary framing & multiplexing over a single TCP socket, Proto3 immutable field tag numbers, 4 RPC models, the L4 vs. L7 gRPC load balancing dilemma, GraphQL schema execution, the $N+1$ query trap and Facebook DataLoader batching/caching solution, query depth/cost limits, and Automatic Persisted Queries (APQ).
+* [API Contract Governance, OpenAPI & Consumer-Driven Contract Testing](05_API_Design_and_Gateway_Patterns/04_Modern_Protocols_and_Governance/02_api_contract_governance_and_openapi.md) — Contract-First design vs. Code-First anti-pattern, OpenAPI 3.0 specification architecture, code generation with openapi-generator, SemVer breaking vs. non-breaking change taxonomy, Postel's Law and Tolerant Reader pattern, automated CI/CD guardrails with Spectral & oasdiff, and Consumer-Driven Contract Testing (CDCT) with Pact.
+
+---
+
 ### 🚀 Upcoming Modules
-* **05. API Design & Gateway Patterns** (`CORE.7`)
 * **06. Apache Kafka & Event-Driven Architecture** (`CORE.8`)
 * **07. Storage Engines & Databases (Oracle, MongoDB, Redis, DDIA)** (`CORE.9`)
 * **08. AWS Cloud Architecture & Resiliency (SAP-C02)** (`CORE.10`)
