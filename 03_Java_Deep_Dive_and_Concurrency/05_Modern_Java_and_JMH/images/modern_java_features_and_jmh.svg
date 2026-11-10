@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 560" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1040" height="560" fill="url(#bgGrad)" rx="10"/>
+
+  <!-- Title & Subtitle -->
+  <text x="520" y="38" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="700" fill="#f8fafc">Modern Java 17–21 Features &amp; JMH Benchmark Anatomy</text>
+  <text x="520" y="62" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#94a3b8">Algebraic Data Types &amp; Record Pattern Matching vs. JIT Benchmarking Pitfalls &amp; Blackholes</text>
+
+  <!-- Left: Modern Java (17-21) Type System -->
+  <g transform="translate(35, 85)">
+    <rect x="0" y="0" width="475" height="450" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="237" y="28" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="15" font-weight="700" fill="#60a5fa">Algebraic Data Types &amp; Pattern Matching (Java 17–21)</text>
+
+    <!-- Sealed Interface (Sum Type) -->
+    <rect x="20" y="45" width="435" height="85" rx="6" fill="#0f172a" stroke="#a855f7" stroke-width="1.2"/>
+    <text x="35" y="68" font-family="monospace" font-size="11" font-weight="700" fill="#c084fc">Sealed Interface (Sum Type - Closed Set)</text>
+    <text x="35" y="88" font-family="monospace" font-size="10" fill="#f8fafc"><tspan fill="#ec4899">public sealed interface</tspan> PaymentEvent</text>
+    <text x="35" y="105" font-family="monospace" font-size="10" fill="#f8fafc">    <tspan fill="#38bdf8">permits</tspan> Authorized, Settled, Declined {}</text>
+    <text x="35" y="120" font-family="-apple-system, sans-serif" font-size="9" fill="#94a3b8">Compiler guarantees NO other subclasses can exist outside this package/module.</text>
+
+    <!-- Records (Product Types) -->
+    <rect x="20" y="140" width="435" height="100" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="1.2"/>
+    <text x="35" y="162" font-family="monospace" font-size="11" font-weight="700" fill="#34d399">Records (Product Types - Immutable Data Carriers)</text>
+    <text x="35" y="180" font-family="monospace" font-size="9.5" fill="#f8fafc"><tspan fill="#ec4899">public record</tspan> Authorized(<tspan fill="#60a5fa">String</tspan> txId, <tspan fill="#60a5fa">BigDecimal</tspan> amt) <tspan fill="#ec4899">implements</tspan> PaymentEvent {</text>
+    <text x="35" y="198" font-family="monospace" font-size="9.5" fill="#cbd5e1">    <tspan fill="#ec4899">public</tspan> Authorized { <tspan fill="#94a3b8">// Compact Constructor (Validation &amp; Invariants)</tspan></text>
+    <text x="35" y="214" font-family="monospace" font-size="9.5" fill="#cbd5e1">        Objects.requireNonNull(txId);</text>
+    <text x="35" y="228" font-family="monospace" font-size="9.5" fill="#cbd5e1">    }</text>
+
+    <!-- Pattern Matching Switch (Java 21 Record Deconstruction) -->
+    <rect x="20" y="250" width="435" height="180" rx="6" fill="#0f172a" stroke="#eab308" stroke-width="1.2"/>
+    <text x="35" y="272" font-family="monospace" font-size="11" font-weight="700" fill="#facc15">Exhaustive Pattern Matching &amp; Record Deconstruction</text>
+    <text x="35" y="292" font-family="monospace" font-size="9.5" fill="#f8fafc"><tspan fill="#ec4899">return switch</tspan> (event) {</text>
+    <text x="35" y="310" font-family="monospace" font-size="9.5" fill="#a7f3d0">    <tspan fill="#ec4899">case</tspan> Authorized(var id, var amt) <tspan fill="#ec4899">when</tspan> amt &gt; 10_000 -&gt;</text>
+    <text x="55" y="326" font-family="monospace" font-size="9.5" fill="#cbd5e1">        triggerAuditReview(id, amt);</text>
+    <text x="35" y="344" font-family="monospace" font-size="9.5" fill="#60a5fa">    <tspan fill="#ec4899">case</tspan> Settled(var id, var amt) -&gt; recordRevenue(id, amt);</text>
+    <text x="35" y="362" font-family="monospace" font-size="9.5" fill="#f87171">    <tspan fill="#ec4899">case</tspan> Declined(var id, var reason) -&gt; emitMetric(reason);</text>
+    <text x="35" y="380" font-family="monospace" font-size="9.5" fill="#f8fafc">}; <tspan fill="#34d399">// ✓ NO 'default' branch needed! Exhaustive at compile time.</tspan></text>
+    <text x="35" y="405" font-family="-apple-system, sans-serif" font-size="9.5" fill="#94a3b8">Adding a 4th variant in PaymentEvent immediately fails the build if unhandled!</text>
+  </g>
+
+  <!-- Right: JMH Benchmark Anatomy & JIT Traps -->
+  <g transform="translate(530, 85)">
+    <rect x="0" y="0" width="475" height="450" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="237" y="28" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="15" font-weight="700" fill="#fbbf24">JMH (Java Microbenchmark Harness) Anatomy</text>
+
+    <!-- JMH Iteration Lifecycle -->
+    <rect x="20" y="45" width="435" height="105" rx="6" fill="#0f172a" stroke="#334155"/>
+    <text x="35" y="66" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" fill="#cbd5e1">JMH Execution Lifecycle</text>
+
+    <!-- Warmup Box -->
+    <rect x="35" y="75" width="180" height="42" rx="4" fill="#1e293b" stroke="#f59e0b"/>
+    <text x="125" y="93" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#fde68a">@Warmup (5 iters)</text>
+    <text x="125" y="107" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="8.5" fill="#94a3b8">Tier 0 -&gt; Tier 3 -&gt; C2 Hot</text>
+
+    <text x="230" y="100" text-anchor="middle" font-family="monospace" font-size="12" fill="#64748b">→</text>
+
+    <!-- Measurement Box -->
+    <rect x="245" y="75" width="195" height="42" rx="4" fill="#065f46" stroke="#10b981"/>
+    <text x="342" y="93" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#a7f3d0">@Measurement (5 iters)</text>
+    <text x="342" y="107" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="8.5" fill="#a7f3d0">Steady-state native profile</text>
+
+    <text x="35" y="138" font-family="-apple-system, sans-serif" font-size="9" fill="#94a3b8">Runs in forked isolated JVMs (@Fork) to prevent cross-benchmark JIT profile pollution.</text>
+
+    <!-- JIT Benchmark Trap 1: Dead Code Elimination -->
+    <rect x="20" y="160" width="435" height="85" rx="6" fill="#0f172a" stroke="#ef4444"/>
+    <text x="35" y="180" font-family="monospace" font-size="11" font-weight="700" fill="#f87171">Pitfall 1: Dead Code Elimination (DCE)</text>
+    <text x="35" y="198" font-family="-apple-system, sans-serif" font-size="10" fill="#cbd5e1">If benchmark returns void, C2 proves result unused and deletes computation!</text>
+    <text x="35" y="216" font-family="monospace" font-size="9.5" fill="#34d399">✓ Fix: public void test(Blackhole bh) { bh.consume(doWork()); }</text>
+    <text x="35" y="232" font-family="-apple-system, sans-serif" font-size="9" fill="#94a3b8">Blackhole uses volatile native sink preventing C2 from eliminating computation.</text>
+
+    <!-- JIT Benchmark Trap 2: Constant Folding & Inlining -->
+    <rect x="20" y="255" width="435" height="85" rx="6" fill="#0f172a" stroke="#3b82f6"/>
+    <text x="35" y="275" font-family="monospace" font-size="11" font-weight="700" fill="#60a5fa">Pitfall 2: Constant Folding &amp; False Sharing</text>
+    <text x="35" y="293" font-family="-apple-system, sans-serif" font-size="10" fill="#cbd5e1">If input constants are hardcoded, C2 precomputes result at compile time.</text>
+    <text x="35" y="311" font-family="monospace" font-size="9.5" fill="#60a5fa">✓ Fix: Use @State(Scope.Benchmark) or @State(Scope.Thread)</text>
+    <text x="35" y="327" font-family="-apple-system, sans-serif" font-size="9" fill="#94a3b8">Scope.Thread ensures CPU cache-line isolation and eliminates thread contention.</text>
+
+    <!-- Benchmark Modes -->
+    <rect x="20" y="350" width="435" height="75" rx="6" fill="#0f172a" stroke="#475569"/>
+    <text x="35" y="372" font-family="monospace" font-size="10.5" font-weight="700" fill="#cbd5e1">Key Benchmark Modes (@BenchmarkMode):</text>
+    <text x="35" y="392" font-family="-apple-system, sans-serif" font-size="10" fill="#cbd5e1">• <tspan fill="#38bdf8">Mode.Throughput</tspan>: Ops/sec  • <tspan fill="#34d399">Mode.AverageTime</tspan>: Time per op</text>
+    <text x="35" y="410" font-family="-apple-system, sans-serif" font-size="10" fill="#cbd5e1">• <tspan fill="#facc15">Mode.SampleTime / SingleShotTime</tspan>: Percentiles (p99, p99.9 latencies)</text>
+  </g>
+</svg>

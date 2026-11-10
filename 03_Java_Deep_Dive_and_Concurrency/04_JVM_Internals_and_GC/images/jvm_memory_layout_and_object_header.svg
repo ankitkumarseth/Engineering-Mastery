@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="540" fill="url(#bgGrad)"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="700" fill="#f8fafc">JVM Memory Architecture &amp; 64-bit Object Layout (JOL)</text>
+  <text x="480" y="62" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#94a3b8">Runtime Data Areas, Stack Frames, Compressed OOPs &amp; 8-Byte Alignment Padding</text>
+
+  <!-- Left: JVM Runtime Data Areas -->
+  <g transform="translate(40, 85)">
+    <rect x="0" y="0" width="410" height="425" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="205" y="28" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="15" font-weight="700" fill="#60a5fa">JVM Runtime Data Areas</text>
+
+    <!-- Thread-Private Areas -->
+    <rect x="20" y="45" width="370" height="155" rx="6" fill="#0f172a" stroke="#475569"/>
+    <text x="35" y="68" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#94a3b8">Thread-Private (Per Thread)</text>
+
+    <!-- JVM Stack & Frame -->
+    <rect x="35" y="80" width="340" height="105" rx="4" fill="#1e293b" stroke="#334155"/>
+    <text x="50" y="100" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" fill="#cbd5e1">JVM Thread Stack (Stack Frames)</text>
+    <rect x="50" y="110" width="90" height="60" rx="3" fill="#0f172a" stroke="#3b82f6"/>
+    <text x="95" y="135" text-anchor="middle" font-family="monospace" font-size="9" fill="#93c5fd">Local Variables</text>
+    <text x="95" y="150" text-anchor="middle" font-family="monospace" font-size="9" fill="#60a5fa">Table (LVT)</text>
+
+    <rect x="150" y="110" width="90" height="60" rx="3" fill="#0f172a" stroke="#34d399"/>
+    <text x="195" y="135" text-anchor="middle" font-family="monospace" font-size="9" fill="#a7f3d0">Operand Stack</text>
+    <text x="195" y="150" text-anchor="middle" font-family="monospace" font-size="9" fill="#34d399">(Bytecode Ops)</text>
+
+    <rect x="250" y="110" width="125" height="60" rx="3" fill="#0f172a" stroke="#f59e0b"/>
+    <text x="312" y="135" text-anchor="middle" font-family="monospace" font-size="9" fill="#fde68a">Frame Data</text>
+    <text x="312" y="150" text-anchor="middle" font-family="monospace" font-size="9" fill="#fbbf24">(Const Pool Ref)</text>
+
+    <!-- Shared: Heap Space -->
+    <rect x="20" y="215" width="370" height="120" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="1.5"/>
+    <text x="35" y="238" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#34d399">Shared: Java Heap (-Xms, -Xmx)</text>
+
+    <!-- Young Gen -->
+    <rect x="35" y="250" width="180" height="70" rx="4" fill="#064e3b" stroke="#34d399"/>
+    <text x="125" y="270" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" font-weight="700" fill="#a7f3d0">Young Generation</text>
+    <text x="125" y="288" text-anchor="middle" font-family="monospace" font-size="9" fill="#6ee7b7">Eden (80%)</text>
+    <text x="125" y="303" text-anchor="middle" font-family="monospace" font-size="9" fill="#6ee7b7">S0 (10%) | S1 (10%)</text>
+
+    <!-- Old Gen -->
+    <rect x="225" y="250" width="150" height="70" rx="4" fill="#1e293b" stroke="#3b82f6"/>
+    <text x="300" y="275" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" fill="#60a5fa">Old (Tenured)</text>
+    <text x="300" y="295" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="9" fill="#cbd5e1">Long-lived objects</text>
+
+    <!-- Metaspace (Native) -->
+    <rect x="20" y="350" width="370" height="55" rx="6" fill="#0f172a" stroke="#a855f7" stroke-width="1.5"/>
+    <text x="35" y="372" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#c084fc">Shared: Metaspace (Native Off-Heap Memory)</text>
+    <text x="35" y="390" font-family="-apple-system, sans-serif" font-size="10" fill="#cbd5e1">Class metadata, method bytecode, runtime constant pool. (Replaced PermGen)</text>
+  </g>
+
+  <!-- Right: 64-bit Object Memory Layout (JOL) -->
+  <g transform="translate(480, 85)">
+    <rect x="0" y="0" width="440" height="425" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="220" y="28" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="15" font-weight="700" fill="#fbbf24">64-Bit Object Header Layout (JOL)</text>
+
+    <!-- Component 1: Mark Word -->
+    <g transform="translate(25, 50)">
+      <rect x="0" y="0" width="390" height="90" rx="6" fill="#0f172a" stroke="#ef4444" stroke-width="1.5"/>
+      <text x="20" y="25" font-family="monospace" font-size="12" font-weight="700" fill="#f87171">1. Mark Word (8 Bytes = 64 Bits)</text>
+      <text x="20" y="45" font-family="-apple-system, sans-serif" font-size="11" fill="#cbd5e1">• Identity HashCode (31 bits)</text>
+      <text x="20" y="62" font-family="-apple-system, sans-serif" font-size="11" fill="#cbd5e1">• GC Age (4 bits: values 0..15 -> Tenuring threshold)</text>
+      <text x="20" y="79" font-family="-apple-system, sans-serif" font-size="11" fill="#cbd5e1">• Lock State Bits (01=Unlocked, 00=Lightweight, 10=Heavyweight)</text>
+    </g>
+
+    <!-- Component 2: Klass Pointer -->
+    <g transform="translate(25, 155)">
+      <rect x="0" y="0" width="390" height="75" rx="6" fill="#0f172a" stroke="#3b82f6" stroke-width="1.5"/>
+      <text x="20" y="25" font-family="monospace" font-size="12" font-weight="700" fill="#60a5fa">2. Klass Word (4 Bytes with +UseCompressedOops)</text>
+      <text x="20" y="45" font-family="-apple-system, sans-serif" font-size="11" fill="#cbd5e1">Points to Class metadata in Metaspace.</text>
+      <text x="20" y="62" font-family="-apple-system, sans-serif" font-size="10" fill="#93c5fd">8 Bytes if uncompressed (heaps &gt; 32GB without 8-byte shift).</text>
+    </g>
+
+    <!-- Component 3: Instance Data -->
+    <g transform="translate(25, 245)">
+      <rect x="0" y="0" width="390" height="70" rx="6" fill="#0f172a" stroke="#34d399" stroke-width="1.5"/>
+      <text x="20" y="25" font-family="monospace" font-size="12" font-weight="700" fill="#34d399">3. Instance Data (Variable)</text>
+      <text x="20" y="45" font-family="-apple-system, sans-serif" font-size="11" fill="#cbd5e1">Primitive fields (int=4B, long=8B, boolean=1B) + Reference pointers.</text>
+      <text x="20" y="60" font-family="-apple-system, sans-serif" font-size="10" fill="#a7f3d0">Ordered by field width to minimize internal fragmentation.</text>
+    </g>
+
+    <!-- Component 4: Alignment Padding -->
+    <g transform="translate(25, 330)">
+      <rect x="0" y="0" width="390" height="65" rx="6" fill="#0f172a" stroke="#94a3b8" stroke-dasharray="3,3"/>
+      <text x="20" y="25" font-family="monospace" font-size="12" font-weight="700" fill="#cbd5e1">4. Alignment Padding (0 to 7 Bytes)</text>
+      <text x="20" y="45" font-family="-apple-system, sans-serif" font-size="11" fill="#94a3b8">Pad total object size to a strict multiple of 8 bytes (64-bit alignment).</text>
+    </g>
+  </g>
+</svg>

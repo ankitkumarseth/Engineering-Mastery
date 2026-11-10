@@ -22,23 +22,17 @@ Algorithms like Raft and Paxos assume a **Crash-Recovery** system model with fai
 ### Leader Election and Split Brain
 When a leader crashes, the remaining nodes must elect a new one. The biggest danger during an election is **Split Brain**—a scenario where two different nodes both believe they are the leader at the same time. If this happens, they will sequence updates differently, destroying the database's consistency.
 
-```mermaid
-graph TD
-    subgraph Election Quorum for Node A (Majority)
-    A((Node A))
-    B((Node B))
-    C((Node C))
-    end
-    
-    subgraph Election Quorum for Node E (Majority)
-    C
-    D((Node D))
-    E((Node E))
-    end
-    
-    style C fill:#f8d7da,stroke:#dc3545,stroke-width:4px
-    
-    Note[Because Node C can only vote ONCE per term,<br/>it is mathematically impossible for both<br/>Node A and Node E to win the election.]
+![Leader Election Quorums](images/leader_election_quorum.svg)
+
+```
+        Election Quorum for A (Majority)    Election Quorum for E (Majority)
+        ┌──────────────────────────────┐    ┌──────────────────────────────┐
+        │     Node A    │    Node B    │    │     Node D    │    Node E    │
+        └───────────────┼──────────────┴────┴───────────────┼──────────────┘
+                        │     Conflicting Voter (Node C)    │
+                        │     Can only vote ONCE per term!  │
+                        │     Mathematically prevents split │
+                        └───────────────────────────────────┘
 ```
 
 To prevent Split Brain, consensus algorithms use **Quorums**. A node can only become the leader if it receives votes from a *majority quorum* of the nodes in the cluster. Because any two majority quorums must overlap by at least one node, it is mathematically impossible for two nodes to win an election at the same time *in the same term*.
@@ -258,24 +252,7 @@ function CommitLogEntries():
 
 The difference between **Consensus (Raft/Paxos)** and **Atomic Commitment (2PC)** is one of the most frequently tested concepts in Staff and Principal distributed systems rounds:
 
-```mermaid
-flowchart TD
-    subgraph Consensus ["Consensus (Raft / Paxos)"]
-        direction TB
-        C1["Goal: Replicate same state machine across identical nodes"]
-        C2["Agreement: Requires STRICT MAJORITY (⌊N/2⌋ + 1)"]
-        C3["Fault Tolerance: Tolerates minority node crashes cleanly"]
-        C4["Used In: etcd, ZooKeeper, CockroachDB ranges, Spanner groups"]
-    end
-
-    subgraph TwoPC ["Atomic Commitment (Two-Phase Commit - 2PC)"]
-        direction TB
-        T1["Goal: Coordinate all-or-nothing transactions across DIFFERENT shards"]
-        T2["Agreement: Requires 100% UNANIMOUS consent from all participants"]
-        T3["Fault Tolerance: FRAGILE. Blocks indefinitely if coordinator crashes mid-commit"]
-        T4["Used In: Distributed XA transactions, cross-shard RDBMS ACID"]
-    end
-```
+![Consensus vs Two-Phase Commit](images/consensus_vs_2pc_comparison.svg)
 
 ### 1. The Definitive Distinction
 | Dimension | **Consensus (Raft / Paxos)** | **Two-Phase Commit (2PC)** |

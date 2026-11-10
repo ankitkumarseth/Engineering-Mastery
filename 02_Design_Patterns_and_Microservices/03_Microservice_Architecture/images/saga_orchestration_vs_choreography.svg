@@ -1,10 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 540" width="100%" height="100%">
   <defs>
     <style>
       .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 20px; font-weight: 700; fill: #0f172a; }
       .subtitle { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 13px; fill: #64748b; }
-      .box-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 15px; font-weight: 700; }
-      .box-desc { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 12px; fill: #334155; }
+      .box-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 700; }
+      .box-desc { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 11.5px; fill: #334155; }
       .label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 11px; font-weight: 600; text-anchor: middle; }
     </style>
     <linearGradient id="grad-orch" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -26,64 +26,69 @@
     </marker>
   </defs>
 
-  <rect width="960" height="520" fill="#ffffff" rx="12" />
-  <rect x="15" y="15" width="930" height="490" fill="none" stroke="#e2e8f0" stroke-width="1.5" rx="10" />
+  <rect width="1020" height="540" fill="#ffffff" rx="12" />
+  <rect x="15" y="15" width="990" height="510" fill="none" stroke="#e2e8f0" stroke-width="1.5" rx="10" />
 
   <text x="40" y="52" class="title">Saga Pattern: Choreography vs. Orchestration</text>
   <text x="40" y="75" class="subtitle">Managing distributed multi-service transactions without blocking Two-Phase Commit (2PC)</text>
 
   <!-- Left: Choreography -->
-  <rect x="35" y="105" width="430" height="380" rx="12" fill="url(#grad-chor)" stroke="#c084fc" stroke-width="2" />
+  <rect x="35" y="105" width="465" height="405" rx="12" fill="url(#grad-chor)" stroke="#c084fc" stroke-width="2" />
   <text x="55" y="135" class="box-title" fill="#7e22ce">1. Choreography-Based Saga (Event-Driven)</text>
   <text x="55" y="155" class="box-desc">Services listen to events and independently trigger the next step</text>
 
-  <rect x="55" y="180" width="105" height="70" rx="8" fill="#ffffff" stroke="#c084fc" />
-  <text x="70" y="215" class="box-title" fill="#6b21a8">Order Svc</text>
+  <rect x="55" y="180" width="115" height="70" rx="8" fill="#ffffff" stroke="#c084fc" />
+  <text x="112" y="215" text-anchor="middle" class="box-title" fill="#6b21a8">Order Svc</text>
 
-  <rect x="200" y="280" width="105" height="70" rx="8" fill="#ffffff" stroke="#c084fc" />
-  <text x="210" y="315" class="box-title" fill="#6b21a8">Payment Svc</text>
+  <rect x="210" y="280" width="115" height="70" rx="8" fill="#ffffff" stroke="#c084fc" />
+  <text x="267" y="315" text-anchor="middle" class="box-title" fill="#6b21a8">Payment Svc</text>
 
-  <rect x="340" y="180" width="105" height="70" rx="8" fill="#ffffff" stroke="#c084fc" />
-  <text x="350" y="215" class="box-title" fill="#6b21a8">Stock Svc</text>
+  <rect x="365" y="180" width="115" height="70" rx="8" fill="#ffffff" stroke="#c084fc" />
+  <text x="422" y="215" text-anchor="middle" class="box-title" fill="#6b21a8">Stock Svc</text>
 
   <!-- Choreography Arrows -->
-  <path d="M 160 215 Q 210 215 240 270" fill="none" stroke="#9333ea" stroke-width="2" marker-end="url(#arr-purple)" />
-  <text x="180" y="235" class="label" fill="#9333ea">1. OrderCreated</text>
+  <path d="M 170 215 Q 225 215 255 270" fill="none" stroke="#9333ea" stroke-width="2" marker-end="url(#arr-purple)" />
+  <text x="195" y="235" class="label" fill="#9333ea">1. OrderCreated</text>
 
-  <path d="M 305 295 Q 350 260 380 255" fill="none" stroke="#9333ea" stroke-width="2" marker-end="url(#arr-purple)" />
-  <text x="355" y="295" class="label" fill="#9333ea">2. PaymentApproved</text>
+  <path d="M 325 295 Q 375 260 405 255" fill="none" stroke="#9333ea" stroke-width="2" marker-end="url(#arr-purple)" />
+  <text x="380" y="295" class="label" fill="#9333ea">2. PaymentApproved</text>
 
-  <path d="M 340 200 L 170 200" fill="none" stroke="#dc2626" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arr-red)" />
-  <text x="250" y="190" class="label" fill="#dc2626">3. StockFailed (Compensate!)</text>
+  <path d="M 365 200 L 180 200" fill="none" stroke="#dc2626" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arr-red)" />
+  <text x="272" y="190" class="label" fill="#dc2626">3. StockFailed (Compensate!)</text>
 
-  <text x="55" y="390" class="box-desc" font-weight="bold">Pros: Simple, decoupled, high throughput.</text>
-  <text x="55" y="410" class="box-desc" fill="#b91c1c">Cons: Complex cyclic dependencies, hard to trace state.</text>
+  <!-- Pros & Cons (Wrapped) -->
+  <text x="55" y="380" class="box-desc" font-weight="bold" fill="#15803d">✔ Pros: Simple, loosely coupled, high throughput.</text>
+  <text x="55" y="405" class="box-desc" fill="#b91c1c" font-weight="bold">✘ Cons: Complex cyclic dependencies; difficult to trace</text>
+  <text x="55" y="423" class="box-desc" fill="#b91c1c">distributed transaction state across independent topics.</text>
 
   <!-- Right: Orchestration -->
-  <rect x="495" y="105" width="430" height="380" rx="12" fill="url(#grad-orch)" stroke="#60a5fa" stroke-width="2" />
-  <text x="515" y="135" class="box-title" fill="#1d4ed8">2. Orchestration-Based Saga (State Machine)</text>
-  <text x="515" y="155" class="box-desc">A centralized Orchestrator coordinates commands and compensations</text>
+  <rect x="520" y="105" width="465" height="405" rx="12" fill="url(#grad-orch)" stroke="#60a5fa" stroke-width="2" />
+  <text x="540" y="135" class="box-title" fill="#1d4ed8">2. Orchestration-Based Saga (State Machine)</text>
+  <text x="540" y="155" class="box-desc">A centralized Orchestrator coordinates commands and compensations</text>
 
   <!-- Central Orchestrator -->
-  <rect x="635" y="180" width="150" height="75" rx="10" fill="#ffffff" stroke="#2563eb" stroke-width="2" />
-  <text x="655" y="212" class="box-title" fill="#1e40af">Saga Orchestrator</text>
-  <text x="655" y="232" class="box-desc">(State Machine &amp; Log)</text>
+  <rect x="670" y="175" width="165" height="75" rx="10" fill="#ffffff" stroke="#2563eb" stroke-width="2" />
+  <text x="752" y="208" text-anchor="middle" class="box-title" fill="#1e40af">Saga Orchestrator</text>
+  <text x="752" y="228" text-anchor="middle" class="box-desc">(State Machine &amp; Log)</text>
 
   <!-- Subordinate Services -->
-  <rect x="515" y="310" width="115" height="65" rx="8" fill="#ffffff" stroke="#93c5fd" />
-  <text x="530" y="345" class="box-title" fill="#1e3a8a">Payment Svc</text>
+  <rect x="540" y="295" width="120" height="65" rx="8" fill="#ffffff" stroke="#93c5fd" />
+  <text x="600" y="332" text-anchor="middle" class="box-title" fill="#1e3a8a">Payment Svc</text>
 
-  <rect x="650" y="310" width="115" height="65" rx="8" fill="#ffffff" stroke="#93c5fd" />
-  <text x="665" y="345" class="box-title" fill="#1e3a8a">Inventory Svc</text>
+  <rect x="692" y="295" width="120" height="65" rx="8" fill="#ffffff" stroke="#93c5fd" />
+  <text x="752" y="332" text-anchor="middle" class="box-title" fill="#1e3a8a">Inventory Svc</text>
 
-  <rect x="785" y="310" width="115" height="65" rx="8" fill="#ffffff" stroke="#93c5fd" />
-  <text x="800" y="345" class="box-title" fill="#1e3a8a">Shipping Svc</text>
+  <rect x="845" y="295" width="120" height="65" rx="8" fill="#ffffff" stroke="#93c5fd" />
+  <text x="905" y="332" text-anchor="middle" class="box-title" fill="#1e3a8a">Shipping Svc</text>
 
   <!-- Orchestration Arrows -->
-  <path d="M 680 255 L 580 305" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#arr-blue)" />
-  <path d="M 710 255 L 710 300" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#arr-blue)" />
-  <path d="M 740 255 L 830 305" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#arr-blue)" />
+  <path d="M 715 250 L 610 290" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#arr-blue)" />
+  <path d="M 752 250 L 752 290" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#arr-blue)" />
+  <path d="M 790 250 L 895 290" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#arr-blue)" />
 
-  <text x="515" y="410" class="box-desc" font-weight="bold">Pros: Clear execution state, easy observability, no cyclic dependencies.</text>
-  <text x="515" y="430" class="box-desc" fill="#b91c1c">Cons: Orchestrator complexity; must avoid putting business logic in orchestrator.</text>
+  <!-- Pros & Cons (Wrapped) -->
+  <text x="540" y="380" class="box-desc" font-weight="bold" fill="#15803d">✔ Pros: Clear execution state, easy observability,</text>
+  <text x="540" y="398" class="box-desc" font-weight="bold" fill="#15803d">linear compensation workflows without cyclic hops.</text>
+  <text x="540" y="423" class="box-desc" fill="#b91c1c" font-weight="bold">✘ Cons: Orchestrator complexity; risk of concentrating</text>
+  <text x="540" y="441" class="box-desc" fill="#b91c1c">too much business domain logic inside coordinator.</text>
 </svg>

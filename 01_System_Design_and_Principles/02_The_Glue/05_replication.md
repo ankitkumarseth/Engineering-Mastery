@@ -75,22 +75,17 @@ To fix this, we don't just write to one node or read from one node. We write to 
 If we have $n$ replicas, we configure a write quorum $w$ and a read quorum $r$.
 As long as **$w + r > n$**, it is mathematically guaranteed that the read quorum will intersect with the write quorum by at least one node. The reader simply looks at the timestamps returned by the nodes and picks the highest one.
 
-```mermaid
-graph TD
-    subgraph Read Quorum (r=3)
-    A((Node A))
-    B((Node B))
-    C((Node C))
-    end
-    
-    subgraph Write Quorum (w=3)
-    C
-    D((Node D))
-    E((Node E))
-    end
-    
-    style C fill:#fff3cd,stroke:#28a745,stroke-width:4px
-    Note[Intersection Node (C) guarantees<br/>read will see the latest write]
+![Quorum Consistency and Overlap](images/quorum_intersection.svg)
+
+```
+        Read Quorum (r=3)              Write Quorum (w=3)
+    ┌──────────────────────┐        ┌──────────────────────┐
+    │  Node A   │  Node B  │        │  Node D   │  Node E  │
+    └───────────┼──────────┴────────┴───────────┼──────────┘
+                │   Intersection Node (Node C)  │
+                │   Guarantees reader observes  │
+                │   the latest write timestamp! │
+                └───────────────────────────────┘
 ```
 
 > [!TIP]

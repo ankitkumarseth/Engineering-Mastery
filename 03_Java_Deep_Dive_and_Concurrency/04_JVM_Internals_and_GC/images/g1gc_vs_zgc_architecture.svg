@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="540" fill="url(#bgGrad)"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="700" fill="#f8fafc">G1GC vs. Generational ZGC Architecture</text>
+  <text x="480" y="62" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#94a3b8">Region Partitioning &amp; SATB Evacuation vs. Colored Pointers &amp; Self-Healing Load Barriers</text>
+
+  <!-- Left: G1GC Architecture -->
+  <g transform="translate(30, 85)">
+    <rect x="0" y="0" width="435" height="425" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="217" y="28" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="15" font-weight="700" fill="#60a5fa">G1GC (Garbage-First) — Default Since Java 9</text>
+
+    <!-- Region Grid Diagram -->
+    <rect x="15" y="45" width="405" height="150" rx="6" fill="#0f172a" stroke="#334155"/>
+    <text x="25" y="65" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" fill="#94a3b8">Heap Divided into ~2048 Non-Contiguous Regions (1MB–32MB)</text>
+
+    <!-- Region Cells (5x3 Grid) -->
+    <!-- Row 1 -->
+    <rect x="25" y="75" width="40" height="32" rx="3" fill="#065f46" stroke="#10b981"/><text x="45" y="96" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#a7f3d0">E</text>
+    <rect x="72" y="75" width="40" height="32" rx="3" fill="#1e3a8a" stroke="#3b82f6"/><text x="92" y="96" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#bfdbfe">O</text>
+    <rect x="119" y="75" width="40" height="32" rx="3" fill="#065f46" stroke="#10b981"/><text x="139" y="96" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#a7f3d0">E</text>
+    <rect x="166" y="75" width="40" height="32" rx="3" fill="#854d0e" stroke="#eab308"/><text x="186" y="96" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#fef08a">S</text>
+    <rect x="213" y="75" width="40" height="32" rx="3" fill="#334155" stroke="#64748b"/><text x="233" y="96" text-anchor="middle" font-family="monospace" font-size="11" fill="#94a3b8">Free</text>
+    <rect x="260" y="75" width="70" height="32" rx="3" fill="#701a75" stroke="#d946ef"/><text x="295" y="96" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#f5d0fe">H (Hum)</text>
+    <rect x="337" y="75" width="70" height="32" rx="3" fill="#701a75" stroke="#d946ef"/><text x="372" y="96" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#f5d0fe">H (Cont)</text>
+
+    <!-- Row 2 -->
+    <rect x="25" y="113" width="40" height="32" rx="3" fill="#1e3a8a" stroke="#3b82f6"/><text x="45" y="134" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#bfdbfe">O</text>
+    <rect x="72" y="113" width="40" height="32" rx="3" fill="#065f46" stroke="#10b981"/><text x="92" y="134" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#a7f3d0">E</text>
+    <rect x="119" y="113" width="40" height="32" rx="3" fill="#334155" stroke="#64748b"/><text x="139" y="134" text-anchor="middle" font-family="monospace" font-size="11" fill="#94a3b8">Free</text>
+    <rect x="166" y="113" width="40" height="32" rx="3" fill="#1e3a8a" stroke="#3b82f6"/><text x="186" y="134" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#bfdbfe">O</text>
+    <rect x="213" y="113" width="40" height="32" rx="3" fill="#065f46" stroke="#10b981"/><text x="233" y="134" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#a7f3d0">E</text>
+    <rect x="260" y="113" width="40" height="32" rx="3" fill="#854d0e" stroke="#eab308"/><text x="280" y="134" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#fef08a">S</text>
+    <rect x="307" y="113" width="100" height="32" rx="3" fill="#1e293b" stroke="#38bdf8" stroke-dasharray="2,2"/>
+    <text x="357" y="133" text-anchor="middle" font-family="monospace" font-size="10" fill="#38bdf8">RSet (Card Ref)</text>
+
+    <!-- Legend -->
+    <text x="25" y="165" font-family="-apple-system, sans-serif" font-size="10" fill="#cbd5e1"><tspan fill="#34d399">■ E</tspan>=Eden  <tspan fill="#facc15">■ S</tspan>=Survivor  <tspan fill="#60a5fa">■ O</tspan>=Old  <tspan fill="#e879f9">■ H</tspan>=Humongous (>50% region)</text>
+    <text x="25" y="183" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">RSet (Remembered Set) tracks inter-region incoming pointers via Card Table.</text>
+
+    <!-- Core Mechanism -->
+    <rect x="15" y="205" width="405" height="105" rx="6" fill="#0f172a" stroke="#38bdf8"/>
+    <text x="25" y="225" font-family="monospace" font-size="11" font-weight="700" fill="#38bdf8">Mechanics: SATB &amp; Pause-Target Evacuation</text>
+    <text x="25" y="244" font-family="-apple-system, sans-serif" font-size="10.5" fill="#cbd5e1">• Concurrent Marking: Snapshot-At-The-Beginning (SATB) via Write Barrier.</text>
+    <text x="25" y="261" font-family="-apple-system, sans-serif" font-size="10.5" fill="#cbd5e1">• Mixed GC: Collects all Eden/Survivor + Top garbage Old regions.</text>
+    <text x="25" y="278" font-family="-apple-system, sans-serif" font-size="10.5" fill="#cbd5e1">• Evacuation Pause (STW): Copies live objects into free regions (compacts).</text>
+    <text x="25" y="295" font-family="-apple-system, sans-serif" font-size="10" fill="#f87171">⚠ STW Pause: Typically 50ms – 200ms depending on heap/live set size.</text>
+
+    <!-- Tradeoffs / Tuning -->
+    <rect x="15" y="320" width="405" height="90" rx="6" fill="#0f172a" stroke="#475569"/>
+    <text x="25" y="340" font-family="monospace" font-size="11" font-weight="700" fill="#cbd5e1">Key Flags &amp; Failure Mode:</text>
+    <text x="25" y="358" font-family="monospace" font-size="10" fill="#93c5fd">-XX:MaxGCPauseMillis=200 -XX:InitiatingHeapOccupancyPercent=45</text>
+    <text x="25" y="375" font-family="-apple-system, sans-serif" font-size="10" fill="#fca5a5">Failure: Evacuation Failure (to-space exhausted) -> Degenerates to Full GC</text>
+    <text x="25" y="392" font-family="-apple-system, sans-serif" font-size="10" fill="#cbd5e1">where single-threaded/parallel STW sweeps entire heap (multi-second freeze!).</text>
+  </g>
+
+  <!-- Right: ZGC Architecture -->
+  <g transform="translate(495, 85)">
+    <rect x="0" y="0" width="435" height="425" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="217" y="28" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="15" font-weight="700" fill="#34d399">ZGC (Generational) — Modern Low-Latency (Java 21+)</text>
+
+    <!-- Colored Pointer 64-bit Reference Layout -->
+    <rect x="15" y="45" width="405" height="150" rx="6" fill="#0f172a" stroke="#334155"/>
+    <text x="25" y="65" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" fill="#a7f3d0">Colored Pointers (Metadata Embedded in 64-bit Address)</text>
+
+    <!-- 64-bit Pointer Breakdown -->
+    <g transform="translate(25, 75)">
+      <!-- Unused 16 bits -->
+      <rect x="0" y="0" width="70" height="32" rx="3" fill="#334155" stroke="#64748b"/>
+      <text x="35" y="16" text-anchor="middle" font-family="monospace" font-size="8" fill="#94a3b8">Unused</text>
+      <text x="35" y="27" text-anchor="middle" font-family="monospace" font-size="8" fill="#cbd5e1">16 bits</text>
+
+      <!-- Colored Bits (4 bits) -->
+      <rect x="75" y="0" width="30" height="32" rx="2" fill="#059669" stroke="#10b981"/>
+      <text x="90" y="20" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#ffffff">M0</text>
+
+      <rect x="108" y="0" width="30" height="32" rx="2" fill="#047857" stroke="#10b981"/>
+      <text x="123" y="20" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#ffffff">M1</text>
+
+      <rect x="141" y="0" width="32" height="32" rx="2" fill="#2563eb" stroke="#3b82f6"/>
+      <text x="157" y="20" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#ffffff">Rem</text>
+
+      <rect x="176" y="0" width="28" height="32" rx="2" fill="#d97706" stroke="#f59e0b"/>
+      <text x="190" y="20" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#ffffff">Fin</text>
+
+      <!-- Object Offset (44 bits -> 16 TB heap) -->
+      <rect x="208" y="0" width="170" height="32" rx="3" fill="#1e3a8a" stroke="#38bdf8"/>
+      <text x="293" y="16" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#e0f2fe">Object Address / Offset</text>
+      <text x="293" y="27" text-anchor="middle" font-family="monospace" font-size="8" fill="#93c5fd">44 bits (Supports up to 16 TB)</text>
+    </g>
+
+    <!-- Pointer Explanation -->
+    <text x="25" y="130" font-family="-apple-system, sans-serif" font-size="10" fill="#cbd5e1"><tspan fill="#34d399">M0/M1</tspan>: Marked0/Marked1  <tspan fill="#60a5fa">Rem</tspan>: Remapped  <tspan fill="#f59e0b">Fin</tspan>: Finalizable</text>
+    <text x="25" y="148" font-family="-apple-system, sans-serif" font-size="10" fill="#cbd5e1">Address masking &amp; virtual memory page aliasing map all colored</text>
+    <text x="25" y="164" font-family="-apple-system, sans-serif" font-size="10" fill="#cbd5e1">states to the exact same physical memory page without OS context switch.</text>
+
+    <!-- Load Barrier & Self-Healing -->
+    <rect x="15" y="205" width="405" height="105" rx="6" fill="#0f172a" stroke="#10b981"/>
+    <text x="25" y="225" font-family="monospace" font-size="11" font-weight="700" fill="#34d399">Load Barrier (Read Barrier) &amp; Self-Healing</text>
+    <text x="25" y="244" font-family="-apple-system, sans-serif" font-size="10.5" fill="#cbd5e1">• App thread reads obj reference: JIT emits a 2-3 instruction test.</text>
+    <text x="25" y="261" font-family="-apple-system, sans-serif" font-size="10.5" fill="#cbd5e1">• If color matches "good" color -> fast path (zero overhead!).</text>
+    <text x="25" y="278" font-family="-apple-system, sans-serif" font-size="10.5" fill="#cbd5e1">• If "bad" (relocated obj) -> slow path: updates pointer to new copy (Self-Heal).</text>
+    <text x="25" y="295" font-family="-apple-system, sans-serif" font-size="10" fill="#34d399">✓ STW Pause: Sub-millisecond (&lt;1ms) regardless of heap size (16MB to 16TB)!</text>
+
+    <!-- Java 21 Generational ZGC & Flags -->
+    <rect x="15" y="320" width="405" height="90" rx="6" fill="#0f172a" stroke="#475569"/>
+    <text x="25" y="340" font-family="monospace" font-size="11" font-weight="700" fill="#cbd5e1">Java 21 Generational ZGC (JEP 439):</text>
+    <text x="25" y="358" font-family="monospace" font-size="10" fill="#86efac">-XX:+UseZGC -XX:+ZGenerational</text>
+    <text x="25" y="375" font-family="-apple-system, sans-serif" font-size="10" fill="#cbd5e1">Splits Young vs. Old generation. Eliminates "allocation stall" under</text>
+    <text x="25" y="392" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">heavy write-rate workloads by collecting short-lived objects aggressively.</text>
+  </g>
+</svg>

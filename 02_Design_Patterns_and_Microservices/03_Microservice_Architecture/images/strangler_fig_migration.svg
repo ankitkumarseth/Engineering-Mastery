@@ -1,10 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 460" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500" width="100%" height="100%">
   <defs>
     <style>
       .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 20px; font-weight: 700; fill: #0f172a; }
       .subtitle { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 13px; fill: #64748b; }
-      .box-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 15px; font-weight: 700; }
-      .box-desc { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 12px; fill: #334155; }
+      .box-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 700; }
+      .box-desc { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 11.5px; fill: #334155; }
       .label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 11px; font-weight: 600; text-anchor: middle; }
     </style>
     <linearGradient id="grad-mono" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -27,47 +27,64 @@
     </marker>
   </defs>
 
-  <rect width="920" height="460" fill="#ffffff" rx="12" />
-  <rect x="15" y="15" width="890" height="430" fill="none" stroke="#e2e8f0" stroke-width="1.5" rx="10" />
+  <rect width="1000" height="500" fill="#ffffff" rx="12" />
+  <rect x="15" y="15" width="970" height="470" fill="none" stroke="#e2e8f0" stroke-width="1.5" rx="10" />
 
   <text x="40" y="52" class="title">The Strangler Fig Migration Pattern</text>
   <text x="40" y="75" class="subtitle">Safely decomposing an enterprise monolith incrementally without a high-risk 'big bang' rewrite</text>
 
   <!-- Clients -->
-  <rect x="40" y="210" width="130" height="80" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="2" />
-  <text x="55" y="245" class="box-title" fill="#1e293b">Clients</text>
-  <text x="55" y="268" class="box-desc">(Web / Mobile)</text>
+  <rect x="35" y="215" width="125" height="85" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="2" />
+  <text x="97" y="250" text-anchor="middle" class="box-title" fill="#1e293b">Clients</text>
+  <text x="97" y="272" text-anchor="middle" class="box-desc">(Web / Mobile)</text>
 
-  <!-- Ingress Router / API Gateway -->
-  <rect x="230" y="170" width="170" height="160" rx="10" fill="url(#grad-gw)" stroke="#d97706" stroke-width="2" />
-  <text x="250" y="205" class="box-title" fill="#b45309">API Gateway</text>
-  <text x="250" y="225" class="box-title" fill="#b45309">(Strangler Facade)</text>
-  <text x="250" y="255" class="box-desc">• Path-based routing</text>
-  <text x="250" y="275" class="box-desc">• Feature Flag weighted split</text>
-  <text x="250" y="295" class="box-desc">• Canary percentage rollout</text>
+  <!-- Ingress Router / API Gateway (Strangler Facade) -->
+  <rect x="200" y="170" width="205" height="175" rx="10" fill="url(#grad-gw)" stroke="#d97706" stroke-width="2" />
+  <text x="302" y="200" text-anchor="middle" class="box-title" fill="#b45309">API Gateway</text>
+  <text x="302" y="218" text-anchor="middle" class="box-title" fill="#b45309">(Strangler Facade)</text>
+  <text x="215" y="248" class="box-desc">• Path-based routing</text>
+  <text x="215" y="270" class="box-desc">• Feature Flag dynamic split</text>
+  <text x="215" y="292" class="box-desc">• Canary percentage rollout</text>
+  <text x="215" y="314" class="box-desc">• Telemetry &amp; Error fallback</text>
 
-  <!-- Monolith (Shrinking) -->
-  <rect x="490" y="110" width="380" height="140" rx="12" fill="url(#grad-mono)" stroke="#f43f5e" stroke-width="2" />
-  <text x="510" y="140" class="box-title" fill="#be123c">🏛️ Legacy Monolith (Shrinking)</text>
-  <text x="510" y="165" class="box-desc">/orders (Strangled &amp; Deprecated)</text>
-  <text x="510" y="185" class="box-desc">/accounts (Legacy execution)</text>
-  <text x="510" y="205" class="box-desc">/reports (Legacy execution)</text>
-  <rect x="710" y="130" width="140" height="100" rx="6" fill="#ffffff" stroke="#fda4af" />
-  <text x="730" y="170" class="box-title" fill="#e11d48">Monolithic DB</text>
-  <text x="730" y="195" class="box-desc">(Shared Tables)</text>
+  <!-- Monolith (Shrinking - Top Right) -->
+  <rect x="455" y="100" width="505" height="175" rx="12" fill="url(#grad-mono)" stroke="#f43f5e" stroke-width="2" />
+  <text x="475" y="130" class="box-title" fill="#be123c">🏛️ Legacy Monolith (Shrinking Surface)</text>
+  <text x="475" y="150" class="box-desc" fill="#9f1239">Coarse-grained business logic &amp; shared persistence</text>
+  
+  <text x="475" y="180" class="box-desc" fill="#881337">• /orders (Strangled &amp; Deprecated)</text>
+  <text x="475" y="204" class="box-desc">• /accounts (Legacy execution)</text>
+  <text x="475" y="228" class="box-desc">• /reports (Legacy batch execution)</text>
 
-  <!-- New Microservices Fleet -->
-  <rect x="490" y="280" width="380" height="140" rx="12" fill="url(#grad-micro)" stroke="#3b82f6" stroke-width="2" />
-  <text x="510" y="310" class="box-title" fill="#1d4ed8">✨ New Order Microservice (Target Architecture)</text>
-  <text x="510" y="335" class="box-desc">/orders $\to$ Modern Domain, Event-Driven, Auto-scaled</text>
-  <rect x="710" y="300" width="140" height="100" rx="6" fill="#ffffff" stroke="#93c5fd" />
-  <text x="730" y="340" class="box-title" fill="#2563eb">Dedicated DB</text>
-  <text x="730" y="365" class="box-desc">(Database-per-service)</text>
+  <!-- Monolithic DB Box (Positioned safely to the right, below header) -->
+  <rect x="790" y="135" width="155" height="115" rx="8" fill="#ffffff" stroke="#fda4af" stroke-width="1.5"/>
+  <text x="867" y="165" text-anchor="middle" class="box-title" fill="#e11d48">Monolithic DB</text>
+  <text x="867" y="188" text-anchor="middle" class="box-desc">Shared Schemas</text>
+  <text x="867" y="206" text-anchor="middle" class="box-desc">Cross-Table Joins</text>
+  <text x="867" y="224" text-anchor="middle" class="box-desc" font-weight="600" fill="#be123c">(Coupled State)</text>
+
+  <!-- New Microservices Fleet (Target - Bottom Right) -->
+  <rect x="455" y="295" width="505" height="175" rx="12" fill="url(#grad-micro)" stroke="#3b82f6" stroke-width="2" />
+  <text x="475" y="325" class="box-title" fill="#1d4ed8">✨ New Order Microservice (Target Architecture)</text>
+  <text x="475" y="345" class="box-desc" fill="#1e40af">Domain-isolated, event-driven, independently auto-scaled</text>
+
+  <text x="475" y="375" class="box-desc" fill="#1e3a8a">• /orders → Modern Domain API</text>
+  <text x="475" y="399" class="box-desc" fill="#1e3a8a">• Publishes OrderCreated to Kafka</text>
+  <text x="475" y="423" class="box-desc" fill="#1e3a8a">• Zero-downtime canary deployment</text>
+
+  <!-- Dedicated DB Box (Positioned safely to the right, below header) -->
+  <rect x="790" y="330" width="155" height="115" rx="8" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="867" y="360" text-anchor="middle" class="box-title" fill="#2563eb">Dedicated DB</text>
+  <text x="867" y="383" text-anchor="middle" class="box-desc">PostgreSQL / Dynamo</text>
+  <text x="867" y="401" text-anchor="middle" class="box-desc">Private Schema</text>
+  <text x="867" y="419" text-anchor="middle" class="box-desc" font-weight="600" fill="#1d4ed8">(DB-per-Service)</text>
 
   <!-- Connections -->
-  <path d="M 170 250 L 220 250" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arr-blue)" />
-  <path d="M 400 220 L 480 180" fill="none" stroke="#e11d48" stroke-width="2" marker-end="url(#arr-red)" />
-  <text x="440" y="190" class="label" fill="#e11d48">Legacy Traffic</text>
-  <path d="M 400 270 L 480 340" fill="none" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arr-blue)" />
-  <text x="440" y="330" class="label" fill="#2563eb">Strangled Traffic</text>
+  <path d="M 160 257 L 195 257" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arr-blue)" />
+  
+  <path d="M 405 220 L 445 180" fill="none" stroke="#e11d48" stroke-width="2" marker-end="url(#arr-red)" />
+  <text x="430" y="165" class="label" fill="#e11d48">Legacy (10%)</text>
+
+  <path d="M 405 290 L 445 350" fill="none" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arr-blue)" />
+  <text x="425" y="380" class="label" fill="#2563eb">Strangled (90%)</text>
 </svg>

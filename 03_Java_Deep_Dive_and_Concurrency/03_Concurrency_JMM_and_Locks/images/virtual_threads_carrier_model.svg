@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 570" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.4"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#94a3b8"/>
+    </marker>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#34d399"/>
+    </marker>
+    <marker id="arrowRed" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f87171"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="570" fill="url(#bgGrad)" rx="10"/>
+
+  <!-- Title & Subtitle -->
+  <text x="500" y="38" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="700" fill="#f8fafc">Java 21 Virtual Threads (Project Loom): Carrier Thread Model &amp; Pinning</text>
+  <text x="500" y="62" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#94a3b8">M:N User-Mode Scheduling, Continuation Unmounting on I/O &amp; The Synchronized Pinning Trap</text>
+
+  <!-- Left: Traditional Platform Threads (1:1 with OS) -->
+  <g transform="translate(35, 85)">
+    <rect x="0" y="0" width="270" height="460" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="135" y="28" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="15" font-weight="700" fill="#94a3b8">Platform Threads (1:1 Model)</text>
+    <text x="135" y="46" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="11" fill="#64748b">1 Java Thread = 1 OS Kernel Thread</text>
+
+    <!-- Stack 1 -->
+    <rect x="20" y="65" width="230" height="60" rx="4" fill="#0f172a" stroke="#475569"/>
+    <text x="35" y="88" font-family="monospace" font-size="11" font-weight="700" fill="#f87171">Thread-1 [BLOCKED ON I/O]</text>
+    <text x="35" y="108" font-family="-apple-system, sans-serif" font-size="10" fill="#cbd5e1">Holds 1MB OS stack in RAM; stalls CPU</text>
+
+    <!-- Stack 2 -->
+    <rect x="20" y="140" width="230" height="60" rx="4" fill="#0f172a" stroke="#475569"/>
+    <text x="35" y="163" font-family="monospace" font-size="11" font-weight="700" fill="#f87171">Thread-2 [BLOCKED ON I/O]</text>
+    <text x="35" y="183" font-family="-apple-system, sans-serif" font-size="10" fill="#cbd5e1">Holds 1MB OS stack in RAM; stalls CPU</text>
+
+    <!-- Stack N -->
+    <rect x="20" y="215" width="230" height="60" rx="4" fill="#0f172a" stroke="#475569"/>
+    <text x="35" y="238" font-family="monospace" font-size="11" fill="#94a3b8">Thread-N ...</text>
+    <text x="35" y="258" font-family="-apple-system, sans-serif" font-size="10" fill="#64748b">Exhausts OS memory at ~5,000 threads</text>
+
+    <text x="25" y="315" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" fill="#f87171">⚠️ Scalability Bottlenecks:</text>
+    <text x="25" y="338" font-family="-apple-system, sans-serif" font-size="10.5" fill="#94a3b8">• 1MB fixed stack per thread</text>
+    <text x="25" y="358" font-family="-apple-system, sans-serif" font-size="10.5" fill="#94a3b8">• Expensive OS context-switching</text>
+    <text x="25" y="378" font-family="-apple-system, sans-serif" font-size="10.5" fill="#94a3b8">• Heavy pooling needed (ThreadPool)</text>
+    <text x="25" y="398" font-family="-apple-system, sans-serif" font-size="10.5" fill="#94a3b8">• Thread-per-request model fails at scale</text>
+  </g>
+
+  <!-- Right: Virtual Threads (M:N Model) -->
+  <g transform="translate(330, 85)">
+    <rect x="0" y="0" width="635" height="460" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="317" y="28" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="16" font-weight="700" fill="#34d399">Virtual Threads: M:N Loom Architecture</text>
+    <text x="317" y="46" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="11" fill="#a7f3d0">1,000,000+ Lightweight Virtual Threads on a small pool of Carrier Threads</text>
+
+    <!-- Virtual Threads Cloud (Top) -->
+    <g transform="translate(25, 65)">
+      <rect x="0" y="0" width="585" height="110" rx="6" fill="#0f172a" stroke="#3b82f6" stroke-width="1.5"/>
+      <text x="20" y="22" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#60a5fa">Virtual Threads (~few KB stack stored in JVM Heap)</text>
+      
+      <!-- VT 1: Running -->
+      <rect x="20" y="35" width="165" height="60" rx="4" fill="#064e3b" stroke="#34d399"/>
+      <text x="35" y="55" font-family="monospace" font-size="10" font-weight="700" fill="#34d399">VT #1 (Mounted)</text>
+      <text x="35" y="72" font-family="-apple-system, sans-serif" font-size="9" fill="#a7f3d0">Active on Carrier-0</text>
+      <text x="35" y="86" font-family="monospace" font-size="9" fill="#6ee7b7">status = RUNNING</text>
+
+      <!-- VT 2: Unmounted on I/O -->
+      <rect x="210" y="35" width="165" height="60" rx="4" fill="#1e293b" stroke="#38bdf8"/>
+      <text x="225" y="55" font-family="monospace" font-size="10" font-weight="700" fill="#38bdf8">VT #2 (Unmounted)</text>
+      <text x="225" y="72" font-family="-apple-system, sans-serif" font-size="9" fill="#93c5fd">Waiting on DB Socket</text>
+      <text x="225" y="86" font-family="monospace" font-size="9" fill="#7dd3fc">Continuation.yield()</text>
+
+      <!-- VT 3: Pinned Warning -->
+      <rect x="400" y="35" width="165" height="60" rx="4" fill="#7f1d1d" stroke="#ef4444"/>
+      <text x="415" y="55" font-family="monospace" font-size="10" font-weight="700" fill="#fca5a5">VT #3 (PINNED ⚠️)</text>
+      <text x="415" y="72" font-family="-apple-system, sans-serif" font-size="9" fill="#fecaca">Inside synchronized!</text>
+      <text x="415" y="86" font-family="monospace" font-size="9" fill="#f87171">Cannot unmount carrier</text>
+    </g>
+
+    <!-- Mount / Unmount Arrows -->
+    <path d="M 135 180 L 135 210" fill="none" stroke="#34d399" stroke-width="2" marker-end="url(#arrowGreen)"/>
+    <text x="145" y="200" font-family="-apple-system, sans-serif" font-size="10" fill="#34d399">Mount</text>
+
+    <path d="M 315 210 L 315 180" fill="none" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="325" y="200" font-family="-apple-system, sans-serif" font-size="10" fill="#38bdf8">Unmount on I/O</text>
+
+    <!-- Carrier Pool (Middle) -->
+    <g transform="translate(25, 215)">
+      <rect x="0" y="0" width="585" height="90" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="1.5"/>
+      <text x="20" y="22" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#34d399">Carrier Thread Pool: ForkJoinPool (Size = Number of CPU Cores)</text>
+
+      <rect x="20" y="35" width="165" height="42" rx="4" fill="#1e293b" stroke="#34d399"/>
+      <text x="102" y="55" text-anchor="middle" font-family="monospace" font-size="10" fill="#f8fafc">Carrier Thread 0</text>
+      <text x="102" y="70" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="9" fill="#34d399">Running VT #1</text>
+
+      <rect x="210" y="35" width="165" height="42" rx="4" fill="#1e293b" stroke="#334155"/>
+      <text x="292" y="55" text-anchor="middle" font-family="monospace" font-size="10" fill="#f8fafc">Carrier Thread 1</text>
+      <text x="292" y="70" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="9" fill="#94a3b8">Running Other VT...</text>
+
+      <rect x="400" y="35" width="165" height="42" rx="4" fill="#7f1d1d" stroke="#ef4444"/>
+      <text x="482" y="55" text-anchor="middle" font-family="monospace" font-size="10" fill="#fca5a5">Carrier Thread 2 (STALLED)</text>
+      <text x="482" y="70" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="9" fill="#ef4444">Blocked by Pinned VT #3</text>
+    </g>
+
+    <!-- The Pinning Antidote Box (Expanded height & wrapped lines) -->
+    <g transform="translate(25, 318)">
+      <rect x="0" y="0" width="585" height="130" rx="6" fill="#0f172a" stroke="#f59e0b" stroke-width="1.5"/>
+      <text x="20" y="22" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#fbbf24">🚨 The Staff Engineer Trap: Thread Pinning &amp; Anti-Patterns</text>
+      
+      <!-- Bullet 1: synchronized -->
+      <text x="20" y="42" font-family="-apple-system, sans-serif" font-size="10.5" fill="#f8fafc">
+        • <tspan font-weight="700" fill="#ef4444">synchronized blocks:</tspan> Pin virtual threads to OS carrier threads.
+      </text>
+      <text x="32" y="57" font-family="-apple-system, sans-serif" font-size="10" fill="#cbd5e1">
+        Blocking I/O inside synchronized freezes the underlying OS carrier thread entirely!
+      </text>
+
+      <!-- Bullet 2: ReentrantLock -->
+      <text x="20" y="75" font-family="-apple-system, sans-serif" font-size="10.5" fill="#f8fafc">
+        • <tspan font-weight="700" fill="#34d399">The Remedy:</tspan> Replace synchronized with <tspan font-family="monospace" fill="#38bdf8">ReentrantLock</tspan>,
+      </text>
+      <text x="32" y="90" font-family="-apple-system, sans-serif" font-size="10" fill="#cbd5e1">
+        which unmounts cleanly on blocking I/O without pinning carrier threads.
+      </text>
+
+      <!-- Bullet 3: Never Pool -->
+      <text x="20" y="108" font-family="-apple-system, sans-serif" font-size="10.5" fill="#fca5a5">
+        • <tspan font-weight="700" fill="#ef4444">Anti-pattern:</tspan> Never pool virtual threads (no ThreadPoolExecutor).
+      </text>
+      <text x="32" y="122" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">
+        Create on-demand via <tspan font-family="monospace" fill="#38bdf8">Executors.newVirtualThreadPerTaskExecutor()</tspan>.
+      </text>
+    </g>
+  </g>
+</svg>

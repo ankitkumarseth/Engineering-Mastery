@@ -1,9 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 540" width="100%" height="100%">
   <defs>
     <style>
       .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 20px; font-weight: 700; fill: #0f172a; }
       .subtitle { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 13px; fill: #64748b; }
-      .box-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 700; }
+      .box-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 13.5px; font-weight: 700; }
       .box-desc { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 11px; fill: #334155; }
       .label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 11px; font-weight: 600; text-anchor: middle; }
     </style>
@@ -30,67 +30,73 @@
     </marker>
   </defs>
 
-  <rect width="960" height="520" fill="#ffffff" rx="12" />
-  <rect x="15" y="15" width="930" height="490" fill="none" stroke="#e2e8f0" stroke-width="1.5" rx="10" />
+  <rect width="1020" height="540" fill="#ffffff" rx="12" />
+  <rect x="15" y="15" width="990" height="510" fill="none" stroke="#e2e8f0" stroke-width="1.5" rx="10" />
 
   <text x="40" y="52" class="title">CQRS &amp; Event Sourcing Architecture</text>
-  <text x="40" y="75" class="subtitle">Complete separation of write intent (Commands) from read optimization (Queries)</text>
+  <text x="40" y="75" class="subtitle">Complete architectural decoupling: Write Path (Commands) vs. Read Path (Projections)</text>
 
   <!-- Client -->
-  <rect x="35" y="210" width="130" height="110" rx="10" fill="#f8fafc" stroke="#94a3b8" stroke-width="2" />
-  <text x="50" y="245" class="box-title" fill="#1e293b">Client App</text>
-  <text x="50" y="270" class="box-desc">• Sends Commands</text>
-  <text x="50" y="290" class="box-desc">• Sends Queries</text>
+  <rect x="35" y="200" width="135" height="125" rx="10" fill="#f8fafc" stroke="#94a3b8" stroke-width="2" />
+  <text x="102" y="235" text-anchor="middle" class="box-title" fill="#1e293b">Client App</text>
+  <text x="50" y="265" class="box-desc">• Sends Commands</text>
+  <text x="50" y="285" class="box-desc">• Queries Read Models</text>
+  <text x="50" y="305" class="box-desc">• UI State updates</text>
 
   <!-- Top Path: Command / Write Path -->
-  <rect x="230" y="110" width="230" height="135" rx="10" fill="url(#grad-cmd)" stroke="#3b82f6" stroke-width="2" />
-  <text x="250" y="140" class="box-title" fill="#1d4ed8">1. Command Handler (Write)</text>
-  <text x="250" y="165" class="box-desc">• Validates business invariants</text>
-  <text x="250" y="185" class="box-desc">• Rehydrates Aggregate from events</text>
-  <text x="250" y="205" class="box-desc">• Emits: OrderPlacedEvent</text>
+  <rect x="210" y="105" width="245" height="150" rx="10" fill="url(#grad-cmd)" stroke="#3b82f6" stroke-width="2" />
+  <text x="225" y="135" class="box-title" fill="#1d4ed8">1. Command Handler (Write)</text>
+  <text x="225" y="160" class="box-desc">• Validates business invariants</text>
+  <text x="225" y="180" class="box-desc">• Rehydrates Aggregate from events</text>
+  <text x="225" y="200" class="box-desc">• Applies state mutation</text>
+  <text x="225" y="222" class="box-desc" font-weight="600" fill="#1e40af">📢 Emits: OrderPlacedEvent</text>
 
   <!-- Event Store -->
-  <rect x="520" y="110" width="200" height="135" rx="10" fill="url(#grad-store)" stroke="#a855f7" stroke-width="2" />
-  <text x="540" y="140" class="box-title" fill="#7e22ce">2. Event Store (Append-Only)</text>
-  <text x="540" y="165" class="box-desc">• Immutable stream of facts</text>
-  <text x="540" y="185" class="box-desc">• Never mutated or deleted</text>
-  <text x="540" y="205" class="box-desc">• Source of absolute truth</text>
+  <rect x="495" y="105" width="245" height="150" rx="10" fill="url(#grad-store)" stroke="#a855f7" stroke-width="2" />
+  <text x="510" y="135" class="box-title" fill="#7e22ce">2. Event Store (Append-Only)</text>
+  <text x="510" y="160" class="box-desc">• Immutable append-only log</text>
+  <text x="510" y="180" class="box-desc">• Never updated or deleted</text>
+  <text x="510" y="200" class="box-desc">• Absolute source of truth</text>
+  <text x="510" y="222" class="box-desc" font-weight="600" fill="#6b21a8">• Supports time-travel replay</text>
 
   <!-- Projector / Event Handler in Middle -->
-  <rect x="760" y="190" width="170" height="130" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="2" />
-  <text x="775" y="220" class="box-title" fill="#b45309">3. Event Projectors</text>
-  <text x="775" y="245" class="box-desc">• Subscribes to events</text>
-  <text x="775" y="265" class="box-desc">• Denormalizes data</text>
-  <text x="775" y="285" class="box-desc">• Updates Read Models</text>
+  <rect x="780" y="185" width="205" height="145" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="2" />
+  <text x="795" y="215" class="box-title" fill="#b45309">3. Event Projectors</text>
+  <text x="795" y="240" class="box-desc">• Async event consumers</text>
+  <text x="795" y="260" class="box-desc">• Denormalizes payload</text>
+  <text x="795" y="280" class="box-desc">• Rebuilds read projections</text>
+  <text x="795" y="300" class="box-desc" font-weight="600" fill="#92400e">• Handles out-of-order events</text>
 
   <!-- Bottom Path: Read / Query Path -->
-  <rect x="520" y="315" width="200" height="145" rx="10" fill="url(#grad-query)" stroke="#22c55e" stroke-width="2" />
-  <text x="540" y="345" class="box-title" fill="#15803d">4. Read Databases (Projections)</text>
-  <text x="540" y="370" class="box-desc">🔍 Elasticsearch (Fast search)</text>
-  <text x="540" y="390" class="box-desc">⚡ Redis (Key-value cache)</text>
-  <text x="540" y="410" class="box-desc">📊 PostgreSQL (Denormalized reporting)</text>
+  <rect x="495" y="315" width="245" height="160" rx="10" fill="url(#grad-query)" stroke="#22c55e" stroke-width="2" />
+  <text x="510" y="345" class="box-title" fill="#15803d">4. Read Databases (Projections)</text>
+  <text x="510" y="372" class="box-desc">🔍 Elasticsearch: Full text search</text>
+  <text x="510" y="394" class="box-desc">⚡ Redis: High-speed key-value cache</text>
+  <text x="510" y="416" class="box-desc">📊 PostgreSQL: Reporting views</text>
+  <text x="510" y="442" class="box-desc" font-weight="600" fill="#14532d">✔ Tailored for specific query patterns</text>
 
-  <rect x="230" y="315" width="230" height="145" rx="10" fill="url(#grad-query)" stroke="#22c55e" stroke-width="2" />
-  <text x="250" y="345" class="box-title" fill="#15803d">5. Query Service (Read)</text>
-  <text x="250" y="375" class="box-desc">• Single-digit millisecond latency</text>
-  <text x="250" y="395" class="box-desc">• Pre-joined materialized views</text>
-  <text x="250" y="415" class="box-desc">• Zero database locking</text>
+  <rect x="210" y="315" width="245" height="160" rx="10" fill="url(#grad-query)" stroke="#22c55e" stroke-width="2" />
+  <text x="225" y="345" class="box-title" fill="#15803d">5. Query Service (Read Path)</text>
+  <text x="225" y="372" class="box-desc">• Single-digit millisecond reads</text>
+  <text x="225" y="394" class="box-desc">• Reads pre-materialized records</text>
+  <text x="225" y="416" class="box-desc">• Zero cross-table lock contention</text>
+  <text x="225" y="442" class="box-desc" font-weight="600" fill="#14532d">• Horizontally scalable query layer</text>
 
   <!-- Arrows -->
-  <path d="M 165 240 L 220 180" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#arr-blue)" />
-  <text x="180" y="200" class="label" fill="#2563eb">Command</text>
+  <path d="M 170 235 L 205 185" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#arr-blue)" />
+  <text x="180" y="195" class="label" fill="#2563eb">Command</text>
 
-  <path d="M 460 175 L 510 175" fill="none" stroke="#9333ea" stroke-width="2.5" marker-end="url(#arr-purple)" />
-  <text x="485" y="165" class="label" fill="#9333ea">Append</text>
+  <path d="M 455 180 L 485 180" fill="none" stroke="#9333ea" stroke-width="2.5" marker-end="url(#arr-purple)" />
+  <text x="470" y="170" class="label" fill="#9333ea">Append</text>
 
-  <path d="M 720 175 Q 840 140 840 180" fill="none" stroke="#d97706" stroke-width="2" marker-end="url(#arr-purple)" />
-  <text x="800" y="160" class="label" fill="#d97706">Async Event</text>
+  <path d="M 740 180 Q 820 140 820 175" fill="none" stroke="#d97706" stroke-width="2" marker-end="url(#arr-purple)" />
+  <text x="795" y="155" class="label" fill="#d97706">Domain Event</text>
 
-  <path d="M 840 320 Q 840 390 730 390" fill="none" stroke="#16a34a" stroke-width="2" marker-end="url(#arr-green)" />
-  <text x="810" y="380" class="label" fill="#16a34a">Updates</text>
+  <path d="M 820 330 Q 820 395 750 395" fill="none" stroke="#16a34a" stroke-width="2" marker-end="url(#arr-green)" />
+  <text x="800" y="380" class="label" fill="#16a34a">Updates</text>
 
-  <path d="M 520 390 L 470 390" fill="none" stroke="#16a34a" stroke-width="2" marker-end="url(#arr-green)" />
+  <path d="M 495 395 L 465 395" fill="none" stroke="#16a34a" stroke-width="2" marker-end="url(#arr-green)" />
 
-  <path d="M 230 390 L 165 290" fill="none" stroke="#16a34a" stroke-width="2" marker-end="url(#arr-green)" />
-  <text x="180" y="355" class="label" fill="#16a34a">Query Res</text>
+  <path d="M 210 395 L 170 295" fill="none" stroke="#16a34a" stroke-width="2" marker-end="url(#arr-green)" />
+  <text x="180" y="360" class="label" fill="#16a34a">Query Res</text>
 </svg>

@@ -59,15 +59,41 @@ Enterprise design patterns in modern Java, domain-driven decomposition, and dist
 
 ---
 
+### 03. Java Deep Dive, Concurrency & JVM Mastery
+Core JVM memory layout, high-performance concurrency, JMM mechanics, low-latency GC, and modern Java 17–21 features.
+
+#### 01. Collections & Data Structures
+* [Collections Framework Refresher & Python-to-Java Rosetta Stone](03_Java_Deep_Dive_and_Concurrency/01_Collections_and_Data_Structures/00_collections_framework_refresher.md) — Fundamental Collections hierarchy, List vs. Set vs. Map vs. Deque, Python-to-Java syntax cheat sheet, ArrayDeque stack/queue, sorting comparators, safe removal idioms, and runnable verification suite.
+* [Collections Internals & Performance Trivia](03_Java_Deep_Dive_and_Concurrency/01_Collections_and_Data_Structures/01_collections_internals_and_trivia.md) — ArrayList 1.5x growth factor, CPU cache lines vs. LinkedList fragmentation, Fail-Fast `modCount` vs. Fail-Safe iterators, LinkedHashMap LRU cache, and Java 21 Sequenced Collections.
+* [HashMap & ConcurrentHashMap Deep Dive](03_Java_Deep_Dive_and_Concurrency/01_Collections_and_Data_Structures/02_hashmap_and_concurrent_hashmap_deep_dive.md) — Bitwise hash spreading `h ^ (h >>> 16)`, power-of-two index masking `(n - 1) & hash`, Treeification threshold (8/64), Java 8 CAS + bin-head `synchronized` locking, and `CounterCell` striped sizing.
+
+#### 02. Threading Basics & Lifecycle
+* [Threading Fundamentals & Thread Coordination](03_Java_Deep_Dive_and_Concurrency/02_Threading_Basics_and_Lifecycle/01_threading_fundamentals_and_coordination.md) — Thread vs. Runnable vs. Callable, 6 JVM Thread States, `wait()`/`notify()` in `while` loops, Lost Wakeup race conditions, cooperative interruption flags, and runnable BoundedBlockingQueue.
+
+#### 03. Concurrency, JMM & Locks
+* [Java Memory Model (JMM), Volatile & Atomics](03_Java_Deep_Dive_and_Concurrency/03_Concurrency_JMM_and_Locks/01_jmm_volatile_and_atomics.md) — MESI cache coherence protocol, Store Buffers, Happens-Before guarantees, `volatile` memory barriers, DCL singleton bug, lock-free CAS, `LongAdder` cell striping, and ABA avoidance with `AtomicStampedReference`.
+* [Locks, Conditions & AbstractQueuedSynchronizer (AQS)](03_Java_Deep_Dive_and_Concurrency/03_Concurrency_JMM_and_Locks/02_locks_conditions_and_aqs.md) — Biased/Lightweight/Heavyweight monitor escalation, ReentrantLock non-fair thread barging, AQS state & CLH FIFO queue mechanics, Condition variables, and StampedLock optimistic reads.
+* [ThreadPoolExecutor & Asynchronous Pipelines](03_Java_Deep_Dive_and_Concurrency/03_Concurrency_JMM_and_Locks/03_threadpools_and_async_orchestration.md) — ThreadPoolExecutor lifecycle, unbounded queue OOM trap, `CallerRunsPolicy` backpressure, thread pool sizing math (Little's Law), and `CompletableFuture` async orchestration.
+* [Virtual Threads & Project Loom](03_Java_Deep_Dive_and_Concurrency/03_Concurrency_JMM_and_Locks/04_virtual_threads_project_loom.md) — M:N Loom carrier thread architecture, Continuation yield mechanics, the `synchronized` carrier thread pinning trap and `ReentrantLock` antidote, and why pooling virtual threads is an anti-pattern.
+
+#### 04. JVM Internals & Garbage Collection
+* [JVM Memory Layout, Compressed OOPs & JIT Compilation](03_Java_Deep_Dive_and_Concurrency/04_JVM_Internals_and_GC/01_jvm_memory_layout_and_jit.md) — Stack Frames, LVT, Operand Stack, Metaspace vs. Heap, 64-bit Object Header Layout (JOL), the 32GB Compressed OOPs cliff, Tiered Compilation (Tiers 0–4), Escape Analysis, Scalar Replacement, and `ClassNotFoundException` vs. `NoClassDefFoundError`.
+* [Garbage Collection: G1GC vs. Generational ZGC Architecture](03_Java_Deep_Dive_and_Concurrency/04_JVM_Internals_and_GC/02_garbage_collection_g1_and_zgc.md) — Weak Generational Hypothesis, G1GC 2048 regions, RSet Card Table, SATB concurrent marking, pause-time goals vs. Evacuation Failure, ZGC Colored Pointers, Self-Healing Load Barriers, and Java 21 Generational ZGC.
+
+#### 05. Modern Java & Microbenchmarking
+* [Modern Java: Records, Sealed Types & Pattern Matching](03_Java_Deep_Dive_and_Concurrency/05_Modern_Java_and_JMH/01_modern_java_records_and_pattern_matching.md) — Java 17/21 Records, Compact Constructors, serialization immunity, Sealed Hierarchies (Sum Types) + Records (Product Types) = Algebraic Data Types, and Java 21 Record Pattern Deconstruction without `default`.
+* [JMH Microbenchmarking Mastery & JIT Profiling](03_Java_Deep_Dive_and_Concurrency/05_Modern_Java_and_JMH/02_jmh_microbenchmarking_mastery.md) — Why `System.currentTimeMillis()` is flawed, Dead Code Elimination, Constant Folding, `@Warmup`, `@Measurement`, `@Fork` process isolation, `Blackhole.consume()`, and concurrency throughput comparisons.
+
+---
+
 ### 🚀 Upcoming Modules
-* **03. Java Deep Dive & Concurrency** (`CORE.5` & `CORE.6`)
-* **04. Spring Framework Ecosystem** (`CORE.7`)
-* **05. API Design & Gateway Patterns** (`CORE.8`)
-* **06. Apache Kafka & Event-Driven Architecture** (`CORE.9`)
-* **07. Storage Engines & Databases (Oracle, MongoDB, Distributed DBs)** (`CORE.10`)
-* **08. AWS Cloud Architecture & Resiliency** (`CORE.11`)
-* **09. Security Architecture & Zero Trust** (`CORE.12`)
-* **10. Agentic AI, LLMs & RAG Architecture** (`CORE.13`)
+* **04. Spring Framework Ecosystem** (`CORE.6`)
+* **05. API Design & Gateway Patterns** (`CORE.7`)
+* **06. Apache Kafka & Event-Driven Architecture** (`CORE.8`)
+* **07. Storage Engines & Databases (Oracle, MongoDB, Redis, DDIA)** (`CORE.9`)
+* **08. AWS Cloud Architecture & Resiliency (SAP-C02)** (`CORE.10`)
+* **09. Security Architecture & Zero Trust** (`CORE.11`)
+* **10. Agentic AI, Multi-Agent Systems & LangGraph** (`CORE.12`)
 
 ---
 
