@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 700" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGradKraft" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1117" />
+      <stop offset="100%" stop-color="#161b22" />
+    </linearGradient>
+    <linearGradient id="cardGradKraft" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#21262d" />
+      <stop offset="100%" stop-color="#161b22" />
+    </linearGradient>
+    <linearGradient id="zkGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#da3633" />
+      <stop offset="100%" stop-color="#f85149" />
+    </linearGradient>
+    <linearGradient id="kraftGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#238636" />
+      <stop offset="100%" stop-color="#2ea043" />
+    </linearGradient>
+    <marker id="arrowRedKraft" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f85149" />
+    </marker>
+    <marker id="arrowGreenKraft" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#3fb950" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1100" height="700" fill="url(#bgGradKraft)" rx="12" stroke="#30363d" stroke-width="2"/>
+
+  <!-- Title & Subtitle -->
+  <text x="40" y="45" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f0f6fc">Metadata Consensus Evolution: Apache ZooKeeper vs. KRaft (KIP-500)</text>
+  <text x="40" y="70" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e">Eliminating External Consensus Dependencies, Dual-Write Metadata Bottlenecks, and Scaling to Millions of Partitions</text>
+
+  <!-- Left: Legacy ZooKeeper Architecture -->
+  <g transform="translate(40, 100)">
+    <rect width="500" height="375" rx="8" fill="url(#cardGradKraft)" stroke="#da3633" stroke-width="2"/>
+    <rect width="500" height="6" rx="3" fill="url(#zkGrad)"/>
+    <text x="25" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#f85149">1. Legacy ZooKeeper Mode (External State)</text>
+    <text x="25" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Two Independent Distributed Systems with Asynchronous Synchronization</text>
+
+    <!-- ZK Ensemble Box -->
+    <g transform="translate(25, 75)">
+      <rect width="450" height="75" rx="6" fill="#161b22" stroke="#da3633"/>
+      <text x="15" y="22" font-family="monospace" font-size="11" font-weight="700" fill="#f85149">External ZooKeeper Ensemble (3–5 Nodes)</text>
+      <text x="15" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">• Stores topic configs, ACLs, and partition leader mappings</text>
+      <text x="15" y="60" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">• Separate JVM, separate operational configs, separate failure modes</text>
+    </g>
+
+    <!-- Flow Arrow down -->
+    <path d="M 250 150 L 250 185" fill="none" stroke="#f85149" stroke-width="2" marker-end="url(#arrowRedKraft)"/>
+    <text x="260" y="172" font-family="monospace" font-size="9" fill="#f85149">ZNode Watches</text>
+
+    <!-- Active Controller Broker -->
+    <g transform="translate(25, 190)">
+      <rect width="450" height="75" rx="6" fill="#161b22" stroke="#30363d"/>
+      <text x="15" y="22" font-family="monospace" font-size="11" font-weight="700" fill="#f0883e">Single Active Controller Broker</text>
+      <text x="15" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">• Reads all metadata from ZooKeeper into local memory cache</text>
+      <text x="15" y="60" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#f85149">❌ Bottleneck: Sends synchronous LeaderAndIsr RPCs to all brokers</text>
+    </g>
+
+    <!-- Flow Arrow down -->
+    <path d="M 250 265 L 250 300" fill="none" stroke="#f85149" stroke-width="2" marker-end="url(#arrowRedKraft)"/>
+    <text x="260" y="287" font-family="monospace" font-size="9" fill="#f85149">LeaderAndIsr RPC</text>
+
+    <!-- Standard Broker Nodes -->
+    <g transform="translate(25, 305)">
+      <rect width="450" height="55" rx="6" fill="#161b22" stroke="#30363d"/>
+      <text x="15" y="22" font-family="monospace" font-size="11" font-weight="700" fill="#c9d1d9">Broker Nodes (Data Plane)</text>
+      <text x="15" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">Failover: New controller must scan all ZNodes (Multi-minute delay!)</text>
+    </g>
+  </g>
+
+  <!-- Right: Modern KRaft Architecture -->
+  <g transform="translate(560, 100)">
+    <rect width="500" height="375" rx="8" fill="url(#cardGradKraft)" stroke="#238636" stroke-width="2"/>
+    <rect width="500" height="6" rx="3" fill="url(#kraftGrad)"/>
+    <text x="25" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#3fb950">2. Modern KRaft Mode (Raft Consensus Quorum)</text>
+    <text x="25" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Single Integrated System: Metadata Stored Directly in a Native Commit Log</text>
+
+    <!-- KRaft Controller Quorum -->
+    <g transform="translate(25, 75)">
+      <rect width="450" height="85" rx="6" fill="#161b22" stroke="#238636"/>
+      <text x="15" y="22" font-family="monospace" font-size="11" font-weight="700" fill="#3fb950">KRaft Controller Quorum (Raft Voting Nodes)</text>
+      <text x="15" y="42" font-family="monospace" font-size="10" fill="#7ee787">Internal Topic: @metadata (Partition 0)</text>
+      <text x="15" y="58" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">• Raft leader election occurs in milliseconds</text>
+      <text x="15" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">• Controller state is warm on all quorum members</text>
+    </g>
+
+    <!-- Flow Arrow down -->
+    <path d="M 250 160 L 250 195" fill="none" stroke="#3fb950" stroke-width="2" marker-end="url(#arrowGreenKraft)"/>
+    <text x="260" y="182" font-family="monospace" font-size="9" fill="#3fb950">Event Log Stream</text>
+
+    <!-- Active KRaft Leader -->
+    <g transform="translate(25, 200)">
+      <rect width="450" height="65" rx="6" fill="#161b22" stroke="#30363d"/>
+      <text x="15" y="22" font-family="monospace" font-size="11" font-weight="700" fill="#58a6ff">Active Raft Leader</text>
+      <text x="15" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">• Appends metadata changes to @metadata log</text>
+      <text x="15" y="56" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#7ee787">✓ Zero external dual-writes; atomic Raft replication</text>
+    </g>
+
+    <!-- Flow Arrow down -->
+    <path d="M 250 265 L 250 300" fill="none" stroke="#3fb950" stroke-width="2" marker-end="url(#arrowGreenKraft)"/>
+    <text x="260" y="287" font-family="monospace" font-size="9" fill="#3fb950">Broker FetchPull</text>
+
+    <!-- Standard Broker Nodes -->
+    <g transform="translate(25, 305)">
+      <rect width="450" height="55" rx="6" fill="#161b22" stroke="#238636"/>
+      <text x="15" y="22" font-family="monospace" font-size="11" font-weight="700" fill="#3fb950">Brokers (Pull-Based Metadata Replicas)</text>
+      <text x="15" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">• Brokers pull delta stream asynchronously via FetchSnapshot</text>
+    </g>
+  </g>
+
+  <!-- Bottom Comparison Metrics Banner -->
+  <g transform="translate(40, 495)">
+    <rect width="1020" height="180" rx="8" fill="url(#cardGradKraft)" stroke="#30363d" stroke-width="1.5"/>
+    <text x="25" y="30" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#f0f6fc">Production Architectural Impact Matrix: ZooKeeper vs. KRaft</text>
+
+    <g transform="translate(25, 45)">
+      <!-- Metric 1: Partition Scale -->
+      <rect width="310" height="115" rx="6" fill="#161b22" stroke="#30363d"/>
+      <text x="15" y="22" font-family="monospace" font-size="11" font-weight="700" fill="#58a6ff">Max Partitions per Cluster</text>
+      <text x="15" y="46" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#f85149">ZooKeeper: ~200,000 Partitions</text>
+      <text x="15" y="64" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#3fb950">KRaft: 1,000,000+ Partitions</text>
+      <text x="15" y="86" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#8b949e">Eliminates ZK tree memory limits</text>
+      <text x="15" y="100" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#8b949e">and RPC serialization bottlenecks.</text>
+
+      <!-- Metric 2: Controller Failover Time -->
+      <g transform="translate(345, 0)">
+        <rect width="310" height="115" rx="6" fill="#161b22" stroke="#30363d"/>
+        <text x="15" y="22" font-family="monospace" font-size="11" font-weight="700" fill="#e3b341">Controller Failover Latency</text>
+        <text x="15" y="46" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#f85149">ZooKeeper: Multi-Minute Outage</text>
+        <text x="15" y="64" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#3fb950">KRaft: &lt; 200 Milliseconds</text>
+        <text x="15" y="86" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#8b949e">Warm controller standby state</text>
+        <text x="15" y="100" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#8b949e">replaces cold full-cluster resync.</text>
+      </g>
+
+      <!-- Metric 3: Operational Simplicity -->
+      <g transform="translate(685, 0)">
+        <rect width="310" height="115" rx="6" fill="#161b22" stroke="#30363d"/>
+        <text x="15" y="22" font-family="monospace" font-size="11" font-weight="700" fill="#3fb950">Operational Footprint</text>
+        <text x="15" y="46" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#f85149">ZooKeeper: 2 Separate Clusters</text>
+        <text x="15" y="64" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#3fb950">KRaft: Single Kafka Binary</text>
+        <text x="15" y="86" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#8b949e">Unified security, TLS, SASL, and</text>
+        <text x="15" y="100" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#8b949e">monitoring across all nodes.</text>
+      </g>
+    </g>
+  </g>
+</svg>

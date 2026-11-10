@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 740" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGradK2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1117" />
+      <stop offset="100%" stop-color="#161b22" />
+    </linearGradient>
+    <linearGradient id="cardGradK2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#21262d" />
+      <stop offset="100%" stop-color="#161b22" />
+    </linearGradient>
+    <linearGradient id="prodGradK" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1f6feb" />
+      <stop offset="100%" stop-color="#388bfd" />
+    </linearGradient>
+    <linearGradient id="consGradK" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#238636" />
+      <stop offset="100%" stop-color="#2ea043" />
+    </linearGradient>
+    <linearGradient id="eosGradK" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#d29922" />
+      <stop offset="100%" stop-color="#f0883e" />
+    </linearGradient>
+    <marker id="arrowBlueK2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#58a6ff" />
+    </marker>
+    <marker id="arrowGreenK2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#3fb950" />
+    </marker>
+    <marker id="arrowGoldK2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#e3b341" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1100" height="740" fill="url(#bgGradK2)" rx="12" stroke="#30363d" stroke-width="2"/>
+
+  <!-- Title & Subtitle -->
+  <text x="40" y="45" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f0f6fc">Kafka Producer-Consumer Architecture &amp; Exactly-Once Semantics (EOS)</text>
+  <text x="40" y="70" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e">Idempotent Producers, Cooperative Sticky Rebalancing, and Two-Phase Commit Transactional Pipelines</text>
+
+  <!-- Section 1: Producer Pipeline & Idempotence (Left Column) -->
+  <g transform="translate(40, 100)">
+    <rect width="500" height="375" rx="8" fill="url(#cardGradK2)" stroke="#1f6feb" stroke-width="2"/>
+    <rect width="500" height="6" rx="3" fill="url(#prodGradK)"/>
+    <text x="25" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#58a6ff">1. Idempotent Producer &amp; Batch Accumulator</text>
+    <text x="25" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Zero Duplicate Appends Across Network Retries via PID + Monotonic Sequences</text>
+
+    <!-- Producer Memory Architecture -->
+    <g transform="translate(20, 75)">
+      <!-- RecordAccumulator -->
+      <rect width="460" height="85" rx="6" fill="#161b22" stroke="#30363d"/>
+      <text x="15" y="20" font-family="monospace" font-size="10.5" font-weight="700" fill="#79c0ff">RecordAccumulator (buffer.memory = 32MB)</text>
+      <text x="15" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">• Micro-batches records by topic-partition</text>
+      <text x="15" y="54" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">• Triggers send when batch.size (64KB) or linger.ms (10ms) met</text>
+      <text x="15" y="70" font-family="monospace" font-size="9.5" fill="#3fb950">Compression: Snappy / LZ4 / Zstandard (CPU-efficient block compression)</text>
+    </g>
+
+    <!-- Arrow down -->
+    <line x1="250" y1="165" x2="250" y2="195" stroke="#58a6ff" stroke-width="2" marker-end="url(#arrowBlueK2)"/>
+    <text x="260" y="185" font-family="monospace" font-size="9" fill="#58a6ff">TCP Socket (max.in.flight &lt;= 5)</text>
+
+    <!-- Broker Deduplication Box -->
+    <g transform="translate(20, 200)">
+      <rect width="460" height="155" rx="6" fill="#161b22" stroke="#388bfd"/>
+      <rect width="460" height="24" rx="4" fill="#1f6feb" fill-opacity="0.2"/>
+      <text x="15" y="17" font-family="monospace" font-size="11" font-weight="700" fill="#58a6ff">Broker Deduplication Cache (enable.idempotence = true)</text>
+      
+      <text x="15" y="44" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#c9d1d9">Producer assigned unique <tspan font-family="monospace" fill="#e3b341">PID: 1042</tspan> via InitProducerId RPC.</text>
+      <text x="15" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#c9d1d9">Each batch carries monotonically increasing sequence number.</text>
+
+      <!-- Inner Batch Log Container -->
+      <g transform="translate(15, 75)">
+        <rect width="430" height="65" rx="4" fill="#0d1117" stroke="#30363d"/>
+        <text x="12" y="20" font-family="monospace" font-size="9.5" fill="#3fb950">Batch 1: [PID: 1042, Seq: 0] → Appended to Log (New LEO=1)</text>
+        <text x="12" y="38" font-family="monospace" font-size="9.5" fill="#e3b341">Retry 1: [PID: 1042, Seq: 0] → DROPPED! (Already committed)</text>
+        <text x="12" y="54" font-family="monospace" font-size="9.5" fill="#79c0ff">Batch 2: [PID: 1042, Seq: 1] → Appended to Log (New LEO=2)</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Section 2: Consumer Groups & Rebalance Protocols (Right Column) -->
+  <g transform="translate(560, 100)">
+    <rect width="500" height="375" rx="8" fill="url(#cardGradK2)" stroke="#238636" stroke-width="2"/>
+    <rect width="500" height="6" rx="3" fill="url(#consGradK)"/>
+    <text x="25" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#3fb950">2. Consumer Groups &amp; Cooperative Rebalancing</text>
+    <text x="25" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Stop-the-World Eager Rebalance vs. Incremental Cooperative Sticky Assignor</text>
+
+    <!-- Eager Rebalance Box -->
+    <g transform="translate(20, 75)">
+      <rect width="460" height="115" rx="6" fill="#161b22" stroke="#da3633"/>
+      <text x="15" y="20" font-family="monospace" font-size="10.5" font-weight="700" fill="#f85149">A. Legacy Eager Protocol (Stop-The-World)</text>
+      <text x="15" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">1. When a new consumer joins, ALL consumers revoke ALL partitions.</text>
+      <text x="15" y="58" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#f85149">2. Entire processing pipeline freezes during JoinGroup &amp; SyncGroup.</text>
+      <text x="15" y="76" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">3. Partitions re-assigned from scratch; massive consumer lag spikes!</text>
+      <text x="15" y="98" font-family="monospace" font-size="9.5" fill="#f85149">❌ Downtime: Multi-second cluster-wide processing pause</text>
+    </g>
+
+    <!-- Cooperative Sticky Box -->
+    <g transform="translate(20, 205)">
+      <rect width="460" height="150" rx="6" fill="#161b22" stroke="#238636"/>
+      <text x="15" y="20" font-family="monospace" font-size="10.5" font-weight="700" fill="#3fb950">B. Modern Cooperative Sticky Assignor (KIP-429)</text>
+      <text x="15" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">1. Consumers keep processing unaffected partitions without pause.</text>
+      <text x="15" y="58" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#7ee787">2. Only migrating partitions are revoked in a short second phase.</text>
+      <text x="15" y="76" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">3. Preserves local state caches (RocksDB state stores in Kafka Streams).</text>
+      
+      <!-- Inner Migration Partition State Container -->
+      <g transform="translate(15, 90)">
+        <rect width="430" height="48" rx="4" fill="#0d1117" stroke="#30363d"/>
+        <text x="12" y="20" font-family="monospace" font-size="9" fill="#3fb950">P0, P1 stay active on C1 | P2, P3 stay active on C2</text>
+        <text x="12" y="36" font-family="monospace" font-size="9" fill="#79c0ff">Only P3 gracefully shifts to newly joined C3 (Zero freeze!)</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Section 3: Transactions & Exactly-Once Semantics (Bottom Banner) -->
+  <g transform="translate(40, 495)">
+    <rect width="1020" height="215" rx="8" fill="url(#cardGradK2)" stroke="#d29922" stroke-width="2"/>
+    <rect width="1020" height="6" rx="3" fill="url(#eosGradK)"/>
+    <text x="25" y="30" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#e3b341">3. Transactions &amp; Exactly-Once Semantics (EOS): Atomic Read-Process-Write</text>
+    <text x="25" y="50" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Two-Phase Commit Coordination Across Input Offsets and Output Partitions with Zombie Fencing</text>
+
+    <g transform="translate(25, 68)">
+      <!-- Step 1: Client Init & Begin -->
+      <g transform="translate(0, 0)">
+        <rect width="300" height="125" rx="6" fill="#161b22" stroke="#30363d"/>
+        <text x="15" y="20" font-family="monospace" font-size="11" font-weight="700" fill="#58a6ff">1. Init &amp; Fencing</text>
+        <text x="15" y="40" font-family="monospace" font-size="9.5" fill="#c9d1d9">producer.initTransactions()</text>
+        <text x="15" y="58" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">• Transactional ID: "order-tx-1"</text>
+        <text x="15" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">• Increments Producer Epoch</text>
+        <text x="15" y="92" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#f85149">🛡️ Fences out zombie producers!</text>
+        <text x="15" y="108" font-family="monospace" font-size="9" fill="#7ee787">Old epoch writes rejected with 403</text>
+      </g>
+
+      <!-- Step 2: Atomic 2PC Coordination -->
+      <g transform="translate(340, 0)">
+        <rect width="320" height="125" rx="6" fill="#161b22" stroke="#d29922"/>
+        <text x="15" y="20" font-family="monospace" font-size="11" font-weight="700" fill="#e3b341">2. Transaction Coordinator</text>
+        <text x="15" y="40" font-family="monospace" font-size="9.5" fill="#79c0ff">__transaction_state (50 Partitions)</text>
+        <text x="15" y="58" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">• Records PREPARE_COMMIT state</text>
+        <text x="15" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">• Writes marker to output partitions</text>
+        <text x="15" y="92" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">• Commits consumed offsets atomically</text>
+        <text x="15" y="108" font-family="monospace" font-size="9" fill="#3fb950">Zero partial pipeline execution!</text>
+      </g>
+
+      <!-- Step 3: Consumer Isolation Level -->
+      <g transform="translate(680, 0)">
+        <rect width="290" height="125" rx="6" fill="#161b22" stroke="#238636"/>
+        <text x="15" y="20" font-family="monospace" font-size="11" font-weight="700" fill="#3fb950">3. Consumer Isolation</text>
+        <text x="15" y="40" font-family="monospace" font-size="9.5" fill="#7ee787">isolation.level = read_committed</text>
+        <text x="15" y="58" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">• Consumers read only up to LSO</text>
+        <text x="15" y="74" font-family="monospace" font-size="9" fill="#8b949e">  (Last Stable Offset)</text>
+        <text x="15" y="92" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">• Aborted tx records skipped</text>
+        <text x="15" y="108" font-family="monospace" font-size="9.5" fill="#3fb950">✓ Exactly-Once End-to-End</text>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -131,8 +131,31 @@ Enterprise RESTful resource modeling, RFC 9457 Problem Details, keyset vs. offse
 
 ---
 
+### 06. Apache Kafka & Event-Driven Architecture
+Core event backbone for modern distributed systems: commit log storage internals, sparse offset indexing, OS zero-copy `sendfile` I/O, KRaft Raft consensus metadata quorum, idempotent and transactional Exactly-Once Semantics (EOS), consumer group cooperative rebalancing, Confluent Schema Registry with Apache Avro, Axon Framework event sourcing, and Kafka Streams/Connect CDC.
+
+#### 01. Foundations & Storage Internals
+* [Kafka Commit Log Topology & In-Sync Replicas (ISR) Mechanics](06_Apache_Kafka_and_Event_Streaming/01_Foundations_and_Storage_Internals/01_commit_log_topology_and_isr_mechanics.md) — The commit log abstraction vs. message queues, broker cluster roles, rack-aware follower fetching, In-Sync Replicas (ISR) quorum mechanics (`replica.lag.time.max.ms`), High Watermark (HW) vs. Log End Offset (LEO) consumer read barrier, MurmurHash2 deterministic partitioning, Sticky Partitioner, `min.insync.replicas`, and data loss under unclean leader elections.
+* [Storage Internals, Segment Anatomy & OS Zero-Copy Architecture](06_Apache_Kafka_and_Event_Streaming/01_Foundations_and_Storage_Internals/02_storage_segments_and_zero_copy.md) — Segment rolling policies, file anatomy (`.log`, `.index`, `.timeindex`, `leader-epoch-checkpoint`), memory-mapped (`mmap`) sparse index binary search, sequential disk I/O physics, Linux kernel `sendfile(2)` eliminating CPU copies, and the 10GB Heap Rule.
+* [Metadata Quorum (KRaft): Replacing ZooKeeper with Raft Consensus](06_Apache_Kafka_and_Event_Streaming/01_Foundations_and_Storage_Internals/03_kraft_metadata_quorum.md) — Why ZooKeeper was deprecated (KIP-500), dual-write metadata synchronization flaw, controller cold-start pauses, KRaft event-driven `@metadata-0` partition, Controller Quorum Raft consensus, warm standby state eliminating failover pauses (< 200ms failover), pull-based broker metadata streaming via `FetchSnapshot`, and zero-downtime migration.
+
+#### 02. Producers, Consumers & Delivery Semantics
+* [Producer Reliability, Idempotence & High-Throughput Batching](06_Apache_Kafka_and_Event_Streaming/02_Producers_Consumers_and_Delivery_Semantics/01_producer_reliability_and_idempotence.md) — The RecordAccumulator micro-batching architecture, Producer ID (PID) and sequence numbers (KIP-98), broker deduplication sliding window, `delivery.timeout.ms` budgeting, `batch.size` vs `linger.ms`, and compression codec trade-offs (Snappy vs LZ4 vs Zstandard vs GZIP).
+* [Consumer Groups, Offset Commit Strategies & Cooperative Rebalancing](06_Apache_Kafka_and_Event_Streaming/02_Producers_Consumers_and_Delivery_Semantics/02_consumer_groups_and_rebalance_protocols.md) — 1:1 partition assignment rule, consumer lag monitoring, internal `__consumer_offsets` topic, At-Most-Once vs At-Least-Once delivery, asynchronous commit patterns, heartbeat thread vs processing thread deadlock detection (`max.poll.interval.ms`), and Eager Stop-the-World vs Cooperative Sticky Assignor (KIP-429).
+* [Transactions & Exactly-Once Semantics (EOS) in Distributed Pipelines](06_Apache_Kafka_and_Event_Streaming/02_Producers_Consumers_and_Delivery_Semantics/03_transactions_and_exactly_once_semantics.md) — Atomic Consume-Transform-Produce pipelines, Transaction Coordinator and `__transaction_state` log, 6-phase 2PC protocol sequence, physical Commit/Abort markers, `isolation.level = read_committed`, Last Stable Offset (LSO) barrier, and transactional epoch zombie producer fencing.
+
+#### 03. Schema Registry, Contracts & Event Modeling
+* [Schema Registry Architecture & Apache Avro Serialization](06_Apache_Kafka_and_Event_Streaming/03_Schema_Registry_and_Event_Modeling/01_schema_registry_and_avro_serialization.md) — Centralized schema management, Subject Naming Strategies (TopicNameStrategy vs RecordNameStrategy), the 5-byte Confluent wire protocol (`[0x00][Schema ID: 4B][Binary]`), zero-roundtrip client-side LRU schema caching, and wire footprint savings vs JSON.
+* [Schema Evolution, Compatibility Modes & Contract Guardrails](06_Apache_Kafka_and_Event_Streaming/03_Schema_Registry_and_Event_Modeling/02_schema_evolution_and_compatibility.md) — Compatibility modes matrix (BACKWARD, FORWARD, FULL, TRANSITIVE), default value rules, safe field renaming with Avro `aliases`, enum evolution traps, and automated Maven/Gradle CI/CD compatibility guardrails.
+* [Log Compaction & Enterprise Event Sourcing with Axon Framework and Apache Avro](06_Apache_Kafka_and_Event_Streaming/03_Schema_Registry_and_Event_Modeling/03_log_compaction_and_axon_event_sourcing.md) — Kafka log compaction mechanics, clean vs dirty sections, tombstone record deletion window (`delete.retention.ms`), and the Tier-0 Mastercard architecture: Axon Framework Aggregate Root lifecycle (`@AggregateVersion`), mapping `DomainEventMessage` to Kafka with Axon headers, custom Avro serialization via Schema Registry, `TrackingEventProcessor` CQRS read projections, and Aggregate Snapshotting (`EventCountSnapshotTrigger`).
+
+#### 04. Stream Processing, Connect & DDIA Concepts
+* [Kafka Streams, Windowing Mechanics & Embedded RocksDB State Stores](06_Apache_Kafka_and_Event_Streaming/04_Stream_Processing_Connect_and_DDIA/01_kafka_streams_and_windowing.md) — Stream-table duality (`KStream` vs `KTable` vs `GlobalKTable`), embedded off-heap RocksDB state stores, changelog topics and standby replicas, windowing taxonomy (Tumbling, Hopping, Sliding, Session), event-time processing with grace periods, and stream join co-partitioning rules.
+* [Kafka Connect, Debezium CDC & DDIA Distributed Log Architecture](06_Apache_Kafka_and_Event_Streaming/04_Stream_Processing_Connect_and_DDIA/02_kafka_connect_cdc_and_ddia_comparisons.md) — Distributed Kafka Connect cluster topology, Transactional Outbox pattern with Debezium CDC, tailing database WAL/Redo logs with zero dual-writes, Martin Kleppmann's DDIA foundations (Destructive Queues vs Append-Only Logs, Competing Consumers vs Partition Ordering), and Lambda vs Kappa Architecture.
+
+---
+
 ### 🚀 Upcoming Modules
-* **06. Apache Kafka & Event-Driven Architecture** (`CORE.8`)
 * **07. Storage Engines & Databases (Oracle, MongoDB, Redis, DDIA)** (`CORE.9`)
 * **08. AWS Cloud Architecture & Resiliency (SAP-C02)** (`CORE.10`)
 * **09. Security Architecture & Zero Trust** (`CORE.11`)
