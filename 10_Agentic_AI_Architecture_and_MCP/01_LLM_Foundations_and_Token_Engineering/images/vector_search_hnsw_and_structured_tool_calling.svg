@@ -1,0 +1,221 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1117" />
+      <stop offset="100%" stop-color="#161b22" />
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#21262d" />
+      <stop offset="100%" stop-color="#161b22" />
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#8b949e" />
+    </marker>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#58a6ff" />
+    </marker>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#3fb950" />
+    </marker>
+    <marker id="arrowRed" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f85149" />
+    </marker>
+    <marker id="arrowAmber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#d29922" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="900" fill="url(#bgGrad)" rx="12" stroke="#30363d" stroke-width="2"/>
+
+  <!-- Title & Subtitle -->
+  <text x="50" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="700" fill="#f0f6fc">Vector Search (HNSW Indexing) &amp; Structured Tool Calling Architecture</text>
+  <text x="50" y="78" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" fill="#8b949e">Dense Embeddings, Distance Metrics, Multi-Layer HNSW Graph Navigation &amp; Pydantic Contracts</text>
+
+  <!-- LEFT PANEL: Vector Embeddings & HNSW Indexing -->
+  <g transform="translate(50, 110)">
+    <rect width="525" height="750" rx="10" fill="url(#cardGrad)" stroke="#1f6feb" stroke-width="2"/>
+    <rect width="525" height="6" rx="3" fill="#1f6feb"/>
+    
+    <text x="25" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#58a6ff">Embeddings &amp; HNSW Vector Search</text>
+    <text x="25" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" fill="#8b949e">Geometric representations, distance metrics &amp; logarithmic ANN retrieval</text>
+
+    <!-- Distance Metrics Card -->
+    <rect x="25" y="85" width="475" height="150" rx="8" fill="#161b22" stroke="#30363d"/>
+    <text x="40" y="112" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14.5" font-weight="700" fill="#79c0ff">1. Vector Space &amp; Distance Metrics</text>
+
+    <text x="40" y="138" font-family="monospace" font-size="13" fill="#3fb950">
+      • Cosine Similarity:  cos(θ) = (u · v) / (||u||₂ · ||v||₂)
+    </text>
+    <text x="55" y="158" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#8b949e">
+      Measures angular orientation [-1, 1]. Invariant to vector magnitude.
+    </text>
+
+    <text x="40" y="184" font-family="monospace" font-size="13" fill="#58a6ff">
+      • Dot Product (Inner Product):  u · v = Σ (uᵢ · vᵢ)
+    </text>
+    <text x="55" y="204" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#8b949e">
+      Equivalent to Cosine if vectors are L2-normalized (||u||=1). 3x faster on GPUs!
+    </text>
+
+    <text x="40" y="226" font-family="monospace" font-size="12" fill="#d29922">
+      • Euclidean (L2):  ||u - v||₂ = √Σ(uᵢ - vᵢ)² (Sensitive to magnitude variations)
+    </text>
+
+    <!-- HNSW Multi-Layer Graph Visual -->
+    <rect x="25" y="250" width="475" height="275" rx="8" fill="#161b22" stroke="#1f6feb" stroke-width="1.5"/>
+    <text x="40" y="278" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14.5" font-weight="700" fill="#58a6ff">2. HNSW (Hierarchical Navigable Small World)</text>
+    <text x="40" y="300" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Skip-list inspired multi-layer graph topology achieving O(log N) search</text>
+
+    <!-- Layer 2 (Top Sparse) -->
+    <g transform="translate(40, 315)">
+      <rect width="445" height="35" rx="4" fill="#0d1117" stroke="#8957e5"/>
+      <text x="15" y="22" font-family="monospace" font-size="12" font-weight="700" fill="#d2a8ff">Layer 2 (Top Sparse)</text>
+      <circle cx="200" cy="18" r="6" fill="#f85149"/>
+      <circle cx="380" cy="18" r="6" fill="#58a6ff"/>
+      <line x1="206" y1="18" x2="374" y2="18" stroke="#8b949e" stroke-width="1.5" stroke-dasharray="3,3"/>
+      <text x="215" y="14" font-family="monospace" font-size="10" fill="#f85149">Entry Point</text>
+    </g>
+
+    <line x1="240" y1="350" x2="240" y2="368" stroke="#d2a8ff" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <!-- Layer 1 (Intermediate) -->
+    <g transform="translate(40, 370)">
+      <rect width="445" height="42" rx="4" fill="#0d1117" stroke="#1f6feb"/>
+      <text x="15" y="25" font-family="monospace" font-size="12" font-weight="700" fill="#79c0ff">Layer 1 (Clusters)</text>
+      <circle cx="120" cy="21" r="5" fill="#58a6ff"/>
+      <circle cx="200" cy="21" r="5" fill="#58a6ff"/>
+      <circle cx="290" cy="21" r="5" fill="#58a6ff"/>
+      <circle cx="380" cy="21" r="5" fill="#58a6ff"/>
+      <line x1="125" y1="21" x2="195" y2="21" stroke="#8b949e" stroke-width="1"/>
+      <line x1="205" y1="21" x2="285" y2="21" stroke="#8b949e" stroke-width="1"/>
+      <line x1="295" y1="21" x2="375" y2="21" stroke="#8b949e" stroke-width="1"/>
+    </g>
+
+    <line x1="330" y1="412" x2="330" y2="430" stroke="#79c0ff" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <!-- Layer 0 (Dense Base) -->
+    <g transform="translate(40, 432)">
+      <rect width="445" height="50" rx="4" fill="#0d1117" stroke="#238636"/>
+      <text x="15" y="28" font-family="monospace" font-size="12" font-weight="700" fill="#3fb950">Layer 0 (Base Graph)</text>
+      <circle cx="60" cy="25" r="4" fill="#3fb950"/>
+      <circle cx="120" cy="25" r="4" fill="#3fb950"/>
+      <circle cx="170" cy="25" r="4" fill="#3fb950"/>
+      <circle cx="220" cy="25" r="4" fill="#3fb950"/>
+      <circle cx="280" cy="25" r="4" fill="#3fb950"/>
+      <circle cx="330" cy="25" r="5" fill="#f85149"/>
+      <circle cx="390" cy="25" r="4" fill="#3fb950"/>
+      <line x1="64" y1="25" x2="116" y2="25" stroke="#8b949e" stroke-width="1"/>
+      <line x1="124" y1="25" x2="166" y2="25" stroke="#8b949e" stroke-width="1"/>
+      <line x1="174" y1="25" x2="216" y2="25" stroke="#8b949e" stroke-width="1"/>
+      <line x1="224" y1="25" x2="276" y2="25" stroke="#8b949e" stroke-width="1"/>
+      <line x1="284" y1="25" x2="325" y2="25" stroke="#8b949e" stroke-width="1"/>
+      <line x1="335" y1="25" x2="386" y2="25" stroke="#8b949e" stroke-width="1"/>
+      <text x="330" y="44" text-anchor="middle" font-family="monospace" font-size="10" fill="#7ee787">Target Match</text>
+    </g>
+
+    <text x="40" y="505" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#f0f6fc">
+      Tuning Parameters: <tspan font-family="monospace" fill="#79c0ff">M</tspan> (bi-directional links = 16–64), <tspan font-family="monospace" fill="#79c0ff">efSearch</tspan> (beam size = 40–128).
+    </text>
+
+    <!-- pgvector vs Dedicated Vector DB Box -->
+    <rect x="25" y="540" width="475" height="185" rx="8" fill="#161b22" stroke="#d29922" stroke-width="1.5"/>
+    <text x="40" y="568" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14.5" font-weight="700" fill="#e3b341">3. Storage Tradeoff: PostgreSQL pgvector vs Dedicated DB</text>
+
+    <text x="40" y="596" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="600" fill="#79c0ff">• pgvector (HNSW / IVFFlat Extension):</text>
+    <text x="55" y="618" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#8b949e">
+      ACID compliant, zero new infrastructure. Enables atomic relational joins (SQL + Vector).
+    </text>
+
+    <text x="40" y="644" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="600" fill="#3fb950">• Dedicated Vector DB (Pinecone, Qdrant):</text>
+    <text x="55" y="666" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#8b949e">
+      Massive scale (100M+ vectors), native metadata pre-filtering, distributed sharding.
+    </text>
+    <text x="40" y="694" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" font-weight="700" fill="#7ee787">
+      Staff Rule: Default to pgvector up to 5M vectors; scale to Qdrant/Pinecone when latency stalls.
+    </text>
+  </g>
+
+  <!-- RIGHT PANEL: Structured Outputs & Tool Calling -->
+  <g transform="translate(625, 110)">
+    <rect width="525" height="750" rx="10" fill="url(#cardGrad)" stroke="#238636" stroke-width="2"/>
+    <rect width="525" height="6" rx="3" fill="#238636"/>
+
+    <text x="25" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#3fb950">Structured Outputs &amp; Tool Contracts</text>
+    <text x="25" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" fill="#8b949e">Pydantic schema enforcement, constrained decoding &amp; self-healing loops</text>
+
+    <!-- Step 1: Pydantic Contract -->
+    <rect x="25" y="85" width="475" height="150" rx="8" fill="#161b22" stroke="#1f6feb" stroke-width="1.5"/>
+    <text x="40" y="112" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14.5" font-weight="700" fill="#58a6ff">Step 1: Pydantic Tool Call Contract</text>
+
+    <rect x="40" y="125" width="445" height="75" rx="6" fill="#0d1117" stroke="#30363d"/>
+    <text x="50" y="148" font-family="monospace" font-size="11.5" fill="#ff7b72">class CodeReviewFinding(BaseModel):</text>
+    <text x="50" y="166" font-family="monospace" font-size="11.5" fill="#f0f6fc">    file_path: str = Field(description="Target file")</text>
+    <text x="50" y="184" font-family="monospace" font-size="11.5" fill="#7ee787">    severity: Literal["CRITICAL", "HIGH", "MEDIUM", "LOW"]</text>
+
+    <text x="40" y="222" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#8b949e">
+      Pydantic model exports canonical JSON Schema into LLM tools specification.
+    </text>
+
+    <line x1="262" y1="235" x2="262" y2="255" stroke="#3fb950" stroke-width="2" marker-end="url(#arrowGreen)"/>
+
+    <!-- Step 2: Constrained Decoding -->
+    <rect x="25" y="255" width="475" height="145" rx="8" fill="#161b22" stroke="#d29922" stroke-width="1.5"/>
+    <text x="40" y="282" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14.5" font-weight="700" fill="#e3b341">Step 2: Constrained Decoding &amp; Grammar Masking</text>
+
+    <text x="40" y="308" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#f0f6fc">
+      Grammar-based sampling (GBNF / Outlines / OpenAI Structured Outputs):
+    </text>
+    <text x="40" y="332" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#c9d1d9">
+      • At each autoregressive step, token logits are dynamically masked.
+    </text>
+    <text x="40" y="354" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#c9d1d9">
+      • Invalid JSON transitions (e.g. unclosed quotes, illegal keys) set to -inf.
+    </text>
+    <text x="40" y="378" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" font-weight="700" fill="#7ee787">
+      ✓ Mathematically guarantees 100% syntactically valid JSON output!
+    </text>
+
+    <line x1="262" y1="400" x2="262" y2="420" stroke="#3fb950" stroke-width="2" marker-end="url(#arrowGreen)"/>
+
+    <!-- Step 3: Pydantic Validation Gate -->
+    <rect x="25" y="420" width="475" height="135" rx="8" fill="#161b22" stroke="#238636" stroke-width="1.5"/>
+    <text x="40" y="448" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14.5" font-weight="700" fill="#3fb950">Step 3: Pydantic Semantic Validation Gate</text>
+
+    <text x="40" y="474" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#f0f6fc">
+      Validates semantic constraints beyond syntax:
+    </text>
+    <text x="40" y="496" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#c9d1d9">
+      • Validates file path actually exists in repository commit tree.
+    </text>
+    <text x="40" y="516" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#c9d1d9">
+      • Line range bounds: start_line &gt; 0 and end_line &gt;= start_line.
+    </text>
+    <text x="40" y="538" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#7ee787">
+      • CWE code matches approved OWASP / MITRE taxonomy.
+    </text>
+
+    <!-- Branch: Success or Repair -->
+    <line x1="262" y1="555" x2="262" y2="575" stroke="#da3633" stroke-width="2" marker-end="url(#arrowRed)"/>
+
+    <!-- Step 4: Self-Healing Error Repair Loop -->
+    <rect x="25" y="575" width="475" height="150" rx="8" fill="#161b22" stroke="#da3633" stroke-width="1.5"/>
+    <text x="40" y="602" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14.5" font-weight="700" fill="#f85149">Step 4: Self-Healing Error Recovery Loop</text>
+
+    <text x="40" y="628" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#f0f6fc">
+      When Pydantic raises <tspan font-family="monospace" fill="#ff7b72">ValidationError</tspan>:
+    </text>
+    <text x="40" y="650" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#ff7b72">
+      1. Catches error traceback: "Input should be 'CRITICAL', 'HIGH' (got 'FATAL')"
+    </text>
+    <text x="40" y="670" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#c9d1d9">
+      2. Appends validation feedback directly into message history.
+    </text>
+    <text x="40" y="692" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#7ee787">
+      3. Re-invokes LLM for immediate self-correction (max 2 retries).
+    </text>
+    <text x="40" y="712" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#3fb950">
+      ✓ Achieves 99.98% tool execution success rate under enterprise production traffic!
+    </text>
+  </g>
+</svg>

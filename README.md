@@ -219,8 +219,16 @@ Zero-Trust architecture, identity federation, cryptographic engineering, OWASP A
 
 ---
 
+### 10. Agentic AI Architecture, Multi-Agent Systems & MCP
+
+#### 01. LLM Foundations & Token Engineering
+* [Transformer Attention Dynamics, Context Degradation & AST Code Slicing](10_Agentic_AI_Architecture_and_MCP/01_LLM_Foundations_and_Token_Engineering/01_transformer_attention_context_and_token_budgeting.md) — Mathematical foundations of Scaled Dot-Product Attention ($Q, K, V$, $\text{Softmax}(QK^T/\sqrt{d_k})V$), $\mathcal{O}(N^2)$ quadratic complexity vs FlashAttention I/O-aware SRAM tiling, Rotary Position Embedding (RoPE), GPU VRAM KV-cache allocation dynamics, empirical "Lost in the Middle" attention degradation curves, prefix prompt caching (TTFT drop from 2,800ms to <200ms), 4-tier enterprise token budgeting strategy, and AST-guided hierarchical code slicing with production Python Tree-sitter implementation.
+* [Vector Embeddings, HNSW Indexing & Structured Tool Calling Contracts](10_Agentic_AI_Architecture_and_MCP/01_LLM_Foundations_and_Token_Engineering/02_embeddings_vector_search_and_structured_tool_calling.md) — Dense high-dimensional vector representations, distance metrics mathematical comparison (Cosine vs Dot Product vs Euclidean $L_2$ equivalence on normalized vectors), multi-layer Hierarchical Navigable Small World (HNSW) graph skip-list routing ($M$, `efConstruction`, `efSearch`), PostgreSQL `pgvector` vs dedicated vector engines (Pinecone, Qdrant), post-filtering recall collapse vs native payload graphs, constrained decoding and grammar masking (CFG/GBNF), and Pydantic V2 tool calling contracts with automated self-healing error recovery loops.
+
+---
+
 ### 🚀 Upcoming Modules
-* **10. Agentic AI, Multi-Agent Systems & LangGraph** (`CORE.12`)
+* **10. Agentic AI: Sections 02–04** (Codebase RAG, LangGraph Orchestration & Live FastMCP Hands-on Reviewer)
 
 ---
 
