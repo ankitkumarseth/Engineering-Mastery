@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 740" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGradSec3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1117" />
+      <stop offset="100%" stop-color="#161b22" />
+    </linearGradient>
+    <linearGradient id="cardGradSec3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#21262d" />
+      <stop offset="100%" stop-color="#161b22" />
+    </linearGradient>
+    <linearGradient id="bolaGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#da3633" />
+      <stop offset="100%" stop-color="#f85149" />
+    </linearGradient>
+    <linearGradient id="ssrfGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#d29922" />
+      <stop offset="100%" stop-color="#e3b341" />
+    </linearGradient>
+    <linearGradient id="cicdGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#238636" />
+      <stop offset="100%" stop-color="#2ea043" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1100" height="740" fill="url(#bgGradSec3)" rx="12" stroke="#30363d" stroke-width="2"/>
+
+  <!-- Title & Subtitle -->
+  <text x="40" y="45" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f0f6fc">OWASP API Security, SSRF IMDSv2 &amp; Enterprise CI/CD Governance</text>
+  <text x="40" y="70" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e">CORE.11: BOLA/IDOR Object Ownership, SSRF Cloud Metadata Defense (IMDSv2), SAST (Checkmarx/Sonar) &amp; SCA (Black Duck)</text>
+
+  <!-- Section 1: OWASP API #1: BOLA / IDOR Defense (Left Column) -->
+  <g transform="translate(40, 100)">
+    <rect width="500" height="375" rx="8" fill="url(#cardGradSec1)" stroke="#da3633" stroke-width="2"/>
+    <rect width="500" height="6" rx="3" fill="url(#bolaGrad)"/>
+    <text x="25" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#f85149">1. OWASP API #1: Broken Object Level Auth (BOLA)</text>
+    <text x="25" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Predictable ID Enumeration &amp; Contextual Ownership Verification</text>
+
+    <g transform="translate(20, 72)">
+      <rect width="460" height="275" rx="6" fill="#161b22" stroke="#30363d"/>
+      <text x="15" y="20" font-family="monospace" font-size="10.5" font-weight="700" fill="#f85149">The BOLA / IDOR Exploit &amp; Architectural Fix</text>
+
+      <g transform="translate(15, 34)">
+        <!-- The Attack Flow -->
+        <g transform="translate(0, 0)">
+          <rect width="430" height="88" rx="4" fill="#0d1117" stroke="#da3633"/>
+          <text x="10" y="16" font-family="monospace" font-size="9" font-weight="700" fill="#ff7b72">VULNERABILITY: Missing Object Ownership Check</text>
+          <text x="10" y="30" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">1. Attacker logs in legitimately as User Alice (receives valid JWT).</text>
+          <text x="10" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">2. Modifies request URL: GET /api/v1/statements/1002 (Bob's statement!).</text>
+          <text x="10" y="58" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">3. Flawed Controller: SELECT * FROM statements WHERE id = 1002;</text>
+          <text x="10" y="74" font-family="monospace" font-size="8.5" fill="#f85149">❌ Alice accesses Bob's financial statement! Massive compliance breach!</text>
+        </g>
+
+        <!-- The Defense -->
+        <g transform="translate(0, 98)">
+          <rect width="430" height="124" rx="4" fill="#0d1117" stroke="#238636"/>
+          <text x="10" y="16" font-family="monospace" font-size="9.5" font-weight="700" fill="#3fb950">DEFENSE: Cryptographic Bound &amp; Tenant-Aware SQL</text>
+          <text x="10" y="30" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">1. Never trust user-supplied entity IDs in URLs!</text>
+          <text x="10" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">2. Extract User ID and Tenant ID directly from verified JWT claims.</text>
+
+          <g transform="translate(8, 52)">
+            <rect width="414" height="62" rx="3" fill="#161b22" stroke="#30363d"/>
+            <text x="8" y="16" font-family="monospace" font-size="8" font-weight="700" fill="#3fb950">Tenant-Aware Context Query (Automatic Multi-Tenant Barrier):</text>
+            <text x="8" y="32" font-family="monospace" font-size="8" fill="#7ee787">SELECT * FROM statements</text>
+            <text x="8" y="44" font-family="monospace" font-size="8" fill="#7ee787">WHERE id = :id AND tenant_id = :jwtTenantId AND user_id = :jwtUserId;</text>
+            <text x="8" y="56" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="7.5" fill="#8b949e">Unmatched rows return HTTP 404 / 403; zero cross-tenant leakage!</text>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- Section 2: SSRF & Cloud Metadata IMDSv2 (Right Column) -->
+  <g transform="translate(560, 100)">
+    <rect width="500" height="375" rx="8" fill="url(#cardGradSec1)" stroke="#d29922" stroke-width="2"/>
+    <rect width="500" height="6" rx="3" fill="url(#ssrfGrad)"/>
+    <text x="25" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#e3b341">2. SSRF &amp; Cloud Metadata Defense (IMDSv2)</text>
+    <text x="25" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Server-Side Request Forgery &amp; Session-Token Metadata Hardening</text>
+
+    <g transform="translate(20, 72)">
+      <rect width="460" height="275" rx="6" fill="#161b22" stroke="#30363d"/>
+      <text x="15" y="20" font-family="monospace" font-size="10.5" font-weight="700" fill="#e3b341">IMDSv1 Vulnerability vs IMDSv2 Token Challenge</text>
+
+      <g transform="translate(15, 34)">
+        <!-- IMDSv1 Vulnerability -->
+        <g transform="translate(0, 0)">
+          <rect width="430" height="88" rx="4" fill="#0d1117" stroke="#da3633"/>
+          <text x="10" y="16" font-family="monospace" font-size="9" font-weight="700" fill="#f85149">THE ATTACK: SSRF via Cloud Metadata (IMDSv1)</text>
+          <text x="10" y="30" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">1. Webhook / URL fetcher takes user input: ?url=http://169.254.169.254/...</text>
+          <text x="10" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">2. Under IMDSv1, a simple GET request extracts EC2 IAM Role credentials!</text>
+          <text x="10" y="60" font-family="monospace" font-size="8.5" fill="#f85149">❌ Attacker steals IAM role temporary keys; drains enterprise S3 buckets!</text>
+          <text x="10" y="74" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#8b949e">Capital One breach vector (WAF SSRF to metadata).</text>
+        </g>
+
+        <!-- IMDSv2 Solution -->
+        <g transform="translate(0, 98)">
+          <rect width="430" height="124" rx="4" fill="#0d1117" stroke="#238636"/>
+          <text x="10" y="16" font-family="monospace" font-size="9.5" font-weight="700" fill="#3fb950">THE ANTIDOTE: AWS IMDSv2 Session Token Challenge</text>
+          <text x="10" y="30" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">IMDSv2 strictly enforces a session-oriented two-step protocol:</text>
+
+          <g transform="translate(8, 44)">
+            <rect width="414" height="70" rx="3" fill="#161b22" stroke="#30363d"/>
+            <text x="8" y="14" font-family="monospace" font-size="8" font-weight="700" fill="#58a6ff">Step 1: PUT Request to obtain Session Token</text>
+            <text x="8" y="26" font-family="monospace" font-size="7.5" fill="#c9d1d9">PUT /latest/api/token (Header: X-aws-ec2-metadata-token-ttl-seconds: 21600)</text>
+            <text x="8" y="40" font-family="monospace" font-size="8" font-weight="700" fill="#3fb950">Step 2: GET Request presenting Session Token</text>
+            <text x="8" y="52" font-family="monospace" font-size="7.5" fill="#c9d1d9">GET /latest/meta-data/ (Header: X-aws-ec2-metadata-token: [token])</text>
+            <text x="8" y="64" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="7.5" fill="#7ee787">Simple HTTP GET SSRFs CANNOT inject PUT headers or traverse proxies!</text>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- Section 3: Enterprise CI/CD AppSec Pipeline (Bottom Banner) -->
+  <g transform="translate(40, 495)">
+    <rect width="1020" height="215" rx="8" fill="url(#cardGradSec1)" stroke="#238636" stroke-width="2"/>
+    <rect width="1020" height="6" rx="3" fill="url(#cicdGrad)"/>
+    <text x="25" y="30" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#3fb950">3. Enterprise CI/CD AppSec Pipeline: SAST (Sonar/Checkmarx) &amp; SCA (Black Duck)</text>
+    <text x="25" y="50" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Automated Pull Request Quality Gates, Static Taint Analysis, Open-Source License Governance &amp; CVE Blocking</text>
+
+    <g transform="translate(25, 68)">
+      <!-- Panel 1: SAST -->
+      <g transform="translate(0, 0)">
+        <rect width="310" height="125" rx="6" fill="#161b22" stroke="#30363d"/>
+        <text x="15" y="20" font-family="monospace" font-size="10.5" font-weight="700" fill="#58a6ff">SAST (Static Code Analysis)</text>
+        <text x="15" y="36" font-family="monospace" font-size="8.5" fill="#79c0ff">SonarQube &amp; Checkmarx</text>
+        <text x="15" y="52" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• Taint Analysis: Tracks untrusted input from HTTP</text>
+        <text x="15" y="66" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">  sources to database/OS sinks (SQLi, Command Injection)</text>
+        <text x="15" y="82" font-family="monospace" font-size="8.5" fill="#f85149">Quality Gate: ZERO Critical / High Findings</text>
+        <text x="15" y="96" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#8b949e">Detects hardcoded secrets, weak PRNG, and unsafe deserialization.</text>
+        <text x="15" y="112" font-family="monospace" font-size="7.5" fill="#7ee787">Blocks Git Pull Request merge automatically!</text>
+      </g>
+
+      <!-- Panel 2: SCA -->
+      <g transform="translate(345, 0)">
+        <rect width="320" height="125" rx="6" fill="#161b22" stroke="#238636"/>
+        <text x="15" y="20" font-family="monospace" font-size="10.5" font-weight="700" fill="#3fb950">SCA (Software Composition)</text>
+        <text x="15" y="36" font-family="monospace" font-size="8.5" fill="#7ee787">Black Duck / Snyk / Dependabot</text>
+        <text x="15" y="52" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• Transitive Dependency Scanning (Log4j, Spring4Shell)</text>
+        <text x="15" y="66" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• CVSS v3/v4 Score Evaluation: CVSS &gt;= 7.0 (High) breaks build</text>
+        <text x="15" y="82" font-family="monospace" font-size="8.5" fill="#e3b341">Open-Source License Governance:</text>
+        <text x="15" y="96" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#c9d1d9">• Blocks aggressive copyleft licenses (GPL v3, AGPL)</text>
+        <text x="15" y="110" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#7ee787">✓ Protects proprietary intellectual property from license viral leaks</text>
+      </g>
+
+      <!-- Panel 3: SBOM & Image Signing -->
+      <g transform="translate(685, 0)">
+        <rect width="310" height="125" rx="6" fill="#161b22" stroke="#8957e5"/>
+        <text x="15" y="20" font-family="monospace" font-size="10.5" font-weight="700" fill="#a371f7">Supply Chain &amp; Container Signing</text>
+        <text x="15" y="36" font-family="monospace" font-size="8.5" fill="#d2a8ff">SBOM (CycloneDX) &amp; Cosign</text>
+        <text x="15" y="52" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• Generates Software Bill of Materials (SBOM) for audit</text>
+        <text x="15" y="66" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• Sigstore / Cosign: Cryptographically signs Docker images</text>
+        <text x="15" y="82" font-family="monospace" font-size="8.5" fill="#3fb950">Kubernetes Admission Controller (Kyverno):</text>
+        <text x="15" y="96" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#c9d1d9">• Rejects unsigned container images at deploy time</text>
+        <text x="15" y="110" font-family="monospace" font-size="7.5" fill="#7ee787">✓ Zero unverified third-party code reaches production!</text>
+      </g>
+    </g>
+  </g>
+</svg>
