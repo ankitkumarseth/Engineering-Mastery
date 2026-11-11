@@ -1,0 +1,170 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 740" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGradAws4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1117" />
+      <stop offset="100%" stop-color="#161b22" />
+    </linearGradient>
+    <linearGradient id="cardGradAws4" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#21262d" />
+      <stop offset="100%" stop-color="#161b22" />
+    </linearGradient>
+    <linearGradient id="mgnGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff9900" />
+      <stop offset="100%" stop-color="#ffb84d" />
+    </linearGradient>
+    <linearGradient id="dmsGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1f6feb" />
+      <stop offset="100%" stop-color="#388bfd" />
+    </linearGradient>
+    <linearGradient id="gwGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8957e5" />
+      <stop offset="100%" stop-color="#a371f7" />
+    </linearGradient>
+    <marker id="arrowOrange4" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#ff9900" />
+    </marker>
+    <marker id="arrowBlue4" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#58a6ff" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1100" height="740" fill="url(#bgGradAws4)" rx="12" stroke="#30363d" stroke-width="2"/>
+
+  <!-- Title & Subtitle -->
+  <text x="40" y="45" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f0f6fc">AWS Workload Migration, Database Replication &amp; Hybrid Storage</text>
+  <text x="40" y="70" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e">SAP-C02 Domain 4: The 7 Rs, AWS MGN Block Replication, DMS + SCT, Snow Family, and Storage Gateway</text>
+
+  <!-- Section 1: Server Migration via AWS MGN & 7 Rs (Left Column) -->
+  <g transform="translate(40, 100)">
+    <rect width="500" height="375" rx="8" fill="url(#cardGradAws4)" stroke="#ff9900" stroke-width="2"/>
+    <rect width="500" height="6" rx="3" fill="url(#mgnGrad)"/>
+    <text x="25" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#ffb84d">1. Server Migration: AWS MGN &amp; The 7 Rs</text>
+    <text x="25" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Continuous Block-Level Replication with Zero Production Downtime</text>
+
+    <!-- Sub-card: MGN Architecture -->
+    <g transform="translate(20, 72)">
+      <rect width="460" height="275" rx="6" fill="#161b22" stroke="#30363d"/>
+      <text x="15" y="20" font-family="monospace" font-size="10.5" font-weight="700" fill="#ff9900">AWS Application Migration Service (MGN) Flow</text>
+
+      <g transform="translate(15, 34)">
+        <!-- Step 1: Agent & Replication -->
+        <g transform="translate(0, 0)">
+          <rect width="430" height="70" rx="4" fill="#0d1117" stroke="#ff9900"/>
+          <text x="10" y="16" font-family="monospace" font-size="9" font-weight="700" fill="#ffb84d">Step 1: Continuous Asynchronous Block Replication</text>
+          <text x="10" y="30" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• AWS Replication Agent installed on on-prem source server (Linux/Win)</text>
+          <text x="10" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• Streams OS-level block changes over TLS (Port 1500) to AWS Staging Area</text>
+          <text x="10" y="58" font-family="monospace" font-size="8" fill="#7ee787">✓ Zero impact on source app; writes mirrored to staging EBS volumes</text>
+        </g>
+
+        <!-- Step 2: Staging Area -->
+        <g transform="translate(0, 78)">
+          <rect width="430" height="66" rx="4" fill="#0d1117" stroke="#30363d"/>
+          <text x="10" y="16" font-family="monospace" font-size="9" font-weight="700" fill="#58a6ff">Step 2: Low-Cost Staging Area Subnet</text>
+          <text x="10" y="30" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• Lightweight t3.micro Replication Servers manage target EBS disks</text>
+          <text x="10" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• Cost-effective: Target EC2 production instances are NOT running yet!</text>
+          <text x="10" y="58" font-family="monospace" font-size="8" fill="#e3b341">Continuous sync keeps lag &lt; 1 second indefinitely.</text>
+        </g>
+
+        <!-- Step 3: Cutover -->
+        <g transform="translate(0, 152)">
+          <rect width="430" height="74" rx="4" fill="#0d1117" stroke="#238636"/>
+          <text x="10" y="16" font-family="monospace" font-size="9" font-weight="700" fill="#3fb950">Step 3: Non-Disruptive Testing &amp; Final Cutover</text>
+          <text x="10" y="30" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• Test Cutover: Spawns test EC2 without disrupting replication stream</text>
+          <text x="10" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• Final Cutover: Stops app on-prem, flushes last blocks, launches live EC2</text>
+          <text x="10" y="60" font-family="monospace" font-size="8" fill="#7ee787">✓ Total cutover downtime reduced to minutes (DNS TTL / final sync)</text>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- Section 2: Database Migration & Snow Family (Right Column) -->
+  <g transform="translate(560, 100)">
+    <rect width="500" height="375" rx="8" fill="url(#cardGradAws4)" stroke="#1f6feb" stroke-width="2"/>
+    <rect width="500" height="6" rx="3" fill="url(#dmsGrad)"/>
+    <text x="25" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#58a6ff">2. Database Migration &amp; Large Data Ingestion</text>
+    <text x="25" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">AWS DMS (Full Load + CDC), SCT &amp; Snow Family Tipping Points</text>
+
+    <g transform="translate(20, 72)">
+      <rect width="460" height="275" rx="6" fill="#161b22" stroke="#30363d"/>
+      <text x="15" y="20" font-family="monospace" font-size="10.5" font-weight="700" fill="#58a6ff">DMS + SCT &amp; DataSync vs Snowball</text>
+
+      <g transform="translate(15, 34)">
+        <!-- DMS and SCT -->
+        <g transform="translate(0, 0)">
+          <rect width="430" height="88" rx="4" fill="#0d1117" stroke="#1f6feb"/>
+          <text x="10" y="16" font-family="monospace" font-size="9" font-weight="700" fill="#79c0ff">AWS DMS + AWS Schema Conversion Tool (SCT)</text>
+          <text x="10" y="30" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• Homogeneous: Oracle -> RDS Oracle (DMS alone, zero schema change)</text>
+          <text x="10" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• Heterogeneous: Oracle -> Aurora PostgreSQL (SCT translates schema)</text>
+          <text x="10" y="58" font-family="monospace" font-size="8.5" fill="#e3b341">DMS Task: Full Load + Ongoing Change Data Capture (CDC)</text>
+          <text x="10" y="72" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#8b949e">Mines source database redo/binlogs continuously until final switchover.</text>
+        </g>
+
+        <!-- Data Ingestion Decision -->
+        <g transform="translate(0, 96)">
+          <rect width="430" height="126" rx="4" fill="#0d1117" stroke="#388bfd"/>
+          <text x="10" y="16" font-family="monospace" font-size="9.5" font-weight="700" fill="#388bfd">Data Transfer: AWS DataSync vs Snow Family</text>
+
+          <g transform="translate(10, 24)">
+            <rect width="410" height="42" rx="3" fill="#161b22" stroke="#30363d"/>
+            <text x="8" y="14" font-family="monospace" font-size="8.5" font-weight="700" fill="#7ee787">AWS DataSync (Network Transfer over DX / Internet)</text>
+            <text x="8" y="28" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#c9d1d9">Automated agent-based transfer up to 10 Gbps. Best for &lt; 100TB datasets.</text>
+          </g>
+
+          <g transform="translate(10, 72)">
+            <rect width="410" height="46" rx="3" fill="#161b22" stroke="#30363d"/>
+            <text x="8" y="14" font-family="monospace" font-size="8.5" font-weight="700" fill="#e3b341">AWS Snow Family (Offline Physical Appliance Transfer)</text>
+            <text x="8" y="26" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#c9d1d9">• Snowcone: 8TB usable | Snowball Edge: 80TB storage / EC2 compute</text>
+            <text x="8" y="38" font-family="monospace" font-size="7.5" fill="#7ee787">Tipping Point: When network transfer exceeds 1 week (> 100TB), use Snowball!</text>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- Section 3: Hybrid Storage Gateway & Amazon FSx (Bottom Banner) -->
+  <g transform="translate(40, 495)">
+    <rect width="1020" height="215" rx="8" fill="url(#cardGradAws4)" stroke="#8957e5" stroke-width="2"/>
+    <rect width="1020" height="6" rx="3" fill="url(#gwGrad)"/>
+    <text x="25" y="30" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#a371f7">3. Hybrid Storage Gateway Architecture &amp; Amazon FSx Family</text>
+    <text x="25" y="50" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Connecting On-Premises File Systems to S3 and Deploying Multi-Protocol FSx for NetApp ONTAP &amp; Windows</text>
+
+    <g transform="translate(25, 68)">
+      <!-- Panel 1: S3 File Gateway -->
+      <g transform="translate(0, 0)">
+        <rect width="310" height="125" rx="6" fill="#161b22" stroke="#30363d"/>
+        <text x="15" y="20" font-family="monospace" font-size="10.5" font-weight="700" fill="#58a6ff">AWS S3 File Gateway</text>
+        <text x="15" y="38" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• Presents standard NFS (v3/v4.1) &amp; SMB shares</text>
+        <text x="15" y="52" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• Files mapped directly 1:1 as native objects in S3</text>
+        <text x="15" y="68" font-family="monospace" font-size="8" fill="#3fb950">Local Cache: Sub-millisecond on-prem access</text>
+        <text x="15" y="82" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#8b949e">Frequently accessed files served directly from local SSDs;</text>
+        <text x="15" y="96" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#8b949e">asynchronously uploaded to S3 in background.</text>
+        <text x="15" y="112" font-family="monospace" font-size="7.5" fill="#7ee787">✓ Ideal for on-prem backups &amp; hybrid file sharing</text>
+      </g>
+
+      <!-- Panel 2: Volume & Tape Gateway -->
+      <g transform="translate(345, 0)">
+        <rect width="320" height="125" rx="6" fill="#161b22" stroke="#238636"/>
+        <text x="15" y="20" font-family="monospace" font-size="10.5" font-weight="700" fill="#3fb950">Volume &amp; Tape Gateways</text>
+        <text x="15" y="38" font-family="monospace" font-size="8.5" fill="#7ee787">Volume Gateway (iSCSI Block Storage):</text>
+        <text x="15" y="52" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#c9d1d9">• Cached Volumes: Primary data in S3; local cache in on-prem</text>
+        <text x="15" y="64" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#c9d1d9">• Stored Volumes: Primary data on-prem; async EBS snapshots</text>
+        <text x="15" y="80" font-family="monospace" font-size="8.5" fill="#e3b341">Tape Gateway (VTL Virtual Tape Library):</text>
+        <text x="15" y="94" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#c9d1d9">• Drop-in replacement for physical tape drives (iSCSI)</text>
+        <text x="15" y="108" font-family="monospace" font-size="7.5" fill="#7ee787">✓ Archives to S3 Glacier &amp; Glacier Deep Archive seamlessly</text>
+      </g>
+
+      <!-- Panel 3: Amazon FSx Family -->
+      <g transform="translate(685, 0)">
+        <rect width="310" height="125" rx="6" fill="#161b22" stroke="#8957e5"/>
+        <text x="15" y="20" font-family="monospace" font-size="10.5" font-weight="700" fill="#a371f7">Amazon FSx Family</text>
+        <text x="15" y="38" font-family="monospace" font-size="8.5" fill="#d2a8ff">FSx for NetApp ONTAP (Multi-Protocol):</text>
+        <text x="15" y="52" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#c9d1d9">• Concurrent NFS, SMB &amp; iSCSI protocols</text>
+        <text x="15" y="64" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#c9d1d9">• NetApp SnapMirror for seamless cloud migration</text>
+        <text x="15" y="78" font-family="monospace" font-size="8.5" fill="#58a6ff">FSx for Windows File Server (Native SMB):</text>
+        <text x="15" y="92" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#c9d1d9">• Multi-AZ failover, DFS Namespaces, AD integration</text>
+        <text x="15" y="108" font-family="monospace" font-size="7.5" fill="#7ee787">✓ Fully managed enterprise enterprise file shares</text>
+      </g>
+    </g>
+  </g>
+</svg>

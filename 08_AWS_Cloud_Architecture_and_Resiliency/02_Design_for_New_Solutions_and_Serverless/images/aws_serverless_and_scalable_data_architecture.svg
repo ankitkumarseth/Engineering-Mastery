@@ -1,0 +1,167 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 740" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGradAws2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1117" />
+      <stop offset="100%" stop-color="#161b22" />
+    </linearGradient>
+    <linearGradient id="cardGradAws2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#21262d" />
+      <stop offset="100%" stop-color="#161b22" />
+    </linearGradient>
+    <linearGradient id="srvGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#da3633" />
+      <stop offset="100%" stop-color="#f85149" />
+    </linearGradient>
+    <linearGradient id="edgeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1f6feb" />
+      <stop offset="100%" stop-color="#388bfd" />
+    </linearGradient>
+    <linearGradient id="dataGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#238636" />
+      <stop offset="100%" stop-color="#2ea043" />
+    </linearGradient>
+    <marker id="arrowOrange2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#ff9900" />
+    </marker>
+    <marker id="arrowGreen2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#3fb950" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1100" height="740" fill="url(#bgGradAws2)" rx="12" stroke="#30363d" stroke-width="2"/>
+
+  <!-- Title & Subtitle -->
+  <text x="40" y="45" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f0f6fc">AWS Serverless Architecture, Event-Driven Patterns &amp; Scalable Data Tiers</text>
+  <text x="40" y="70" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e">SAP-C02 Domain 2: Lambda Lifecycle, EventBridge, CloudFront Origin Groups, DynamoDB Global Tables &amp; Aurora Storage</text>
+
+  <!-- Section 1: Serverless Compute & Event-Driven Backbone (Left Column) -->
+  <g transform="translate(40, 100)">
+    <rect width="500" height="375" rx="8" fill="url(#cardGradAws2)" stroke="#da3633" stroke-width="2"/>
+    <rect width="500" height="6" rx="3" fill="url(#srvGrad)"/>
+    <text x="25" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#f85149">1. Serverless Compute &amp; Event-Driven Architecture</text>
+    <text x="25" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Lambda Concurrency Models, ECS Fargate &amp; Amazon EventBridge</text>
+
+    <!-- Sub-card: Lambda & EventBridge -->
+    <g transform="translate(20, 72)">
+      <rect width="460" height="275" rx="6" fill="#161b22" stroke="#30363d"/>
+      <text x="15" y="22" font-family="monospace" font-size="10.5" font-weight="700" fill="#ff7b72">Lambda Lifecycle &amp; Cold Start Defense</text>
+
+      <g transform="translate(15, 36)">
+        <!-- Lambda Lifecycle -->
+        <g transform="translate(0, 0)">
+          <rect width="430" height="74" rx="4" fill="#0d1117" stroke="#da3633"/>
+          <text x="12" y="18" font-family="monospace" font-size="9" font-weight="700" fill="#ff7b72">Lambda Execution Phases: [INIT] -> [INVOKE] -> [SHUTDOWN]</text>
+          <text x="12" y="32" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• Cold Start (INIT): Downloads code, starts runtime, runs static init</text>
+          <text x="12" y="46" font-family="monospace" font-size="8.5" fill="#e3b341">Provisioned Concurrency: Keeps pre-warmed execution environments ready!</text>
+          <text x="12" y="60" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#8b949e">Eliminates cold start latency for P99 critical payment / API paths.</text>
+        </g>
+
+        <!-- Container Orchestration -->
+        <g transform="translate(0, 82)">
+          <rect width="430" height="72" rx="4" fill="#0d1117" stroke="#30363d"/>
+          <text x="12" y="18" font-family="monospace" font-size="9" font-weight="700" fill="#58a6ff">Containers: ECS Fargate vs EKS Karpenter</text>
+          <text x="12" y="32" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• ECS Fargate: Serverless containers, zero EC2 management, fast launch</text>
+          <text x="12" y="46" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• EKS Karpenter: High-performance just-in-time Kubernetes node auto-scaler</text>
+          <text x="12" y="60" font-family="monospace" font-size="8" fill="#7ee787">✓ Karpenter provisions right-sized EC2 instances in seconds vs minutes</text>
+        </g>
+
+        <!-- EventBridge Bus -->
+        <g transform="translate(0, 162)">
+          <rect width="430" height="62" rx="4" fill="#0d1117" stroke="#238636"/>
+          <text x="12" y="18" font-family="monospace" font-size="9" font-weight="700" fill="#3fb950">Amazon EventBridge (Serverless Event Mesh)</text>
+          <text x="12" y="32" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• Custom Event Buses, Schema Registry, content-based pattern matching</text>
+          <text x="12" y="46" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• API Destinations: Routes events directly to 3rd-party webhooks without Lambda</text>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- Section 2: Edge Services & API Gateway (Right Column) -->
+  <g transform="translate(560, 100)">
+    <rect width="500" height="375" rx="8" fill="url(#cardGradAws2)" stroke="#1f6feb" stroke-width="2"/>
+    <rect width="500" height="6" rx="3" fill="url(#edgeGrad)"/>
+    <text x="25" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#58a6ff">2. Edge Routing &amp; High-Availability API Ingress</text>
+    <text x="25" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">CloudFront Origin Groups, HTTP vs REST APIs &amp; Edge Compute</text>
+
+    <!-- Sub-card: Edge Details -->
+    <g transform="translate(20, 72)">
+      <rect width="460" height="275" rx="6" fill="#161b22" stroke="#30363d"/>
+      <text x="15" y="22" font-family="monospace" font-size="10.5" font-weight="700" fill="#58a6ff">CloudFront Failover &amp; Edge Execution</text>
+
+      <g transform="translate(15, 36)">
+        <!-- CloudFront Origin Groups -->
+        <g transform="translate(0, 0)">
+          <rect width="430" height="76" rx="4" fill="#0d1117" stroke="#1f6feb"/>
+          <text x="12" y="18" font-family="monospace" font-size="9" font-weight="700" fill="#79c0ff">CloudFront Origin Groups (Automatic Multi-Region Failover)</text>
+          <text x="12" y="32" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• Primary Origin: US-East-1 ALB / S3 Bucket</text>
+          <text x="12" y="46" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• Secondary Origin: EU-West-1 ALB / S3 Bucket</text>
+          <text x="12" y="60" font-family="monospace" font-size="8.5" fill="#e3b341">Failover Criteria: HTTP 500, 502, 503, 504, or Connection Timeouts</text>
+        </g>
+
+        <!-- Lambda@Edge vs CloudFront Functions -->
+        <g transform="translate(0, 84)">
+          <rect width="430" height="78" rx="4" fill="#0d1117" stroke="#388bfd"/>
+          <text x="12" y="18" font-family="monospace" font-size="9" font-weight="700" fill="#58a6ff">Edge Compute: CloudFront Functions vs Lambda@Edge</text>
+          <text x="12" y="32" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• CloudFront Functions: Sub-millisecond, pure JS, cache key/header rewrites</text>
+          <text x="12" y="46" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• Lambda@Edge: Full Node.js/Python, network access, DB lookup, body parsing</text>
+          <text x="12" y="60" font-family="monospace" font-size="8" fill="#7ee787">Choose CF Functions for simple rewrites; Lambda@Edge for complex auth.</text>
+        </g>
+
+        <!-- API Gateway Comparison -->
+        <g transform="translate(0, 170)">
+          <rect width="430" height="54" rx="4" fill="#0d1117" stroke="#238636"/>
+          <text x="12" y="18" font-family="monospace" font-size="9" font-weight="700" fill="#3fb950">API Gateway: HTTP APIs vs REST APIs</text>
+          <text x="12" y="32" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• HTTP APIs: 71% cheaper, 60% lower latency, native OIDC/JWT authorizers</text>
+          <text x="12" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#8b949e">• REST APIs: Needed ONLY for API Keys, Usage Plans, WAF, or Request Validation</text>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- Section 3: Scalable Cloud Persistence Tier (Bottom Banner) -->
+  <g transform="translate(40, 495)">
+    <rect width="1020" height="215" rx="8" fill="url(#cardGradAws2)" stroke="#238636" stroke-width="2"/>
+    <rect width="1020" height="6" rx="3" fill="url(#dataGrad)"/>
+    <text x="25" y="30" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#3fb950">3. Scalable Data Persistence: DynamoDB Single-Table &amp; Aurora Distributed Storage</text>
+    <text x="25" y="50" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Global Tables Active-Active Replication, Aurora Serverless v2 ACU Scaling, and Aurora Global Database</text>
+
+    <g transform="translate(25, 68)">
+      <!-- Panel 1: DynamoDB Single-Table -->
+      <g transform="translate(0, 0)">
+        <rect width="310" height="125" rx="6" fill="#161b22" stroke="#30363d"/>
+        <text x="15" y="20" font-family="monospace" font-size="10.5" font-weight="700" fill="#58a6ff">DynamoDB Architecture</text>
+        <text x="15" y="38" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• Single-Table Design: PK (Partition) + SK (Sort)</text>
+        <text x="15" y="52" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• GSI: Asynchronous sparse secondary projections</text>
+        <text x="15" y="68" font-family="monospace" font-size="8" fill="#3fb950">Global Tables (Active-Active Multi-Region):</text>
+        <text x="15" y="82" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#c9d1d9">• Sub-second multi-region replication via DynamoDB Streams</text>
+        <text x="15" y="96" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#f85149">⚠️ Last-Writer-Wins (LWW) conflict resolution policy</text>
+        <text x="15" y="112" font-family="monospace" font-size="7.5" fill="#7ee787">DynamoDB On-Demand: Zero capacity planning for spiky workloads</text>
+      </g>
+
+      <!-- Panel 2: Aurora Storage Engine -->
+      <g transform="translate(345, 0)">
+        <rect width="320" height="125" rx="6" fill="#161b22" stroke="#238636"/>
+        <text x="15" y="20" font-family="monospace" font-size="10.5" font-weight="700" fill="#3fb950">Aurora Distributed Storage Engine</text>
+        <text x="15" y="38" font-family="monospace" font-size="8.5" fill="#7ee787">6-Way Multi-AZ Quorum Replication</text>
+        <text x="15" y="52" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#c9d1d9">• Data split into 10GB Protection Groups across 3 AZs (6 copies)</text>
+        <text x="15" y="66" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#c9d1d9">• Write Quorum: 4 of 6 nodes acknowledge</text>
+        <text x="15" y="80" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#c9d1d9">• Read Quorum: 3 of 6 nodes acknowledge</text>
+        <text x="15" y="96" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#3fb950">✓ Self-Healing: Continual background scan repairs failed disks</text>
+        <text x="15" y="110" font-family="monospace" font-size="7.5" fill="#8b949e">Zero write stops during single AZ crash + 1 disk failure</text>
+      </g>
+
+      <!-- Panel 3: Aurora Serverless v2 & Global DB -->
+      <g transform="translate(685, 0)">
+        <rect width="310" height="125" rx="6" fill="#161b22" stroke="#8957e5"/>
+        <text x="15" y="20" font-family="monospace" font-size="10.5" font-weight="700" fill="#a371f7">Serverless v2 &amp; Global DB</text>
+        <text x="15" y="38" font-family="monospace" font-size="8.5" fill="#d2a8ff">Aurora Serverless v2 (ACU Scaling):</text>
+        <text x="15" y="52" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#c9d1d9">• Scales in fractions of seconds by adjusting RAM/CPU dynamically</text>
+        <text x="15" y="66" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#c9d1d9">• 1 ACU = 2GB RAM + vCPU equivalent; scales from 0.5 to 128 ACUs</text>
+        <text x="15" y="82" font-family="monospace" font-size="8" fill="#58a6ff">Aurora Global Database:</text>
+        <text x="15" y="96" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#c9d1d9">• Dedicated storage-layer replication (&lt; 1 sec cross-region latency)</text>
+        <text x="15" y="110" font-family="monospace" font-size="7.5" fill="#7ee787">✓ DR failover under 1 minute with RPO &lt; 1 second</text>
+      </g>
+    </g>
+  </g>
+</svg>
