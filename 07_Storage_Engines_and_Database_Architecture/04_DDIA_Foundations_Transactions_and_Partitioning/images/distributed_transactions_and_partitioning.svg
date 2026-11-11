@@ -1,0 +1,174 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 740" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGradDdia" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1117" />
+      <stop offset="100%" stop-color="#161b22" />
+    </linearGradient>
+    <linearGradient id="cardGradDdia" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#21262d" />
+      <stop offset="100%" stop-color="#161b22" />
+    </linearGradient>
+    <linearGradient id="isoGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#da3633" />
+      <stop offset="100%" stop-color="#f85149" />
+    </linearGradient>
+    <linearGradient id="twoPcGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1f6feb" />
+      <stop offset="100%" stop-color="#388bfd" />
+    </linearGradient>
+    <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#238636" />
+      <stop offset="100%" stop-color="#2ea043" />
+    </linearGradient>
+    <marker id="arrowBlueD" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#58a6ff" />
+    </marker>
+    <marker id="arrowGreenD" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#3fb950" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1100" height="740" fill="url(#bgGradDdia)" rx="12" stroke="#30363d" stroke-width="2"/>
+
+  <!-- Title & Subtitle -->
+  <text x="40" y="45" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f0f6fc">Distributed Transactions, Isolation Anomalies &amp; Consistent Hashing (DDIA)</text>
+  <text x="40" y="70" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e">Snapshot Isolation vs. Write Skew, Two-Phase Commit (2PC) Blocking, and Virtual Node Partitioning</text>
+
+  <!-- Section 1: Snapshot Isolation & Write Skew (Left Column) -->
+  <g transform="translate(40, 100)">
+    <rect width="500" height="375" rx="8" fill="url(#cardGradDdia)" stroke="#da3633" stroke-width="2"/>
+    <rect width="500" height="6" rx="3" fill="url(#isoGrad)"/>
+    <text x="25" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#f85149">1. Snapshot Isolation &amp; The Write Skew Anomaly</text>
+    <text x="25" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Why Row-Level Locks Fail to Prevent Business Invariant Violations</text>
+
+    <!-- Write Skew Scenario -->
+    <g transform="translate(20, 72)">
+      <rect width="460" height="275" rx="6" fill="#161b22" stroke="#da3633"/>
+      <text x="15" y="20" font-family="monospace" font-size="10.5" font-weight="700" fill="#f85149">The Classic On-Call Doctors Invariant (Active Doctors &gt;= 1)</text>
+
+      <!-- Timeline Box -->
+      <g transform="translate(15, 34)">
+        <!-- Step 1 -->
+        <g transform="translate(0, 0)">
+          <rect width="430" height="48" rx="4" fill="#0d1117" stroke="#30363d"/>
+          <text x="10" y="18" font-family="monospace" font-size="9" fill="#79c0ff">Time t1: Initial DB State -> Alice: ON_CALL, Bob: ON_CALL (Count = 2)</text>
+          <text x="10" y="34" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#8b949e">Both Alice and Bob decide to go off-call simultaneously.</text>
+        </g>
+
+        <!-- Step 2 -->
+        <g transform="translate(0, 56)">
+          <rect width="430" height="62" rx="4" fill="#0d1117" stroke="#da3633"/>
+          <text x="10" y="18" font-family="monospace" font-size="9" fill="#e3b341">Time t2: Concurrent Snapshot Reads (Both see Count = 2)</text>
+          <text x="10" y="34" font-family="monospace" font-size="8.5" fill="#c9d1d9">Txn 1 (Alice): SELECT COUNT(*) -> 2. Count &gt;= 2, safe to leave!</text>
+          <text x="10" y="48" font-family="monospace" font-size="8.5" fill="#c9d1d9">Txn 2 (Bob):   SELECT COUNT(*) -> 2. Count &gt;= 2, safe to leave!</text>
+        </g>
+
+        <!-- Step 3 -->
+        <g transform="translate(0, 126)">
+          <rect width="430" height="68" rx="4" fill="#0d1117" stroke="#da3633"/>
+          <text x="10" y="18" font-family="monospace" font-size="9" fill="#f85149">Time t3: Concurrent Writes to DIFFERENT Rows!</text>
+          <text x="10" y="34" font-family="monospace" font-size="8.5" fill="#c9d1d9">Txn 1: UPDATE doctors SET on_call = false WHERE id = 'Alice'; COMMIT;</text>
+          <text x="10" y="48" font-family="monospace" font-size="8.5" fill="#c9d1d9">Txn 2: UPDATE doctors SET on_call = false WHERE id = 'Bob';   COMMIT;</text>
+          <text x="10" y="62" font-family="monospace" font-size="8.5" fill="#f85149">❌ Both Commits Succeed under Snapshot Isolation! Zero row conflict!</text>
+        </g>
+
+        <!-- Outcome -->
+        <g transform="translate(0, 200)">
+          <rect width="430" height="32" rx="4" fill="#da3633" fill-opacity="0.2" stroke="#da3633"/>
+          <text x="10" y="20" font-family="monospace" font-size="9" font-weight="700" fill="#f85149">INVARIANT VIOLATED: 0 Doctors On Call! Fix: Serializable Isolation</text>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- Section 2: Two-Phase Commit (Right Column) -->
+  <g transform="translate(560, 100)">
+    <rect width="500" height="375" rx="8" fill="url(#cardGradDdia)" stroke="#1f6feb" stroke-width="2"/>
+    <rect width="500" height="6" rx="3" fill="url(#twoPcGrad)"/>
+    <text x="25" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#58a6ff">2. Two-Phase Commit (2PC) &amp; Coordinator Blocking</text>
+    <text x="25" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Atomic Commit across Distributed Nodes &amp; The Indefinite Blocking Hazard</text>
+
+    <!-- 2PC Flow Diagram -->
+    <g transform="translate(20, 72)">
+      <rect width="460" height="275" rx="6" fill="#161b22" stroke="#30363d"/>
+      <text x="15" y="20" font-family="monospace" font-size="10.5" font-weight="700" fill="#79c0ff">The 2PC Protocol Execution Flow</text>
+
+      <g transform="translate(15, 34)">
+        <!-- Phase 1: Prepare -->
+        <g transform="translate(0, 0)">
+          <rect width="430" height="85" rx="4" fill="#0d1117" stroke="#388bfd"/>
+          <text x="10" y="18" font-family="monospace" font-size="9.5" font-weight="700" fill="#58a6ff">PHASE 1: PREPARE (Voting Phase)</text>
+          <text x="10" y="34" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">1. Coordinator sends PREPARE RPC to Node A (Payment) and Node B (Ledger).</text>
+          <text x="10" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">2. Nodes acquire row locks, write undo/redo to WAL, and vote "YES_COMMIT".</text>
+          <text x="10" y="64" font-family="monospace" font-size="8.5" fill="#e3b341">⚠️ IRREVOCABLE PROMISE: Nodes cannot abort once voting YES!</text>
+          <text x="10" y="78" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#8b949e">Row locks held across network round-trips.</text>
+        </g>
+
+        <!-- Phase 2: Commit -->
+        <g transform="translate(0, 95)">
+          <rect width="430" height="68" rx="4" fill="#0d1117" stroke="#238636"/>
+          <text x="10" y="18" font-family="monospace" font-size="9.5" font-weight="700" fill="#3fb950">PHASE 2: COMMIT (Execution Phase)</text>
+          <text x="10" y="34" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">1. Coordinator logs commit decision to disk and sends COMMIT RPC.</text>
+          <text x="10" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">2. Nodes write commit marker, release physical row locks, and ACK.</text>
+          <text x="10" y="62" font-family="monospace" font-size="8" fill="#3fb950">✓ Atomicity Guaranteed Across Distributed Databases</text>
+        </g>
+
+        <!-- The Blocking Dilemma -->
+        <g transform="translate(0, 172)">
+          <rect width="430" height="60" rx="4" fill="#0d1117" stroke="#da3633"/>
+          <text x="10" y="18" font-family="monospace" font-size="9" font-weight="700" fill="#f85149">The Coordinator Crash Failure Mode (In-Doubt State):</text>
+          <text x="10" y="32" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">If Coordinator dies after Phase 1, nodes are BLOCKED INDEFINITELY!</text>
+          <text x="10" y="46" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#f85149">Cannot commit, cannot abort, locks held forever until coordinator recovers.</text>
+          <text x="10" y="58" font-family="monospace" font-size="8" fill="#8b949e">Why modern microservices replace 2PC with Saga Orchestration!</text>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- Section 3: Consistent Hashing Ring (Bottom Banner) -->
+  <g transform="translate(40, 495)">
+    <rect width="1020" height="215" rx="8" fill="url(#cardGradDdia)" stroke="#238636" stroke-width="2"/>
+    <rect width="1020" height="6" rx="3" fill="url(#ringGrad)"/>
+    <text x="25" y="30" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#3fb950">3. Consistent Hashing &amp; Quorum Math: PACELC / CAP Foundations</text>
+    <text x="25" y="50" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Virtual Nodes (Vnodes), Minimal Key Reshuffling (1/N), and Tunable Quorums (R + W &gt; N)</text>
+
+    <g transform="translate(25, 68)">
+      <!-- Panel 1: Modulo vs Consistent Hashing -->
+      <g transform="translate(0, 0)">
+        <rect width="310" height="125" rx="6" fill="#161b22" stroke="#30363d"/>
+        <text x="15" y="20" font-family="monospace" font-size="11" font-weight="700" fill="#58a6ff">Consistent Hashing Ring</text>
+        <text x="15" y="38" font-family="monospace" font-size="8.5" fill="#f85149">Naive Hash Modulo: hash(key) % N</text>
+        <text x="15" y="52" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#8b949e">  Adding 1 node reshuffles ~90% of all keys!</text>
+        <text x="15" y="70" font-family="monospace" font-size="8.5" fill="#3fb950">Consistent Hashing Ring [0..2^32-1]</text>
+        <text x="15" y="84" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#c9d1d9">  Keys route to first node clockwise.</text>
+        <text x="15" y="98" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#3fb950">✓ Adding node rebalances only K / N keys!</text>
+        <text x="15" y="112" font-family="monospace" font-size="7.5" fill="#7ee787">Ketama Algorithm standard across Dynamo/Cassandra</text>
+      </g>
+
+      <!-- Panel 2: Virtual Nodes -->
+      <g transform="translate(345, 0)">
+        <rect width="320" height="125" rx="6" fill="#161b22" stroke="#238636"/>
+        <text x="15" y="20" font-family="monospace" font-size="11" font-weight="700" fill="#3fb950">Virtual Nodes (Vnodes) Defense</text>
+        <text x="15" y="38" font-family="monospace" font-size="8.5" fill="#e3b341">Problem: Non-Uniform Ring Distribution</text>
+        <text x="15" y="52" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#8b949e">  3 physical nodes can cluster unevenly on ring.</text>
+        <text x="15" y="70" font-family="monospace" font-size="8.5" fill="#3fb950">Solution: 256 Virtual Nodes per Physical Node</text>
+        <text x="15" y="84" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#c9d1d9">  Hashed 256 times across ring positions.</text>
+        <text x="15" y="98" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#3fb950">✓ Guarantees statistically perfect load balance</text>
+        <text x="15" y="112" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#7ee787">✓ Fast recovery: Rebalancing distributed across all nodes</text>
+      </g>
+
+      <!-- Panel 3: Quorum Math -->
+      <g transform="translate(685, 0)">
+        <rect width="310" height="125" rx="6" fill="#161b22" stroke="#d29922"/>
+        <text x="15" y="20" font-family="monospace" font-size="11" font-weight="700" fill="#e3b341">Quorum Math &amp; PACELC</text>
+        <text x="15" y="38" font-family="monospace" font-size="9" fill="#79c0ff">N = 3 Replicas | R = Read | W = Write</text>
+        <text x="15" y="56" font-family="monospace" font-size="8.5" fill="#3fb950">Strong Consistency: R + W &gt; N</text>
+        <text x="15" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#c9d1d9">  W=2, R=2 (2 + 2 = 4 &gt; 3) -> Overlap Guaranteed!</text>
+        <text x="15" y="84" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#8b949e">  Reader always sees latest committed write.</text>
+        <text x="15" y="100" font-family="monospace" font-size="8.5" fill="#f85149">Eventual Consistency: R + W &lt;= N</text>
+        <text x="15" y="114" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#8b949e">  W=1, R=1 -> Blazing speed; stale read risk!</text>
+      </g>
+    </g>
+  </g>
+</svg>
