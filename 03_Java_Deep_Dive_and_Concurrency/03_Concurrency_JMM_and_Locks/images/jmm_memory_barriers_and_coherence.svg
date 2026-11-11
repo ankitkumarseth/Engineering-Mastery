@@ -1,89 +1,125 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="100%" height="100%">
   <defs>
     <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0f172a"/>
-      <stop offset="100%" stop-color="#1e293b"/>
+      <stop offset="0%" stop-color="#0d1117" />
+      <stop offset="100%" stop-color="#161b22" />
     </linearGradient>
-    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
-      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.4"/>
-    </filter>
-    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 10 5 L 0 9 z" fill="#94a3b8"/>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#21262d" />
+      <stop offset="100%" stop-color="#161b22" />
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#8b949e" />
     </marker>
-    <marker id="arrowBlue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#58a6ff" />
     </marker>
-    <marker id="arrowGreen" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 10 5 L 0 9 z" fill="#34d399"/>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#3fb950" />
+    </marker>
+    <marker id="arrowAmber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#d29922" />
     </marker>
   </defs>
 
   <!-- Background -->
-  <rect width="960" height="540" fill="url(#bgGrad)"/>
+  <rect width="1200" height="900" fill="url(#bgGrad)" rx="12" stroke="#30363d" stroke-width="2"/>
 
   <!-- Title & Subtitle -->
-  <text x="480" y="38" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="700" fill="#f8fafc">Java Memory Model (JMM): Hardware Caches, Volatile &amp; Fences</text>
-  <text x="480" y="62" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#94a3b8">MESI Cache Coherence Protocol, Store Buffers &amp; Memory Barrier Semantics (Happens-Before)</text>
+  <text x="50" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="700" fill="#f0f6fc">Java Memory Model (JMM): Hardware Caches, Volatiles &amp; Fences</text>
+  <text x="50" y="78" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" fill="#8b949e">MESI Cache Coherence Protocol, Store Buffers &amp; Memory Barrier Semantics (Happens-Before)</text>
 
-  <!-- Core 1 Container -->
-  <g transform="translate(60, 90)">
-    <rect x="0" y="0" width="380" height="230" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5" filter="url(#shadow)"/>
-    <text x="190" y="28" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="15" font-weight="700" fill="#60a5fa">CPU Core 0 (Thread A - Writer)</text>
+  <!-- TOP SECTION: CPU CORES -->
+  <!-- Core 0 (Writer) -->
+  <g transform="translate(50, 105)">
+    <rect width="525" height="345" rx="10" fill="url(#cardGrad)" stroke="#1f6feb" stroke-width="2"/>
+    <rect width="525" height="6" rx="3" fill="#1f6feb"/>
+    <text x="25" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#58a6ff">CPU Core 0 (Thread A - Writer)</text>
 
-    <!-- Execution Engine -->
-    <rect x="25" y="45" width="330" height="45" rx="4" fill="#0f172a" stroke="#334155"/>
-    <text x="190" y="73" text-anchor="middle" font-family="monospace" font-size="12" fill="#f8fafc">Execution Unit: write volatile x = 1</text>
+    <!-- Execution Unit -->
+    <rect x="25" y="55" width="475" height="65" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="40" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" font-weight="700" fill="#f0f6fc">Execution Pipeline</text>
+    <text x="40" y="104" font-family="monospace" font-size="13" fill="#79c0ff">x = 42; volatile flag = true;</text>
 
     <!-- Store Buffer -->
-    <rect x="25" y="105" width="330" height="45" rx="4" fill="#7f1d1d" stroke="#ef4444"/>
-    <text x="190" y="125" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#fca5a5">Store Buffer (Asynchronous Write Hold)</text>
-    <text x="190" y="140" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" fill="#fca5a5">Without fence: CPU stalls delayed in buffer!</text>
+    <rect x="25" y="135" width="475" height="95" rx="6" fill="#3c1e1e" stroke="#da3633" stroke-width="1.5"/>
+    <text x="40" y="162" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#f85149">Store Buffer (Asynchronous Write FIFO)</text>
+    <text x="40" y="186" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#ff7b72">CPU writes immediately to buffer to avoid stalling on cache line ownership.</text>
+    <text x="40" y="208" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#ffa198">⚠️ Without StoreStore / StoreLoad fences, writes remain invisible to Core 1!</text>
 
     <!-- L1/L2 Cache -->
-    <rect x="25" y="165" width="330" height="45" rx="4" fill="#0f172a" stroke="#3b82f6"/>
-    <text x="190" y="193" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="12" font-weight="600" fill="#93c5fd">L1 / L2 Cache (Cache Line: 64 Bytes)</text>
+    <rect x="25" y="245" width="475" height="75" rx="6" fill="#161b22" stroke="#1f6feb"/>
+    <text x="40" y="274" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#58a6ff">L1 / L2 Data Cache (Cache Line: 64 Bytes)</text>
+    <text x="40" y="298" font-family="monospace" font-size="13" fill="#8b949e">MESI State: [M] Modified / [E] Exclusive</text>
   </g>
 
-  <!-- Core 2 Container -->
-  <g transform="translate(520, 90)">
-    <rect x="0" y="0" width="380" height="230" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1.5" filter="url(#shadow)"/>
-    <text x="190" y="28" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="15" font-weight="700" fill="#34d399">CPU Core 1 (Thread B - Reader)</text>
+  <!-- Core 1 (Reader) -->
+  <g transform="translate(625, 105)">
+    <rect width="525" height="345" rx="10" fill="url(#cardGrad)" stroke="#238636" stroke-width="2"/>
+    <rect width="525" height="6" rx="3" fill="#238636"/>
+    <text x="25" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#3fb950">CPU Core 1 (Thread B - Reader)</text>
 
-    <!-- Execution Engine -->
-    <rect x="25" y="45" width="330" height="45" rx="4" fill="#0f172a" stroke="#334155"/>
-    <text x="190" y="73" text-anchor="middle" font-family="monospace" font-size="12" fill="#f8fafc">Execution Unit: read volatile x</text>
+    <!-- Execution Unit -->
+    <rect x="25" y="55" width="475" height="65" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="40" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" font-weight="700" fill="#f0f6fc">Execution Pipeline</text>
+    <text x="40" y="104" font-family="monospace" font-size="13" fill="#7ee787">if (flag) { int r = x; }</text>
 
     <!-- Invalidate Queue -->
-    <rect x="25" y="105" width="330" height="45" rx="4" fill="#064e3b" stroke="#34d399"/>
-    <text x="190" y="125" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#a7f3d0">Invalidate Queue (Cache Invalidation)</text>
-    <text x="190" y="140" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" fill="#a7f3d0">Processes MESI invalidate signals</text>
+    <rect x="25" y="135" width="475" height="95" rx="6" fill="#122c1d" stroke="#238636" stroke-width="1.5"/>
+    <text x="40" y="162" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#3fb950">Invalidate Queue (Cache Invalidation FIFO)</text>
+    <text x="40" y="186" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#7ee787">Buffers MESI Invalidation messages from bus to avoid delaying Core 0.</text>
+    <text x="40" y="208" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#a7f3d0">⚠️ Without LoadLoad fence, CPU continues reading stale data from local L1 cache!</text>
 
     <!-- L1/L2 Cache -->
-    <rect x="25" y="165" width="330" height="45" rx="4" fill="#0f172a" stroke="#10b981"/>
-    <text x="190" y="193" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="12" font-weight="600" fill="#a7f3d0">L1 / L2 Cache (Cache Line: 64 Bytes)</text>
+    <rect x="25" y="245" width="475" height="75" rx="6" fill="#161b22" stroke="#238636"/>
+    <text x="40" y="274" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#3fb950">L1 / L2 Data Cache (Cache Line: 64 Bytes)</text>
+    <text x="40" y="298" font-family="monospace" font-size="13" fill="#8b949e">MESI State: [S] Shared / [I] Invalid</text>
   </g>
 
-  <!-- Interconnect / Memory Bus -->
-  <g transform="translate(60, 345)">
-    <rect x="0" y="0" width="840" height="45" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" filter="url(#shadow)"/>
-    <text x="420" y="27" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="13" font-weight="700" fill="#fbbf24">Interconnect Bus (MESI Protocol Snooping &amp; Invalidation Broadcast)</text>
+  <!-- MIDDLE SECTION: INTERCONNECT BUS -->
+  <g transform="translate(50, 470)">
+    <rect width="1100" height="75" rx="8" fill="url(#cardGrad)" stroke="#d29922" stroke-width="2"/>
+    <text x="30" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#e3b341">Hardware Interconnect Bus: MESI Protocol Snooping &amp; Invalidation Broadcast</text>
+    <text x="30" y="56" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Core 0 broadcasts "Read With Intent To Modify" (RWITM) • Core 1 snoops bus, marks cache line [I]nvalid, replies with ACK</text>
 
-    <line x1="190" y1="-25" x2="190" y2="0" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrow)"/>
-    <line x1="650" y1="-25" x2="650" y2="0" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="310" y1="-20" x2="310" y2="0" stroke="#d29922" stroke-width="2.5" marker-end="url(#arrowAmber)"/>
+    <line x1="885" y1="-20" x2="885" y2="0" stroke="#d29922" stroke-width="2.5" marker-end="url(#arrowAmber)"/>
   </g>
 
-  <!-- Main Memory (RAM) -->
-  <g transform="translate(60, 415)">
-    <rect x="0" y="0" width="840" height="105" rx="8" fill="#0f172a" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
-    <text x="420" y="25" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="14" font-weight="700" fill="#f8fafc">Main Memory (RAM) &amp; Volatile Memory Barrier Guarantees</text>
+  <!-- BOTTOM SECTION: MEMORY BARRIERS & JMM RULES -->
+  <g transform="translate(50, 565)">
+    <rect width="1100" height="300" rx="10" fill="url(#cardGrad)" stroke="#30363d" stroke-width="2"/>
+    <text x="30" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="700" fill="#f0f6fc">JVM Memory Barrier Assembly &amp; JMM Happens-Before Semantics</text>
 
-    <!-- Fences Definition -->
-    <rect x="20" y="40" width="380" height="50" rx="4" fill="#1e293b" stroke="#3b82f6"/>
-    <text x="35" y="60" font-family="monospace" font-size="11" font-weight="700" fill="#60a5fa">Volatile Write Barriers: StoreStore + StoreLoad</text>
-    <text x="35" y="77" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Flushes Store Buffer to L1/RAM; prevents write reordering.</text>
+    <!-- Left Box: Volatile Write -->
+    <rect x="30" y="55" width="505" height="225" rx="8" fill="#161b22" stroke="#1f6feb" stroke-width="1.5"/>
+    <text x="50" y="85" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#58a6ff">Volatile Write: StoreStore + StoreLoad</text>
+    
+    <text x="50" y="115" font-family="monospace" font-size="13.5" font-weight="700" fill="#79c0ff">[StoreStore Barrier]</text>
+    <text x="50" y="136" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Flushes preceding plain writes (x=42) before volatile write (flag=true).</text>
+    <text x="50" y="156" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Prevents compiler and CPU from reordering plain writes after volatile write.</text>
 
-    <rect x="440" y="40" width="380" height="50" rx="4" fill="#1e293b" stroke="#10b981"/>
-    <text x="455" y="60" font-family="monospace" font-size="11" font-weight="700" fill="#34d399">Volatile Read Barriers: LoadLoad + LoadStore</text>
-    <text x="455" y="77" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Invalidates stale cache; forces refresh from memory bus.</text>
+    <text x="50" y="186" font-family="monospace" font-size="13.5" font-weight="700" fill="#ff7b72">[StoreLoad Barrier / lock addl / mfence]</text>
+    <text x="50" y="207" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Forces full CPU store buffer flush into L1 cache before any subsequent load.</text>
+    <text x="50" y="227" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#f0f6fc">Eliminates Store-Load reordering (the most expensive x86 barrier).</text>
+    <text x="50" y="252" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" font-weight="700" fill="#7ee787">✓ Guarantees all prior writes are globally visible.</text>
+
+    <!-- Right Box: Volatile Read -->
+    <rect x="565" y="55" width="505" height="225" rx="8" fill="#161b22" stroke="#238636" stroke-width="1.5"/>
+    <text x="585" y="85" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#3fb950">Volatile Read: LoadLoad + LoadStore</text>
+
+    <text x="585" y="115" font-family="monospace" font-size="13.5" font-weight="700" fill="#7ee787">[LoadLoad Barrier]</text>
+    <text x="585" y="136" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Forces CPU to process pending items in Invalidate Queue.</text>
+    <text x="585" y="156" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Invalidates local cache line so subsequent loads read fresh data from bus.</text>
+
+    <text x="585" y="186" font-family="monospace" font-size="13.5" font-weight="700" fill="#7ee787">[LoadStore Barrier]</text>
+    <text x="585" y="207" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Prevents subsequent write operations from being reordered before this load.</text>
+
+    <text x="585" y="240" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#3fb950">
+      ⚡ Happens-Before Invariant: Write(flag) ⤏ Read(flag)
+    </text>
+    <text x="585" y="260" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#f0f6fc">
+      Because write(flag) HB read(flag), Core 1 is 100% guaranteed to see x == 42!
+    </text>
   </g>
 </svg>

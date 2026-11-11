@@ -8,7 +8,7 @@ At the Staff and Principal Engineer level, you must understand both the mathemat
 
 ## Architecture Blueprint: 2PC vs. Consistent Hashing
 
-![Distributed Transactions and Consistent Hashing Architecture](images/distributed_transactions_and_partitioning.svg)
+[![Distributed Transactions and Consistent Hashing Architecture](images/distributed_transactions_and_partitioning.svg)](images/distributed_transactions_and_partitioning.svg)
 
 ```
 ========================================================================================================================

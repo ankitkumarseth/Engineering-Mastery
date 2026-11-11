@@ -44,7 +44,7 @@ Under Contract-First design:
 
 The following diagram illustrates the complete enterprise contract lifecycle, from Git-backed OpenAPI specification to automated CI/CD linting, code generation, and Pact Consumer-Driven Contract Testing:
 
-![API Contract Governance & CDCT](images/api_contract_governance_cdct.svg)
+[![API Contract Governance & CDCT](images/api_contract_governance_cdct.svg)](images/api_contract_governance_cdct.svg)
 
 ---
 

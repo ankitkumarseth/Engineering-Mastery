@@ -1,101 +1,173 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="100%" height="100%">
   <defs>
     <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0f172a"/>
-      <stop offset="100%" stop-color="#1e293b"/>
+      <stop offset="0%" stop-color="#0d1117" />
+      <stop offset="100%" stop-color="#161b22" />
     </linearGradient>
-    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
-      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.4"/>
-    </filter>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#21262d" />
+      <stop offset="100%" stop-color="#161b22" />
+    </linearGradient>
   </defs>
 
   <!-- Background -->
-  <rect width="960" height="540" fill="url(#bgGrad)"/>
+  <rect width="1200" height="900" fill="url(#bgGrad)" rx="12" stroke="#30363d" stroke-width="2"/>
 
   <!-- Title & Subtitle -->
-  <text x="480" y="38" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="700" fill="#f8fafc">JVM Memory Architecture &amp; 64-bit Object Layout (JOL)</text>
-  <text x="480" y="62" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#94a3b8">Runtime Data Areas, Stack Frames, Compressed OOPs &amp; 8-Byte Alignment Padding</text>
+  <text x="50" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="700" fill="#f0f6fc">JVM Memory Architecture &amp; 64-bit Object Layout (JOL)</text>
+  <text x="50" y="78" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" fill="#8b949e">Runtime Data Areas, Stack Frames, Compressed OOPs &amp; 8-Byte Alignment Padding</text>
 
-  <!-- Left: JVM Runtime Data Areas -->
-  <g transform="translate(40, 85)">
-    <rect x="0" y="0" width="410" height="425" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5" filter="url(#shadow)"/>
-    <text x="205" y="28" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="15" font-weight="700" fill="#60a5fa">JVM Runtime Data Areas</text>
+  <!-- LEFT PANEL: JVM Runtime Data Areas -->
+  <g transform="translate(50, 110)">
+    <rect width="525" height="750" rx="10" fill="url(#cardGrad)" stroke="#1f6feb" stroke-width="2"/>
+    <rect width="525" height="6" rx="3" fill="#1f6feb"/>
+    
+    <text x="25" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#58a6ff">JVM Runtime Data Areas</text>
+    <text x="25" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" fill="#8b949e">Memory spaces partitioned between thread-private and heap-shared</text>
 
     <!-- Thread-Private Areas -->
-    <rect x="20" y="45" width="370" height="155" rx="6" fill="#0f172a" stroke="#475569"/>
-    <text x="35" y="68" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#94a3b8">Thread-Private (Per Thread)</text>
+    <rect x="25" y="85" width="475" height="235" rx="8" fill="#161b22" stroke="#30363d"/>
+    <text x="40" y="112" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14.5" font-weight="700" fill="#79c0ff">Thread-Private Areas (Per Active Thread)</text>
 
-    <!-- JVM Stack & Frame -->
-    <rect x="35" y="80" width="340" height="105" rx="4" fill="#1e293b" stroke="#334155"/>
-    <text x="50" y="100" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" fill="#cbd5e1">JVM Thread Stack (Stack Frames)</text>
-    <rect x="50" y="110" width="90" height="60" rx="3" fill="#0f172a" stroke="#3b82f6"/>
-    <text x="95" y="135" text-anchor="middle" font-family="monospace" font-size="9" fill="#93c5fd">Local Variables</text>
-    <text x="95" y="150" text-anchor="middle" font-family="monospace" font-size="9" fill="#60a5fa">Table (LVT)</text>
+    <!-- Stack Frame -->
+    <rect x="40" y="128" width="445" height="135" rx="6" fill="#0d1117" stroke="#30363d"/>
+    <text x="55" y="152" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#f0f6fc">JVM Thread Stack (Call Frames)</text>
 
-    <rect x="150" y="110" width="90" height="60" rx="3" fill="#0f172a" stroke="#34d399"/>
-    <text x="195" y="135" text-anchor="middle" font-family="monospace" font-size="9" fill="#a7f3d0">Operand Stack</text>
-    <text x="195" y="150" text-anchor="middle" font-family="monospace" font-size="9" fill="#34d399">(Bytecode Ops)</text>
+    <rect x="55" y="165" width="125" height="85" rx="4" fill="#12243d" stroke="#1f6feb"/>
+    <text x="117" y="192" text-anchor="middle" font-family="monospace" font-size="12" font-weight="700" fill="#79c0ff">Local Vars (LVT)</text>
+    <text x="117" y="214" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Primitives</text>
+    <text x="117" y="232" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">&amp; Object OOPs</text>
 
-    <rect x="250" y="110" width="125" height="60" rx="3" fill="#0f172a" stroke="#f59e0b"/>
-    <text x="312" y="135" text-anchor="middle" font-family="monospace" font-size="9" fill="#fde68a">Frame Data</text>
-    <text x="312" y="150" text-anchor="middle" font-family="monospace" font-size="9" fill="#fbbf24">(Const Pool Ref)</text>
+    <rect x="190" y="165" width="135" height="85" rx="4" fill="#122c1d" stroke="#238636"/>
+    <text x="257" y="192" text-anchor="middle" font-family="monospace" font-size="12" font-weight="700" fill="#3fb950">Operand Stack</text>
+    <text x="257" y="214" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">LIFO Evaluation</text>
+    <text x="257" y="232" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Bytecode Ops</text>
 
-    <!-- Shared: Heap Space -->
-    <rect x="20" y="215" width="370" height="120" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="1.5"/>
-    <text x="35" y="238" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#34d399">Shared: Java Heap (-Xms, -Xmx)</text>
+    <rect x="335" y="165" width="135" height="85" rx="4" fill="#2d2206" stroke="#d29922"/>
+    <text x="402" y="192" text-anchor="middle" font-family="monospace" font-size="12" font-weight="700" fill="#e3b341">Frame Data</text>
+    <text x="402" y="214" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Constant Pool</text>
+    <text x="402" y="232" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Dynamic Linking</text>
+
+    <text x="40" y="285" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#8b949e">
+      • Program Counter (PC) Register: Tracks current bytecode offset.
+    </text>
+    <text x="40" y="305" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#8b949e">
+      • Native Method Stack: Supports JNI C/C++ method invocations.
+    </text>
+
+    <!-- Shared Heap Space -->
+    <rect x="25" y="335" width="475" height="230" rx="8" fill="#161b22" stroke="#238636" stroke-width="1.5"/>
+    <text x="40" y="365" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#3fb950">Shared: Java Heap (-Xms, -Xmx)</text>
 
     <!-- Young Gen -->
-    <rect x="35" y="250" width="180" height="70" rx="4" fill="#064e3b" stroke="#34d399"/>
-    <text x="125" y="270" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" font-weight="700" fill="#a7f3d0">Young Generation</text>
-    <text x="125" y="288" text-anchor="middle" font-family="monospace" font-size="9" fill="#6ee7b7">Eden (80%)</text>
-    <text x="125" y="303" text-anchor="middle" font-family="monospace" font-size="9" fill="#6ee7b7">S0 (10%) | S1 (10%)</text>
+    <rect x="40" y="380" width="225" height="95" rx="6" fill="#122c1d" stroke="#238636"/>
+    <text x="152" y="408" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" font-weight="700" fill="#3fb950">Young Generation</text>
+    <text x="152" y="432" text-anchor="middle" font-family="monospace" font-size="12" fill="#7ee787">Eden Space (~80%)</text>
+    <text x="152" y="454" text-anchor="middle" font-family="monospace" font-size="12" fill="#7ee787">Survivor S0 (10%) | S1 (10%)</text>
 
     <!-- Old Gen -->
-    <rect x="225" y="250" width="150" height="70" rx="4" fill="#1e293b" stroke="#3b82f6"/>
-    <text x="300" y="275" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" fill="#60a5fa">Old (Tenured)</text>
-    <text x="300" y="295" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="9" fill="#cbd5e1">Long-lived objects</text>
+    <rect x="275" y="380" width="210" height="95" rx="6" fill="#12243d" stroke="#1f6feb"/>
+    <text x="380" y="408" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" font-weight="700" fill="#58a6ff">Old / Tenured Generation</text>
+    <text x="380" y="432" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#c9d1d9">Long-lived objects</text>
+    <text x="380" y="454" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">Promoted past GC threshold</text>
+
+    <text x="40" y="500" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#f0f6fc">
+      Generational Hypothesis: 95%+ of newly allocated objects die in Eden.
+    </text>
+    <text x="40" y="522" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#8b949e">
+      Survivor spaces alternate (from-space / to-space) during minor GC copying.
+    </text>
+    <text x="40" y="544" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#8b949e">
+      Tenuring threshold default: 15 (max bits in Mark Word age field = 4).
+    </text>
 
     <!-- Metaspace (Native) -->
-    <rect x="20" y="350" width="370" height="55" rx="6" fill="#0f172a" stroke="#a855f7" stroke-width="1.5"/>
-    <text x="35" y="372" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#c084fc">Shared: Metaspace (Native Off-Heap Memory)</text>
-    <text x="35" y="390" font-family="-apple-system, sans-serif" font-size="10" fill="#cbd5e1">Class metadata, method bytecode, runtime constant pool. (Replaced PermGen)</text>
+    <rect x="25" y="580" width="475" height="145" rx="8" fill="#161b22" stroke="#8957e5" stroke-width="1.5"/>
+    <text x="40" y="610" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#d2a8ff">Shared: Metaspace (Native C++ Heap Memory)</text>
+    <text x="40" y="636" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#f0f6fc">
+      Replaced PermGen in Java 8. Located in native OS process memory, not JVM heap.
+    </text>
+    <text x="40" y="660" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">
+      • Holds Class metadata, bytecode definitions, method tables, Constant Pool.
+    </text>
+    <text x="40" y="684" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">
+      • Governed by <tspan font-family="monospace" fill="#79c0ff">-XX:MetaspaceSize</tspan> and <tspan font-family="monospace" fill="#79c0ff">-XX:MaxMetaspaceSize</tspan>.
+    </text>
+    <text x="40" y="706" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#ff7b72">
+      ⚠️ ClassLoader leaks can exhaust OS virtual memory without triggering Java heap OOM!
+    </text>
   </g>
 
-  <!-- Right: 64-bit Object Memory Layout (JOL) -->
-  <g transform="translate(480, 85)">
-    <rect x="0" y="0" width="440" height="425" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" filter="url(#shadow)"/>
-    <text x="220" y="28" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="15" font-weight="700" fill="#fbbf24">64-Bit Object Header Layout (JOL)</text>
+  <!-- RIGHT PANEL: 64-bit Object Header Layout (JOL) -->
+  <g transform="translate(625, 110)">
+    <rect width="525" height="750" rx="10" fill="url(#cardGrad)" stroke="#d29922" stroke-width="2"/>
+    <rect width="525" height="6" rx="3" fill="#d29922"/>
+
+    <text x="25" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#e3b341">64-Bit Object Memory Layout (JOL)</text>
+    <text x="25" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" fill="#8b949e">Standard HotSpot 64-bit JVM Object Structure (Java Object Layout)</text>
 
     <!-- Component 1: Mark Word -->
-    <g transform="translate(25, 50)">
-      <rect x="0" y="0" width="390" height="90" rx="6" fill="#0f172a" stroke="#ef4444" stroke-width="1.5"/>
-      <text x="20" y="25" font-family="monospace" font-size="12" font-weight="700" fill="#f87171">1. Mark Word (8 Bytes = 64 Bits)</text>
-      <text x="20" y="45" font-family="-apple-system, sans-serif" font-size="11" fill="#cbd5e1">• Identity HashCode (31 bits)</text>
-      <text x="20" y="62" font-family="-apple-system, sans-serif" font-size="11" fill="#cbd5e1">• GC Age (4 bits: values 0..15 -> Tenuring threshold)</text>
-      <text x="20" y="79" font-family="-apple-system, sans-serif" font-size="11" fill="#cbd5e1">• Lock State Bits (01=Unlocked, 00=Lightweight, 10=Heavyweight)</text>
-    </g>
+    <rect x="25" y="85" width="475" height="170" rx="8" fill="#161b22" stroke="#da3633" stroke-width="1.5"/>
+    <text x="40" y="114" font-family="monospace" font-size="15" font-weight="700" fill="#f85149">1. Mark Word (8 Bytes = 64 Bits)</text>
+    
+    <text x="40" y="142" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" fill="#f0f6fc">
+      • <tspan font-weight="700" fill="#79c0ff">Identity HashCode</tspan> (31 bits): Computed lazily on first call.
+    </text>
+    <text x="40" y="168" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" fill="#f0f6fc">
+      • <tspan font-weight="700" fill="#3fb950">GC Age</tspan> (4 bits): Tracks survival count (0..15) before tenuring.
+    </text>
+    <text x="40" y="194" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" fill="#f0f6fc">
+      • <tspan font-weight="700" fill="#e3b341">Biased Lock</tspan> (1 bit) + <tspan font-weight="700" fill="#e3b341">Lock State</tspan> (2 bits):
+    </text>
+    <text x="55" y="218" font-family="monospace" font-size="13" fill="#8b949e">01 = Unlocked | 00 = Lightweight | 10 = Heavyweight</text>
+    <text x="55" y="238" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#ff7b72">Heavyweight lock replaces Mark Word with pointer to OS ObjectMonitor!</text>
 
     <!-- Component 2: Klass Pointer -->
-    <g transform="translate(25, 155)">
-      <rect x="0" y="0" width="390" height="75" rx="6" fill="#0f172a" stroke="#3b82f6" stroke-width="1.5"/>
-      <text x="20" y="25" font-family="monospace" font-size="12" font-weight="700" fill="#60a5fa">2. Klass Word (4 Bytes with +UseCompressedOops)</text>
-      <text x="20" y="45" font-family="-apple-system, sans-serif" font-size="11" fill="#cbd5e1">Points to Class metadata in Metaspace.</text>
-      <text x="20" y="62" font-family="-apple-system, sans-serif" font-size="10" fill="#93c5fd">8 Bytes if uncompressed (heaps &gt; 32GB without 8-byte shift).</text>
-    </g>
+    <rect x="25" y="270" width="475" height="140" rx="8" fill="#161b22" stroke="#1f6feb" stroke-width="1.5"/>
+    <text x="40" y="298" font-family="monospace" font-size="15" font-weight="700" fill="#58a6ff">2. Klass Word (4 Bytes with +UseCompressedClassPointers)</text>
 
-    <!-- Component 3: Instance Data -->
-    <g transform="translate(25, 245)">
-      <rect x="0" y="0" width="390" height="70" rx="6" fill="#0f172a" stroke="#34d399" stroke-width="1.5"/>
-      <text x="20" y="25" font-family="monospace" font-size="12" font-weight="700" fill="#34d399">3. Instance Data (Variable)</text>
-      <text x="20" y="45" font-family="-apple-system, sans-serif" font-size="11" fill="#cbd5e1">Primitive fields (int=4B, long=8B, boolean=1B) + Reference pointers.</text>
-      <text x="20" y="60" font-family="-apple-system, sans-serif" font-size="10" fill="#a7f3d0">Ordered by field width to minimize internal fragmentation.</text>
-    </g>
+    <text x="40" y="326" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" fill="#f0f6fc">
+      Direct pointer referencing native <tspan font-family="monospace" fill="#79c0ff">InstanceKlass</tspan> in Metaspace.
+    </text>
+    <text x="40" y="352" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">
+      • 4 Bytes with Compressed Class Pointers (default on heaps &lt; 32GB).
+    </text>
+    <text x="40" y="374" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">
+      • 8 Bytes if uncompressed (heaps ≥ 32GB without zero-base shifting).
+    </text>
+    <text x="40" y="396" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#7ee787">
+      Total Object Header = 8B (Mark Word) + 4B (Klass Word) = 12 Bytes!
+    </text>
+
+    <!-- Component 3: Instance Fields -->
+    <rect x="25" y="425" width="475" height="150" rx="8" fill="#161b22" stroke="#238636" stroke-width="1.5"/>
+    <text x="40" y="454" font-family="monospace" font-size="15" font-weight="700" fill="#3fb950">3. Instance Data (Field Values)</text>
+
+    <text x="40" y="482" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" fill="#f0f6fc">
+      Stores primitive fields and object reference pointers (OOPs).
+    </text>
+    <text x="40" y="508" font-family="monospace" font-size="13" fill="#7ee787">
+      boolean/byte: 1B • short/char: 2B • int/float: 4B • long/double: 8B
+    </text>
+    <text x="40" y="532" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">
+      • References (OOPs): 4 Bytes (+UseCompressedOops) vs 8 Bytes uncompressed.
+    </text>
+    <text x="40" y="554" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#c9d1d9">
+      JVM field layout reorders fields by size to minimize internal padding gaps.
+    </text>
 
     <!-- Component 4: Alignment Padding -->
-    <g transform="translate(25, 330)">
-      <rect x="0" y="0" width="390" height="65" rx="6" fill="#0f172a" stroke="#94a3b8" stroke-dasharray="3,3"/>
-      <text x="20" y="25" font-family="monospace" font-size="12" font-weight="700" fill="#cbd5e1">4. Alignment Padding (0 to 7 Bytes)</text>
-      <text x="20" y="45" font-family="-apple-system, sans-serif" font-size="11" fill="#94a3b8">Pad total object size to a strict multiple of 8 bytes (64-bit alignment).</text>
-    </g>
+    <rect x="25" y="590" width="475" height="135" rx="8" fill="#161b22" stroke="#8b949e" stroke-dasharray="3,3"/>
+    <text x="40" y="618" font-family="monospace" font-size="15" font-weight="700" fill="#c9d1d9">4. Alignment Padding (0 to 7 Bytes)</text>
+
+    <text x="40" y="646" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" fill="#f0f6fc">
+      HotSpot requires every object to start at an address multiple of 8 bytes.
+    </text>
+    <text x="40" y="670" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">
+      • If (Header + Instance Data) % 8 != 0, 1 to 7 dummy bytes are padded.
+    </text>
+    <text x="40" y="694" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#79c0ff">
+      Minimum Object Size: new Object() = 12B header + 4B padding = 16 Bytes!
+    </text>
   </g>
 </svg>

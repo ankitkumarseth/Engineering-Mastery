@@ -27,7 +27,7 @@ Producer ---> [ Partition 0: [0][1][2][3][4][5][6][7]... (Immutable Append-Only 
 
 The following diagram illustrates Kafka's on-disk partition segment layout, sparse offset indexing, kernel zero-copy transfer mechanics, and the In-Sync Replicas (ISR) quorum state machine:
 
-![Kafka Storage Internals and ISR Quorum](images/kafka_storage_and_zero_copy_architecture.svg)
+[![Kafka Storage Internals and ISR Quorum](images/kafka_storage_and_zero_copy_architecture.svg)](images/kafka_storage_and_zero_copy_architecture.svg)
 
 ---
 

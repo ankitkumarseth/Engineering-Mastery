@@ -51,7 +51,7 @@ In `new ReentrantLock(false)` (Non-Fair), when a thread calls `lock()`, it immed
 
 ## 3. AbstractQueuedSynchronizer (AQS) Architecture
 
-![AQS ReentrantLock Architecture](images/aqs_reentrant_lock_architecture.svg)
+[![AQS ReentrantLock Architecture](images/aqs_reentrant_lock_architecture.svg)](images/aqs_reentrant_lock_architecture.svg)
 
 AQS is the foundational framework behind `ReentrantLock`, `Semaphore`, `CountDownLatch`, `ReentrantReadWriteLock`, and `ThreadPoolExecutor.Worker`.
 

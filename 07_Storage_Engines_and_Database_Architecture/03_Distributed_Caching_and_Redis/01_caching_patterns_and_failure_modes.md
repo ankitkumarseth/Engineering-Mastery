@@ -65,7 +65,7 @@ t4      Writes Old Value V1 to Cache!
 
 ## 2. Production Cache Failure Modes & Defense Engineering
 
-![Distributed Caching & Redis Cluster Architecture](images/redis_cluster_and_cache_patterns.svg)
+[![Distributed Caching & Redis Cluster Architecture](images/redis_cluster_and_cache_patterns.svg)](images/redis_cluster_and_cache_patterns.svg)
 
 ### 2.1 Failure Mode 1: Cache Stampede (Thundering Herd / Dog-Piling)
 * **The Physics of the Incident**:

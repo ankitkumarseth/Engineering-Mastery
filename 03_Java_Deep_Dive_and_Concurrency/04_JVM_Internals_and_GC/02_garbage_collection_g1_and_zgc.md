@@ -69,7 +69,7 @@ A garbage collector cannot safely mutate or inspect object graphs if application
 
 G1GC was designed to replace CMS as the production-grade, general-purpose garbage collector for multi-gigabyte heaps, balancing high throughput with predictable pause-time targets.
 
-![G1GC vs ZGC Architecture](images/g1gc_vs_zgc_architecture.svg)
+[![G1GC vs ZGC Architecture](images/g1gc_vs_zgc_architecture.svg)](images/g1gc_vs_zgc_architecture.svg)
 
 ### 2.1 Region-Based Heap Partitioning
 Unlike traditional collectors where Young and Old generations are contiguous memory blocks, G1GC partitions the heap into approximately **2,048 equal-sized, non-contiguous Regions**:

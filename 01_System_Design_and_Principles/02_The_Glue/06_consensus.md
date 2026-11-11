@@ -22,7 +22,7 @@ Algorithms like Raft and Paxos assume a **Crash-Recovery** system model with fai
 ### Leader Election and Split Brain
 When a leader crashes, the remaining nodes must elect a new one. The biggest danger during an election is **Split Brain**—a scenario where two different nodes both believe they are the leader at the same time. If this happens, they will sequence updates differently, destroying the database's consistency.
 
-![Leader Election Quorums](images/leader_election_quorum.svg)
+[![Leader Election Quorums](images/leader_election_quorum.svg)](images/leader_election_quorum.svg)
 
 ```
         Election Quorum for A (Majority)    Election Quorum for E (Majority)
@@ -252,7 +252,7 @@ function CommitLogEntries():
 
 The difference between **Consensus (Raft/Paxos)** and **Atomic Commitment (2PC)** is one of the most frequently tested concepts in Staff and Principal distributed systems rounds:
 
-![Consensus vs Two-Phase Commit](images/consensus_vs_2pc_comparison.svg)
+[![Consensus vs Two-Phase Commit](images/consensus_vs_2pc_comparison.svg)](images/consensus_vs_2pc_comparison.svg)
 
 ### 1. The Definitive Distinction
 | Dimension | **Consensus (Raft / Paxos)** | **Two-Phase Commit (2PC)** |

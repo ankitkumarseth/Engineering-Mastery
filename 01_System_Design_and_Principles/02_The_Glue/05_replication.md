@@ -75,7 +75,7 @@ To fix this, we don't just write to one node or read from one node. We write to 
 If we have $n$ replicas, we configure a write quorum $w$ and a read quorum $r$.
 As long as **$w + r > n$**, it is mathematically guaranteed that the read quorum will intersect with the write quorum by at least one node. The reader simply looks at the timestamps returned by the nodes and picks the highest one.
 
-![Quorum Consistency and Overlap](images/quorum_intersection.svg)
+[![Quorum Consistency and Overlap](images/quorum_intersection.svg)](images/quorum_intersection.svg)
 
 ```
         Read Quorum (r=3)              Write Quorum (w=3)

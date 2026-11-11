@@ -8,7 +8,7 @@ Rate limiting is the first line of defense for public APIs and distributed micro
 
 Every rate limiter makes an engineering compromise between **burst accommodation, memory footprint, compute overhead, and strict rate smoothing**:
 
-![Rate Limiting Algorithms Comparison](images/rate_limiting_algorithms_comparison.svg)
+[![Rate Limiting Algorithms Comparison](images/rate_limiting_algorithms_comparison.svg)](images/rate_limiting_algorithms_comparison.svg)
 
 ### Algorithm Comparison Matrix
 

@@ -45,7 +45,7 @@ The Spring container is structured as a layered abstraction hierarchy:
 
 Every managed Spring bean transitions through a deterministic pipeline from metadata parsing to container shutdown:
 
-![Spring Bean Lifecycle and BPP Architecture](images/spring_bean_lifecycle_and_bpp.svg)
+[![Spring Bean Lifecycle and BPP Architecture](images/spring_bean_lifecycle_and_bpp.svg)](images/spring_bean_lifecycle_and_bpp.svg)
 
 ### Phase 1: Definition & Registration
 1. **Component Scanning**: Classpath scanners find classes annotated with `@Component`, `@Service`, `@Repository`, or `@Configuration` / `@Bean`.

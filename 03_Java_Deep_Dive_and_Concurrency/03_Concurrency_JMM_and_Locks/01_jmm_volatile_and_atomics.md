@@ -6,7 +6,7 @@ Understanding concurrency at a Staff/Principal level requires stepping below the
 
 ## 1. Hardware Architecture vs. The Java Memory Model
 
-![JMM Memory Barriers & Coherence](images/jmm_memory_barriers_and_coherence.svg)
+[![JMM Memory Barriers & Coherence](images/jmm_memory_barriers_and_coherence.svg)](images/jmm_memory_barriers_and_coherence.svg)
 
 ### Why Multi-Core Hardware Breaks Naive Code
 Modern CPUs do not execute instructions one-by-one directly against RAM. RAM access takes $\approx 50\text{–}100\text{ ns}$ ($\approx 200\text{ CPU cycles}$). To avoid stalling, modern CPUs employ:

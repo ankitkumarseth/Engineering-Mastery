@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 740" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="100%" height="100%">
   <defs>
     <linearGradient id="bgGradLsm" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#0d1117" />
@@ -26,140 +26,139 @@
     <marker id="arrowGreenLsm" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
       <path d="M 0 1 L 10 5 L 0 9 z" fill="#3fb950" />
     </marker>
-    <marker id="arrowGoldLsm" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 10 5 L 0 9 z" fill="#e3b341" />
-    </marker>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#010409" flood-opacity="0.8"/>
+    </filter>
   </defs>
 
   <!-- Background -->
-  <rect width="1100" height="740" fill="url(#bgGradLsm)" rx="12" stroke="#30363d" stroke-width="2"/>
+  <rect width="1200" height="900" fill="url(#bgGradLsm)" rx="12" stroke="#30363d" stroke-width="2"/>
 
   <!-- Title & Subtitle -->
-  <text x="40" y="45" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f0f6fc">Storage Engine Architecture: B-Trees vs. LSM-Trees (DDIA)</text>
-  <text x="40" y="70" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e">In-Place Page Modification vs. Append-Only Log-Structured Merge Trees &amp; Wide-Column Storage</text>
+  <g transform="translate(40, 45)">
+    <text font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="700" fill="#f0f6fc">Storage Engine Architecture: B-Trees vs. LSM-Trees (DDIA)</text>
+    <text y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" fill="#8b949e">In-Place Page Mutation vs. Append-Only Log-Structured Merge Trees &amp; Wide-Column Storage Physics</text>
+  </g>
 
-  <!-- Section 1: B-Tree Storage Engine (Left Column) -->
-  <g transform="translate(40, 100)">
-    <rect width="500" height="375" rx="8" fill="url(#cardGradLsm)" stroke="#1f6feb" stroke-width="2"/>
-    <rect width="500" height="6" rx="3" fill="url(#btreeGrad)"/>
-    <text x="25" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#58a6ff">1. B-Tree Storage Engine (In-Place Random I/O)</text>
-    <text x="25" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">RDBMS (InnoDB, Oracle, WiredTiger) — Read Optimized</text>
+  <!-- SECTION 1: B-Tree Storage Engine (Left Column) -->
+  <g transform="translate(40, 105)" filter="url(#shadow)">
+    <rect width="545" height="475" rx="10" fill="url(#cardGradLsm)" stroke="#1f6feb" stroke-width="2"/>
+    <rect width="545" height="6" rx="3" fill="url(#btreeGrad)"/>
+    <text x="24" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#58a6ff">1. B-Tree Storage Engine (In-Place Random I/O)</text>
+    <text x="24" y="56" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">RDBMS (InnoDB, Oracle, WiredTiger) — Read Optimized</text>
 
-    <!-- Write Path Pipeline -->
-    <g transform="translate(20, 72)">
-      <!-- Write Request -->
+    <g transform="translate(20, 75)">
+      <!-- Write Path -->
       <g transform="translate(0, 0)">
-        <rect width="460" height="75" rx="6" fill="#161b22" stroke="#30363d"/>
-        <text x="15" y="20" font-family="monospace" font-size="10.5" font-weight="700" fill="#79c0ff">Write Path: WAL + In-Memory Dirty Page</text>
-        <text x="15" y="38" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="9.5" fill="#c9d1d9">1. Write change record to sequential Write-Ahead Log (WAL / Redo).</text>
-        <text x="15" y="54" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="9.5" fill="#8b949e">2. Mutate fixed-size 8KB/16KB page in buffer cache (marked dirty).</text>
+        <rect width="505" height="115" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1.5"/>
+        <text x="16" y="24" font-family="monospace" font-size="14" font-weight="700" fill="#79c0ff">Write Path: WAL + In-Memory Dirty Page</text>
+        <text x="16" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">1. Write change record to sequential Write-Ahead Log (WAL / Redo).</text>
+        <text x="16" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">2. Mutate fixed-size 8KB/16KB page in buffer cache (marked dirty).</text>
+        <text x="16" y="94" font-family="monospace" font-size="12" fill="#7ee787">✓ Commits immediately once WAL is fsync'd to disk</text>
       </g>
 
       <!-- Arrow down -->
-      <line x1="230" y1="80" x2="230" y2="105" stroke="#58a6ff" stroke-width="2" marker-end="url(#arrowBlueLsm)"/>
-      <text x="240" y="96" font-family="monospace" font-size="8.5" fill="#58a6ff">Asynchronous Flush</text>
+      <line x1="252" y1="120" x2="252" y2="148" stroke="#58a6ff" stroke-width="2" marker-end="url(#arrowBlueLsm)"/>
+      <text x="264" y="138" font-family="monospace" font-size="12" font-weight="700" fill="#58a6ff">Asynchronous Flush</text>
 
       <!-- Flush & Doublewrite -->
-      <g transform="translate(0, 110)">
-        <rect width="460" height="155" rx="6" fill="#161b22" stroke="#1f6feb"/>
-        <text x="15" y="22" font-family="monospace" font-size="10.5" font-weight="700" fill="#58a6ff">Disk Flush &amp; Write Amplification Physics</text>
-        <text x="15" y="42" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="9.5" fill="#c9d1d9">• Must overwrite fixed 8KB/16KB page on disk in place.</text>
-        <text x="15" y="58" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="9.5" fill="#f85149">⚠️ Partial Page Write Risk: Torn page if crash during OS flush!</text>
+      <g transform="translate(0, 155)">
+        <rect width="505" height="225" rx="6" fill="#0d1117" stroke="#1f6feb" stroke-width="1.5"/>
+        <text x="16" y="24" font-family="monospace" font-size="14" font-weight="700" fill="#58a6ff">Disk Flush &amp; Write Amplification Physics</text>
+        <text x="16" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Must overwrite fixed 8KB/16KB page on disk in place.</text>
+        <text x="16" y="70" font-family="monospace" font-size="13" font-weight="700" fill="#f85149">⚠️ Partial Page Write Risk: Torn page if OS crashes mid-flush!</text>
 
-        <!-- Inner Box: Doublewrite Buffer -->
-        <g transform="translate(15, 70)">
-          <rect width="430" height="72" rx="4" fill="#0d1117" stroke="#30363d"/>
-          <text x="12" y="18" font-family="monospace" font-size="9" fill="#e3b341">Doublewrite Buffer (InnoDB) / Block Fracturing Defense</text>
-          <text x="12" y="34" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#8b949e">Pages written to contiguous disk array FIRST, then fsync'd to data file.</text>
-          <text x="12" y="50" font-family="monospace" font-size="8.5" fill="#f85149">High Write Amplification: Modifying 50 bytes writes ~32KB to disk!</text>
-          <text x="12" y="64" font-family="monospace" font-size="8.5" fill="#3fb950">✓ Ultra-Fast Point Reads: Single page read fetches exact target row</text>
+        <!-- Doublewrite Box -->
+        <g transform="translate(14, 82)">
+          <rect width="477" height="125" rx="4" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+          <text x="12" y="22" font-family="monospace" font-size="13" font-weight="700" fill="#e3b341">Doublewrite Buffer (InnoDB) / Fracturing Defense</text>
+          <text x="12" y="46" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Pages written to contiguous disk array FIRST, then fsync'd.</text>
+          <text x="12" y="70" font-family="monospace" font-size="13" fill="#f85149">High Write Amplification: 50-byte change writes ~32KB to disk!</text>
+          <text x="12" y="96" font-family="monospace" font-size="12" fill="#3fb950">✓ Ultra-Fast Point Reads: Single page read fetches exact target row</text>
         </g>
       </g>
     </g>
   </g>
 
-  <!-- Section 2: LSM-Tree Storage Engine (Right Column) -->
-  <g transform="translate(560, 100)">
-    <rect width="500" height="375" rx="8" fill="url(#cardGradLsm)" stroke="#238636" stroke-width="2"/>
-    <rect width="500" height="6" rx="3" fill="url(#lsmGrad)"/>
-    <text x="25" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#3fb950">2. LSM-Tree Storage Engine (Append-Only Write I/O)</text>
-    <text x="25" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">NoSQL (Cassandra, RocksDB, DynamoDB) — Write Optimized</text>
+  <!-- SECTION 2: LSM-Tree Storage Engine (Right Column) -->
+  <g transform="translate(615, 105)" filter="url(#shadow)">
+    <rect width="545" height="475" rx="10" fill="url(#cardGradLsm)" stroke="#238636" stroke-width="2"/>
+    <rect width="545" height="6" rx="3" fill="url(#lsmGrad)"/>
+    <text x="24" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#3fb950">2. LSM-Tree Storage Engine (Append-Only Write I/O)</text>
+    <text x="24" y="56" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">NoSQL (Cassandra, RocksDB, DynamoDB) — Write Optimized</text>
 
-    <!-- LSM Pipeline Visual -->
-    <g transform="translate(20, 72)">
-      <!-- Memtable + Commit Log -->
+    <g transform="translate(20, 75)">
+      <!-- Memtable Box -->
       <g transform="translate(0, 0)">
-        <rect width="460" height="75" rx="6" fill="#161b22" stroke="#238636"/>
-        <text x="15" y="20" font-family="monospace" font-size="10.5" font-weight="700" fill="#7ee787">In-Memory Memtable (SkipList) &amp; Commit Log</text>
-        <text x="15" y="38" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="9.5" fill="#c9d1d9">1. Sequential append to disk Commit Log (Crash recovery only).</text>
-        <text x="15" y="54" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="9.5" fill="#3fb950">2. Insert into in-memory sorted Memtable (Zero disk seek! &lt; 1ms write).</text>
+        <rect width="505" height="115" rx="6" fill="#0d1117" stroke="#238636" stroke-width="1.5"/>
+        <text x="16" y="24" font-family="monospace" font-size="14" font-weight="700" fill="#7ee787">In-Memory Memtable (SkipList) &amp; Commit Log</text>
+        <text x="16" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">1. Sequential append to disk Commit Log (Crash recovery only).</text>
+        <text x="16" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">2. Insert into in-memory sorted Memtable (Zero disk seek! &lt; 1ms write).</text>
+        <text x="16" y="94" font-family="monospace" font-size="12" fill="#7ee787">✓ Zero disk seek latency on high-throughput ingest paths</text>
       </g>
 
       <!-- Arrow down -->
-      <line x1="230" y1="80" x2="230" y2="105" stroke="#3fb950" stroke-width="2" marker-end="url(#arrowGreenLsm)"/>
-      <text x="240" y="96" font-family="monospace" font-size="8.5" fill="#3fb950">Flush Threshold (64MB)</text>
+      <line x1="252" y1="120" x2="252" y2="148" stroke="#3fb950" stroke-width="2" marker-end="url(#arrowGreenLsm)"/>
+      <text x="264" y="138" font-family="monospace" font-size="12" font-weight="700" fill="#3fb950">Flush Threshold (64MB)</text>
 
       <!-- SSTables & Compaction -->
-      <g transform="translate(0, 110)">
-        <rect width="460" height="155" rx="6" fill="#161b22" stroke="#238636"/>
-        <text x="15" y="22" font-family="monospace" font-size="10.5" font-weight="700" fill="#3fb950">Immutable SSTables &amp; Leveled Compaction</text>
-        <text x="15" y="42" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="9.5" fill="#c9d1d9">• Memtable flushes as sorted, immutable SSTable on disk.</text>
-        <text x="15" y="58" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="9.5" fill="#7ee787">✓ Zero in-place overwrites; writes are 100% sequential!</text>
+      <g transform="translate(0, 155)">
+        <rect width="505" height="225" rx="6" fill="#0d1117" stroke="#238636" stroke-width="1.5"/>
+        <text x="16" y="24" font-family="monospace" font-size="14" font-weight="700" fill="#3fb950">Immutable SSTables &amp; Leveled Compaction</text>
+        <text x="16" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Memtable flushes as sorted, immutable SSTable on disk.</text>
+        <text x="16" y="70" font-family="monospace" font-size="13" fill="#7ee787">✓ Zero in-place overwrites: writes are 100% sequential!</text>
 
-        <!-- Inner Box: Read Path & Bloom Filter -->
-        <g transform="translate(15, 70)">
-          <rect width="430" height="72" rx="4" fill="#0d1117" stroke="#30363d"/>
-          <text x="12" y="18" font-family="monospace" font-size="9" fill="#79c0ff">Read Path: Bloom Filters + Sparse Index</text>
-          <text x="12" y="34" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#8b949e">Bloom filters check every SSTable in RAM to eliminate wasted disk seeks.</text>
-          <text x="12" y="50" font-family="monospace" font-size="8.5" fill="#3fb950">Leveled Compaction merges sorted runs in background, purging old keys.</text>
-          <text x="12" y="64" font-family="monospace" font-size="8.5" fill="#e3b341">Trade-off: Higher Read Amplification (checks Memtable + multiple SSTables)</text>
+        <!-- Read Path & Bloom Filter -->
+        <g transform="translate(14, 82)">
+          <rect width="477" height="125" rx="4" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+          <text x="12" y="22" font-family="monospace" font-size="13" font-weight="700" fill="#79c0ff">Read Path: Bloom Filters + Sparse Index</text>
+          <text x="12" y="46" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Bloom filters check every SSTable in RAM to eliminate wasted seeks.</text>
+          <text x="12" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Leveled Compaction merges sorted runs in background, purging keys.</text>
+          <text x="12" y="96" font-family="monospace" font-size="12" fill="#e3b341">Trade-off: Higher Read Amplification (checks Memtable + SSTables)</text>
         </g>
       </g>
     </g>
   </g>
 
-  <!-- Section 3: Wide-Column & Cassandra Internals (Bottom Banner) -->
-  <g transform="translate(40, 495)">
-    <rect width="1020" height="215" rx="8" fill="url(#cardGradLsm)" stroke="#d29922" stroke-width="2"/>
-    <rect width="1020" height="6" rx="3" fill="url(#wideGrad)"/>
-    <text x="25" y="30" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#e3b341">3. Wide-Column Modeling &amp; The Tombstone Garbage Collection Trap</text>
-    <text x="25" y="50" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Partition Keys (Hash Ring Placement), Clustering Keys (On-Disk Sort Order), and Tombstone Scanning Timeouts</text>
+  <!-- SECTION 3: Wide-Column & Cassandra Internals (Bottom Row) -->
+  <g transform="translate(40, 605)" filter="url(#shadow)">
+    <rect width="1120" height="260" rx="10" fill="url(#cardGradLsm)" stroke="#d29922" stroke-width="2"/>
+    <rect width="1120" height="6" rx="3" fill="url(#wideGrad)"/>
+    <text x="24" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#e3b341">3. Wide-Column Modeling &amp; The Tombstone Garbage Collection Trap</text>
+    <text x="24" y="56" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Partition Keys (Hash Ring Placement), Clustering Keys (On-Disk Sort Order) &amp; Tombstone Scanning Latency</text>
 
-    <g transform="translate(25, 68)">
-      <!-- Panel 1: Primary Key Anatomy -->
+    <g transform="translate(20, 72)">
+      <!-- Panel 1: Primary Key -->
       <g transform="translate(0, 0)">
-        <rect width="310" height="125" rx="6" fill="#161b22" stroke="#30363d"/>
-        <text x="15" y="20" font-family="monospace" font-size="11" font-weight="700" fill="#58a6ff">Compound Primary Key</text>
-        <text x="15" y="38" font-family="monospace" font-size="9" fill="#79c0ff">PRIMARY KEY ((card_id), txn_time, txn_id)</text>
-        <text x="15" y="56" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• <tspan font-family="monospace" fill="#3fb950">(card_id)</tspan>: Partition Key</text>
-        <text x="15" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#8b949e">  Murmur3 token determines node placement.</text>
-        <text x="15" y="86" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• <tspan font-family="monospace" fill="#e3b341">txn_time, txn_id</tspan>: Clustering Keys</text>
-        <text x="15" y="100" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#8b949e">  Physical sort order inside SSTable data block.</text>
-        <text x="15" y="116" font-family="monospace" font-size="8" fill="#3fb950">Query-First Schema: Design tables per query!</text>
+        <rect width="345" height="165" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+        <text x="16" y="24" font-family="monospace" font-size="14" font-weight="700" fill="#58a6ff">Compound Primary Key</text>
+        <text x="16" y="46" font-family="monospace" font-size="12" fill="#79c0ff">PRIMARY KEY ((card_id), txn_time)</text>
+        <text x="16" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• <tspan fill="#3fb950" font-weight="700">(card_id)</tspan>: Partition Key</text>
+        <text x="16" y="92" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#8b949e">  Murmur3 token dictates node placement.</text>
+        <text x="16" y="116" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• <tspan fill="#e3b341" font-weight="700">txn_time</tspan>: Clustering Key</text>
+        <text x="16" y="142" font-family="monospace" font-size="12" fill="#3fb950">✓ Query-First: Design tables per query!</text>
       </g>
 
-      <!-- Panel 2: Tombstone Lifecycle -->
-      <g transform="translate(345, 0)">
-        <rect width="320" height="125" rx="6" fill="#161b22" stroke="#da3633"/>
-        <text x="15" y="20" font-family="monospace" font-size="11" font-weight="700" fill="#f85149">The Tombstone Hazard (DELETEs)</text>
-        <text x="15" y="38" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">1. DELETE does NOT remove data immediately!</text>
-        <text x="15" y="52" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">2. Appends a <tspan font-family="monospace" fill="#f85149">Tombstone Marker</tspan> with timestamp.</text>
-        <text x="15" y="68" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#e3b341">• Held in SSTables for <tspan font-family="monospace">gc_grace_seconds (10 days)</tspan></text>
-        <text x="15" y="82" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#8b949e">  Ensures offline nodes receive delete on repair.</text>
-        <text x="15" y="98" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#f85149">❌ Over 100k tombstones scanned = ReadTimeout!</text>
-        <text x="15" y="114" font-family="monospace" font-size="8" fill="#f85149">Symptom: Slow queries and OOM in Cassandra</text>
+      <!-- Panel 2: Tombstone Hazard -->
+      <g transform="translate(365, 0)">
+        <rect width="360" height="165" rx="6" fill="#161b22" stroke="#da3633" stroke-width="1.5"/>
+        <text x="16" y="24" font-family="monospace" font-size="14" font-weight="700" fill="#f85149">The Tombstone Hazard (DELETEs)</text>
+        <text x="16" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">1. DELETE does NOT remove data immediately!</text>
+        <text x="16" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">2. Appends a <tspan fill="#f85149" font-weight="700">Tombstone Marker</tspan> with timestamp.</text>
+        <text x="16" y="94" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#e3b341">• Held for <tspan font-family="monospace">gc_grace_seconds (10 days)</tspan></text>
+        <text x="16" y="118" font-family="monospace" font-size="13" font-weight="700" fill="#f85149">❌ Scanning &gt; 100k tombstones = Timeout!</text>
+        <text x="16" y="142" font-family="monospace" font-size="12" fill="#f85149">Symptom: High P99 latency &amp; Cassandra OOM</text>
       </g>
 
       <!-- Panel 3: Hot Partition Mitigation -->
-      <g transform="translate(685, 0)">
-        <rect width="310" height="125" rx="6" fill="#161b22" stroke="#30363d"/>
-        <text x="15" y="20" font-family="monospace" font-size="11" font-weight="700" fill="#3fb950">Mitigating Hot Partitions</text>
-        <text x="15" y="38" font-family="monospace" font-size="9" fill="#e3b341">Problem: Celebrity / High-Volume Key</text>
-        <text x="15" y="54" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• All traffic for 1 account overwhelms 1 node.</text>
-        <text x="15" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#3fb950">Solution 1: Synthetic Salting (Bucketing)</text>
-        <text x="15" y="84" font-family="monospace" font-size="8" fill="#7ee787">  part_key = card_id + "_" + (hash % 10)</text>
-        <text x="15" y="98" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#3fb950">Solution 2: Split Read / Write Models</text>
-        <text x="15" y="114" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#8b949e">  Keep bounded partition size &lt; 100MB.</text>
+      <g transform="translate(745, 0)">
+        <rect width="335" height="165" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+        <text x="16" y="24" font-family="monospace" font-size="14" font-weight="700" fill="#3fb950">Mitigating Hot Partitions</text>
+        <text x="16" y="48" font-family="monospace" font-size="13" fill="#e3b341">Problem: Celebrity / Spike Key</text>
+        <text x="16" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• All traffic for 1 key overwhelms 1 node.</text>
+        <text x="16" y="94" font-family="monospace" font-size="13" fill="#3fb950">Solution: Synthetic Salting (Bucketing)</text>
+        <text x="16" y="118" font-family="monospace" font-size="12" fill="#7ee787">  part_key = card_id + "_" + (hash % 10)</text>
+        <text x="16" y="142" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#8b949e">Keep bounded partition size &lt; 100MB.</text>
       </g>
     </g>
   </g>

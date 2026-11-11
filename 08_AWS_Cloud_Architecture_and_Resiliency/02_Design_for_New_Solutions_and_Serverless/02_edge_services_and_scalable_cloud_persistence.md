@@ -13,7 +13,7 @@ This playbook covers:
 
 ## Architecture Blueprint: Edge Services & Distributed Data Tier
 
-![Edge Routing and Scalable Cloud Persistence](images/aws_serverless_and_scalable_data_architecture.svg)
+[![Edge Routing and Scalable Cloud Persistence](images/aws_serverless_and_scalable_data_architecture.svg)](images/aws_serverless_and_scalable_data_architecture.svg)
 
 ```
 ========================================================================================================================

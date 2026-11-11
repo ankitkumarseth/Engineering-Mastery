@@ -11,7 +11,7 @@ This playbook covers:
 
 ## Architecture Blueprint: JWT Lifecycle & Policy Engines
 
-![JWT Internals and Revocation Architecture](images/oauth2_oidc_and_jwt_revocation_architecture.svg)
+[![JWT Internals and Revocation Architecture](images/oauth2_oidc_and_jwt_revocation_architecture.svg)](images/oauth2_oidc_and_jwt_revocation_architecture.svg)
 
 ```
 ========================================================================================================================

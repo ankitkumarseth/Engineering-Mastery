@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 720" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 920" width="100%" height="100%">
   <defs>
     <linearGradient id="bgGradApi1" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#0d1117" />
@@ -27,152 +27,160 @@
   </defs>
 
   <!-- Background -->
-  <rect width="1100" height="720" fill="url(#bgGradApi1)" rx="12" stroke="#30363d" stroke-width="2"/>
+  <rect width="1200" height="920" fill="url(#bgGradApi1)" rx="12" stroke="#30363d" stroke-width="2"/>
 
   <!-- Title & Subtitle -->
-  <text x="40" y="45" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f0f6fc">Richardson Maturity Model &amp; Enterprise REST Semantics</text>
-  <text x="40" y="70" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e">From The Swamp of POX (Level 0) to Pragmatic REST (Level 2) and Hypermedia Controls (Level 3)</text>
+  <text x="40" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="700" fill="#f0f6fc">Richardson Maturity Model &amp; Enterprise REST Semantics</text>
+  <text x="40" y="78" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" fill="#8b949e">From The Swamp of POX (Level 0) to Pragmatic REST (Level 2) and Hypermedia Controls (Level 3)</text>
 
-  <!-- Richardson Maturity Model Pyramid / Levels -->
+  <!-- Richardson Maturity Model Cards (4 Columns) -->
   <g transform="translate(40, 105)">
     <!-- Level 0 -->
     <g transform="translate(0, 0)">
-      <rect width="240" height="230" rx="8" fill="url(#cardGradApi1)" stroke="#da3633" stroke-width="1.5"/>
-      <rect width="240" height="6" rx="3" fill="url(#lvl0Grad)"/>
-      <text x="20" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#f85149">Level 0: The Swamp of POX</text>
-      <text x="20" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Single URI, Single Method (RPC)</text>
+      <rect width="265" height="270" rx="8" fill="url(#cardGradApi1)" stroke="#da3633" stroke-width="2"/>
+      <rect width="265" height="6" rx="3" fill="url(#lvl0Grad)"/>
+      <text x="16" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#f85149">Level 0: Swamp of POX</text>
+      <text x="16" y="56" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Single URI, Single Verb (RPC)</text>
 
-      <rect x="15" y="70" width="210" height="65" rx="4" fill="#161b22" stroke="#30363d"/>
-      <text x="25" y="90" font-family="monospace" font-size="10" fill="#f85149">POST /api/service</text>
-      <text x="25" y="108" font-family="monospace" font-size="9" fill="#8b949e">{"action": "createOrder",</text>
-      <text x="25" y="122" font-family="monospace" font-size="9" fill="#8b949e"> "params": {...}}</text>
+      <rect x="12" y="75" width="241" height="75" rx="4" fill="#161b22" stroke="#30363d"/>
+      <text x="20" y="98" font-family="monospace" font-size="13" fill="#f85149">POST /api/service</text>
+      <text x="20" y="118" font-family="monospace" font-size="13" fill="#8b949e">{"action": "createOrder",</text>
+      <text x="20" y="138" font-family="monospace" font-size="13" fill="#8b949e"> "params": {...}}</text>
 
-      <text x="20" y="155" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#c9d1d9">• Uses HTTP as a dumb tunnel.</text>
-      <text x="20" y="172" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#c9d1d9">• Always returns HTTP 200 OK,</text>
-      <text x="20" y="188" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#8b949e">  even on business errors.</text>
-      <text x="20" y="208" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#f85149">❌ SOAP, XML-RPC, legacy APIs</text>
+      <text x="16" y="175" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Uses HTTP as dumb tunnel</text>
+      <text x="16" y="198" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Always returns 200 OK</text>
+      <text x="16" y="221" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">  even on business failure</text>
+      <text x="16" y="248" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#f85149">❌ SOAP, XML-RPC, legacy APIs</text>
     </g>
 
     <!-- Level 1 -->
-    <g transform="translate(260, 0)">
-      <rect width="240" height="230" rx="8" fill="url(#cardGradApi1)" stroke="#d29922" stroke-width="1.5"/>
-      <rect width="240" height="6" rx="3" fill="url(#lvl1Grad)"/>
-      <text x="20" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#e3b341">Level 1: Individual Resources</text>
-      <text x="20" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Distinct URIs per entity</text>
+    <g transform="translate(285, 0)">
+      <rect width="265" height="270" rx="8" fill="url(#cardGradApi1)" stroke="#d29922" stroke-width="2"/>
+      <rect width="265" height="6" rx="3" fill="url(#lvl1Grad)"/>
+      <text x="16" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#e3b341">Level 1: Resources</text>
+      <text x="16" y="56" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Distinct URIs per Entity</text>
 
-      <rect x="15" y="70" width="210" height="65" rx="4" fill="#161b22" stroke="#30363d"/>
-      <text x="25" y="90" font-family="monospace" font-size="10" fill="#79c0ff">POST /api/orders</text>
-      <text x="25" y="108" font-family="monospace" font-size="10" fill="#79c0ff">POST /api/orders/123/pay</text>
-      <text x="25" y="124" font-family="monospace" font-size="10" fill="#79c0ff">POST /api/orders/123/cancel</text>
+      <rect x="12" y="75" width="241" height="75" rx="4" fill="#161b22" stroke="#30363d"/>
+      <text x="20" y="98" font-family="monospace" font-size="13" fill="#79c0ff">POST /api/orders</text>
+      <text x="20" y="118" font-family="monospace" font-size="13" fill="#79c0ff">POST /api/orders/12/pay</text>
+      <text x="20" y="138" font-family="monospace" font-size="13" fill="#79c0ff">POST /api/orders/12/cancel</text>
 
-      <text x="20" y="155" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#c9d1d9">• Distinct URIs for resources.</text>
-      <text x="20" y="172" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#f85149">• Still abuses POST for all verbs.</text>
-      <text x="20" y="188" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#8b949e">• Encodes verbs in URI path.</text>
-      <text x="20" y="208" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#e3b341">⚠️ Primitive REST architecture</text>
+      <text x="16" y="175" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Distinct URIs for resources</text>
+      <text x="16" y="198" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#f85149">• Still abuses POST for all verbs</text>
+      <text x="16" y="221" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">• Verbs placed inside URI path</text>
+      <text x="16" y="248" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#e3b341">⚠️ Primitive REST attempt</text>
     </g>
 
     <!-- Level 2 -->
-    <g transform="translate(520, 0)">
-      <rect width="250" height="230" rx="8" fill="url(#cardGradApi1)" stroke="#238636" stroke-width="2"/>
-      <rect width="250" height="6" rx="3" fill="url(#lvl2Grad)"/>
-      <text x="20" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#3fb950">Level 2: Verbs &amp; Status Codes</text>
-      <text x="20" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Pragmatic Enterprise REST</text>
+    <g transform="translate(570, 0)">
+      <rect width="265" height="270" rx="8" fill="url(#cardGradApi1)" stroke="#238636" stroke-width="2"/>
+      <rect width="265" height="6" rx="3" fill="url(#lvl2Grad)"/>
+      <text x="16" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#3fb950">Level 2: HTTP Verbs</text>
+      <text x="16" y="56" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Pragmatic Enterprise REST</text>
 
-      <rect x="15" y="70" width="220" height="65" rx="4" fill="#161b22" stroke="#238636"/>
-      <text x="25" y="88" font-family="monospace" font-size="9.5" fill="#7ee787">GET /orders/123 → 200 OK</text>
-      <text x="25" y="104" font-family="monospace" font-size="9.5" fill="#7ee787">POST /orders → 201 Created</text>
-      <text x="25" y="120" font-family="monospace" font-size="9.5" fill="#7ee787">DELETE /orders/123 → 204 No Cont</text>
+      <rect x="12" y="75" width="241" height="75" rx="4" fill="#161b22" stroke="#30363d"/>
+      <text x="20" y="98" font-family="monospace" font-size="13" fill="#7ee787">GET    /api/orders/12</text>
+      <text x="20" y="118" font-family="monospace" font-size="13" fill="#e3b341">PUT    /api/orders/12</text>
+      <text x="20" y="138" font-family="monospace" font-size="13" fill="#f85149">DELETE /api/orders/12</text>
 
-      <text x="20" y="155" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#c9d1d9">• Proper HTTP Verbs &amp; Headers.</text>
-      <text x="20" y="172" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#c9d1d9">• Semantic Status: 404, 409, 422.</text>
-      <text x="20" y="188" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#7ee787">• Cacheable GET requests via ETags.</text>
-      <text x="20" y="208" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" font-weight="700" fill="#3fb950">✅ 95% of Enterprise APIs Standard</text>
+      <text x="16" y="175" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Correct HTTP verbs used</text>
+      <text x="16" y="198" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Status codes (201, 404, 409)</text>
+      <text x="16" y="221" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">• Safe caching enabled for GET</text>
+      <text x="16" y="248" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#3fb950">✓ Production Gold Standard</text>
     </g>
 
     <!-- Level 3 -->
-    <g transform="translate(790, 0)">
-      <rect width="230" height="230" rx="8" fill="url(#cardGradApi1)" stroke="#8957e5" stroke-width="1.5"/>
-      <rect width="230" height="6" rx="3" fill="url(#lvl3Grad)"/>
-      <text x="20" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#a371f7">Level 3: Hypermedia Controls</text>
-      <text x="20" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">HATEOAS Engine of State</text>
+    <g transform="translate(855, 0)">
+      <rect width="265" height="270" rx="8" fill="url(#cardGradApi1)" stroke="#8957e5" stroke-width="2"/>
+      <rect width="265" height="6" rx="3" fill="url(#lvl3Grad)"/>
+      <text x="16" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#a371f7">Level 3: HATEOAS</text>
+      <text x="16" y="56" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Hypermedia Controls</text>
 
-      <rect x="15" y="70" width="200" height="65" rx="4" fill="#161b22" stroke="#30363d"/>
-      <text x="22" y="88" font-family="monospace" font-size="9" fill="#a371f7">"_links": {</text>
-      <text x="22" y="102" font-family="monospace" font-size="8.5" fill="#c9d1d9">  "cancel": {"href": "/123"},</text>
-      <text x="22" y="116" font-family="monospace" font-size="8.5" fill="#c9d1d9">  "pay": {"href": "/123/pay"}</text>
-      <text x="22" y="128" font-family="monospace" font-size="9" fill="#a371f7">}</text>
+      <rect x="12" y="75" width="241" height="75" rx="4" fill="#161b22" stroke="#30363d"/>
+      <text x="20" y="98" font-family="monospace" font-size="13" fill="#d2a8ff">"_links": {</text>
+      <text x="20" y="118" font-family="monospace" font-size="13" fill="#d2a8ff">  "pay": {"href": "/orders/12/pay"},</text>
+      <text x="20" y="138" font-family="monospace" font-size="13" fill="#d2a8ff">  "cancel": {"href": "/orders/12"}}</text>
 
-      <text x="20" y="155" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#c9d1d9">• Self-describing state machine.</text>
-      <text x="20" y="172" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#8b949e">• Client navigates via hypermedia.</text>
-      <text x="20" y="188" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#8b949e">• Rarely adopted: payload bloat &amp;</text>
-      <text x="20" y="208" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#e3b341">⚠️ Academic ideal vs Real-world</text>
+      <text x="16" y="175" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Self-documenting state machine</text>
+      <text x="16" y="198" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Client decouples from URI paths</text>
+      <text x="16" y="221" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">• Rarely full in microservices</text>
+      <text x="16" y="248" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#a371f7">★ True Academic REST</text>
     </g>
   </g>
 
-  <!-- Middle Section: HTTP Method Semantics Matrix -->
-  <g transform="translate(40, 360)">
-    <rect width="1020" height="150" rx="8" fill="url(#cardGradApi1)" stroke="#30363d" stroke-width="1.5"/>
-    <text x="25" y="30" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#58a6ff">HTTP Verbs Semantics: Safety vs. Idempotency Matrix</text>
+  <!-- Middle Section: HTTP Verb Semantics Matrix -->
+  <g transform="translate(40, 395)">
+    <rect width="1120" height="235" rx="8" fill="url(#cardGradApi1)" stroke="#30363d" stroke-width="2"/>
+    <text x="25" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="700" fill="#f0f6fc">HTTP Method Semantics: Safety, Idempotency &amp; Cacheability</text>
 
     <!-- Table Header -->
-    <g transform="translate(25, 45)">
-      <rect width="970" height="26" fill="#161b22" rx="4"/>
-      <text x="20" y="18" font-family="monospace" font-size="11" font-weight="700" fill="#f0f6fc">METHOD</text>
-      <text x="140" y="18" font-family="monospace" font-size="11" font-weight="700" fill="#f0f6fc">PURPOSE / TARGET</text>
-      <text x="440" y="18" font-family="monospace" font-size="11" font-weight="700" fill="#f0f6fc">SAFE? (Read-Only)</text>
-      <text x="640" y="18" font-family="monospace" font-size="11" font-weight="700" fill="#f0f6fc">IDEMPOTENT? (N calls = 1 call)</text>
-      <text x="860" y="18" font-family="monospace" font-size="11" font-weight="700" fill="#f0f6fc">CACHEABLE?</text>
+    <g transform="translate(25, 55)">
+      <rect width="1070" height="34" rx="4" fill="#161b22" stroke="#30363d"/>
+      <text x="20" y="23" font-family="monospace" font-size="13" font-weight="700" fill="#8b949e">METHOD</text>
+      <text x="140" y="23" font-family="monospace" font-size="13" font-weight="700" fill="#8b949e">RFC 9110 INTENT</text>
+      <text x="440" y="23" font-family="monospace" font-size="13" font-weight="700" fill="#8b949e">SAFE (Read-Only?)</text>
+      <text x="640" y="23" font-family="monospace" font-size="13" font-weight="700" fill="#8b949e">IDEMPOTENT (f(f(x)) == f(x))</text>
+      <text x="910" y="23" font-family="monospace" font-size="13" font-weight="700" fill="#8b949e">CACHEABLE?</text>
 
       <!-- Row 1: GET -->
-      <text x="20" y="42" font-family="monospace" font-size="11" fill="#7ee787">GET</text>
-      <text x="140" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#c9d1d9">Retrieve representation</text>
-      <text x="440" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#7ee787">YES (No state change)</text>
-      <text x="640" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#7ee787">YES</text>
-      <text x="860" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#7ee787">YES</text>
+      <g transform="translate(0, 42)">
+        <text x="20" y="20" font-family="monospace" font-size="13" font-weight="700" fill="#3fb950">GET</text>
+        <text x="140" y="20" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">Retrieve resource representation</text>
+        <text x="440" y="20" font-family="monospace" font-size="13" font-weight="700" fill="#3fb950">YES (No state change)</text>
+        <text x="640" y="20" font-family="monospace" font-size="13" font-weight="700" fill="#3fb950">YES (Repeatable reads)</text>
+        <text x="910" y="20" font-family="monospace" font-size="13" font-weight="700" fill="#3fb950">YES (Standard)</text>
+      </g>
 
       <!-- Row 2: POST -->
-      <text x="20" y="60" font-family="monospace" font-size="11" fill="#e3b341">POST</text>
-      <text x="140" y="60" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#c9d1d9">Create resource / trigger action</text>
-      <text x="440" y="60" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#f85149">NO (Mutates state)</text>
-      <text x="640" y="60" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#f85149">NO (Creates duplicates)</text>
-      <text x="860" y="60" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Only with explicit exp</text>
+      <g transform="translate(0, 78)">
+        <text x="20" y="20" font-family="monospace" font-size="13" font-weight="700" fill="#e3b341">POST</text>
+        <text x="140" y="20" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">Create subordinate resource / trigger action</text>
+        <text x="440" y="20" font-family="monospace" font-size="13" font-weight="700" fill="#f85149">NO (Mutates state)</text>
+        <text x="640" y="20" font-family="monospace" font-size="13" font-weight="700" fill="#f85149">NO (Creates duplicates)</text>
+        <text x="910" y="20" font-family="monospace" font-size="13" fill="#8b949e">Only with explicit exp</text>
+      </g>
 
       <!-- Row 3: PUT -->
-      <text x="20" y="78" font-family="monospace" font-size="11" fill="#79c0ff">PUT</text>
-      <text x="140" y="78" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#c9d1d9">Complete replacement of resource</text>
-      <text x="440" y="78" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#f85149">NO</text>
-      <text x="640" y="78" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#7ee787">YES (Overwrites to same state)</text>
-      <text x="860" y="78" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#f85149">NO</text>
+      <g transform="translate(0, 114)">
+        <text x="20" y="20" font-family="monospace" font-size="13" font-weight="700" fill="#79c0ff">PUT</text>
+        <text x="140" y="20" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">Complete replacement of target resource</text>
+        <text x="440" y="20" font-family="monospace" font-size="13" font-weight="700" fill="#f85149">NO (Mutates state)</text>
+        <text x="640" y="20" font-family="monospace" font-size="13" font-weight="700" fill="#3fb950">YES (Overwrites to same state)</text>
+        <text x="910" y="20" font-family="monospace" font-size="13" fill="#8b949e">NO</text>
+      </g>
 
       <!-- Row 4: PATCH -->
-      <text x="20" y="96" font-family="monospace" font-size="11" fill="#a371f7">PATCH</text>
-      <text x="140" y="96" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#c9d1d9">Partial delta update</text>
-      <text x="440" y="96" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#f85149">NO</text>
-      <text x="640" y="96" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#e3b341">NOT GUARANTEED (e.g. append)</text>
-      <text x="860" y="96" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#f85149">NO</text>
+      <g transform="translate(0, 150)">
+        <text x="20" y="20" font-family="monospace" font-size="13" font-weight="700" fill="#a371f7">PATCH</text>
+        <text x="140" y="20" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">Partial delta update (JSON Merge Patch / RFC 7396)</text>
+        <text x="440" y="20" font-family="monospace" font-size="13" font-weight="700" fill="#f85149">NO (Mutates state)</text>
+        <text x="640" y="20" font-family="monospace" font-size="13" fill="#e3b341">NOT GUARANTEED (e.g. append)</text>
+        <text x="910" y="20" font-family="monospace" font-size="13" fill="#8b949e">NO</text>
+      </g>
     </g>
   </g>
 
   <!-- Bottom Section: RFC 9457 Standard Problem Details Schema -->
-  <g transform="translate(40, 530)">
-    <rect width="1020" height="160" rx="8" fill="url(#cardGradApi1)" stroke="#8957e5" stroke-width="1.5"/>
-    <text x="25" y="30" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#a371f7">RFC 9457 (superseding RFC 7807): Standardized Problem Details for HTTP APIs</text>
+  <g transform="translate(40, 645)">
+    <rect width="1120" height="245" rx="8" fill="url(#cardGradApi1)" stroke="#8957e5" stroke-width="2"/>
+    <text x="25" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="700" fill="#a371f7">RFC 9457 (superseding RFC 7807): Standardized Problem Details for HTTP APIs</text>
 
     <!-- Schema Code Box -->
-    <rect x="25" y="45" width="450" height="100" rx="6" fill="#161b22" stroke="#30363d"/>
-    <text x="35" y="65" font-family="monospace" font-size="9.5" fill="#f85149">HTTP/1.1 409 Conflict</text>
-    <text x="35" y="79" font-family="monospace" font-size="9.5" fill="#79c0ff">Content-Type: application/problem+json</text>
-    <text x="35" y="95" font-family="monospace" font-size="9" fill="#c9d1d9">{"type": "https://api.mastercard.com/errors/duplicate-auth",</text>
-    <text x="35" y="109" font-family="monospace" font-size="9" fill="#c9d1d9"> "title": "Duplicate Transaction Reference", "status": 409,</text>
-    <text x="35" y="123" font-family="monospace" font-size="9" fill="#c9d1d9"> "detail": "Transaction TX-9842 has already settled.",</text>
-    <text x="35" y="137" font-family="monospace" font-size="9" fill="#c9d1d9"> "instance": "/api/v1/payments/settlements/TX-9842"}</text>
+    <rect x="25" y="52" width="530" height="175" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="40" y="80" font-family="monospace" font-size="13" fill="#f85149">HTTP/1.1 409 Conflict</text>
+    <text x="40" y="104" font-family="monospace" font-size="13" fill="#79c0ff">Content-Type: application/problem+json</text>
+    <text x="40" y="132" font-family="monospace" font-size="13" fill="#c9d1d9">{"type": "https://api.mastercard.com/errors/duplicate-auth",</text>
+    <text x="40" y="156" font-family="monospace" font-size="13" fill="#c9d1d9"> "title": "Duplicate Transaction Reference", "status": 409,</text>
+    <text x="40" y="180" font-family="monospace" font-size="13" fill="#c9d1d9"> "detail": "Transaction TX-9842 has already settled.",</text>
+    <text x="40" y="204" font-family="monospace" font-size="13" fill="#c9d1d9"> "instance": "/api/v1/payments/settlements/TX-9842"}</text>
 
     <!-- Explanation -->
-    <g transform="translate(500, 45)">
-      <text x="0" y="20" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11.5" font-weight="700" fill="#f0f6fc">Why RFC 9457 is the Staff Standard for API Governance:</text>
-      <text x="0" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">1. Eliminates ad-hoc, proprietary error schemas (`{"errCode": 401, "msg": "failed"}`).</text>
-      <text x="0" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">2. Machine-Readable: Clients branch on the stable URI `<tspan fill="#79c0ff" font-family="monospace">type</tspan>`, not brittle string parsing.</text>
-      <text x="0" y="82" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">3. Built into Spring Boot 3: Enabled automatically via <tspan fill="#7ee787" font-family="monospace">spring.mvc.problemdetails.enabled=true</tspan>.</text>
+    <g transform="translate(580, 52)">
+      <text x="0" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#f0f6fc">Why RFC 9457 is the Staff Standard for API Governance:</text>
+      <text x="0" y="56" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" fill="#c9d1d9">1. Eliminates ad-hoc, proprietary error schemas (`{"errCode": 401, "msg": "failed"}`).</text>
+      <text x="0" y="86" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" fill="#c9d1d9">2. Machine-Readable: Clients branch on the URI `<tspan fill="#79c0ff" font-family="monospace">type</tspan>`, not string parsing.</text>
+      <text x="0" y="116" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" fill="#c9d1d9">3. Standard in Spring Boot 3: Enabled via <tspan fill="#7ee787" font-family="monospace">spring.mvc.problemdetails.enabled=true</tspan>.</text>
+      <text x="0" y="146" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" fill="#7ee787">✓ Automated client SDK generation with strongly typed error classes</text>
     </g>
   </g>
 </svg>

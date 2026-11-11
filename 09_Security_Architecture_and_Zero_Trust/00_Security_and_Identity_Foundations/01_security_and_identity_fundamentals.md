@@ -10,7 +10,7 @@ This primer establishes the baseline mental models, evolutionary milestones, and
 
 The following blueprint illustrates how modern enterprise security decomposes into **Authentication (AuthN)**, **Authorization (AuthZ)**, **Transport Security (mTLS)**, and **Zero Trust Cryptography**, unified into an end-to-end request lifecycle:
 
-![Security Architecture & Identity Foundations Concept Map](images/security_foundations_concept_map.svg)
+[![Security Architecture & Identity Foundations Concept Map](images/security_foundations_concept_map.svg)](images/security_foundations_concept_map.svg)
 
 ---
 

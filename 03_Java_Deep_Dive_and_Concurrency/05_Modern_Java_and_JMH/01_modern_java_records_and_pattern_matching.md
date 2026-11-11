@@ -40,7 +40,7 @@ For years, enterprise Java was burdened by boilerplate: verbose POJOs, defensive
 
 Starting in **Java 17 LTS** and finalized in **Java 21 LTS**, Java's type system underwent its most significant architectural leap since generics in Java 5:
 
-![Modern Java Features and JMH](images/modern_java_features_and_jmh.svg)
+[![Modern Java Features and JMH](images/modern_java_features_and_jmh.svg)](images/modern_java_features_and_jmh.svg)
 
 1. **Elimination of Ceremonial Boilerplate**: Records replace 100+ lines of Lombok or manual POJO code with a single transparent line.
 2. **Algebraic Data Types (ADTs)**: The combination of **Sum Types** (`sealed` interfaces) and **Product Types** (`record` data carriers) brings functional language guarantees (Haskell, Scala, Rust) into type-safe enterprise Java.

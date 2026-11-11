@@ -8,7 +8,7 @@ This playbook breaks down the internal physics of **AWS Lambda** (execution envi
 
 ## Architecture Blueprint: Serverless & Event-Driven Engine
 
-![Serverless and Event-Driven Architecture](images/aws_serverless_and_scalable_data_architecture.svg)
+[![Serverless and Event-Driven Architecture](images/aws_serverless_and_scalable_data_architecture.svg)](images/aws_serverless_and_scalable_data_architecture.svg)
 
 ```
 ========================================================================================================================

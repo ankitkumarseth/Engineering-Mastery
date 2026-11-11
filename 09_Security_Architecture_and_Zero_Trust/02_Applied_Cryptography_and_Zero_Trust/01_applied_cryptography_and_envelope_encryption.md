@@ -8,7 +8,7 @@ At the Staff and Principal Engineer level, you are expected to understand the ha
 
 ## Architecture Blueprint: Applied Cryptography & Key Derivation
 
-![Applied Cryptography and Zero Trust](images/zero_trust_mtls_and_cryptography_architecture.svg)
+[![Applied Cryptography and Zero Trust](images/zero_trust_mtls_and_cryptography_architecture.svg)](images/zero_trust_mtls_and_cryptography_architecture.svg)
 
 ```
 ========================================================================================================================

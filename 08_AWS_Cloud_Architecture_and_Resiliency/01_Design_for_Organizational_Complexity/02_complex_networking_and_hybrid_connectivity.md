@@ -12,7 +12,7 @@ At the SAP-C02 and Principal Cloud Architect level, you must master:
 
 ## Architecture Blueprint: Transit Gateway & Hybrid Topology
 
-![AWS Transit Gateway and Hybrid Networking](images/aws_organizations_and_hybrid_networking.svg)
+[![AWS Transit Gateway and Hybrid Networking](images/aws_organizations_and_hybrid_networking.svg)](images/aws_organizations_and_hybrid_networking.svg)
 
 ```
 ========================================================================================================================

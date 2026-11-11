@@ -1,128 +1,149 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 560" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="100%" height="100%">
   <defs>
     <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0f172a"/>
-      <stop offset="100%" stop-color="#1e293b"/>
+      <stop offset="0%" stop-color="#0d1117" />
+      <stop offset="100%" stop-color="#161b22" />
     </linearGradient>
-    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
-      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.4"/>
-    </filter>
-    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 10 5 L 0 9 z" fill="#94a3b8"/>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#21262d" />
+      <stop offset="100%" stop-color="#161b22" />
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#8b949e" />
     </marker>
-    <marker id="arrowGreen" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 10 5 L 0 9 z" fill="#34d399"/>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#3fb950" />
     </marker>
-    <marker id="arrowRed" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f87171"/>
+    <marker id="arrowRed" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f85149" />
     </marker>
-    <marker id="arrowBlue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#58a6ff" />
     </marker>
-    <marker id="arrowAmber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 10 5 L 0 9 z" fill="#fbbf24"/>
+    <marker id="arrowAmber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#d29922" />
     </marker>
   </defs>
 
   <!-- Background -->
-  <rect width="1040" height="560" fill="url(#bgGrad)" rx="10"/>
+  <rect width="1200" height="900" fill="url(#bgGrad)" rx="12" stroke="#30363d" stroke-width="2"/>
 
   <!-- Title & Subtitle -->
-  <text x="520" y="38" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="700" fill="#f8fafc">Java Thread Lifecycle &amp; State Transitions</text>
-  <text x="520" y="62" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#94a3b8">The 6 Official JVM Thread States (java.lang.Thread.State) &amp; OS Synchronization Triggers</text>
-
-  <!-- State: NEW -->
-  <g transform="translate(50, 235)">
-    <rect x="0" y="0" width="140" height="75" rx="8" fill="#1e293b" stroke="#64748b" stroke-width="2" filter="url(#shadow)"/>
-    <text x="70" y="35" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="16" font-weight="700" fill="#f1f5f9">NEW</text>
-    <text x="70" y="55" text-anchor="middle" font-family="monospace" font-size="11" fill="#94a3b8">new Thread()</text>
-  </g>
-
-  <!-- Transition: start() -->
-  <path d="M 195 272 L 310 272" fill="none" stroke="#34d399" stroke-width="2.5" marker-end="url(#arrowGreen)"/>
-  <rect x="205" y="248" width="95" height="22" rx="4" fill="#0f172a" stroke="#34d399" stroke-width="1"/>
-  <text x="252" y="263" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#34d399">thread.start()</text>
-
-  <!-- State: RUNNABLE (Central) -->
-  <g transform="translate(320, 195)">
-    <rect x="0" y="0" width="260" height="145" rx="10" fill="#1e293b" stroke="#34d399" stroke-width="2.5" filter="url(#shadow)"/>
-    <text x="130" y="32" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="18" font-weight="800" fill="#34d399">RUNNABLE</text>
-    
-    <!-- Sub-states in OS -->
-    <rect x="20" y="48" width="105" height="52" rx="4" fill="#0f172a" stroke="#334155"/>
-    <text x="72" y="72" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#93c5fd">READY</text>
-    <text x="72" y="88" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="9.5" fill="#64748b">In OS Run Queue</text>
-
-    <rect x="135" y="48" width="105" height="52" rx="4" fill="#064e3b" stroke="#34d399"/>
-    <text x="187" y="72" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#6ee7b7">RUNNING</text>
-    <text x="187" y="88" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="9.5" fill="#a7f3d0">On CPU Core</text>
-
-    <text x="130" y="124" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10.5" fill="#94a3b8">OS scheduler yields / time-slices</text>
-  </g>
+  <text x="50" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="700" fill="#f0f6fc">Java Thread Lifecycle &amp; State Transitions</text>
+  <text x="50" y="78" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" fill="#8b949e">The 6 Official JVM Thread States (java.lang.Thread.State) &amp; OS Kernel Synchronization Triggers</text>
 
   <!-- State: BLOCKED (Top) -->
-  <g transform="translate(360, 65)">
-    <rect x="0" y="0" width="180" height="70" rx="8" fill="#1e293b" stroke="#f87171" stroke-width="2" filter="url(#shadow)"/>
-    <text x="90" y="30" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="16" font-weight="700" fill="#f87171">BLOCKED</text>
-    <text x="90" y="50" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="11" fill="#cbd5e1">Waiting for Monitor</text>
+  <g transform="translate(470, 115)">
+    <rect width="260" height="95" rx="8" fill="url(#cardGrad)" stroke="#da3633" stroke-width="2"/>
+    <text x="130" y="38" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="18" font-weight="700" fill="#f85149">BLOCKED</text>
+    <text x="130" y="62" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" fill="#f0f6fc">Waiting for Monitor Lock</text>
+    <text x="130" y="82" text-anchor="middle" font-family="monospace" font-size="12" fill="#8b949e">synchronized block/method</text>
   </g>
 
   <!-- Transitions to/from BLOCKED -->
-  <path d="M 400 195 L 400 140" fill="none" stroke="#f87171" stroke-width="1.8" marker-end="url(#arrowRed)"/>
-  <rect x="305" y="157" width="88" height="22" rx="4" fill="#0f172a" stroke="#f87171" stroke-width="1"/>
-  <text x="349" y="172" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10.5" font-weight="600" fill="#fca5a5">synchronized</text>
+  <!-- Up arrow to BLOCKED -->
+  <path d="M 540 295 L 540 220" fill="none" stroke="#f85149" stroke-width="2" marker-end="url(#arrowRed)"/>
+  <rect x="440" y="240" width="90" height="26" rx="4" fill="#161b22" stroke="#da3633" stroke-width="1"/>
+  <text x="485" y="258" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" font-weight="600" fill="#ff7b72">lock conflict</text>
 
-  <path d="M 500 140 L 500 195" fill="none" stroke="#34d399" stroke-width="1.8" marker-end="url(#arrowGreen)"/>
-  <rect x="508" y="157" width="95" height="22" rx="4" fill="#0f172a" stroke="#34d399" stroke-width="1"/>
-  <text x="555" y="172" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10.5" font-weight="600" fill="#a7f3d0">Lock Acquired</text>
+  <!-- Down arrow from BLOCKED -->
+  <path d="M 660 220 L 660 295" fill="none" stroke="#3fb950" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  <rect x="670" y="240" width="105" height="26" rx="4" fill="#161b22" stroke="#238636" stroke-width="1"/>
+  <text x="722" y="258" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" font-weight="600" fill="#7ee787">lock acquired</text>
 
-  <!-- State: WAITING (Bottom Left) -->
-  <g transform="translate(110, 420)">
-    <rect x="0" y="0" width="290" height="95" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="2" filter="url(#shadow)"/>
-    <text x="145" y="28" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="16" font-weight="700" fill="#38bdf8">WAITING</text>
-    <text x="145" y="52" text-anchor="middle" font-family="monospace" font-size="10" fill="#93c5fd">Object.wait() | Thread.join()</text>
-    <text x="145" y="72" text-anchor="middle" font-family="monospace" font-size="10" fill="#93c5fd">LockSupport.park()</text>
+  <!-- State: NEW (Left) -->
+  <g transform="translate(50, 335)">
+    <rect width="180" height="110" rx="8" fill="url(#cardGrad)" stroke="#30363d" stroke-width="2"/>
+    <text x="90" y="44" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="18" font-weight="700" fill="#f0f6fc">NEW</text>
+    <text x="90" y="70" text-anchor="middle" font-family="monospace" font-size="13.5" fill="#79c0ff">new Thread()</text>
+    <text x="90" y="92" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">Not yet started</text>
   </g>
 
-  <!-- Transitions to/from WAITING (Parallel, non-crossing) -->
-  <!-- Down: wait() / join() -->
-  <path d="M 330 340 L 230 420" fill="none" stroke="#38bdf8" stroke-width="1.8" marker-end="url(#arrowBlue)"/>
-  <rect x="175" y="367" width="88" height="22" rx="4" fill="#0f172a" stroke="#38bdf8" stroke-width="1"/>
-  <text x="219" y="382" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10.5" font-weight="600" fill="#7dd3fc">wait() / join()</text>
+  <!-- Transition: start() -->
+  <path d="M 230 390 L 415 390" fill="none" stroke="#3fb950" stroke-width="2.5" marker-end="url(#arrowGreen)"/>
+  <rect x="260" y="362" width="125" height="30" rx="4" fill="#161b22" stroke="#238636" stroke-width="1.5"/>
+  <text x="322" y="382" text-anchor="middle" font-family="monospace" font-size="13" font-weight="700" fill="#3fb950">thread.start()</text>
 
-  <!-- Up: notify() / unpark() -->
-  <path d="M 310 420 L 380 340" fill="none" stroke="#34d399" stroke-width="1.8" marker-end="url(#arrowGreen)"/>
-  <rect x="355" y="367" width="115" height="22" rx="4" fill="#0f172a" stroke="#34d399" stroke-width="1"/>
-  <text x="412" y="382" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10.5" font-weight="600" fill="#a7f3d0">notify() / unpark()</text>
+  <!-- State: RUNNABLE (Central) -->
+  <g transform="translate(425, 300)">
+    <rect width="350" height="185" rx="10" fill="url(#cardGrad)" stroke="#238636" stroke-width="2.5"/>
+    <text x="175" y="36" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="20" font-weight="800" fill="#3fb950">RUNNABLE</text>
+    <text x="175" y="58" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Eligible for CPU core scheduling by OS</text>
 
-  <!-- State: TIMED_WAITING (Bottom Right) -->
-  <g transform="translate(480, 420)">
-    <rect x="0" y="0" width="300" height="95" rx="8" fill="#1e293b" stroke="#fbbf24" stroke-width="2" filter="url(#shadow)"/>
-    <text x="150" y="28" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="16" font-weight="700" fill="#fbbf24">TIMED_WAITING</text>
-    <text x="150" y="52" text-anchor="middle" font-family="monospace" font-size="10" fill="#fde68a">Thread.sleep(ms) | wait(timeout)</text>
-    <text x="150" y="72" text-anchor="middle" font-family="monospace" font-size="10" fill="#fde68a">join(timeout) | parkNanos()</text>
+    <!-- Sub-states in OS -->
+    <rect x="25" y="72" width="140" height="65" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="95" y="100" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#79c0ff">READY</text>
+    <text x="95" y="122" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">In OS Run Queue</text>
+
+    <rect x="185" y="72" width="140" height="65" rx="6" fill="#122c1d" stroke="#238636"/>
+    <text x="255" y="100" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#3fb950">RUNNING</text>
+    <text x="255" y="122" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#7ee787">On CPU Core</text>
+
+    <text x="175" y="165" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">OS CFS / Scheduler yields &amp; time-slices</text>
   </g>
-
-  <!-- Transitions to/from TIMED_WAITING (Parallel, non-crossing) -->
-  <!-- Down: sleep(ms) -->
-  <path d="M 525 340 L 595 420" fill="none" stroke="#fbbf24" stroke-width="1.8" marker-end="url(#arrowAmber)"/>
-  <rect x="495" y="367" width="72" height="22" rx="4" fill="#0f172a" stroke="#fbbf24" stroke-width="1"/>
-  <text x="531" y="382" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10.5" font-weight="600" fill="#fde68a">sleep(ms)</text>
-
-  <!-- Up: Timeout expired -->
-  <path d="M 665 420 L 585 340" fill="none" stroke="#34d399" stroke-width="1.8" marker-end="url(#arrowGreen)"/>
-  <rect x="640" y="367" width="108" height="22" rx="4" fill="#0f172a" stroke="#34d399" stroke-width="1"/>
-  <text x="694" y="382" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10.5" font-weight="600" fill="#a7f3d0">Timeout expired</text>
 
   <!-- Transition: Termination -->
-  <path d="M 585 272 L 785 272" fill="none" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#arrow)"/>
-  <rect x="625" y="248" width="155" height="22" rx="4" fill="#0f172a" stroke="#64748b" stroke-width="1"/>
-  <text x="702" y="263" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10.5" font-weight="600" fill="#cbd5e1">run() completes / throws</text>
+  <path d="M 775 390 L 965 390" fill="none" stroke="#8b949e" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <rect x="800" y="362" width="140" height="30" rx="4" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <text x="870" y="382" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="600" fill="#c9d1d9">run() returns/throws</text>
 
-  <!-- State: TERMINATED -->
-  <g transform="translate(795, 235)">
-    <rect x="0" y="0" width="155" height="75" rx="8" fill="#0f172a" stroke="#475569" stroke-width="2" filter="url(#shadow)"/>
-    <text x="77" y="35" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="16" font-weight="700" fill="#64748b">TERMINATED</text>
-    <text x="77" y="55" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="11" fill="#475569">Dead / Reclaimed</text>
+  <!-- State: TERMINATED (Right) -->
+  <g transform="translate(975, 335)">
+    <rect width="175" height="110" rx="8" fill="url(#cardGrad)" stroke="#30363d" stroke-width="2"/>
+    <text x="87" y="44" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="18" font-weight="700" fill="#8b949e">TERMINATED</text>
+    <text x="87" y="70" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#c9d1d9">Execution Complete</text>
+    <text x="87" y="92" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">Stack freed, dead</text>
+  </g>
+
+  <!-- State: WAITING (Bottom Left) -->
+  <g transform="translate(110, 560)">
+    <rect width="450" height="150" rx="10" fill="url(#cardGrad)" stroke="#1f6feb" stroke-width="2"/>
+    <text x="225" y="35" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="18" font-weight="700" fill="#58a6ff">WAITING (Indefinite)</text>
+    <text x="225" y="65" text-anchor="middle" font-family="monospace" font-size="13.5" fill="#79c0ff">Object.wait() • Thread.join()</text>
+    <text x="225" y="90" text-anchor="middle" font-family="monospace" font-size="13.5" fill="#79c0ff">LockSupport.park()</text>
+    <text x="225" y="125" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Waits indefinitely for another thread to notify or unpark</text>
+  </g>
+
+  <!-- Transitions to/from WAITING -->
+  <!-- Down: wait() -->
+  <path d="M 450 485 L 340 550" fill="none" stroke="#58a6ff" stroke-width="2" marker-end="url(#arrowBlue)"/>
+  <rect x="290" y="500" width="105" height="26" rx="4" fill="#161b22" stroke="#1f6feb" stroke-width="1"/>
+  <text x="342" y="518" text-anchor="middle" font-family="monospace" font-size="12" fill="#79c0ff">wait() / park()</text>
+
+  <!-- Up: notify() -->
+  <path d="M 420 560 L 510 495" fill="none" stroke="#3fb950" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  <rect x="450" y="525" width="125" height="26" rx="4" fill="#161b22" stroke="#238636" stroke-width="1"/>
+  <text x="512" y="543" text-anchor="middle" font-family="monospace" font-size="12" fill="#7ee787">notify() / unpark()</text>
+
+  <!-- State: TIMED_WAITING (Bottom Right) -->
+  <g transform="translate(640, 560)">
+    <rect width="450" height="150" rx="10" fill="url(#cardGrad)" stroke="#d29922" stroke-width="2"/>
+    <text x="225" y="35" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="18" font-weight="700" fill="#e3b341">TIMED_WAITING (Timeout)</text>
+    <text x="225" y="65" text-anchor="middle" font-family="monospace" font-size="13.5" fill="#f0e68c">Thread.sleep(ms) • Object.wait(timeout)</text>
+    <text x="225" y="90" text-anchor="middle" font-family="monospace" font-size="13.5" fill="#f0e68c">Thread.join(timeout) • LockSupport.parkNanos()</text>
+    <text x="225" y="125" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Waits until specified duration expires or early notification</text>
+  </g>
+
+  <!-- Transitions to/from TIMED_WAITING -->
+  <!-- Down: sleep(ms) -->
+  <path d="M 690 485 L 780 550" fill="none" stroke="#d29922" stroke-width="2" marker-end="url(#arrowAmber)"/>
+  <rect x="680" y="500" width="105" height="26" rx="4" fill="#161b22" stroke="#d29922" stroke-width="1"/>
+  <text x="732" y="518" text-anchor="middle" font-family="monospace" font-size="12" fill="#f0e68c">sleep(ms)</text>
+
+  <!-- Up: Timeout expired -->
+  <path d="M 850 560 L 760 495" fill="none" stroke="#3fb950" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  <rect x="790" y="525" width="125" height="26" rx="4" fill="#161b22" stroke="#238636" stroke-width="1"/>
+  <text x="852" y="543" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" font-weight="600" fill="#7ee787">Timeout elapsed</text>
+
+  <!-- Comparison Callout Bar at Bottom -->
+  <g transform="translate(50, 750)">
+    <rect width="1100" height="105" rx="8" fill="url(#cardGrad)" stroke="#30363d" stroke-width="1.5"/>
+    <text x="30" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14.5" font-weight="700" fill="#58a6ff">💡 Staff Architect Insight: Distinguishing Waiting States in JVM Thread Dumps</text>
+    <text x="30" y="58" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#c9d1d9">
+      • <tspan font-weight="700" fill="#f85149">BLOCKED</tspan>: Thread is queued specifically for a Java intrinsic synchronized monitor lock held by another thread.
+    </text>
+    <text x="30" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#c9d1d9">
+      • <tspan font-weight="700" fill="#58a6ff">WAITING / TIMED_WAITING</tspan>: Thread voluntarily suspended its quantum via LockSupport.park() (used by java.util.concurrent ReentrantLock/AQS) or wait()/sleep().
+    </text>
   </g>
 </svg>

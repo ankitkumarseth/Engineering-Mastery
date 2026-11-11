@@ -8,7 +8,7 @@ This playbook breaks down the deep architecture of **AWS Organizations**, the ex
 
 ## Architecture Blueprint: Organizations, SCPs & Identity Center
 
-![Multi-Account Governance and Hybrid Networking](images/aws_organizations_and_hybrid_networking.svg)
+[![Multi-Account Governance and Hybrid Networking](images/aws_organizations_and_hybrid_networking.svg)](images/aws_organizations_and_hybrid_networking.svg)
 
 ```
 ========================================================================================================================

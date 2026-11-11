@@ -40,7 +40,7 @@ KafkaProducer.send(record)
 
 The following diagram illustrates the complete Producer-to-Broker lifecycle, including RecordAccumulator memory pooling, idempotent sequence deduplication, and in-flight pipelining:
 
-![Kafka Producer Consumer Pipeline](images/kafka_producer_consumer_eos_pipeline.svg)
+[![Kafka Producer Consumer Pipeline](images/kafka_producer_consumer_eos_pipeline.svg)](images/kafka_producer_consumer_eos_pipeline.svg)
 
 ---
 

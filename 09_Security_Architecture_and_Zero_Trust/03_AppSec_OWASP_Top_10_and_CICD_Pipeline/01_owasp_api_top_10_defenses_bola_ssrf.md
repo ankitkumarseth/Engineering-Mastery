@@ -8,7 +8,7 @@ At the Staff and Principal Engineer level, you are expected to understand the ex
 
 ## Architecture Blueprint: OWASP API Defenses & Metadata Hardening
 
-![OWASP API Security and SSRF Architecture](images/owasp_api_security_and_cicd_pipeline.svg)
+[![OWASP API Security and SSRF Architecture](images/owasp_api_security_and_cicd_pipeline.svg)](images/owasp_api_security_and_cicd_pipeline.svg)
 
 ```
 ========================================================================================================================

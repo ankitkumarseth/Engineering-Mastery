@@ -36,7 +36,7 @@ Even in an era of high-level reactive frameworks and virtual threads, senior int
 
 ## 2. The 6 Official JVM Thread States
 
-![Thread Lifecycle State Machine](images/thread_lifecycle_state_machine.svg)
+[![Thread Lifecycle State Machine](images/thread_lifecycle_state_machine.svg)](images/thread_lifecycle_state_machine.svg)
 
 Defined strictly in `java.lang.Thread.State`:
 

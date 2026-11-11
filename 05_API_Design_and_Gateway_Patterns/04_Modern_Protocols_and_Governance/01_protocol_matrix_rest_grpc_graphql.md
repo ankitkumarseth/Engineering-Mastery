@@ -24,7 +24,7 @@ In modern distributed systems, selecting a communication protocol is an architec
 
 The following diagram illustrates where each protocol belongs across an enterprise tier topology, including serialization mechanics and transport boundaries:
 
-![Protocol Architecture Matrix](images/protocol_matrix_rest_grpc_graphql.svg)
+[![Protocol Architecture Matrix](images/protocol_matrix_rest_grpc_graphql.svg)](images/protocol_matrix_rest_grpc_graphql.svg)
 
 ---
 

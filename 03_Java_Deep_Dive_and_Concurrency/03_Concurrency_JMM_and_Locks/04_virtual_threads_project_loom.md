@@ -8,7 +8,7 @@ For Principal and Staff Engineers, mastering Virtual Threads is not merely about
 
 ## 1. Platform Threads vs. Virtual Threads: Architectural Comparison
 
-![Virtual Threads Carrier Model](images/virtual_threads_carrier_model.svg)
+[![Virtual Threads Carrier Model](images/virtual_threads_carrier_model.svg)](images/virtual_threads_carrier_model.svg)
 
 | Dimension | Platform Threads (OS Kernel Threads) | Virtual Threads (Project Loom User-Mode) |
 | :--- | :--- | :--- |

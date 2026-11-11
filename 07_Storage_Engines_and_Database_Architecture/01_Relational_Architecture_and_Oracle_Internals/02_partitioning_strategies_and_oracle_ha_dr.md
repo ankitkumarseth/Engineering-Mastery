@@ -57,7 +57,7 @@ Table partitioning physically breaks massive multi-terabyte tables into smaller,
 
 Partition Pruning is an optimization where the Cost-Based Optimizer (CBO) analyzes query predicates and eliminates unneeded partitions from the execution plan before or during physical execution.
 
-![Oracle Partitioning & HA/DR Architecture](images/oracle_ha_dr_and_partitioning_architecture.svg)
+[![Oracle Partitioning & HA/DR Architecture](images/oracle_ha_dr_and_partitioning_architecture.svg)](images/oracle_ha_dr_and_partitioning_architecture.svg)
 
 ### 2.1 Static vs. Dynamic Pruning
 * **Static Partition Pruning (Compile-Time)**:

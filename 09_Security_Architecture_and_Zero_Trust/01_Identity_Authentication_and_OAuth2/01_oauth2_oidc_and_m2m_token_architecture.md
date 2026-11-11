@@ -8,7 +8,7 @@ This playbook breaks down the deep architecture of **OAuth 2.0 and OpenID Connec
 
 ## Architecture Blueprint: OAuth2 / OIDC & M2M Token Flow
 
-![OAuth2 and OIDC Token Architecture](images/oauth2_oidc_and_jwt_revocation_architecture.svg)
+[![OAuth2 and OIDC Token Architecture](images/oauth2_oidc_and_jwt_revocation_architecture.svg)](images/oauth2_oidc_and_jwt_revocation_architecture.svg)
 
 ```
 ========================================================================================================================

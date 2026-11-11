@@ -1,94 +1,157 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 560" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="100%" height="100%">
   <defs>
     <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0f172a"/>
-      <stop offset="100%" stop-color="#1e293b"/>
+      <stop offset="0%" stop-color="#0d1117" />
+      <stop offset="100%" stop-color="#161b22" />
     </linearGradient>
-    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
-      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.4"/>
-    </filter>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#21262d" />
+      <stop offset="100%" stop-color="#161b22" />
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#8b949e" />
+    </marker>
   </defs>
 
   <!-- Background -->
-  <rect width="1040" height="560" fill="url(#bgGrad)" rx="10"/>
+  <rect width="1200" height="900" fill="url(#bgGrad)" rx="12" stroke="#30363d" stroke-width="2"/>
 
   <!-- Title & Subtitle -->
-  <text x="520" y="38" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="700" fill="#f8fafc">Modern Java 17–21 Features &amp; JMH Benchmark Anatomy</text>
-  <text x="520" y="62" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#94a3b8">Algebraic Data Types &amp; Record Pattern Matching vs. JIT Benchmarking Pitfalls &amp; Blackholes</text>
+  <text x="50" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="700" fill="#f0f6fc">Modern Java 17–21 Features &amp; JMH Benchmark Anatomy</text>
+  <text x="50" y="78" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" fill="#8b949e">Algebraic Data Types &amp; Record Pattern Matching vs. JIT Benchmarking Pitfalls &amp; Blackholes</text>
 
-  <!-- Left: Modern Java (17-21) Type System -->
-  <g transform="translate(35, 85)">
-    <rect x="0" y="0" width="475" height="450" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5" filter="url(#shadow)"/>
-    <text x="237" y="28" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="15" font-weight="700" fill="#60a5fa">Algebraic Data Types &amp; Pattern Matching (Java 17–21)</text>
+  <!-- LEFT PANEL: Modern Java (17-21) Type System -->
+  <g transform="translate(50, 110)">
+    <rect width="525" height="750" rx="10" fill="url(#cardGrad)" stroke="#1f6feb" stroke-width="2"/>
+    <rect width="525" height="6" rx="3" fill="#1f6feb"/>
+    
+    <text x="25" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#58a6ff">Algebraic Data Types &amp; Pattern Matching (Java 17–21)</text>
+    <text x="25" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" fill="#8b949e">Closed type hierarchies (Sum Types) combined with Records (Product Types)</text>
 
     <!-- Sealed Interface (Sum Type) -->
-    <rect x="20" y="45" width="435" height="85" rx="6" fill="#0f172a" stroke="#a855f7" stroke-width="1.2"/>
-    <text x="35" y="68" font-family="monospace" font-size="11" font-weight="700" fill="#c084fc">Sealed Interface (Sum Type - Closed Set)</text>
-    <text x="35" y="88" font-family="monospace" font-size="10" fill="#f8fafc"><tspan fill="#ec4899">public sealed interface</tspan> PaymentEvent</text>
-    <text x="35" y="105" font-family="monospace" font-size="10" fill="#f8fafc">    <tspan fill="#38bdf8">permits</tspan> Authorized, Settled, Declined {}</text>
-    <text x="35" y="120" font-family="-apple-system, sans-serif" font-size="9" fill="#94a3b8">Compiler guarantees NO other subclasses can exist outside this package/module.</text>
+    <rect x="25" y="85" width="475" height="135" rx="8" fill="#161b22" stroke="#8957e5" stroke-width="1.5"/>
+    <text x="40" y="112" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14.5" font-weight="700" fill="#d2a8ff">1. Sealed Interface (Sum Type - Closed Domain Set)</text>
+    <text x="40" y="138" font-family="monospace" font-size="13" font-weight="700" fill="#f0f6fc"><tspan fill="#ff7b72">public sealed interface</tspan> PaymentEvent</text>
+    <text x="40" y="158" font-family="monospace" font-size="13" font-weight="700" fill="#f0f6fc">    <tspan fill="#79c0ff">permits</tspan> Authorized, Settled, Declined {}</text>
+    <text x="40" y="185" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">
+      Compiler strictly guarantees NO other subclasses can exist outside this module.
+    </text>
+    <text x="40" y="205" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#7ee787">
+      Enables safe, exhaustive pattern matching without defensive fallback branches.
+    </text>
 
     <!-- Records (Product Types) -->
-    <rect x="20" y="140" width="435" height="100" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="1.2"/>
-    <text x="35" y="162" font-family="monospace" font-size="11" font-weight="700" fill="#34d399">Records (Product Types - Immutable Data Carriers)</text>
-    <text x="35" y="180" font-family="monospace" font-size="9.5" fill="#f8fafc"><tspan fill="#ec4899">public record</tspan> Authorized(<tspan fill="#60a5fa">String</tspan> txId, <tspan fill="#60a5fa">BigDecimal</tspan> amt) <tspan fill="#ec4899">implements</tspan> PaymentEvent {</text>
-    <text x="35" y="198" font-family="monospace" font-size="9.5" fill="#cbd5e1">    <tspan fill="#ec4899">public</tspan> Authorized { <tspan fill="#94a3b8">// Compact Constructor (Validation &amp; Invariants)</tspan></text>
-    <text x="35" y="214" font-family="monospace" font-size="9.5" fill="#cbd5e1">        Objects.requireNonNull(txId);</text>
-    <text x="35" y="228" font-family="monospace" font-size="9.5" fill="#cbd5e1">    }</text>
+    <rect x="25" y="235" width="475" height="175" rx="8" fill="#161b22" stroke="#238636" stroke-width="1.5"/>
+    <text x="40" y="262" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14.5" font-weight="700" fill="#3fb950">2. Records (Product Types - Immutable Data Carriers)</text>
+    <text x="40" y="288" font-family="monospace" font-size="12.5" fill="#f0f6fc"><tspan fill="#ff7b72">public record</tspan> Authorized(<tspan fill="#79c0ff">String</tspan> txId, <tspan fill="#79c0ff">BigDecimal</tspan> amt) <tspan fill="#ff7b72">implements</tspan> PaymentEvent {</text>
+    <text x="40" y="310" font-family="monospace" font-size="12.5" fill="#8b949e">    <tspan fill="#ff7b72">public</tspan> Authorized { <tspan fill="#7ee787">// Compact Constructor (Invariants)</tspan></text>
+    <text x="40" y="330" font-family="monospace" font-size="12.5" fill="#f0f6fc">        Objects.requireNonNull(txId);</text>
+    <text x="40" y="350" font-family="monospace" font-size="12.5" fill="#f0f6fc">        <tspan fill="#ff7b72">if</tspan> (amt.compareTo(BigDecimal.ZERO) &lt;= 0) <tspan fill="#ff7b72">throw new</tspan> IllegalArgumentException();</text>
+    <text x="40" y="370" font-family="monospace" font-size="12.5" fill="#8b949e">    }</text>
+    <text x="40" y="395" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#8b949e">
+      Auto-generates final fields, canonical constructor, equals(), hashCode(), and toString().
+    </text>
 
-    <!-- Pattern Matching Switch (Java 21 Record Deconstruction) -->
-    <rect x="20" y="250" width="435" height="180" rx="6" fill="#0f172a" stroke="#eab308" stroke-width="1.2"/>
-    <text x="35" y="272" font-family="monospace" font-size="11" font-weight="700" fill="#facc15">Exhaustive Pattern Matching &amp; Record Deconstruction</text>
-    <text x="35" y="292" font-family="monospace" font-size="9.5" fill="#f8fafc"><tspan fill="#ec4899">return switch</tspan> (event) {</text>
-    <text x="35" y="310" font-family="monospace" font-size="9.5" fill="#a7f3d0">    <tspan fill="#ec4899">case</tspan> Authorized(var id, var amt) <tspan fill="#ec4899">when</tspan> amt &gt; 10_000 -&gt;</text>
-    <text x="55" y="326" font-family="monospace" font-size="9.5" fill="#cbd5e1">        triggerAuditReview(id, amt);</text>
-    <text x="35" y="344" font-family="monospace" font-size="9.5" fill="#60a5fa">    <tspan fill="#ec4899">case</tspan> Settled(var id, var amt) -&gt; recordRevenue(id, amt);</text>
-    <text x="35" y="362" font-family="monospace" font-size="9.5" fill="#f87171">    <tspan fill="#ec4899">case</tspan> Declined(var id, var reason) -&gt; emitMetric(reason);</text>
-    <text x="35" y="380" font-family="monospace" font-size="9.5" fill="#f8fafc">}; <tspan fill="#34d399">// ✓ NO 'default' branch needed! Exhaustive at compile time.</tspan></text>
-    <text x="35" y="405" font-family="-apple-system, sans-serif" font-size="9.5" fill="#94a3b8">Adding a 4th variant in PaymentEvent immediately fails the build if unhandled!</text>
+    <!-- Exhaustive Pattern Matching Switch -->
+    <rect x="25" y="425" width="475" height="295" rx="8" fill="#161b22" stroke="#d29922" stroke-width="1.5"/>
+    <text x="40" y="452" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14.5" font-weight="700" fill="#e3b341">3. Record Deconstruction &amp; Pattern Guards (Java 21)</text>
+    
+    <text x="40" y="480" font-family="monospace" font-size="12.5" fill="#f0f6fc"><tspan fill="#ff7b72">return switch</tspan> (event) {</text>
+    <text x="40" y="504" font-family="monospace" font-size="12.5" fill="#7ee787">    <tspan fill="#ff7b72">case</tspan> Authorized(var id, var amt) <tspan fill="#ff7b72">when</tspan> amt.intValue() &gt; 10000 -&gt;</text>
+    <text x="60" y="524" font-family="monospace" font-size="12.5" fill="#f0f6fc">        triggerAuditReview(id, amt);</text>
+    <text x="40" y="546" font-family="monospace" font-size="12.5" fill="#79c0ff">    <tspan fill="#ff7b72">case</tspan> Authorized(var id, var amt) -&gt; processAutoCapture(id, amt);</text>
+    <text x="40" y="568" font-family="monospace" font-size="12.5" fill="#3fb950">    <tspan fill="#ff7b72">case</tspan> Settled(var id, var amt) -&gt; recordRevenue(id, amt);</text>
+    <text x="40" y="590" font-family="monospace" font-size="12.5" fill="#ff7b72">    <tspan fill="#ff7b72">case</tspan> Declined(var id, var reason) -&gt; emitFailureMetric(reason);</text>
+    <text x="40" y="612" font-family="monospace" font-size="12.5" fill="#f0f6fc">};</text>
+
+    <text x="40" y="642" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#3fb950">
+      ✓ NO 'default' branch needed! Exhaustive at compile time.
+    </text>
+    <text x="40" y="666" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#8b949e">
+      If an engineer adds a 4th variant (e.g. <tspan font-family="monospace">Refunded</tspan>) to <tspan font-family="monospace">PaymentEvent</tspan>,
+    </text>
+    <text x="40" y="686" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#f85149">
+      the compiler immediately fails the build across all unhandled switch expressions!
+    </text>
   </g>
 
-  <!-- Right: JMH Benchmark Anatomy & JIT Traps -->
-  <g transform="translate(530, 85)">
-    <rect x="0" y="0" width="475" height="450" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" filter="url(#shadow)"/>
-    <text x="237" y="28" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="15" font-weight="700" fill="#fbbf24">JMH (Java Microbenchmark Harness) Anatomy</text>
+  <!-- RIGHT PANEL: JMH Benchmark Anatomy & JIT Traps -->
+  <g transform="translate(625, 110)">
+    <rect width="525" height="750" rx="10" fill="url(#cardGrad)" stroke="#d29922" stroke-width="2"/>
+    <rect width="525" height="6" rx="3" fill="#d29922"/>
 
-    <!-- JMH Iteration Lifecycle -->
-    <rect x="20" y="45" width="435" height="105" rx="6" fill="#0f172a" stroke="#334155"/>
-    <text x="35" y="66" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" fill="#cbd5e1">JMH Execution Lifecycle</text>
+    <text x="25" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#e3b341">JMH (Java Microbenchmark Harness) Anatomy</text>
+    <text x="25" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" fill="#8b949e">Avoiding JIT compiler dead-code elimination &amp; profile pollution</text>
 
-    <!-- Warmup Box -->
-    <rect x="35" y="75" width="180" height="42" rx="4" fill="#1e293b" stroke="#f59e0b"/>
-    <text x="125" y="93" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#fde68a">@Warmup (5 iters)</text>
-    <text x="125" y="107" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="8.5" fill="#94a3b8">Tier 0 -&gt; Tier 3 -&gt; C2 Hot</text>
+    <!-- JMH Execution Lifecycle -->
+    <rect x="25" y="85" width="475" height="135" rx="8" fill="#161b22" stroke="#30363d"/>
+    <text x="40" y="112" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14.5" font-weight="700" fill="#f0f6fc">JMH Execution Lifecycle &amp; JIT Warming</text>
 
-    <text x="230" y="100" text-anchor="middle" font-family="monospace" font-size="12" fill="#64748b">→</text>
+    <rect x="40" y="125" width="195" height="45" rx="6" fill="#2d2206" stroke="#d29922"/>
+    <text x="137" y="148" text-anchor="middle" font-family="monospace" font-size="13" font-weight="700" fill="#e3b341">@Warmup (5 iters)</text>
+    <text x="137" y="162" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#8b949e">Interpreter → C1 → C2 Hot</text>
 
-    <!-- Measurement Box -->
-    <rect x="245" y="75" width="195" height="42" rx="4" fill="#065f46" stroke="#10b981"/>
-    <text x="342" y="93" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#a7f3d0">@Measurement (5 iters)</text>
-    <text x="342" y="107" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="8.5" fill="#a7f3d0">Steady-state native profile</text>
+    <line x1="242" y1="147" x2="270" y2="147" stroke="#8b949e" stroke-width="2" marker-end="url(#arrow)"/>
 
-    <text x="35" y="138" font-family="-apple-system, sans-serif" font-size="9" fill="#94a3b8">Runs in forked isolated JVMs (@Fork) to prevent cross-benchmark JIT profile pollution.</text>
+    <rect x="275" y="125" width="225" height="45" rx="6" fill="#122c1d" stroke="#238636"/>
+    <text x="387" y="148" text-anchor="middle" font-family="monospace" font-size="13" font-weight="700" fill="#3fb950">@Measurement (5 iters)</text>
+    <text x="387" y="162" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#7ee787">Steady-state native profile</text>
 
-    <!-- JIT Benchmark Trap 1: Dead Code Elimination -->
-    <rect x="20" y="160" width="435" height="85" rx="6" fill="#0f172a" stroke="#ef4444"/>
-    <text x="35" y="180" font-family="monospace" font-size="11" font-weight="700" fill="#f87171">Pitfall 1: Dead Code Elimination (DCE)</text>
-    <text x="35" y="198" font-family="-apple-system, sans-serif" font-size="10" fill="#cbd5e1">If benchmark returns void, C2 proves result unused and deletes computation!</text>
-    <text x="35" y="216" font-family="monospace" font-size="9.5" fill="#34d399">✓ Fix: public void test(Blackhole bh) { bh.consume(doWork()); }</text>
-    <text x="35" y="232" font-family="-apple-system, sans-serif" font-size="9" fill="#94a3b8">Blackhole uses volatile native sink preventing C2 from eliminating computation.</text>
+    <text x="40" y="195" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#8b949e">
+      <tspan font-family="monospace" fill="#79c0ff">@Fork(1)</tspan> spawns isolated JVM processes to eliminate cross-benchmark profile pollution.
+    </text>
 
-    <!-- JIT Benchmark Trap 2: Constant Folding & Inlining -->
-    <rect x="20" y="255" width="435" height="85" rx="6" fill="#0f172a" stroke="#3b82f6"/>
-    <text x="35" y="275" font-family="monospace" font-size="11" font-weight="700" fill="#60a5fa">Pitfall 2: Constant Folding &amp; False Sharing</text>
-    <text x="35" y="293" font-family="-apple-system, sans-serif" font-size="10" fill="#cbd5e1">If input constants are hardcoded, C2 precomputes result at compile time.</text>
-    <text x="35" y="311" font-family="monospace" font-size="9.5" fill="#60a5fa">✓ Fix: Use @State(Scope.Benchmark) or @State(Scope.Thread)</text>
-    <text x="35" y="327" font-family="-apple-system, sans-serif" font-size="9" fill="#94a3b8">Scope.Thread ensures CPU cache-line isolation and eliminates thread contention.</text>
+    <!-- Pitfall 1: Dead Code Elimination -->
+    <rect x="25" y="235" width="475" height="155" rx="8" fill="#161b22" stroke="#da3633" stroke-width="1.5"/>
+    <text x="40" y="262" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14.5" font-weight="700" fill="#f85149">Pitfall 1: Dead Code Elimination (DCE)</text>
 
-    <!-- Benchmark Modes -->
-    <rect x="20" y="350" width="435" height="75" rx="6" fill="#0f172a" stroke="#475569"/>
-    <text x="35" y="372" font-family="monospace" font-size="10.5" font-weight="700" fill="#cbd5e1">Key Benchmark Modes (@BenchmarkMode):</text>
-    <text x="35" y="392" font-family="-apple-system, sans-serif" font-size="10" fill="#cbd5e1">• <tspan fill="#38bdf8">Mode.Throughput</tspan>: Ops/sec  • <tspan fill="#34d399">Mode.AverageTime</tspan>: Time per op</text>
-    <text x="35" y="410" font-family="-apple-system, sans-serif" font-size="10" fill="#cbd5e1">• <tspan fill="#facc15">Mode.SampleTime / SingleShotTime</tspan>: Percentiles (p99, p99.9 latencies)</text>
+    <text x="40" y="288" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#f0f6fc">
+      If a benchmark method returns <tspan font-family="monospace" fill="#ff7b72">void</tspan>, C2 proves the result is unused
+    </text>
+    <text x="40" y="308" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#ff7b72">
+      and completely deletes the entire computation from generated assembly!
+    </text>
+
+    <rect x="40" y="322" width="445" height="35" rx="4" fill="#0d1117" stroke="#238636"/>
+    <text x="50" y="345" font-family="monospace" font-size="12" fill="#7ee787">public void bench(Blackhole bh) { bh.consume(doWork()); }</text>
+
+    <text x="40" y="375" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#8b949e">
+      <tspan font-family="monospace" fill="#3fb950">Blackhole</tspan> writes to a volatile native sink, preventing C2 from optimizing away work.
+    </text>
+
+    <!-- Pitfall 2: Constant Folding & False Sharing -->
+    <rect x="25" y="405" width="475" height="155" rx="8" fill="#161b22" stroke="#1f6feb" stroke-width="1.5"/>
+    <text x="40" y="432" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14.5" font-weight="700" fill="#58a6ff">Pitfall 2: Constant Folding &amp; False Sharing</text>
+
+    <text x="40" y="458" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#f0f6fc">
+      If inputs are constants, C2 precomputes results at JIT compile time.
+    </text>
+    <text x="40" y="478" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">
+      Multiple benchmark threads modifying state on adjacent cache lines cause false sharing.
+    </text>
+
+    <rect x="40" y="492" width="445" height="35" rx="4" fill="#0d1117" stroke="#1f6feb"/>
+    <text x="50" y="515" font-family="monospace" font-size="12" fill="#79c0ff">@State(Scope.Thread) public class BenchmarkState { ... }</text>
+
+    <text x="40" y="545" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#8b949e">
+      <tspan font-family="monospace" fill="#58a6ff">Scope.Thread</tspan> ensures each thread gets isolated state, eliminating false sharing.
+    </text>
+
+    <!-- Benchmark Modes & Metrics -->
+    <rect x="25" y="575" width="475" height="145" rx="8" fill="#161b22" stroke="#30363d"/>
+    <text x="40" y="602" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14.5" font-weight="700" fill="#f0f6fc">Key Benchmark Modes (@BenchmarkMode)</text>
+
+    <text x="40" y="630" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#f0f6fc">
+      • <tspan font-family="monospace" font-weight="700" fill="#58a6ff">Mode.Throughput</tspan>: Operations per unit time (ops/sec). High concurrency testing.
+    </text>
+    <text x="40" y="654" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#f0f6fc">
+      • <tspan font-family="monospace" font-weight="700" fill="#3fb950">Mode.AverageTime</tspan>: Average duration per execution (µs or ns).
+    </text>
+    <text x="40" y="678" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#f0f6fc">
+      • <tspan font-family="monospace" font-weight="700" fill="#e3b341">Mode.SampleTime</tspan>: Captures latency distribution percentiles (p50, p99, p99.9).
+    </text>
+    <text x="40" y="702" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">
+      Always verify generated assembly with <tspan font-family="monospace" fill="#79c0ff">-XX:+PrintAssembly</tspan> to confirm C2 inlining.
+    </text>
   </g>
 </svg>

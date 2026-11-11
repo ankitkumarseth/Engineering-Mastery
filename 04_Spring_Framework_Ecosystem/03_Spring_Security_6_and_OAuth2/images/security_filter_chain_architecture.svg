@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 700" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="100%" height="100%">
   <defs>
     <linearGradient id="bgGrad5" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#0d1117" />
@@ -12,163 +12,156 @@
       <stop offset="0%" stop-color="#8957e5" />
       <stop offset="100%" stop-color="#a371f7" />
     </linearGradient>
-    <linearGradient id="authGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#1f6feb" />
-      <stop offset="100%" stop-color="#388bfd" />
-    </linearGradient>
-    <linearGradient id="jwtGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#d29922" />
-      <stop offset="100%" stop-color="#e3b341" />
-    </linearGradient>
-
     <marker id="arrowPurple5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
       <path d="M 0 1 L 10 5 L 0 9 z" fill="#a371f7" />
     </marker>
     <marker id="arrowBlue5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
       <path d="M 0 1 L 10 5 L 0 9 z" fill="#58a6ff" />
     </marker>
-    <marker id="arrowGreen5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 10 5 L 0 9 z" fill="#3fb950" />
-    </marker>
   </defs>
 
   <!-- Background -->
-  <rect width="1100" height="700" fill="url(#bgGrad5)" rx="12" stroke="#30363d" stroke-width="2"/>
+  <rect width="1200" height="900" fill="url(#bgGrad5)" rx="12" stroke="#30363d" stroke-width="2"/>
 
   <!-- Title & Subtitle -->
-  <text x="40" y="45" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f0f6fc">Spring Security 6 Architecture &amp; Filter Chain Internals</text>
-  <text x="40" y="70" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e">From Servlet DelegatingFilterProxy to FilterChainProxy, Bearer Token JWT Authentication, and SecurityContextHolder</text>
+  <text x="40" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="700" fill="#f0f6fc">Spring Security 6 Architecture &amp; Filter Chain Internals</text>
+  <text x="40" y="78" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" fill="#8b949e">From Servlet DelegatingFilterProxy to FilterChainProxy, Bearer Token JWT Authentication, and SecurityContextHolder</text>
 
-  <!-- Phase 1: Servlet Container Bridge -->
+  <!-- Top Row: Phase 1, 2, 3 -->
   <g transform="translate(40, 105)">
-    <rect width="260" height="180" rx="8" fill="url(#cardGrad5)" stroke="#30363d" stroke-width="1.5"/>
-    <rect width="260" height="6" rx="3" fill="#58a6ff"/>
-    <text x="20" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#58a6ff">1. Servlet Container Level</text>
-    <text x="20" y="55" font-family="monospace" font-size="11" fill="#7ee787">DelegatingFilterProxy</text>
-    <text x="20" y="78" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Standard Servlet Filter declared</text>
-    <text x="20" y="96" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">in Tomcat/Jetty filter pipeline.</text>
-    <text x="20" y="122" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#c9d1d9">Bridges the gap between Servlet</text>
-    <text x="20" y="140" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#c9d1d9">lifecycle and Spring IoC context.</text>
-    <text x="20" y="165" font-family="monospace" font-size="9.5" fill="#79c0ff">target = "springSecurityFilterChain"</text>
+    <!-- Phase 1: Servlet Container Bridge -->
+    <g transform="translate(0, 0)">
+      <rect width="335" height="205" rx="8" fill="url(#cardGrad5)" stroke="#30363d" stroke-width="2"/>
+      <rect width="335" height="6" rx="3" fill="#58a6ff"/>
+      <text x="20" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="700" fill="#58a6ff">1. Servlet Container Bridge</text>
+      <text x="20" y="60" font-family="monospace" font-size="14" font-weight="700" fill="#7ee787">DelegatingFilterProxy</text>
+      <text x="20" y="88" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">Standard Servlet Filter in Tomcat/Jetty pipeline.</text>
+      <text x="20" y="116" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">Bridges the gap between Servlet lifecycle</text>
+      <text x="20" y="138" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">and the Spring ApplicationContext IoC bean graph.</text>
+      <text x="20" y="172" font-family="monospace" font-size="13" fill="#79c0ff">target = "springSecurityFilterChain"</text>
+    </g>
+
+    <!-- Arrow 1 -> 2 -->
+    <path d="M 340 105 L 365 105" fill="none" stroke="#a371f7" stroke-width="2.5" marker-end="url(#arrowPurple5)"/>
+
+    <!-- Phase 2: FilterChainProxy -->
+    <g transform="translate(375, 0)">
+      <rect width="370" height="205" rx="8" fill="url(#cardGrad5)" stroke="#8957e5" stroke-width="2"/>
+      <rect width="370" height="6" rx="3" fill="url(#secGrad)"/>
+      <text x="20" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="700" fill="#a371f7">2. FilterChainProxy (The Gatekeeper)</text>
+      <text x="20" y="60" font-family="monospace" font-size="14" font-weight="700" fill="#7ee787">springSecurityFilterChain Bean</text>
+      <text x="20" y="88" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">Holds ordered list of <tspan fill="#a371f7" font-weight="700">SecurityFilterChain</tspan>s.</text>
+      <text x="20" y="116" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">Matches HTTP URL against RequestMatchers:</text>
+      <text x="20" y="142" font-family="monospace" font-size="13" fill="#e3b341">1. /actuator/health/** -&gt; PermitAllChain</text>
+      <text x="20" y="168" font-family="monospace" font-size="13" fill="#3fb950">2. /api/** -&gt; OAuth2ResourceServerChain</text>
+    </g>
+
+    <!-- Arrow 2 -> 3 -->
+    <path d="M 750 105 L 775 105" fill="none" stroke="#a371f7" stroke-width="2.5" marker-end="url(#arrowPurple5)"/>
+
+    <!-- Phase 3: SecurityContextHolder Architecture -->
+    <g transform="translate(785, 0)">
+      <rect width="335" height="205" rx="8" fill="url(#cardGrad5)" stroke="#1f6feb" stroke-width="2"/>
+      <rect width="335" height="6" rx="3" fill="#1f6feb"/>
+      <text x="20" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="700" fill="#58a6ff">3. SecurityContextHolder</text>
+      <text x="20" y="60" font-family="monospace" font-size="13" fill="#7ee787">SecurityContext &amp; Authentication</text>
+      <text x="20" y="88" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">Storage Strategy: ThreadLocal (default)</text>
+      <text x="20" y="116" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">Virtual Threads Note: Java 21 Loom carrier</text>
+      <text x="20" y="138" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">threads propagate ThreadLocal cleanly.</text>
+      <text x="20" y="172" font-family="monospace" font-size="13" fill="#3fb950">SecurityContextHolder.getContext()</text>
+    </g>
   </g>
 
-  <!-- Arrow 1 -> 2 -->
-  <line x1="300" y1="195" x2="360" y2="195" stroke="#a371f7" stroke-width="2.5" marker-end="url(#arrowPurple5)"/>
-
-  <!-- Phase 2: FilterChainProxy (The Gatekeeper) -->
-  <g transform="translate(360, 105)">
-    <rect width="320" height="180" rx="8" fill="url(#cardGrad5)" stroke="#8957e5" stroke-width="2"/>
-    <rect width="320" height="6" rx="3" fill="url(#secGrad)"/>
-    <text x="20" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#a371f7">2. FilterChainProxy</text>
-    <text x="20" y="55" font-family="monospace" font-size="11" fill="#7ee787">springSecurityFilterChain Bean</text>
-    <text x="20" y="78" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Holds ordered list of <tspan fill="#a371f7" font-weight="700">SecurityFilterChain</tspan>s.</text>
-    <text x="20" y="98" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#c9d1d9">Matches HTTP Request URL against</text>
-    <text x="20" y="116" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#c9d1d9">configured RequestMatchers:</text>
-    <text x="20" y="140" font-family="monospace" font-size="10.5" fill="#e3b341">Chain 1: /actuator/** (mTLS / Internal)</text>
-    <text x="20" y="160" font-family="monospace" font-size="10.5" fill="#79c0ff">Chain 2: /api/** (OAuth2 Bearer JWT)</text>
-  </g>
-
-  <!-- Arrow 2 -> 3 -->
-  <line x1="680" y1="195" x2="740" y2="195" stroke="#a371f7" stroke-width="2.5" marker-end="url(#arrowPurple5)"/>
-
-  <!-- Phase 3: SecurityContextHolder Mechanics -->
-  <g transform="translate(740, 105)">
-    <rect width="320" height="180" rx="8" fill="url(#cardGrad5)" stroke="#30363d" stroke-width="1.5"/>
-    <rect width="320" height="6" rx="3" fill="#1f6feb"/>
-    <text x="20" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#58a6ff">3. SecurityContextHolder</text>
-    <text x="20" y="55" font-family="monospace" font-size="11" fill="#7ee787">ThreadLocal Storage Strategy</text>
-    <text x="20" y="78" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Holds current <tspan fill="#f0f6fc">Authentication</tspan> token:</text>
-    <text x="20" y="98" font-family="monospace" font-size="10.5" fill="#c9d1d9">SecurityContextHolder.getContext()</text>
-    <text x="20" y="116" font-family="monospace" font-size="10.5" fill="#79c0ff">  .getAuthentication();</text>
-    <text x="20" y="140" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#8b949e">Strategies: MODE_THREADLOCAL (Default),</text>
-    <text x="20" y="160" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#e3b341">MODE_INHERITABLETHREADLOCAL (Child threads)</text>
-  </g>
-
-  <!-- Down Arrow to Phase 4 (The Filter Chain Pipeline) -->
-  <line x1="550" y1="285" x2="550" y2="335" stroke="#a371f7" stroke-width="2.5" marker-end="url(#arrowPurple5)"/>
-
-  <!-- Phase 4: Ordered Security Filter Chain Pipeline -->
+  <!-- Phase 4: Typical Order of Key Security Filters in Chain -->
   <g transform="translate(40, 335)">
-    <rect width="1020" height="190" rx="8" fill="url(#cardGrad5)" stroke="#238636" stroke-width="2"/>
-    <rect width="1020" height="6" rx="3" fill="#2ea043"/>
-    <text x="25" y="30" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#3fb950">4. Spring Security 6 Ordered Filter Chain Pipeline</text>
+    <rect width="1120" height="325" rx="8" fill="url(#cardGrad5)" stroke="#30363d" stroke-width="2"/>
+    <text x="25" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="700" fill="#f0f6fc">4. Key Security Filters in the Matched SecurityFilterChain (Ordered Execution)</text>
+    <text x="25" y="56" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Spring Security 6 sequential filter invocation order</text>
 
-    <!-- Filter 1: CORS -->
-    <g transform="translate(20, 48)">
-      <rect width="180" height="125" rx="6" fill="#161b22" stroke="#30363d"/>
-      <text x="12" y="22" font-family="monospace" font-size="11" font-weight="700" fill="#58a6ff">1. CorsFilter</text>
-      <text x="12" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">Handles HTTP OPTIONS</text>
-      <text x="12" y="58" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">Pre-flight handshake.</text>
-      <text x="12" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#7ee787">Validates Origin,</text>
-      <text x="12" y="96" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#7ee787">Methods &amp; Headers</text>
-      <text x="12" y="114" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9" fill="#c9d1d9">Must run BEFORE auth</text>
-    </g>
+    <!-- 5 Filters -->
+    <g transform="translate(15, 75)">
+      <!-- Filter 1: CorsFilter -->
+      <g transform="translate(0, 0)">
+        <rect width="205" height="230" rx="6" fill="#161b22" stroke="#30363d"/>
+        <text x="12" y="26" font-family="monospace" font-size="13" font-weight="700" fill="#58a6ff">1. CorsFilter</text>
+        <text x="12" y="54" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">Handles browser</text>
+        <text x="12" y="76" font-family="monospace" font-size="13" fill="#79c0ff">OPTIONS preflight</text>
+        <text x="12" y="104" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">Must be 1st before</text>
+        <text x="12" y="126" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">auth headers, or</text>
+        <text x="12" y="148" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#f85149">preflight fails 401!</text>
+        <text x="12" y="185" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#7ee787">✓ Safe origin check</text>
+      </g>
 
-    <!-- Arrow 1 to 2 -->
-    <line x1="200" y1="110" x2="220" y2="110" stroke="#58a6ff" stroke-width="2" marker-end="url(#arrowBlue5)"/>
+      <!-- Arrow 1 to 2 -->
+      <path d="M 210 115 L 230 115" fill="none" stroke="#58a6ff" stroke-width="2.5" marker-end="url(#arrowBlue5)"/>
 
-    <!-- Filter 2: SecurityContextHolderFilter -->
-    <g transform="translate(220, 48)">
-      <rect width="180" height="125" rx="6" fill="#161b22" stroke="#30363d"/>
-      <text x="10" y="22" font-family="monospace" font-size="10" font-weight="700" fill="#79c0ff">2. SecCtxHolderFilter</text>
-      <text x="10" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">Replaced legacy</text>
-      <text x="10" y="58" font-family="monospace" font-size="9" fill="#f85149">SecurityContextPersist</text>
-      <text x="10" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">Initializes empty</text>
-      <text x="10" y="96" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">SecurityContext</text>
-      <text x="10" y="114" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9" fill="#7ee787">Ensures thread cleanup</text>
-    </g>
+      <!-- Filter 2: CsrfFilter -->
+      <g transform="translate(235, 0)">
+        <rect width="205" height="230" rx="6" fill="#161b22" stroke="#30363d"/>
+        <text x="12" y="26" font-family="monospace" font-size="13" font-weight="700" fill="#58a6ff">2. CsrfFilter</text>
+        <text x="12" y="54" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">Guards state mutations</text>
+        <text x="12" y="76" font-family="monospace" font-size="13" fill="#79c0ff">POST / PUT / DELETE</text>
+        <text x="12" y="104" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">Disabled for</text>
+        <text x="12" y="126" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">stateless REST APIs</text>
+        <text x="12" y="148" font-family="monospace" font-size="13" fill="#3fb950">csrf.disable()</text>
+        <text x="12" y="185" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">since JWT has no cookie</text>
+      </g>
 
-    <!-- Arrow 2 to 3 -->
-    <line x1="400" y1="110" x2="420" y2="110" stroke="#58a6ff" stroke-width="2" marker-end="url(#arrowBlue5)"/>
+      <!-- Arrow 2 to 3 -->
+      <path d="M 445 115 L 465 115" fill="none" stroke="#58a6ff" stroke-width="2.5" marker-end="url(#arrowBlue5)"/>
 
-    <!-- Filter 3: BearerTokenAuthenticationFilter -->
-    <g transform="translate(420, 48)">
-      <rect width="200" height="125" rx="6" fill="#161b22" stroke="#d29922"/>
-      <text x="10" y="22" font-family="monospace" font-size="10" font-weight="700" fill="#e3b341">3. BearerTokenAuthFilter</text>
-      <text x="10" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">Extracts Bearer JWT from</text>
-      <text x="10" y="58" font-family="monospace" font-size="9.5" fill="#7ee787">Authorization header</text>
-      <text x="10" y="78" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">Validates via JWK Set;</text>
-      <text x="10" y="94" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">Maps claims → Roles</text>
-      <text x="10" y="114" font-family="monospace" font-size="9" fill="#e3b341">JwtAuthenticationToken</text>
-    </g>
+      <!-- Filter 3: BearerTokenAuthFilter -->
+      <g transform="translate(470, 0)">
+        <rect width="225" height="230" rx="6" fill="#161b22" stroke="#d29922"/>
+        <text x="12" y="26" font-family="monospace" font-size="13" font-weight="700" fill="#e3b341">3. BearerTokenAuth</text>
+        <text x="12" y="54" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">Extracts JWT from</text>
+        <text x="12" y="76" font-family="monospace" font-size="13" fill="#7ee787">Authorization: Bearer</text>
+        <text x="12" y="104" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">Validates via JWK Set;</text>
+        <text x="12" y="126" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">Maps claims → Roles</text>
+        <text x="12" y="152" font-family="monospace" font-size="13" fill="#e3b341">JwtAuthenticationToken</text>
+        <text x="12" y="185" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#3fb950">✓ Sets SecurityContext</text>
+      </g>
 
-    <!-- Arrow 3 to 4 -->
-    <line x1="620" y1="110" x2="640" y2="110" stroke="#58a6ff" stroke-width="2" marker-end="url(#arrowBlue5)"/>
+      <!-- Arrow 3 to 4 -->
+      <path d="M 700 115 L 720 115" fill="none" stroke="#58a6ff" stroke-width="2.5" marker-end="url(#arrowBlue5)"/>
 
-    <!-- Filter 4: ExceptionTranslationFilter -->
-    <g transform="translate(640, 48)">
-      <rect width="180" height="125" rx="6" fill="#161b22" stroke="#30363d"/>
-      <text x="10" y="22" font-family="monospace" font-size="10" font-weight="700" fill="#f85149">4. ExTranslationFilter</text>
-      <text x="10" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">Catches security errors:</text>
-      <text x="10" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#f85149">AuthenticationException</text>
-      <text x="10" y="78" font-family="monospace" font-size="9" fill="#f85149"> → 401 Unauthorized</text>
-      <text x="10" y="98" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#e3b341">AccessDeniedException</text>
-      <text x="10" y="114" font-family="monospace" font-size="9" fill="#e3b341"> → 403 Forbidden</text>
-    </g>
+      <!-- Filter 4: ExceptionTranslationFilter -->
+      <g transform="translate(725, 0)">
+        <rect width="205" height="230" rx="6" fill="#161b22" stroke="#30363d"/>
+        <text x="12" y="26" font-family="monospace" font-size="13" font-weight="700" fill="#f85149">4. ExTranslation</text>
+        <text x="12" y="54" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">Catches security errors:</text>
+        <text x="12" y="80" font-family="monospace" font-size="13" fill="#f85149">AuthenticationEx</text>
+        <text x="12" y="102" font-family="monospace" font-size="13" fill="#f85149"> → 401 Unauthorized</text>
+        <text x="12" y="132" font-family="monospace" font-size="13" fill="#e3b341">AccessDeniedEx</text>
+        <text x="12" y="154" font-family="monospace" font-size="13" fill="#e3b341"> → 403 Forbidden</text>
+        <text x="12" y="185" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#79c0ff">RFC 9457 error response</text>
+      </g>
 
-    <!-- Arrow 4 to 5 -->
-    <line x1="820" y1="110" x2="840" y2="110" stroke="#58a6ff" stroke-width="2" marker-end="url(#arrowBlue5)"/>
+      <!-- Arrow 4 to 5 -->
+      <path d="M 935 115 L 955 115" fill="none" stroke="#58a6ff" stroke-width="2.5" marker-end="url(#arrowBlue5)"/>
 
-    <!-- Filter 5: AuthorizationFilter -->
-    <g transform="translate(840, 48)">
-      <rect width="160" height="125" rx="6" fill="#161b22" stroke="#238636"/>
-      <text x="10" y="22" font-family="monospace" font-size="10" font-weight="700" fill="#3fb950">5. AuthorizationFilter</text>
-      <text x="10" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">Replaced FilterSecurity</text>
-      <text x="10" y="58" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">Interceptor in Boot 3.</text>
-      <text x="10" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#7ee787">Evaluates HTTP URL</text>
-      <text x="10" y="96" font-family="monospace" font-size="9.5" fill="#7ee787">.hasRole("ADMIN")</text>
-      <text x="10" y="114" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9" fill="#c9d1d9">Enforces URL rules</text>
+      <!-- Filter 5: AuthorizationFilter -->
+      <g transform="translate(960, 0)">
+        <rect width="130" height="230" rx="6" fill="#161b22" stroke="#238636"/>
+        <text x="12" y="26" font-family="monospace" font-size="13" font-weight="700" fill="#3fb950">5. AuthFilter</text>
+        <text x="12" y="54" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">Boot 3 standard</text>
+        <text x="12" y="80" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">Evaluates URL:</text>
+        <text x="12" y="104" font-family="monospace" font-size="13" fill="#7ee787">.hasRole()</text>
+        <text x="12" y="132" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">Enforces URL</text>
+        <text x="12" y="154" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">access rules</text>
+        <text x="12" y="185" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#3fb950">✓ Final gate</text>
+      </g>
     </g>
   </g>
 
   <!-- Phase 5: Spring MVC DispatcherServlet & Method Security -->
-  <g transform="translate(40, 545)">
-    <rect width="1020" height="125" rx="8" fill="url(#cardGrad5)" stroke="#1f6feb" stroke-width="1.5"/>
-    <rect width="1020" height="6" rx="3" fill="#1f6feb"/>
-    <text x="25" y="28" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#58a6ff">5. Application Dispatch &amp; Method-Level Security (@PreAuthorize)</text>
-    <text x="25" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#c9d1d9">After passing the filter chain, the request enters <tspan fill="#79c0ff" font-family="monospace">DispatcherServlet</tspan> and targets Controller/Service methods:</text>
-    <text x="25" y="75" font-family="monospace" font-size="11" fill="#e3b341">@PreAuthorize("hasAuthority('SCOPE_payment:write') and #order.amount &lt; 100000")</text>
-    <text x="25" y="95" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Evaluated dynamically by <tspan fill="#79c0ff" font-family="monospace">MethodSecurityInterceptor</tspan> via Spring Expression Language (SpEL) before executing business code.</text>
-    <text x="25" y="115" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#7ee787">✓ If SpEL evaluates to false, AccessDeniedException is thrown and caught by ExceptionTranslationFilter → HTTP 403 Forbidden.</text>
+  <g transform="translate(40, 680)">
+    <rect width="1120" height="195" rx="8" fill="url(#cardGrad5)" stroke="#1f6feb" stroke-width="2"/>
+    <rect width="1120" height="6" rx="3" fill="#1f6feb"/>
+    <text x="25" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="700" fill="#58a6ff">5. Application Dispatch &amp; Method-Level Security (@PreAuthorize)</text>
+    <text x="25" y="58" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13.5" fill="#c9d1d9">After passing the filter chain, the request enters <tspan fill="#79c0ff" font-family="monospace">DispatcherServlet</tspan> and targets Controller/Service methods:</text>
+    <text x="25" y="90" font-family="monospace" font-size="13.5" font-weight="700" fill="#e3b341">@PreAuthorize("hasAuthority('SCOPE_payment:write') and #order.amount &lt; 100000")</text>
+    <text x="25" y="120" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13.5" fill="#8b949e">Evaluated dynamically by <tspan fill="#79c0ff" font-family="monospace">MethodSecurityInterceptor</tspan> via Spring Expression Language (SpEL) before executing business code.</text>
+    <text x="25" y="150" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13.5" font-weight="700" fill="#7ee787">✓ If SpEL evaluates to false, AccessDeniedException is thrown and caught by ExceptionTranslationFilter → HTTP 403 Forbidden.</text>
   </g>
 </svg>

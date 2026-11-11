@@ -1,98 +1,153 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="100%" height="100%">
   <defs>
     <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0f172a"/>
-      <stop offset="100%" stop-color="#1e293b"/>
+      <stop offset="0%" stop-color="#0d1117" />
+      <stop offset="100%" stop-color="#161b22" />
     </linearGradient>
-    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
-      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.4"/>
-    </filter>
-    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 10 5 L 0 9 z" fill="#94a3b8"/>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#21262d" />
+      <stop offset="100%" stop-color="#161b22" />
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#8b949e" />
     </marker>
-    <marker id="arrowRed" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f87171"/>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#58a6ff" />
     </marker>
-    <marker id="arrowGreen" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 10 5 L 0 9 z" fill="#34d399"/>
+    <marker id="arrowAmber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#d29922" />
     </marker>
   </defs>
 
   <!-- Background -->
-  <rect width="960" height="540" fill="url(#bgGrad)"/>
+  <rect width="1200" height="900" fill="url(#bgGrad)" rx="12" stroke="#30363d" stroke-width="2"/>
 
   <!-- Title & Subtitle -->
-  <text x="480" y="38" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="700" fill="#f8fafc">AbstractQueuedSynchronizer (AQS) Internals &amp; ReentrantLock</text>
-  <text x="480" y="62" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#94a3b8">Volatile State Variable, Exclusive Owner Thread &amp; FIFO CLH Doubly-Linked Wait Queue</text>
+  <text x="50" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="700" fill="#f0f6fc">AbstractQueuedSynchronizer (AQS) Internals &amp; ReentrantLock</text>
+  <text x="50" y="78" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" fill="#8b949e">Volatile State Variable, Exclusive Owner Thread &amp; FIFO CLH Doubly-Linked Wait Queue</text>
 
-  <!-- Top: AQS Core State Controls -->
-  <g transform="translate(60, 85)">
-    <rect x="0" y="0" width="840" height="120" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5" filter="url(#shadow)"/>
-    <text x="420" y="28" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="15" font-weight="700" fill="#60a5fa">AQS Core Synchronization State</text>
+  <!-- TOP SECTION: AQS Core State Controls -->
+  <g transform="translate(50, 105)">
+    <rect width="1100" height="175" rx="10" fill="url(#cardGrad)" stroke="#1f6feb" stroke-width="2"/>
+    <rect width="1100" height="6" rx="3" fill="#1f6feb"/>
+    <text x="30" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="700" fill="#58a6ff">AQS Core Synchronization State &amp; Exclusive Ownership</text>
 
     <!-- State Variable Box -->
-    <rect x="30" y="45" width="370" height="55" rx="6" fill="#0f172a" stroke="#34d399" stroke-width="1.5"/>
-    <text x="50" y="68" font-family="monospace" font-size="13" font-weight="700" fill="#34d399">volatile int state = 1</text>
-    <text x="50" y="86" font-family="-apple-system, sans-serif" font-size="11" fill="#cbd5e1">0 = Unlocked | 1 = Locked | &gt;1 = Reentrant Hold Count</text>
+    <rect x="30" y="55" width="505" height="100" rx="6" fill="#161b22" stroke="#238636" stroke-width="1.5"/>
+    <text x="50" y="85" font-family="monospace" font-size="16" font-weight="700" fill="#3fb950">volatile int state = 1;</text>
+    <text x="50" y="112" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" fill="#f0f6fc">0 = Unlocked • 1 = Locked • &gt;1 = Reentrant Hold Count</text>
+    <text x="50" y="134" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Mutated exclusively via hardware CAS: compareAndSetState(0, 1)</text>
 
     <!-- Owner Thread Box -->
-    <rect x="440" y="45" width="370" height="55" rx="6" fill="#0f172a" stroke="#f87171" stroke-width="1.5"/>
-    <text x="460" y="68" font-family="monospace" font-size="13" font-weight="700" fill="#f87171">exclusiveOwnerThread = Thread-0</text>
-    <text x="460" y="86" font-family="-apple-system, sans-serif" font-size="11" fill="#cbd5e1">Currently holding lock; non-owner must queue</text>
+    <rect x="565" y="55" width="505" height="100" rx="6" fill="#161b22" stroke="#da3633" stroke-width="1.5"/>
+    <text x="585" y="85" font-family="monospace" font-size="16" font-weight="700" fill="#f85149">exclusiveOwnerThread = Thread-0;</text>
+    <text x="585" y="112" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" fill="#f0f6fc">Currently holding lock; other threads are blocked and queued</text>
+    <text x="585" y="134" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Tracked via setExclusiveOwnerThread(Thread.currentThread())</text>
   </g>
 
-  <!-- Bottom: CLH Wait Queue (Doubly-Linked List) -->
-  <g transform="translate(60, 230)">
-    <rect x="0" y="0" width="840" height="280" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
-    <text x="420" y="30" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="15" font-weight="700" fill="#f8fafc">FIFO CLH Wait Queue: Node&lt;Thread&gt;</text>
-    <text x="420" y="50" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="11" fill="#94a3b8">Blocked threads parked via LockSupport.park() waiting for head node unpark() signal</text>
+  <!-- MIDDLE SECTION: FIFO CLH Wait Queue -->
+  <g transform="translate(50, 305)">
+    <rect width="1100" height="360" rx="10" fill="url(#cardGrad)" stroke="#30363d" stroke-width="2"/>
+    <text x="30" y="36" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="700" fill="#f0f6fc">FIFO CLH Wait Queue: Doubly-Linked Node&lt;Thread&gt; Chain</text>
+    <text x="30" y="60" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" fill="#8b949e">Blocked threads parked via LockSupport.park() waiting for head node release signal</text>
 
     <!-- Head Pointer -->
-    <text x="75" y="80" text-anchor="middle" font-family="monospace" font-size="12" font-weight="700" fill="#38bdf8">Head</text>
-    <line x1="75" y1="88" x2="75" y2="108" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="120" y="100" text-anchor="middle" font-family="monospace" font-size="15" font-weight="700" fill="#58a6ff">head</text>
+    <line x1="120" y1="108" x2="120" y2="135" stroke="#58a6ff" stroke-width="2" marker-end="url(#arrowBlue)"/>
 
     <!-- Dummy Head Node -->
-    <rect x="20" y="115" width="110" height="80" rx="6" fill="#0f172a" stroke="#64748b"/>
-    <text x="75" y="145" text-anchor="middle" font-family="monospace" font-size="12" font-weight="700" fill="#94a3b8">Dummy Head</text>
-    <text x="75" y="165" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" fill="#64748b">thread = null</text>
+    <rect x="40" y="145" width="160" height="130" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <text x="120" y="180" text-anchor="middle" font-family="monospace" font-size="14" font-weight="700" fill="#8b949e">Dummy Head</text>
+    <text x="120" y="210" text-anchor="middle" font-family="monospace" font-size="13" fill="#6e7681">thread = null</text>
+    <text x="120" y="235" text-anchor="middle" font-family="monospace" font-size="12.5" fill="#79c0ff">waitStatus: -1</text>
+    <text x="120" y="255" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11.5" fill="#8b949e">(SIGNAL)</text>
 
-    <!-- Bi-directional arrows -->
-    <path d="M 130 145 L 200 145" fill="none" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
-    <path d="M 200 165 L 130 165" fill="none" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <!-- Links: Head <-> Node 1 -->
+    <line x1="200" y1="190" x2="280" y2="190" stroke="#8b949e" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="240" y="182" text-anchor="middle" font-family="monospace" font-size="11" fill="#8b949e">next</text>
+    <line x1="280" y1="225" x2="200" y2="225" stroke="#8b949e" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="240" y="242" text-anchor="middle" font-family="monospace" font-size="11" fill="#8b949e">prev</text>
 
     <!-- Node 1 (Thread 1) -->
-    <rect x="200" y="115" width="160" height="80" rx="6" fill="#0f172a" stroke="#3b82f6" stroke-width="1.5"/>
-    <text x="280" y="142" text-anchor="middle" font-family="monospace" font-size="12" font-weight="700" fill="#60a5fa">Node: Thread-1</text>
-    <text x="280" y="160" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" fill="#cbd5e1">waitStatus: SIGNAL (-1)</text>
-    <text x="280" y="175" text-anchor="middle" font-family="monospace" font-size="9" fill="#94a3b8">LockSupport.park()</text>
+    <rect x="290" y="145" width="220" height="130" rx="8" fill="#161b22" stroke="#1f6feb" stroke-width="2"/>
+    <text x="400" y="180" text-anchor="middle" font-family="monospace" font-size="15" font-weight="700" fill="#58a6ff">Node: Thread-1</text>
+    <text x="400" y="210" text-anchor="middle" font-family="monospace" font-size="13" fill="#f0f6fc">waitStatus: -1 (SIGNAL)</text>
+    <text x="400" y="235" text-anchor="middle" font-family="monospace" font-size="13" fill="#7ee787">LockSupport.park()</text>
+    <text x="400" y="258" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">Next in line to acquire</text>
 
-    <!-- Bi-directional arrows -->
-    <path d="M 360 145 L 430 145" fill="none" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
-    <path d="M 430 165 L 360 165" fill="none" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <!-- Links: Node 1 <-> Node 2 -->
+    <line x1="510" y1="190" x2="590" y2="190" stroke="#8b949e" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="550" y="182" text-anchor="middle" font-family="monospace" font-size="11" fill="#8b949e">next</text>
+    <line x1="590" y1="225" x2="510" y2="225" stroke="#8b949e" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="550" y="242" text-anchor="middle" font-family="monospace" font-size="11" fill="#8b949e">prev</text>
 
     <!-- Node 2 (Thread 2) -->
-    <rect x="430" y="115" width="160" height="80" rx="6" fill="#0f172a" stroke="#3b82f6" stroke-width="1.5"/>
-    <text x="510" y="142" text-anchor="middle" font-family="monospace" font-size="12" font-weight="700" fill="#60a5fa">Node: Thread-2</text>
-    <text x="510" y="160" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" fill="#cbd5e1">waitStatus: SIGNAL (-1)</text>
-    <text x="510" y="175" text-anchor="middle" font-family="monospace" font-size="9" fill="#94a3b8">LockSupport.park()</text>
+    <rect x="600" y="145" width="220" height="130" rx="8" fill="#161b22" stroke="#1f6feb" stroke-width="1.5"/>
+    <text x="710" y="180" text-anchor="middle" font-family="monospace" font-size="15" font-weight="700" fill="#58a6ff">Node: Thread-2</text>
+    <text x="710" y="210" text-anchor="middle" font-family="monospace" font-size="13" fill="#f0f6fc">waitStatus: -1 (SIGNAL)</text>
+    <text x="710" y="235" text-anchor="middle" font-family="monospace" font-size="13" fill="#7ee787">LockSupport.park()</text>
+    <text x="710" y="258" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">Queued behind Thread-1</text>
 
-    <!-- Bi-directional arrows -->
-    <path d="M 590 145 L 660 145" fill="none" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
-    <path d="M 660 165 L 590 165" fill="none" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <!-- Links: Node 2 <-> Node 3 (Tail) -->
+    <line x1="820" y1="190" x2="900" y2="190" stroke="#8b949e" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="860" y="182" text-anchor="middle" font-family="monospace" font-size="11" fill="#8b949e">next</text>
+    <line x1="900" y1="225" x2="820" y2="225" stroke="#8b949e" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="860" y="242" text-anchor="middle" font-family="monospace" font-size="11" fill="#8b949e">prev</text>
 
     <!-- Node 3 (Tail - Thread 3) -->
-    <rect x="660" y="115" width="160" height="80" rx="6" fill="#0f172a" stroke="#f59e0b" stroke-width="1.5"/>
-    <text x="740" y="142" text-anchor="middle" font-family="monospace" font-size="12" font-weight="700" fill="#fbbf24">Node: Thread-3 (Tail)</text>
-    <text x="740" y="160" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10" fill="#cbd5e1">waitStatus: 0</text>
-    <text x="740" y="175" text-anchor="middle" font-family="monospace" font-size="9" fill="#94a3b8">LockSupport.park()</text>
+    <rect x="910" y="145" width="160" height="130" rx="8" fill="#161b22" stroke="#d29922" stroke-width="2"/>
+    <text x="990" y="180" text-anchor="middle" font-family="monospace" font-size="14" font-weight="700" fill="#e3b341">Thread-3 (Tail)</text>
+    <text x="990" y="210" text-anchor="middle" font-family="monospace" font-size="13" fill="#f0f6fc">waitStatus: 0</text>
+    <text x="990" y="235" text-anchor="middle" font-family="monospace" font-size="13" fill="#7ee787">park()</text>
+    <text x="990" y="258" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11.5" fill="#8b949e">Latest arrival</text>
 
     <!-- Tail Pointer -->
-    <text x="740" y="80" text-anchor="middle" font-family="monospace" font-size="12" font-weight="700" fill="#f59e0b">Tail</text>
-    <line x1="740" y1="88" x2="740" y2="108" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="990" y="100" text-anchor="middle" font-family="monospace" font-size="15" font-weight="700" fill="#e3b341">tail</text>
+    <line x1="990" y1="108" x2="990" y2="135" stroke="#d29922" stroke-width="2" marker-end="url(#arrowAmber)"/>
 
-    <!-- Explanatory Bottom Strip -->
-    <rect x="20" y="215" width="800" height="50" rx="4" fill="#0f172a" stroke="#334155"/>
-    <text x="35" y="235" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" fill="#34d399">⚡ Lock Release Flow:</text>
-    <text x="35" y="252" font-family="-apple-system, sans-serif" font-size="10" fill="#cbd5e1">When Thread-0 calls unlock(), state decrements to 0. AQS inspects Head.next (Thread-1) and executes LockSupport.unpark(Thread-1.thread).</text>
+    <!-- Bottom Explanatory Strip -->
+    <rect x="30" y="295" width="1040" height="48" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="50" y="325" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#c9d1d9">
+      ⚡ <tspan font-weight="700" fill="#58a6ff">CLH Queue Invariant</tspan>: Each node signals its successor upon release. A node’s waitStatus is updated to SIGNAL (-1) by its waiting downstream neighbor.
+    </text>
+  </g>
+
+  <!-- BOTTOM SECTION: Lock Acquisition vs. Release Mechanics -->
+  <g transform="translate(50, 685)">
+    <rect width="1100" height="180" rx="10" fill="url(#cardGrad)" stroke="#30363d" stroke-width="1.5"/>
+    
+    <!-- Left Column: Acquisition -->
+    <g transform="translate(30, 20)">
+      <text x="0" y="16" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#3fb950">🔒 Lock Acquisition Mechanics (Non-Fair vs Fair)</text>
+      <text x="0" y="44" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#f0f6fc">
+        1. <tspan font-weight="600" fill="#7ee787">Non-Fair Sync (Default)</tspan>: Arriving thread immediately attempts CAS on state (barging).
+      </text>
+      <text x="18" y="66" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">
+        If successful, bypasses queue entirely, avoiding thread park/unpark context switch latency.
+      </text>
+      <text x="0" y="94" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#f0f6fc">
+        2. <tspan font-weight="600" fill="#79c0ff">Enqueuing on Failure</tspan>: Thread encapsulates in Node, enqueues at tail via CAS loop,
+      </text>
+      <text x="18" y="116" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">
+        sets predecessor's waitStatus to SIGNAL, and calls LockSupport.park(this) to sleep.
+      </text>
+    </g>
+
+    <!-- Right Column: Release -->
+    <g transform="translate(570, 20)">
+      <text x="0" y="16" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#f85149">🔓 Lock Release &amp; Unpark Flow</text>
+      <text x="0" y="44" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#f0f6fc">
+        1. <tspan font-weight="600" fill="#ff7b72">unlock() Invocations</tspan>: Holding thread decrements volatile state variable.
+      </text>
+      <text x="18" y="66" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">
+        When state reaches 0, exclusiveOwnerThread is set to null (lock officially free).
+      </text>
+      <text x="0" y="94" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#f0f6fc">
+        2. <tspan font-weight="600" fill="#58a6ff">Successor Notification</tspan>: AQS checks head.waitStatus == SIGNAL.
+      </text>
+      <text x="18" y="116" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">
+        Finds head.next (Thread-1) and executes LockSupport.unpark(Thread-1.thread) to awaken it.
+      </text>
+    </g>
   </g>
 </svg>

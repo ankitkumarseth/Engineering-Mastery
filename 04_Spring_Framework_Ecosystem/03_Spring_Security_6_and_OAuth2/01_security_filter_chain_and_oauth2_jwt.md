@@ -8,7 +8,7 @@ Enterprise identity and access management in modern microservices requires stric
 
 Spring Security does not execute inside Spring MVC; it intercepts requests at the **Servlet container boundary** before `DispatcherServlet` is ever invoked:
 
-![Spring Security 6 Architecture](images/security_filter_chain_architecture.svg)
+[![Spring Security 6 Architecture](images/security_filter_chain_architecture.svg)](images/security_filter_chain_architecture.svg)
 
 ### The Ingress Dispatch Sequence
 1. **`DelegatingFilterProxy` (Servlet Filter)**:

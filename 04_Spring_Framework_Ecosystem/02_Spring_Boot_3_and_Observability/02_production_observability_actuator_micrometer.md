@@ -8,7 +8,7 @@ Modern high-throughput distributed microservices cannot be operated as black box
 
 Prior to Spring Boot 3, developers relied on **Spring Cloud Sleuth** for distributed tracing and **Micrometer** for metrics. This created architectural duplication: engineers had to instrument both a tracer span and a timer meter for the same critical business operation.
 
-![Spring Boot 3 Telemetry Pipeline](images/production_observability_pipeline.svg)
+[![Spring Boot 3 Telemetry Pipeline](images/production_observability_pipeline.svg)](images/production_observability_pipeline.svg)
 
 ### The Spring Boot 3 Paradigm
 In Spring Boot 3 / Spring Framework 6:

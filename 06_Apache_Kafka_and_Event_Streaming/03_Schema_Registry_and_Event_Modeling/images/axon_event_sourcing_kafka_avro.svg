@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 740" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="100%" height="100%">
   <defs>
     <linearGradient id="bgGradK3" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#0d1117" />
@@ -20,201 +20,180 @@
       <stop offset="0%" stop-color="#238636" />
       <stop offset="100%" stop-color="#2ea043" />
     </linearGradient>
-    <marker id="arrowBlueK3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 10 5 L 0 9 z" fill="#58a6ff" />
-    </marker>
-    <marker id="arrowGoldK3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 10 5 L 0 9 z" fill="#e3b341" />
-    </marker>
-    <marker id="arrowGreenK3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 10 5 L 0 9 z" fill="#3fb950" />
-    </marker>
   </defs>
 
   <!-- Background -->
-  <rect width="1100" height="740" fill="url(#bgGradK3)" rx="12" stroke="#30363d" stroke-width="2"/>
+  <rect width="1200" height="900" fill="url(#bgGradK3)" rx="12" stroke="#30363d" stroke-width="2"/>
 
   <!-- Title & Subtitle -->
-  <text x="40" y="45" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f0f6fc">Enterprise Event Sourcing: Axon Framework, Kafka &amp; Avro Schema Registry</text>
-  <text x="40" y="70" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e">Tier-0 Production Architecture: Aggregate Lifecycle, Binary Wire Protocol (Magic Byte + Schema ID), and CQRS Projections</text>
+  <text x="40" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="700" fill="#f0f6fc">Enterprise Event Sourcing: Axon Framework, Kafka &amp; Avro Schema Registry</text>
+  <text x="40" y="78" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" fill="#8b949e">Tier-0 Production Architecture: Aggregate Lifecycle, Binary Wire Protocol (Magic Byte + Schema ID), and CQRS Projections</text>
 
   <!-- Section 1: Axon Command Model (Left Column) -->
-  <g transform="translate(40, 100)">
-    <rect width="320" height="380" rx="8" fill="url(#cardGradK3)" stroke="#1f6feb" stroke-width="2"/>
-    <rect width="320" height="6" rx="3" fill="url(#axonGrad)"/>
-    <text x="20" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#58a6ff">1. Axon Aggregate (Command Side)</text>
-    <text x="20" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Business Invariant &amp; Optimistic Locking</text>
+  <g transform="translate(40, 105)">
+    <rect width="350" height="480" rx="8" fill="url(#cardGradK3)" stroke="#1f6feb" stroke-width="2"/>
+    <rect width="350" height="6" rx="3" fill="url(#axonGrad)"/>
+    <text x="20" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="700" fill="#58a6ff">1. Axon Aggregate (Command Side)</text>
+    <text x="20" y="56" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Business invariants &amp; optimistic locking</text>
 
     <!-- Command Gateway -->
-    <g transform="translate(15, 72)">
-      <rect width="290" height="65" rx="6" fill="#161b22" stroke="#30363d"/>
-      <text x="12" y="20" font-family="monospace" font-size="9.5" font-weight="700" fill="#79c0ff">CommandGateway.send(cmd)</text>
-      <text x="12" y="36" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#c9d1d9">• Routes to @CommandHandler</text>
-      <text x="12" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#8b949e">• Validates credit limits &amp; balance</text>
+    <g transform="translate(15, 75)">
+      <rect width="320" height="90" rx="6" fill="#161b22" stroke="#30363d"/>
+      <text x="12" y="24" font-family="monospace" font-size="13" font-weight="700" fill="#79c0ff">CommandGateway.send(cmd)</text>
+      <text x="12" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Routes to @CommandHandler</text>
+      <text x="12" y="72" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">• Validates credit limits &amp; balance</text>
     </g>
 
     <!-- Aggregate Root Box -->
-    <g transform="translate(15, 148)">
-      <rect width="290" height="115" rx="6" fill="#161b22" stroke="#1f6feb"/>
-      <text x="12" y="20" font-family="monospace" font-size="10" font-weight="700" fill="#58a6ff">@Aggregate: CardAccount</text>
-      <text x="12" y="38" font-family="monospace" font-size="9" fill="#e3b341">@AggregateIdentifier: cardId</text>
-      <text x="12" y="54" font-family="monospace" font-size="9" fill="#7ee787">@AggregateVersion: seqNumber</text>
-      <text x="12" y="72" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#c9d1d9">• Emits: CardIssuedEvent</text>
-      <text x="12" y="88" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#c9d1d9">• @EventSourcingHandler mutates state</text>
-      <text x="12" y="104" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9" fill="#f85149">🛡️ Throws ConcurrencyException if collision!</text>
+    <g transform="translate(15, 180)">
+      <rect width="320" height="155" rx="6" fill="#161b22" stroke="#1f6feb"/>
+      <text x="12" y="24" font-family="monospace" font-size="13" font-weight="700" fill="#58a6ff">@Aggregate: CardAccount</text>
+      <text x="12" y="48" font-family="monospace" font-size="13" fill="#e3b341">@AggregateIdentifier: cardId</text>
+      <text x="12" y="70" font-family="monospace" font-size="13" fill="#7ee787">@AggregateVersion: seqNumber</text>
+      <text x="12" y="94" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Emits: CardIssuedEvent</text>
+      <text x="12" y="116" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• @EventSourcingHandler applies delta</text>
+      <text x="12" y="138" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#f85149">🛡️ ConcurrencyException on conflict</text>
     </g>
 
     <!-- Axon Kafka Publisher -->
-    <g transform="translate(15, 274)">
-      <rect width="290" height="88" rx="6" fill="#161b22" stroke="#30363d"/>
-      <text x="12" y="20" font-family="monospace" font-size="10" font-weight="700" fill="#79c0ff">Axon KafkaPublisher</text>
-      <text x="12" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#c9d1d9">• Maps cardId → Kafka Message Key</text>
-      <text x="12" y="54" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9" fill="#8b949e">  (Guarantees same partition order!)</text>
-      <text x="12" y="72" font-family="monospace" font-size="8.5" fill="#7ee787">Headers: [axon-msg-id, axon-seq, axon-type]</text>
+    <g transform="translate(15, 350)">
+      <rect width="320" height="110" rx="6" fill="#161b22" stroke="#30363d"/>
+      <text x="12" y="24" font-family="monospace" font-size="13" font-weight="700" fill="#7ee787">KafkaEventPublisher</text>
+      <text x="12" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Commits to Axon local EventStore</text>
+      <text x="12" y="72" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Publishes to Kafka Topic</text>
+      <text x="12" y="96" font-family="monospace" font-size="13" fill="#79c0ff">card-lifecycle-events-v1</text>
     </g>
   </g>
 
-  <!-- Arrow 1 to 2 -->
-  <line x1="360" y1="290" x2="395" y2="290" stroke="#58a6ff" stroke-width="2.5" marker-end="url(#arrowBlueK3)"/>
+  <!-- Section 2: Confluent Schema Registry (Middle Column) -->
+  <g transform="translate(415, 105)">
+    <rect width="370" height="480" rx="8" fill="url(#cardGradK3)" stroke="#d29922" stroke-width="2"/>
+    <rect width="370" height="6" rx="3" fill="url(#avroGrad)"/>
+    <text x="20" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="700" fill="#e3b341">2. Schema Registry Wire Protocol</text>
+    <text x="20" y="56" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Confluent binary format: 5-byte header</text>
 
-  <!-- Section 2: Avro & Schema Registry (Center Column) -->
-  <g transform="translate(395, 100)">
-    <rect width="320" height="380" rx="8" fill="url(#cardGradK3)" stroke="#d29922" stroke-width="2"/>
-    <rect width="320" height="6" rx="3" fill="url(#avroGrad)"/>
-    <text x="20" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#e3b341">2. Avro Binary Serialization</text>
-    <text x="20" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Confluent Schema Registry Wire Format</text>
-
-    <!-- Schema Registry Box -->
-    <g transform="translate(15, 72)">
-      <rect width="290" height="85" rx="6" fill="#161b22" stroke="#d29922"/>
-      <text x="12" y="20" font-family="monospace" font-size="10" font-weight="700" fill="#e3b341">Central Schema Registry</text>
-      <text x="12" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#c9d1d9">• Subject: card-events-value</text>
-      <text x="12" y="54" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#c9d1d9">• Compatibility: FULL / BACKWARD</text>
-      <text x="12" y="70" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9" fill="#3fb950">✓ Prevents breaking downstream consumers</text>
+    <!-- Schema Registry Service -->
+    <g transform="translate(15, 75)">
+      <rect width="340" height="100" rx="6" fill="#161b22" stroke="#d29922"/>
+      <text x="12" y="24" font-family="monospace" font-size="13" font-weight="700" fill="#e3b341">Schema Registry HTTP Cluster</text>
+      <text x="12" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Compatibility: BACKWARD_TRANSITIVE</text>
+      <text x="12" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">• Caches parsed Avro schemas locally</text>
+      <text x="12" y="92" font-family="monospace" font-size="13" fill="#3fb950">GET /schemas/ids/42 -&gt; Schema JSON</text>
     </g>
 
-    <!-- 5-Byte Wire Protocol Header -->
-    <g transform="translate(15, 168)">
-      <rect width="290" height="102" rx="6" fill="#161b22" stroke="#30363d"/>
-      <text x="12" y="20" font-family="monospace" font-size="10" font-weight="700" fill="#79c0ff">5-Byte Wire Framing Protocol:</text>
+    <!-- Wire Protocol Anatomy -->
+    <g transform="translate(15, 190)">
+      <rect width="340" height="175" rx="6" fill="#161b22" stroke="#30363d"/>
+      <text x="12" y="24" font-family="monospace" font-size="13" font-weight="700" fill="#f0883e">5-Byte Binary Header Anatomy:</text>
       
-      <!-- Bytes visual with clean sub-translations -->
-      <g transform="translate(12, 30)">
-        <g transform="translate(0, 0)">
-          <rect width="70" height="32" rx="3" fill="#da3633" fill-opacity="0.3" stroke="#da3633"/>
-          <text x="6" y="14" font-family="monospace" font-size="8.5" fill="#f85149">Magic Byte</text>
-          <text x="12" y="26" font-family="monospace" font-size="8.5" fill="#f85149">0x00 (1B)</text>
-        </g>
+      <!-- Visual Byte Layout -->
+      <g transform="translate(10, 36)">
+        <rect width="70" height="50" rx="4" fill="#1f6feb" fill-opacity="0.3" stroke="#388bfd"/>
+        <text x="35" y="22" text-anchor="middle" font-family="monospace" font-size="13" fill="#79c0ff">Byte 0</text>
+        <text x="35" y="40" text-anchor="middle" font-family="monospace" font-size="13" font-weight="700" fill="#388bfd">0x00</text>
 
-        <g transform="translate(75, 0)">
-          <rect width="95" height="32" rx="3" fill="#d29922" fill-opacity="0.3" stroke="#d29922"/>
-          <text x="16" y="14" font-family="monospace" font-size="8.5" fill="#e3b341">Schema ID</text>
-          <text x="10" y="26" font-family="monospace" font-size="8" fill="#e3b341">0x0000002A (4B)</text>
-        </g>
+        <rect x="80" width="110" height="50" rx="4" fill="#d29922" fill-opacity="0.3" stroke="#e3b341"/>
+        <text x="135" y="22" text-anchor="middle" font-family="monospace" font-size="13" fill="#e3b341">Bytes 1..4</text>
+        <text x="135" y="40" text-anchor="middle" font-family="monospace" font-size="13" font-weight="700" fill="#e3b341">Schema ID: 42</text>
 
-        <g transform="translate(175, 0)">
-          <rect width="90" height="32" rx="3" fill="#238636" fill-opacity="0.3" stroke="#238636"/>
-          <text x="8" y="14" font-family="monospace" font-size="8.5" fill="#3fb950">Avro Payload</text>
-          <text x="12" y="26" font-family="monospace" font-size="8.5" fill="#3fb950">Binary Bytes</text>
-        </g>
+        <rect x="200" width="120" height="50" rx="4" fill="#238636" fill-opacity="0.3" stroke="#3fb950"/>
+        <text x="260" y="22" text-anchor="middle" font-family="monospace" font-size="13" fill="#7ee787">Bytes 5..N</text>
+        <text x="260" y="40" text-anchor="middle" font-family="monospace" font-size="13" font-weight="700" fill="#3fb950">Avro Payload</text>
       </g>
-      <text x="12" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9" fill="#8b949e">Consumers resolve schema from local cache by ID</text>
-      <text x="12" y="94" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="8.5" fill="#3fb950">Zero HTTP round-trips for ongoing streaming!</text>
+
+      <text x="12" y="112" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Byte 0: Magic Byte (always 0x00)</text>
+      <text x="12" y="134" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Bytes 1-4: 4-byte Big-Endian Schema ID</text>
+      <text x="12" y="156" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#7ee787">• Compact binary: field names omitted on wire</text>
     </g>
 
-    <!-- Kafka Topic Partition -->
-    <g transform="translate(15, 282)">
-      <rect width="290" height="80" rx="6" fill="#161b22" stroke="#30363d"/>
-      <text x="12" y="20" font-family="monospace" font-size="10" font-weight="700" fill="#3fb950">Kafka Partition: card-events-0</text>
-      <text x="12" y="38" font-family="monospace" font-size="9" fill="#8b949e">Key: "card_98124" | Offset: 1042</text>
-      <text x="12" y="54" font-family="monospace" font-size="9" fill="#7ee787">Payload: [0x00][Schema:42][Binary Data]</text>
-      <text x="12" y="70" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9" fill="#8b949e">Compact, fast, zero textual overhead</text>
+    <!-- Deserialization Cache -->
+    <g transform="translate(15, 380)">
+      <rect width="340" height="80" rx="6" fill="#161b22" stroke="#30363d"/>
+      <text x="12" y="24" font-family="monospace" font-size="13" font-weight="700" fill="#7ee787">KafkaAvroDeserializer</text>
+      <text x="12" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Resolves ID 42 from local RAM cache</text>
+      <text x="12" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#3fb950">✓ Sub-microsecond zero-HTTP deserialization</text>
     </g>
   </g>
 
-  <!-- Arrow 2 to 3 -->
-  <line x1="715" y1="290" x2="750" y2="290" stroke="#3fb950" stroke-width="2.5" marker-end="url(#arrowGreenK3)"/>
+  <!-- Section 3: CQRS Read Side (Right Column) -->
+  <g transform="translate(810, 105)">
+    <rect width="350" height="480" rx="8" fill="url(#cardGradK3)" stroke="#238636" stroke-width="2"/>
+    <rect width="350" height="6" rx="3" fill="url(#cqrsGrad)"/>
+    <text x="20" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="700" fill="#3fb950">3. CQRS Projection (Read Side)</text>
+    <text x="20" y="56" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Event streaming to denormalized views</text>
 
-  <!-- Section 3: CQRS Read Side & Projections (Right Column) -->
-  <g transform="translate(750, 100)">
-    <rect width="310" height="380" rx="8" fill="url(#cardGradK3)" stroke="#238636" stroke-width="2"/>
-    <rect width="310" height="6" rx="3" fill="url(#cqrsGrad)"/>
-    <text x="20" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#3fb950">3. CQRS Read Projections</text>
-    <text x="20" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Tracking Processor &amp; Materialized Views</text>
-
-    <!-- KafkaMessageSource -->
-    <g transform="translate(15, 72)">
-      <rect width="280" height="85" rx="6" fill="#161b22" stroke="#30363d"/>
-      <text x="12" y="20" font-family="monospace" font-size="10" font-weight="700" fill="#79c0ff">StreamableKafkaMessageSource</text>
-      <text x="12" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#c9d1d9">• Tails Kafka partition stream</text>
-      <text x="12" y="54" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#c9d1d9">• Deserializes Avro binary bytes</text>
-      <text x="12" y="70" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9" fill="#3fb950">Dispatches DomainEventMessage</text>
+    <!-- Consumer & Tracking Processor -->
+    <g transform="translate(15, 75)">
+      <rect width="320" height="110" rx="6" fill="#161b22" stroke="#30363d"/>
+      <text x="12" y="24" font-family="monospace" font-size="13" font-weight="700" fill="#7ee787">TrackingEventProcessor</text>
+      <text x="12" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Dedicated Kafka Consumer Thread</text>
+      <text x="12" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Reads card-lifecycle-events-v1</text>
+      <text x="12" y="94" font-family="monospace" font-size="13" fill="#79c0ff">TrackingToken stored in DB token_entry</text>
     </g>
 
-    <!-- Tracking Event Processor -->
-    <g transform="translate(15, 168)">
-      <rect width="280" height="97" rx="6" fill="#161b22" stroke="#238636"/>
-      <text x="12" y="20" font-family="monospace" font-size="10" font-weight="700" fill="#3fb950">TrackingEventProcessor</text>
-      <text x="12" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#c9d1d9">• Tracks its own token offset</text>
-      <text x="12" y="54" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#c9d1d9">• Replays events on new projection</text>
-      <text x="12" y="70" font-family="monospace" font-size="9" fill="#e3b341">@EventHandler updates Database</text>
-      <text x="12" y="86" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="8.5" fill="#8b949e">Async decoupling from Command side</text>
+    <!-- Projection Handler -->
+    <g transform="translate(15, 200)">
+      <rect width="320" height="135" rx="6" fill="#161b22" stroke="#238636"/>
+      <text x="12" y="24" font-family="monospace" font-size="13" font-weight="700" fill="#3fb950">@EventHandler Projection</text>
+      <text x="12" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Updates CardSummaryView table</text>
+      <text x="12" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Updates Elasticsearch card search index</text>
+      <text x="12" y="94" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">• Idempotent DB UPSERT: WHERE ver &lt; new</text>
+      <text x="12" y="118" font-family="monospace" font-size="13" fill="#7ee787">✓ Eventually consistent within ~10ms</text>
     </g>
 
     <!-- Query Gateway -->
-    <g transform="translate(15, 276)">
-      <rect width="280" height="86" rx="6" fill="#161b22" stroke="#30363d"/>
-      <text x="12" y="20" font-family="monospace" font-size="10" font-weight="700" fill="#79c0ff">QueryGateway &amp; Read Model</text>
-      <text x="12" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#c9d1d9">• Serves sub-millisecond queries</text>
-      <text x="12" y="54" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#8b949e">• Mobile App / Banking Portal</text>
-      <text x="12" y="70" font-family="monospace" font-size="9" fill="#3fb950">Denormalized Read Views (Elastic/Oracle)</text>
+    <g transform="translate(15, 350)">
+      <rect width="320" height="110" rx="6" fill="#161b22" stroke="#30363d"/>
+      <text x="12" y="24" font-family="monospace" font-size="13" font-weight="700" fill="#79c0ff">QueryGateway &amp; Read API</text>
+      <text x="12" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Sub-millisecond reads for Mobile App</text>
+      <text x="12" y="72" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">• Zero joins across write tables</text>
+      <text x="12" y="96" font-family="monospace" font-size="13" fill="#3fb950">SELECT * FROM card_summary WHERE id=?</text>
     </g>
   </g>
 
   <!-- Section 4: Log Compaction & Tombstone Lifecycle (Bottom Banner) -->
-  <g transform="translate(40, 495)">
-    <rect width="1020" height="215" rx="8" fill="url(#cardGradK3)" stroke="#30363d" stroke-width="1.5"/>
-    <text x="25" y="30" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#f0f6fc">4. Kafka Log Compaction &amp; Tombstone Record Lifecycle</text>
+  <g transform="translate(40, 605)">
+    <rect width="1120" height="270" rx="8" fill="url(#cardGradK3)" stroke="#30363d" stroke-width="2"/>
+    <text x="25" y="36" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#f0f6fc">4. Kafka Log Compaction &amp; Tombstone Record Lifecycle</text>
+    <text x="25" y="58" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Retention by key, SkimpyOffsetMap deduplication, and delete.retention.ms tombstone clearing</text>
 
-    <g transform="translate(25, 45)">
+    <g transform="translate(20, 72)">
       <!-- Step 1: Pre-Compaction -->
       <g transform="translate(0, 0)">
-        <rect width="310" height="150" rx="6" fill="#161b22" stroke="#30363d"/>
-        <text x="15" y="20" font-family="monospace" font-size="11" font-weight="700" fill="#e3b341">1. Pre-Compaction (Dirty Log)</text>
-        <text x="15" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">Contains historical mutable state:</text>
-        <g transform="translate(15, 52)">
-          <text x="0" y="16" font-family="monospace" font-size="9" fill="#8b949e">[Off: 0] Key: K1, Val: "v1"</text>
-          <text x="0" y="32" font-family="monospace" font-size="9" fill="#8b949e">[Off: 1] Key: K2, Val: "v1"</text>
-          <text x="0" y="48" font-family="monospace" font-size="9" fill="#f0883e">[Off: 2] Key: K1, Val: "v2" (Update)</text>
-          <text x="0" y="64" font-family="monospace" font-size="9" fill="#8b949e">[Off: 3] Key: K3, Val: "v1"</text>
-          <text x="0" y="80" font-family="monospace" font-size="9" fill="#f85149">[Off: 4] Key: K2, Val: NULL (Tombstone!)</text>
+        <rect width="345" height="180" rx="6" fill="#161b22" stroke="#30363d"/>
+        <text x="15" y="24" font-family="monospace" font-size="14" font-weight="700" fill="#e3b341">1. Pre-Compaction (Dirty Log)</text>
+        <text x="15" y="50" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">Contains historical changelog records:</text>
+        <g transform="translate(15, 60)">
+          <text x="0" y="20" font-family="monospace" font-size="13" fill="#8b949e">[Off: 0] Key: K1, Val: "v1"</text>
+          <text x="0" y="42" font-family="monospace" font-size="13" fill="#8b949e">[Off: 1] Key: K2, Val: "v1"</text>
+          <text x="0" y="64" font-family="monospace" font-size="13" fill="#f0883e">[Off: 2] Key: K1, Val: "v2" (Update)</text>
+          <text x="0" y="86" font-family="monospace" font-size="13" fill="#8b949e">[Off: 3] Key: K3, Val: "v1"</text>
+          <text x="0" y="108" font-family="monospace" font-size="13" fill="#f85149">[Off: 4] Key: K2, Val: NULL (Tombstone!)</text>
         </g>
       </g>
 
       <!-- Step 2: Cleaner Thread -->
-      <g transform="translate(345, 0)">
-        <rect width="310" height="150" rx="6" fill="#161b22" stroke="#d29922"/>
-        <text x="15" y="20" font-family="monospace" font-size="11" font-weight="700" fill="#e3b341">2. Cleaner Thread Execution</text>
-        <text x="15" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">• Triggered by min.cleanable.ratio</text>
-        <text x="15" y="60" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">• Builds SkimpyOffsetMap in RAM</text>
-        <text x="15" y="78" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">• Retains latest offset per key</text>
-        <text x="15" y="100" font-family="monospace" font-size="9.5" fill="#f85149">Tombstone: delete.retention.ms</text>
-        <text x="15" y="118" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9" fill="#8b949e">Tombstone kept for 24h so consumers</text>
-        <text x="15" y="132" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9" fill="#8b949e">can detect and delete downstream rows!</text>
+      <g transform="translate(365, 0)">
+        <rect width="350" height="180" rx="6" fill="#161b22" stroke="#d29922"/>
+        <text x="15" y="24" font-family="monospace" font-size="14" font-weight="700" fill="#e3b341">2. Cleaner Thread Execution</text>
+        <text x="15" y="50" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Triggered by min.cleanable.ratio (0.5)</text>
+        <text x="15" y="74" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Builds SkimpyOffsetMap hash table in RAM</text>
+        <text x="15" y="98" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Retains only the latest offset per key</text>
+        <text x="15" y="126" font-family="monospace" font-size="13" fill="#f85149">Tombstone: delete.retention.ms = 86400s</text>
+        <text x="15" y="150" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">Retained for 24h so downstream can delete!</text>
       </g>
 
       <!-- Step 3: Post-Compaction -->
-      <g transform="translate(685, 0)">
-        <rect width="310" height="150" rx="6" fill="#161b22" stroke="#238636"/>
-        <text x="15" y="20" font-family="monospace" font-size="11" font-weight="700" fill="#3fb950">3. Compacted Log State</text>
-        <text x="15" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">Deduplicated changelog snapshot:</text>
-        <g transform="translate(15, 55)">
-          <text x="0" y="18" font-family="monospace" font-size="9.5" fill="#3fb950">[Off: 2] Key: K1, Val: "v2"</text>
-          <text x="0" y="38" font-family="monospace" font-size="9.5" fill="#3fb950">[Off: 3] Key: K3, Val: "v1"</text>
-          <text x="0" y="58" font-family="monospace" font-size="8.5" fill="#8b949e">(K2 completely deleted after tombstone)</text>
+      <g transform="translate(735, 0)">
+        <rect width="345" height="180" rx="6" fill="#161b22" stroke="#238636"/>
+        <text x="15" y="24" font-family="monospace" font-size="14" font-weight="700" fill="#3fb950">3. Compacted Log State</text>
+        <text x="15" y="50" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">Deduplicated changelog snapshot:</text>
+        <g transform="translate(15, 60)">
+          <text x="0" y="22" font-family="monospace" font-size="13" fill="#3fb950">[Off: 2] Key: K1, Val: "v2"</text>
+          <text x="0" y="46" font-family="monospace" font-size="13" fill="#3fb950">[Off: 3] Key: K3, Val: "v1"</text>
+          <text x="0" y="70" font-family="monospace" font-size="13" fill="#8b949e">(K2 purged after tombstone timeout)</text>
         </g>
-        <text x="15" y="115" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#3fb950">✓ Bounded storage growth</text>
-        <text x="15" y="132" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#7ee787">✓ Fast aggregate rehydration</text>
+        <text x="15" y="146" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#7ee787">✓ Bounded storage growth &amp; fast rehydration</text>
       </g>
     </g>
   </g>

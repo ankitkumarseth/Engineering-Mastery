@@ -39,7 +39,7 @@
 
 The Java Virtual Machine specification (JVMS) divides runtime memory into distinct regions with strictly defined lifecycles, access rules, and garbage collection behaviors:
 
-![JVM Memory Architecture and Object Layout](images/jvm_memory_layout_and_object_header.svg)
+[![JVM Memory Architecture and Object Layout](images/jvm_memory_layout_and_object_header.svg)](images/jvm_memory_layout_and_object_header.svg)
 
 ### 1.1 Thread-Private Memory (Allocated per Thread)
 

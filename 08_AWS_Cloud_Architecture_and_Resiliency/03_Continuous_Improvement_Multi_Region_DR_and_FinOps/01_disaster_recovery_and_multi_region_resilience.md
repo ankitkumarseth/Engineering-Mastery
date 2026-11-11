@@ -8,7 +8,7 @@ This playbook breaks down the complete spectrum of the **4 AWS Disaster Recovery
 
 ## Architecture Blueprint: Disaster Recovery & Resiliency Spectrum
 
-![Disaster Recovery and Resiliency Spectrum](images/aws_disaster_recovery_security_and_finops.svg)
+[![Disaster Recovery and Resiliency Spectrum](images/aws_disaster_recovery_security_and_finops.svg)](images/aws_disaster_recovery_security_and_finops.svg)
 
 ```
 ========================================================================================================================

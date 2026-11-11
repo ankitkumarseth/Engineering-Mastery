@@ -83,7 +83,7 @@ X-RateLimit-Reset: 1731252030
 
 As organizations grow, client applications diverge in form factor, bandwidth constraints, and user experience requirements.
 
-![API Gateway and BFF Architecture](images/api_gateway_bff_architecture.svg)
+[![API Gateway and BFF Architecture](images/api_gateway_bff_architecture.svg)](images/api_gateway_bff_architecture.svg)
 
 ### The Anti-Pattern: "The One Generic Gateway"
 Early microservice adoptions deployed a single, monolithic API gateway shared by mobile apps, desktop web browsers, and third-party B2B partners.

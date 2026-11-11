@@ -12,7 +12,7 @@ $$f(f(x)) = f(x)$$
 
 While HTTP `GET`, `PUT`, and `DELETE` are semantically idempotent by specification, `POST` is **non-idempotent**. To make `POST` mutations idempotent across distributed networks, we implement the **Idempotency-Key Architecture**:
 
-![Distributed Idempotency Pipeline](images/stripe_style_idempotency_pipeline.svg)
+[![Distributed Idempotency Pipeline](images/stripe_style_idempotency_pipeline.svg)](images/stripe_style_idempotency_pipeline.svg)
 
 ### The 4-Phase Pipeline Execution Trace
 

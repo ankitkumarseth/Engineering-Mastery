@@ -16,7 +16,7 @@ ORDER BY id
 LIMIT 20 OFFSET 1000000;
 ```
 
-![Keyset vs Offset Pagination Architecture](images/keyset_vs_offset_pagination_btree.svg)
+[![Keyset vs Offset Pagination Architecture](images/keyset_vs_offset_pagination_btree.svg)](images/keyset_vs_offset_pagination_btree.svg)
 
 ### The Database Engine Execution Plan
 1. The database cannot magically jump to row number 1,000,001. A B-Tree index is an ordered tree, but it does **not** store an absolute row number on each leaf node.

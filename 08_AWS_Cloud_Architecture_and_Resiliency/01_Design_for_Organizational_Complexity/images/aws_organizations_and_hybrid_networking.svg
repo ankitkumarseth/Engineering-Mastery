@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 740" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="100%" height="100%">
   <defs>
     <linearGradient id="bgGradAws1" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#0d1117" />
@@ -20,154 +20,135 @@
       <stop offset="0%" stop-color="#8957e5" />
       <stop offset="100%" stop-color="#a371f7" />
     </linearGradient>
-    <marker id="arrowOrange" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 10 5 L 0 9 z" fill="#ff9900" />
-    </marker>
-    <marker id="arrowBlueNet" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 10 5 L 0 9 z" fill="#58a6ff" />
-    </marker>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#010409" flood-opacity="0.8"/>
+    </filter>
   </defs>
 
   <!-- Background Canvas -->
-  <rect width="1100" height="740" fill="url(#bgGradAws1)" rx="12" stroke="#30363d" stroke-width="2"/>
+  <rect width="1200" height="900" fill="url(#bgGradAws1)" rx="12" stroke="#30363d" stroke-width="2"/>
 
   <!-- Title & Subtitle -->
-  <text x="40" y="45" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f0f6fc">AWS Multi-Account Governance, Hybrid Connectivity &amp; Transit Gateway</text>
-  <text x="40" y="70" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e">SAP-C02 Domain 1: AWS Organizations, SCP Inheritance, Direct Connect (DXGW/Transit VIF), and Route 53 Resolver</text>
+  <g transform="translate(40, 45)">
+    <text font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="700" fill="#f0f6fc">AWS Multi-Account Governance, Hybrid Connectivity &amp; Transit Gateway</text>
+    <text y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" fill="#8b949e">SAP-C02 Domain 1: Organizations Hierarchy, SCP Precedence, Direct Connect Gateway &amp; Centralized Inspection</text>
+  </g>
 
-  <!-- Section 1: AWS Organizations & Identity Governance (Left Column) -->
-  <g transform="translate(40, 100)">
-    <rect width="500" height="375" rx="8" fill="url(#cardGradAws1)" stroke="#ff9900" stroke-width="2"/>
-    <rect width="500" height="6" rx="3" fill="url(#orgGrad)"/>
-    <text x="25" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#ffb84d">1. Organizations, SCP Inheritance &amp; Identity Center</text>
-    <text x="25" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Guardrails via Explicit Deny &amp; Centralized Multi-Account Federation</text>
+  <!-- SECTION 1: AWS Organizations & Identity Governance (Left Column) -->
+  <g transform="translate(40, 105)" filter="url(#shadow)">
+    <rect width="545" height="475" rx="10" fill="url(#cardGradAws1)" stroke="#ff9900" stroke-width="2"/>
+    <rect width="545" height="6" rx="3" fill="url(#orgGrad)"/>
+    <text x="24" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#ffb84d">1. Organizations, SCP Inheritance &amp; Identity</text>
+    <text x="24" y="56" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Guardrails via Explicit Deny &amp; Enterprise SSO Federation</text>
 
-    <!-- Sub-card: Hierarchy & SCP Flow -->
-    <g transform="translate(20, 72)">
-      <rect width="460" height="275" rx="6" fill="#161b22" stroke="#30363d"/>
-      <text x="15" y="22" font-family="monospace" font-size="10.5" font-weight="700" fill="#ff9900">Multi-Account Hierarchy &amp; Permission Boundary</text>
+    <!-- Sub-card 1: Management Account -->
+    <g transform="translate(20, 75)">
+      <rect width="505" height="105" rx="6" fill="#0d1117" stroke="#ff9900" stroke-width="1.5"/>
+      <text x="16" y="24" font-family="monospace" font-size="14" font-weight="700" fill="#ffb84d">Management Account (Root) — Governance ONLY</text>
+      <text x="16" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Root SCP: FullAWSAccess default. Never run workloads here.</text>
+      <text x="16" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Delegated Admin: GuardDuty, Security Hub, Backup, Identity Center.</text>
+      <text x="16" y="92" font-family="monospace" font-size="12" fill="#7ee787">✓ Prevents management account privilege escalation &amp; blast radius</text>
+    </g>
 
-      <g transform="translate(15, 36)">
-        <!-- Management Account Box -->
-        <g transform="translate(0, 0)">
-          <rect width="430" height="52" rx="4" fill="#0d1117" stroke="#ff9900"/>
-          <text x="12" y="18" font-family="monospace" font-size="9.5" font-weight="700" fill="#ffb84d">Management Account (Root) — Billing &amp; Org Management ONLY</text>
-          <text x="12" y="34" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">Root SCP: FullAWSAccess default. Never deploy production workloads here.</text>
-          <text x="12" y="46" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#8b949e">Delegated Admin: GuardDuty, Security Hub, AWS Backup, IAM Identity Center</text>
-        </g>
+    <!-- Sub-card 2: OUs & SCP Rule -->
+    <g transform="translate(20, 195)">
+      <rect width="505" height="130" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1.5"/>
+      <text x="16" y="24" font-family="monospace" font-size="14" font-weight="700" fill="#58a6ff">Organizational Units (OUs) &amp; SCP Inheritance</text>
+      <text x="16" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Core OU (Shared Services, Central Network, Security/Audit)</text>
+      <text x="16" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Workloads OU (Prod, Non-Prod, Sandbox) — Strong isolation</text>
+      <text x="16" y="94" font-family="monospace" font-size="13" font-weight="700" fill="#f85149">⚠️ SCP Rule: Explicit Deny TRUMPS all allows at any level!</text>
+      <text x="16" y="116" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#8b949e">SCPs set max guardrails; IAM policies grant actual user permissions.</text>
+    </g>
 
-        <!-- Core OUs Box -->
-        <g transform="translate(0, 60)">
-          <rect width="430" height="88" rx="4" fill="#0d1117" stroke="#30363d"/>
-          <text x="12" y="18" font-family="monospace" font-size="9" font-weight="700" fill="#58a6ff">Organizational Units (OUs) &amp; SCP Inheritance Rules:</text>
-          <text x="12" y="34" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">1. Core OU (Shared Services, Central Networking, Security/Logging Audit)</text>
-          <text x="12" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">2. Workloads OU (Prod, Non-Prod, Sandboxes) — Isolated blast radius</text>
-          <text x="12" y="64" font-family="monospace" font-size="8.5" fill="#f85149">SCP Rule: Explicit Deny TRUMPS everything (Leaves, OUs, Account IAM)!</text>
-          <text x="12" y="78" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#8b949e">SCPs do NOT grant permissions; they define maximum permission boundaries.</text>
-        </g>
+    <!-- Sub-card 3: IAM Identity Center -->
+    <g transform="translate(20, 340)">
+      <rect width="505" height="115" rx="6" fill="#0d1117" stroke="#238636" stroke-width="1.5"/>
+      <text x="16" y="24" font-family="monospace" font-size="14" font-weight="700" fill="#3fb950">IAM Identity Center (AWS SSO) &amp; STS AssumeRole</text>
+      <text x="16" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• SAML 2.0 / OIDC IdP (Okta / Entra ID) -> Central Web Portal</text>
+      <text x="16" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Permission Sets deploy temporary IAM roles across 100+ accounts</text>
+      <text x="16" y="94" font-family="monospace" font-size="12" fill="#7ee787">✓ Eliminates static IAM user credentials &amp; long-lived access keys</text>
+    </g>
+  </g>
 
-        <!-- Identity Center & Federation Box -->
-        <g transform="translate(0, 156)">
-          <rect width="430" height="68" rx="4" fill="#0d1117" stroke="#238636"/>
-          <text x="12" y="18" font-family="monospace" font-size="9" font-weight="700" fill="#3fb950">IAM Identity Center (AWS SSO) &amp; STS AssumeRole</text>
-          <text x="12" y="34" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• SAML 2.0 / OIDC IdP (Okta / Azure AD / Entra ID) -> Central Portal</text>
-          <text x="12" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• Permission Sets deploy temporary IAM roles across 100+ accounts</text>
-          <text x="12" y="62" font-family="monospace" font-size="8" fill="#7ee787">✓ Eliminates static IAM user credentials &amp; long-lived access keys</text>
-        </g>
+  <!-- SECTION 2: Hybrid Connectivity & Route 53 Resolver (Right Column) -->
+  <g transform="translate(615, 105)" filter="url(#shadow)">
+    <rect width="545" height="475" rx="10" fill="url(#cardGradAws1)" stroke="#1f6feb" stroke-width="2"/>
+    <rect width="545" height="6" rx="3" fill="url(#netGrad)"/>
+    <text x="24" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#58a6ff">2. Hybrid Direct Connect &amp; Route 53 DNS</text>
+    <text x="24" y="56" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Direct Connect Gateway, Transit VIF &amp; Split-Horizon Resolution</text>
+
+    <!-- Sub-card 1: Direct Connect -->
+    <g transform="translate(20, 75)">
+      <rect width="505" height="130" rx="6" fill="#0d1117" stroke="#1f6feb" stroke-width="1.5"/>
+      <text x="16" y="24" font-family="monospace" font-size="14" font-weight="700" fill="#79c0ff">AWS Direct Connect (DX) + DX Gateway (DXGW)</text>
+      <text x="16" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Dedicated (1/10/100 Gbps) vs Hosted Connection</text>
+      <text x="16" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Transit VIF: Attaches DXGW to Transit Gateway (TGW) globally</text>
+      <text x="16" y="92" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Wire Security: IEEE 802.1AE MACsec (L2) or IPsec VPN over DX (L3)</text>
+      <text x="16" y="114" font-family="monospace" font-size="12" fill="#e3b341">DXGW connects on-prem to multiple VPCs across multi-regions</text>
+    </g>
+
+    <!-- Sub-card 2: Route 53 Resolver -->
+    <g transform="translate(20, 220)">
+      <rect width="505" height="235" rx="6" fill="#0d1117" stroke="#388bfd" stroke-width="1.5"/>
+      <text x="16" y="24" font-family="monospace" font-size="14" font-weight="700" fill="#388bfd">Route 53 Resolver: Split-Horizon Hybrid DNS</text>
+
+      <!-- Inbound Endpoint -->
+      <g transform="translate(14, 38)">
+        <rect width="477" height="82" rx="4" fill="#161b22" stroke="#238636" stroke-width="1"/>
+        <text x="12" y="22" font-family="monospace" font-size="13" font-weight="700" fill="#7ee787">INBOUND ENDPOINT (On-Prem -> AWS Resolves Private Zones)</text>
+        <text x="12" y="46" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• ENIs placed in VPC subnets with static private IPs.</text>
+        <text x="12" y="68" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#8b949e">On-prem DNS forwards *.aws.internal queries to Inbound ENIs.</text>
+      </g>
+
+      <!-- Outbound Endpoint -->
+      <g transform="translate(14, 134)">
+        <rect width="477" height="86" rx="4" fill="#161b22" stroke="#d29922" stroke-width="1"/>
+        <text x="12" y="22" font-family="monospace" font-size="13" font-weight="700" fill="#e3b341">OUTBOUND ENDPOINT + RULES (AWS -> On-Prem DNS)</text>
+        <text x="12" y="46" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Resolver Forwarding Rules: corp.example.com -> On-Prem DNS IP.</text>
+        <text x="12" y="68" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#8b949e">Shared across 100+ accounts via AWS RAM (zero duplicate config).</text>
       </g>
     </g>
   </g>
 
-  <!-- Section 2: Hybrid Connectivity & Route 53 Resolver (Right Column) -->
-  <g transform="translate(560, 100)">
-    <rect width="500" height="375" rx="8" fill="url(#cardGradAws1)" stroke="#1f6feb" stroke-width="2"/>
-    <rect width="500" height="6" rx="3" fill="url(#netGrad)"/>
-    <text x="25" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#58a6ff">2. Hybrid Direct Connect &amp; Route 53 Hybrid DNS</text>
-    <text x="25" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Direct Connect Gateway, Transit VIF, MACsec &amp; Split-Horizon Resolution</text>
+  <!-- SECTION 3: Transit Gateway & Centralized Inspection VPC (Bottom Row) -->
+  <g transform="translate(40, 605)" filter="url(#shadow)">
+    <rect width="1120" height="260" rx="10" fill="url(#cardGradAws1)" stroke="#8957e5" stroke-width="2"/>
+    <rect width="1120" height="6" rx="3" fill="url(#tgwGrad)"/>
+    <text x="24" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#a371f7">3. Transit Gateway (TGW) Hub-and-Spoke &amp; Centralized Inspection VPC</text>
+    <text x="24" y="56" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">East-West &amp; North-South Inspection via Gateway Load Balancer (GWLB) &amp; Appliance Mode</text>
 
-    <!-- Sub-card: Hybrid Connectivity Details -->
     <g transform="translate(20, 72)">
-      <rect width="460" height="275" rx="6" fill="#161b22" stroke="#30363d"/>
-      <text x="15" y="22" font-family="monospace" font-size="10.5" font-weight="700" fill="#58a6ff">Direct Connect &amp; Split-Horizon DNS Mechanics</text>
-
-      <g transform="translate(15, 36)">
-        <!-- Direct Connect Topology -->
-        <g transform="translate(0, 0)">
-          <rect width="430" height="82" rx="4" fill="#0d1117" stroke="#1f6feb"/>
-          <text x="12" y="18" font-family="monospace" font-size="9" font-weight="700" fill="#79c0ff">AWS Direct Connect (DX) + Direct Connect Gateway (DXGW)</text>
-          <text x="12" y="34" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• Dedicated Connection (1/10/100 Gbps) vs Hosted Connection</text>
-          <text x="12" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• Transit VIF: Attaches DXGW to Transit Gateway (TGW) across regions</text>
-          <text x="12" y="62" font-family="monospace" font-size="8.5" fill="#e3b341">• Security: IEEE 802.1AE MACsec (L2 wire) or IPsec VPN over DX (L3)</text>
-          <text x="12" y="74" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#8b949e">DXGW connects to multiple VPCs across any AWS region (except China).</text>
-        </g>
-
-        <!-- Route 53 Resolver Box -->
-        <g transform="translate(0, 90)">
-          <rect width="430" height="134" rx="4" fill="#0d1117" stroke="#388bfd"/>
-          <text x="12" y="18" font-family="monospace" font-size="9.5" font-weight="700" fill="#388bfd">Route 53 Resolver (Hybrid Split-Horizon DNS)</text>
-
-          <!-- Inbound Endpoint -->
-          <g transform="translate(10, 26)">
-            <rect width="410" height="46" rx="3" fill="#161b22" stroke="#30363d"/>
-            <text x="8" y="16" font-family="monospace" font-size="8.5" font-weight="700" fill="#7ee787">INBOUND ENDPOINT (On-Prem -> AWS Resolves Private Hosted Zones)</text>
-            <text x="8" y="30" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#c9d1d9">ENIs in VPC subnets. On-prem DNS forwards (*.aws.internal) to Inbound IP.</text>
-            <text x="8" y="40" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="7.5" fill="#8b949e">Enables on-prem servers to resolve AWS internal database and microservice names.</text>
-          </g>
-
-          <!-- Outbound Endpoint -->
-          <g transform="translate(10, 78)">
-            <rect width="410" height="48" rx="3" fill="#161b22" stroke="#30363d"/>
-            <text x="8" y="16" font-family="monospace" font-size="8.5" font-weight="700" fill="#e3b341">OUTBOUND ENDPOINT + RULES (AWS -> On-Prem Resolves Corp Domains)</text>
-            <text x="8" y="30" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#c9d1d9">Resolver Forwarding Rules match corp.example.com -> Forward to On-Prem DNS.</text>
-            <text x="8" y="42" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="7.5" fill="#8b949e">Shared across all accounts via AWS Resource Access Manager (RAM).</text>
-          </g>
-        </g>
-      </g>
-    </g>
-  </g>
-
-  <!-- Section 3: Transit Gateway & Centralized Inspection VPC (Bottom Banner) -->
-  <g transform="translate(40, 495)">
-    <rect width="1020" height="215" rx="8" fill="url(#cardGradAws1)" stroke="#8957e5" stroke-width="2"/>
-    <rect width="1020" height="6" rx="3" fill="url(#tgwGrad)"/>
-    <text x="25" y="30" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#a371f7">3. Transit Gateway (TGW) Hub-and-Spoke &amp; Centralized Inspection VPC</text>
-    <text x="25" y="50" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">East-West &amp; North-South Traffic Isolation via Gateway Load Balancer (GWLB) and Appliance Mode</text>
-
-    <g transform="translate(25, 68)">
       <!-- Panel 1: Spoke VPCs -->
       <g transform="translate(0, 0)">
-        <rect width="310" height="125" rx="6" fill="#161b22" stroke="#30363d"/>
-        <text x="15" y="20" font-family="monospace" font-size="10.5" font-weight="700" fill="#58a6ff">Spoke VPC Attachments</text>
-        <text x="15" y="38" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• Spoke VPC 1 (Prod), Spoke VPC 2 (Dev)</text>
-        <text x="15" y="52" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• Shared TGW attachment via AWS RAM</text>
-        <text x="15" y="68" font-family="monospace" font-size="8" fill="#e3b341">Default Route 0.0.0.0/0 -> TGW Attachment</text>
-        <text x="15" y="82" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#8b949e">Spoke route tables do NOT peer with each other directly;</text>
-        <text x="15" y="96" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#8b949e">all inter-VPC traffic is routed into TGW for inspection.</text>
-        <text x="15" y="112" font-family="monospace" font-size="7.5" fill="#7ee787">Eliminates complex N*(N-1)/2 VPC peering mesh</text>
+        <rect width="345" height="165" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+        <text x="16" y="24" font-family="monospace" font-size="14" font-weight="700" fill="#58a6ff">Spoke VPC Attachments</text>
+        <text x="16" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Spoke 1 (Prod), Spoke 2 (Dev)</text>
+        <text x="16" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Route 0.0.0.0/0 -> TGW Attachment</text>
+        <text x="16" y="94" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#8b949e">No direct peering mesh: eliminates</text>
+        <text x="16" y="114" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#8b949e">N*(N-1)/2 exponential peering complexity.</text>
+        <text x="16" y="142" font-family="monospace" font-size="12" fill="#7ee787">✓ Centralized routing domains via RAM</text>
       </g>
 
       <!-- Panel 2: Centralized Inspection VPC -->
-      <g transform="translate(345, 0)">
-        <rect width="320" height="125" rx="6" fill="#161b22" stroke="#da3633"/>
-        <text x="15" y="20" font-family="monospace" font-size="10.5" font-weight="700" fill="#f85149">Central Inspection / Security VPC</text>
-        <text x="15" y="38" font-family="monospace" font-size="8.5" fill="#ff7b72">Gateway Load Balancer (GWLB) + Appliances</text>
-        <text x="15" y="52" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#c9d1d9">• GWLB transparently encapsulates traffic via GENEVE (Port 6081)</text>
-        <text x="15" y="66" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#c9d1d9">• Third-party Firewalls / AWS Network Firewall inspect payloads</text>
-        <text x="15" y="82" font-family="monospace" font-size="8" fill="#f85149">⚠️ Mandatory: TGW Appliance Mode Enabled!</text>
-        <text x="15" y="96" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#8b949e">Enforces symmetric bidirectional flow to same AZ appliance,</text>
-        <text x="15" y="110" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#8b949e">preventing stateful firewall session resets.</text>
+      <g transform="translate(365, 0)">
+        <rect width="360" height="165" rx="6" fill="#161b22" stroke="#da3633" stroke-width="1.5"/>
+        <text x="16" y="24" font-family="monospace" font-size="14" font-weight="700" fill="#f85149">Central Inspection (GWLB)</text>
+        <text x="16" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• GWLB encapsulates traffic via GENEVE (Port 6081)</text>
+        <text x="16" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Next-Gen Firewalls inspect raw packet payloads</text>
+        <text x="16" y="98" font-family="monospace" font-size="13" font-weight="700" fill="#f85149">⚠️ CRITICAL: TGW Appliance Mode Enabled!</text>
+        <text x="16" y="122" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#8b949e">Guarantees symmetric bidirectional flow to same AZ,</text>
+        <text x="16" y="142" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#8b949e">preventing stateful firewall TCP session drops.</text>
       </g>
 
-      <!-- Panel 3: Central Egress & Inter-Region Peering -->
-      <g transform="translate(685, 0)">
-        <rect width="310" height="125" rx="6" fill="#161b22" stroke="#8957e5"/>
-        <text x="15" y="20" font-family="monospace" font-size="10.5" font-weight="700" fill="#a371f7">Central Egress &amp; Global Mesh</text>
-        <text x="15" y="38" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• Central Egress VPC hosts shared NAT Gateways</text>
-        <text x="15" y="52" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• Saves massive NAT Gateway hourly &amp; IP costs</text>
-        <text x="15" y="68" font-family="monospace" font-size="8" fill="#3fb950">Inter-Region TGW Peering:</text>
-        <text x="15" y="82" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#c9d1d9">• Encrypted cross-region traffic over AWS Global Backbone</text>
-        <text x="15" y="96" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#8b949e">• Zero exposure to public internet; lowest jitter &amp; latency</text>
-        <text x="15" y="112" font-family="monospace" font-size="7.5" fill="#7ee787">✓ Enterprise Multi-Region Cloud Foundation</text>
+      <!-- Panel 3: Central Egress & Inter-Region -->
+      <g transform="translate(745, 0)">
+        <rect width="335" height="165" rx="6" fill="#161b22" stroke="#8957e5" stroke-width="1.5"/>
+        <text x="16" y="24" font-family="monospace" font-size="14" font-weight="700" fill="#a371f7">Central Egress &amp; Peering</text>
+        <text x="16" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Shared NAT Gateways in Egress VPC</text>
+        <text x="16" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Saves massive hourly NAT Gateway costs</text>
+        <text x="16" y="94" font-family="monospace" font-size="13" fill="#3fb950">Inter-Region TGW Peering:</text>
+        <text x="16" y="116" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#8b949e">Encrypted over AWS Global Backbone</text>
+        <text x="16" y="142" font-family="monospace" font-size="12" fill="#7ee787">✓ Global enterprise transit network</text>
       </g>
     </g>
   </g>

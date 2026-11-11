@@ -1,129 +1,168 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="100%" height="100%">
   <defs>
     <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0f172a"/>
-      <stop offset="100%" stop-color="#1e293b"/>
+      <stop offset="0%" stop-color="#0d1117" />
+      <stop offset="100%" stop-color="#161b22" />
     </linearGradient>
-    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
-      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.4"/>
-    </filter>
-    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 10 5 L 0 9 z" fill="#94a3b8"/>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#21262d" />
+      <stop offset="100%" stop-color="#161b22" />
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#8b949e" />
     </marker>
-    <marker id="arrowRed" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 10 5 L 0 9 z" fill="#ef4444"/>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#58a6ff" />
+    </marker>
+    <marker id="arrowRed" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f85149" />
     </marker>
   </defs>
 
   <!-- Background -->
-  <rect width="960" height="540" fill="url(#bgGrad)"/>
+  <rect width="1200" height="900" fill="url(#bgGrad)" rx="12" stroke="#30363d" stroke-width="2"/>
 
   <!-- Title & Subtitle -->
-  <text x="480" y="38" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="700" fill="#f8fafc">HashMap Internal Bucket Architecture &amp; Treeification</text>
-  <text x="480" y="62" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#94a3b8">JDK 8+ Transition from Singly-Linked List (O(N)) to Red-Black Tree (O(log N))</text>
+  <text x="50" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="700" fill="#f0f6fc">HashMap Internal Bucket Architecture &amp; Treeification</text>
+  <text x="50" y="78" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" fill="#8b949e">JDK 8+ Transition from Singly-Linked List (O(N)) to Red-Black Tree (O(log N))</text>
 
-  <!-- Bitwise Hash Spreading Box (Top Bar) -->
-  <rect x="40" y="80" width="880" height="60" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5" filter="url(#shadow)"/>
-  
-  <!-- Left Spreading -->
-  <text x="60" y="105" font-family="monospace" font-size="12" font-weight="700" fill="#38bdf8">1. Hash Code Spread:  int h = key.hashCode() ^ (h &gt;&gt;&gt; 16)</text>
-  <text x="60" y="124" font-family="-apple-system, sans-serif" font-size="11" fill="#94a3b8">Mixes upper 16 bits with lower bits to prevent hash clustering.</text>
-  
-  <!-- Right Modulo -->
-  <text x="510" y="105" font-family="monospace" font-size="12" font-weight="700" fill="#34d399">2. Bucket Index:  index = (n - 1) &amp; hash</text>
-  <text x="510" y="124" font-family="-apple-system, sans-serif" font-size="11" fill="#94a3b8">Fast bitwise modulo for power-of-two table capacity n.</text>
+  <!-- TOP BAR: Bitwise Hash Spreading & Modulo -->
+  <g transform="translate(50, 105)">
+    <rect width="1100" height="95" rx="8" fill="url(#cardGrad)" stroke="#30363d" stroke-width="1.5"/>
+    
+    <!-- Left: Spreading Function -->
+    <text x="25" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#58a6ff">1. Hash Code Spreading Function</text>
+    <text x="25" y="58" font-family="monospace" font-size="13.5" font-weight="700" fill="#79c0ff">static final int hash(Object key) { int h; return (key == null) ? 0 : (h = key.hashCode()) ^ (h &gt;&gt;&gt; 16); }</text>
+    <text x="25" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Mixes top 16 bits with bottom 16 bits via XOR to distribute entropy across small table masks.</text>
 
-  <!-- Main Container -->
-  <g transform="translate(40, 155)">
-    <!-- Bucket Array Card -->
-    <rect x="0" y="0" width="180" height="350" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5" filter="url(#shadow)"/>
-    <text x="90" y="28" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="14" font-weight="700" fill="#60a5fa">Node&lt;K,V&gt;[] table</text>
-    <text x="90" y="46" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="11" fill="#94a3b8">Capacity = 16 (Default)</text>
+    <!-- Right: Fast Modulo -->
+    <text x="680" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#3fb950">2. Power-of-Two Bitwise Modulo</text>
+    <text x="680" y="58" font-family="monospace" font-size="13.5" font-weight="700" fill="#7ee787">int index = (n - 1) &amp; hash;</text>
+    <text x="680" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Replaces CPU integer division with 1-cycle bitwise AND mask.</text>
+  </g>
 
-    <!-- Bucket Slots -->
-    <rect x="15" y="65" width="150" height="35" rx="4" fill="#0f172a" stroke="#334155"/>
-    <text x="30" y="88" font-family="monospace" font-size="12" fill="#94a3b8">[0] null</text>
+  <!-- LEFT: Bucket Array (Node<K,V>[] table) -->
+  <g transform="translate(50, 220)">
+    <rect width="250" height="630" rx="10" fill="url(#cardGrad)" stroke="#1f6feb" stroke-width="2"/>
+    <rect width="250" height="6" rx="3" fill="#1f6feb"/>
+    <text x="125" y="36" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="700" fill="#58a6ff">Node&lt;K,V&gt;[] table</text>
+    <text x="125" y="60" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Capacity = 16 (Default)</text>
 
-    <rect x="15" y="110" width="150" height="35" rx="4" fill="#0f172a" stroke="#334155"/>
-    <text x="30" y="133" font-family="monospace" font-size="12" fill="#94a3b8">[1] null</text>
+    <!-- Bucket 0 -->
+    <rect x="20" y="80" width="210" height="55" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="35" y="113" font-family="monospace" font-size="14" fill="#8b949e">[0] null</text>
 
-    <!-- Bucket 2: Normal List -->
-    <rect x="15" y="155" width="150" height="40" rx="4" fill="#1d4ed8" stroke="#60a5fa" stroke-width="1.5"/>
-    <text x="30" y="177" font-family="monospace" font-size="12" font-weight="700" fill="#ffffff">[2] Head Node</text>
-    <text x="30" y="190" font-family="-apple-system, sans-serif" font-size="9.5" fill="#93c5fd">&lt; 8 items (List)</text>
+    <!-- Bucket 1 -->
+    <rect x="20" y="150" width="210" height="55" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="35" y="183" font-family="monospace" font-size="14" fill="#8b949e">[1] null</text>
 
-    <rect x="15" y="205" width="150" height="35" rx="4" fill="#0f172a" stroke="#334155"/>
-    <text x="30" y="228" font-family="monospace" font-size="12" fill="#94a3b8">[3] ...</text>
+    <!-- Bucket 2: Linked List -->
+    <rect x="20" y="220" width="210" height="85" rx="6" fill="#12243d" stroke="#1f6feb" stroke-width="2"/>
+    <text x="35" y="250" font-family="monospace" font-size="14" font-weight="700" fill="#58a6ff">[2] Head Node 🔗</text>
+    <text x="35" y="272" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#79c0ff">&lt; 8 elements</text>
+    <text x="35" y="292" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">Singly-Linked List</text>
+
+    <!-- Bucket 3 -->
+    <rect x="20" y="320" width="210" height="55" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="35" y="353" font-family="monospace" font-size="14" fill="#8b949e">[3] ...</text>
 
     <!-- Bucket 4: Treeified -->
-    <rect x="15" y="250" width="150" height="42" rx="4" fill="#991b1b" stroke="#ef4444" stroke-width="1.5"/>
-    <text x="30" y="270" font-family="monospace" font-size="12" font-weight="700" fill="#ffffff">[4] TreeNode Root</text>
-    <text x="30" y="285" font-family="-apple-system, sans-serif" font-size="9" fill="#fca5a5">&gt;= 8 items &amp;&amp; Cap &gt;= 64</text>
+    <rect x="20" y="390" width="210" height="95" rx="6" fill="#3c1e1e" stroke="#da3633" stroke-width="2"/>
+    <text x="35" y="420" font-family="monospace" font-size="14" font-weight="700" fill="#f85149">[4] TreeNode Root 🌳</text>
+    <text x="35" y="444" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#ff7b72">≥ 8 items &amp;&amp; Cap ≥ 64</text>
+    <text x="35" y="466" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#ffa198">Red-Black Tree</text>
 
-    <rect x="15" y="302" width="150" height="35" rx="4" fill="#0f172a" stroke="#334155"/>
-    <text x="30" y="325" font-family="monospace" font-size="12" fill="#94a3b8">[15] null</text>
+    <!-- Bucket 15 -->
+    <rect x="20" y="500" width="210" height="55" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="35" y="533" font-family="monospace" font-size="14" fill="#8b949e">[15] null</text>
+
+    <text x="125" y="595" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Load Factor: 0.75 (Threshold = 12)</text>
   </g>
 
-  <!-- Bucket 2 Flow: Singly Linked List -->
-  <g transform="translate(250, 155)">
-    <rect x="0" y="155" width="310" height="50" rx="6" fill="#1e293b" stroke="#334155" stroke-dasharray="3,3"/>
-    <text x="15" y="175" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" fill="#60a5fa">Singly-Linked List (Linear Search)</text>
-    <text x="15" y="193" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Time Complexity: O(N) lookup/insert</text>
+  <!-- RIGHT: Main Structure & Details -->
+  <!-- Top Right: Treeification Rules Card -->
+  <g transform="translate(330, 220)">
+    <rect width="820" height="155" rx="10" fill="url(#cardGrad)" stroke="#d29922" stroke-width="2"/>
+    <rect width="820" height="6" rx="3" fill="#d29922"/>
+    <text x="30" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="700" fill="#e3b341">⚡ Treeification &amp; Untreeification Invariants (JDK 8+)</text>
+    
+    <text x="30" y="64" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" fill="#f0f6fc">
+      • <tspan font-family="monospace" font-weight="700" fill="#f85149">TREEIFY_THRESHOLD = 8</tspan>: When a single bin reaches 8 collision nodes, it triggers tree conversion.
+    </text>
+    <text x="30" y="90" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" fill="#f0f6fc">
+      • <tspan font-family="monospace" font-weight="700" fill="#58a6ff">MIN_TREEIFY_CAPACITY = 64</tspan>: If table capacity &lt; 64 when chain hits 8, it <tspan font-weight="700" fill="#79c0ff">RESIZES</tspan> instead of treeifying!
+    </text>
+    <text x="30" y="116" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" fill="#f0f6fc">
+      • <tspan font-family="monospace" font-weight="700" fill="#3fb950">UNTREEIFY_THRESHOLD = 6</tspan>: During resize or removal, if node count falls to ≤ 6, converts back to linked list.
+    </text>
+    <text x="30" y="140" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#8b949e">
+      Hysteresis gap (6 vs 8) prevents costly oscillation (thrashing) between list and tree structures under continuous mutations.
+    </text>
+  </g>
+
+  <!-- Middle Right: Singly Linked List (Bucket 2) -->
+  <g transform="translate(330, 395)">
+    <rect width="820" height="195" rx="10" fill="url(#cardGrad)" stroke="#1f6feb" stroke-width="1.5"/>
+    <text x="30" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#58a6ff">Bucket [2] Representation: Singly-Linked List (Chain &lt; 8)</text>
+    <text x="30" y="54" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Linear Search: O(N) lookup / insertion • Node size: 32 bytes (64-bit JVM with compressed oops)</text>
 
     <!-- Node 1 -->
-    <rect x="10" y="215" width="85" height="40" rx="4" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
-    <text x="52" y="233" text-anchor="middle" font-family="monospace" font-size="11" fill="#f8fafc">K1, V1</text>
-    <text x="52" y="247" text-anchor="middle" font-family="monospace" font-size="9" fill="#94a3b8">next</text>
+    <rect x="30" y="75" width="180" height="90" rx="6" fill="#161b22" stroke="#1f6feb" stroke-width="1.5"/>
+    <text x="45" y="105" font-family="monospace" font-size="14" font-weight="700" fill="#f0f6fc">Node 1</text>
+    <text x="45" y="128" font-family="monospace" font-size="13" fill="#79c0ff">Key: K1, Val: V1</text>
+    <text x="45" y="150" font-family="monospace" font-size="12.5" fill="#8b949e">next: Node 2</text>
+
+    <line x1="210" y1="120" x2="260" y2="120" stroke="#58a6ff" stroke-width="2" marker-end="url(#arrowBlue)"/>
 
     <!-- Node 2 -->
-    <rect x="115" y="215" width="85" height="40" rx="4" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
-    <text x="157" y="233" text-anchor="middle" font-family="monospace" font-size="11" fill="#f8fafc">K2, V2</text>
-    <text x="157" y="247" text-anchor="middle" font-family="monospace" font-size="9" fill="#94a3b8">next</text>
+    <rect x="260" y="75" width="180" height="90" rx="6" fill="#161b22" stroke="#1f6feb" stroke-width="1.5"/>
+    <text x="275" y="105" font-family="monospace" font-size="14" font-weight="700" fill="#f0f6fc">Node 2</text>
+    <text x="275" y="128" font-family="monospace" font-size="13" fill="#79c0ff">Key: K2, Val: V2</text>
+    <text x="275" y="150" font-family="monospace" font-size="12.5" fill="#8b949e">next: Node 3</text>
+
+    <line x1="440" y1="120" x2="490" y2="120" stroke="#58a6ff" stroke-width="2" marker-end="url(#arrowBlue)"/>
 
     <!-- Node 3 -->
-    <rect x="220" y="215" width="85" height="40" rx="4" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
-    <text x="262" y="233" text-anchor="middle" font-family="monospace" font-size="11" fill="#f8fafc">K3, V3</text>
-    <text x="262" y="247" text-anchor="middle" font-family="monospace" font-size="9" fill="#94a3b8">null</text>
+    <rect x="490" y="75" width="180" height="90" rx="6" fill="#161b22" stroke="#1f6feb" stroke-width="1.5"/>
+    <text x="505" y="105" font-family="monospace" font-size="14" font-weight="700" fill="#f0f6fc">Node 3</text>
+    <text x="505" y="128" font-family="monospace" font-size="13" fill="#79c0ff">Key: K3, Val: V3</text>
+    <text x="505" y="150" font-family="monospace" font-size="12.5" fill="#8b949e">next: null</text>
 
-    <!-- Arrows -->
-    <path d="M -30 175 L 10 235" fill="none" stroke="#60a5fa" stroke-width="1.5" marker-end="url(#arrow)"/>
-    <path d="M 95 235 L 115 235" fill="none" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
-    <path d="M 200 235 L 220 235" fill="none" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <!-- Pointer connection from Bucket 2 -->
+    <path d="M -80 65 C -20 65, 0 120, 30 120" fill="none" stroke="#58a6ff" stroke-width="2" marker-end="url(#arrowBlue)"/>
   </g>
 
-  <!-- Treeification Threshold Box (Expanded width 335px) -->
-  <g transform="translate(585, 155)">
-    <rect x="0" y="0" width="335" height="115" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" filter="url(#shadow)"/>
-    <text x="167" y="22" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#fbbf24">⚡ Treeification &amp; Untreeification Rules</text>
-    <text x="15" y="44" font-family="-apple-system, sans-serif" font-size="11" fill="#f8fafc">• <tspan font-weight="700" fill="#ef4444">TREEIFY_THRESHOLD = 8</tspan>: Bucket items &gt;= 8</text>
-    <text x="15" y="62" font-family="-apple-system, sans-serif" font-size="11" fill="#f8fafc">• <tspan font-weight="700" fill="#3b82f6">MIN_TREEIFY_CAPACITY = 64</tspan>: If Cap &lt; 64, resizes instead!</text>
-    <text x="15" y="80" font-family="-apple-system, sans-serif" font-size="11" fill="#f8fafc">• <tspan font-weight="700" fill="#34d399">UNTREEIFY_THRESHOLD = 6</tspan>: Un-treeifies back to list</text>
-    <text x="15" y="99" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Hysteresis (gap 6 vs 8) prevents resize thrashing oscillations.</text>
-  </g>
+  <!-- Bottom Right: Red-Black Tree (Bucket 4) -->
+  <g transform="translate(330, 610)">
+    <rect width="820" height="240" rx="10" fill="url(#cardGrad)" stroke="#da3633" stroke-width="2"/>
+    <text x="30" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#f85149">Bucket [4] Representation: Red-Black Tree (TreeNode&lt;K,V&gt;) (Chain ≥ 8 &amp;&amp; Cap ≥ 64)</text>
+    <text x="30" y="54" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Guaranteed O(log N) lookup under hash collisions • Prevents Hash-DoS Denial of Service attacks</text>
 
-  <!-- Bucket 4 Flow: Red-Black Tree (Expanded width 335px) -->
-  <g transform="translate(585, 285)">
-    <rect x="0" y="0" width="335" height="220" rx="8" fill="#1e293b" stroke="#ef4444" stroke-width="1.5" filter="url(#shadow)"/>
-    <text x="167" y="25" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="13" font-weight="700" fill="#f87171">Red-Black Tree (TreeNode&lt;K,V&gt;)</text>
-    <text x="167" y="42" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="11" fill="#cbd5e1">Guaranteed O(log N) lookup under collisions</text>
-
+    <!-- Tree Visual -->
     <!-- Root Node (Black) -->
-    <circle cx="167" cy="85" r="18" fill="#0f172a" stroke="#ffffff" stroke-width="2"/>
-    <text x="167" y="89" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#ffffff">Root</text>
+    <circle cx="200" cy="115" r="28" fill="#161b22" stroke="#f0f6fc" stroke-width="2.5"/>
+    <text x="200" y="120" text-anchor="middle" font-family="monospace" font-size="13" font-weight="700" fill="#f0f6fc">Root (B)</text>
 
     <!-- Left Child (Red) -->
-    <circle cx="100" cy="145" r="16" fill="#991b1b" stroke="#ef4444" stroke-width="2"/>
-    <text x="100" y="149" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#fca5a5">Left</text>
+    <circle cx="110" cy="180" r="25" fill="#3c1e1e" stroke="#da3633" stroke-width="2.5"/>
+    <text x="110" y="185" text-anchor="middle" font-family="monospace" font-size="13" font-weight="700" fill="#ff7b72">Left (R)</text>
 
     <!-- Right Child (Black) -->
-    <circle cx="235" cy="145" r="16" fill="#0f172a" stroke="#ffffff" stroke-width="1.5"/>
-    <text x="235" y="149" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#ffffff">Right</text>
+    <circle cx="290" cy="180" r="25" fill="#161b22" stroke="#f0f6fc" stroke-width="2"/>
+    <text x="290" y="185" text-anchor="middle" font-family="monospace" font-size="13" font-weight="700" fill="#f0f6fc">Right (B)</text>
 
     <!-- Tree Edges -->
-    <line x1="153" y1="97" x2="114" y2="133" stroke="#94a3b8" stroke-width="1.5"/>
-    <line x1="181" y1="97" x2="221" y2="133" stroke="#94a3b8" stroke-width="1.5"/>
+    <line x1="180" y1="135" x2="130" y2="162" stroke="#8b949e" stroke-width="2"/>
+    <line x1="220" y1="135" x2="270" y2="162" stroke="#8b949e" stroke-width="2"/>
 
     <!-- Pointer connection from Bucket 4 -->
-    <path d="M -395 135 C -200 135, -50 85, 149 85" fill="none" stroke="#ef4444" stroke-width="2" marker-end="url(#arrowRed)"/>
+    <path d="M -80 -130 C 20 -130, 80 115, 170 115" fill="none" stroke="#f85149" stroke-width="2" marker-end="url(#arrowRed)"/>
+
+    <!-- Architectural Insights on Right side of Tree -->
+    <rect x="360" y="80" width="430" height="135" rx="8" fill="#161b22" stroke="#30363d"/>
+    <text x="380" y="108" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" font-weight="700" fill="#f85149">Why not Red-Black Tree everywhere from start?</text>
+    <text x="380" y="132" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">• TreeNode is ~2x memory footprint of Node (parent, left, right, prev, red).</text>
+    <text x="380" y="154" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">• Under Poisson distribution, probability of bucket length &gt; 8 is &lt; 0.0000001.</text>
+    <text x="380" y="176" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#7ee787">✓ Perfectly balances lean memory consumption with DoS immunity!</text>
   </g>
 </svg>

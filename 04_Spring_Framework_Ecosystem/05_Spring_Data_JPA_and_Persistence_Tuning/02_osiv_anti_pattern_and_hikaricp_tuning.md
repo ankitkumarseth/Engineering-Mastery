@@ -12,7 +12,7 @@ In Spring Boot web applications using Spring Data JPA, the following configurati
 spring.jpa.open-in-view: true # ⚠️ DANGEROUS DEFAULT ANTI-PATTERN!
 ```
 
-![OSIV vs Clean Transaction Boundary](images/osiv_connection_leak_vs_clean_boundary.svg)
+[![OSIV vs Clean Transaction Boundary](images/osiv_connection_leak_vs_clean_boundary.svg)](images/osiv_connection_leak_vs_clean_boundary.svg)
 
 ### Why Spring Boot Defaults to `true`
 Spring Boot enables OSIV by default as a developer convenience: it prevents junior developers from seeing `org.hibernate.LazyInitializationException` when rendering entities in views or serializing them to JSON via Jackson.

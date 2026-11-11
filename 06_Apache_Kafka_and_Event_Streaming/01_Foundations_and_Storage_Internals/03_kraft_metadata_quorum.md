@@ -31,7 +31,7 @@ MODERN KRAFT ARCHITECTURE (Native Single-Binary System)
 
 The following diagram illustrates the structural differences between legacy ZooKeeper metadata management and modern KRaft event-driven consensus:
 
-![ZooKeeper vs KRaft Architecture](images/kraft_consensus_architecture.svg)
+[![ZooKeeper vs KRaft Architecture](images/kraft_consensus_architecture.svg)](images/kraft_consensus_architecture.svg)
 
 ---
 

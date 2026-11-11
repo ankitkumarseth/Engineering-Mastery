@@ -25,7 +25,7 @@ EVENT SOURCING (Immutable Ledger of Facts)
 
 The following diagram illustrates the complete enterprise architecture, connecting domain-driven command handling, the Axon Aggregate Root, Kafka's partitioned commit log with Confluent Avro serialization, and CQRS read projections:
 
-![Axon Event Sourcing with Kafka and Avro](images/axon_event_sourcing_kafka_avro.svg)
+[![Axon Event Sourcing with Kafka and Avro](images/axon_event_sourcing_kafka_avro.svg)](images/axon_event_sourcing_kafka_avro.svg)
 
 ---
 

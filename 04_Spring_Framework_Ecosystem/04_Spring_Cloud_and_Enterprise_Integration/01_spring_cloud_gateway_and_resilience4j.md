@@ -8,7 +8,7 @@ At high transaction volumes ($>50\text{k}$ TPS), synchronous distributed microse
 
 Unlike legacy Spring Cloud Zuul (which relied on blocking Servlet threads), **Spring Cloud Gateway is built natively on Netty, Project Reactor, and Spring WebFlux**.
 
-![Spring Cloud Gateway and Resilience4j Architecture](images/spring_cloud_gateway_resilience4j_pipeline.svg)
+[![Spring Cloud Gateway and Resilience4j Architecture](images/spring_cloud_gateway_resilience4j_pipeline.svg)](images/spring_cloud_gateway_resilience4j_pipeline.svg)
 
 ### The Ingress Processing Mechanics
 1. **Netty EventLoop**: Requests arrive over asynchronous non-blocking sockets. A small pool of worker threads (typically matching CPU core count) handles thousands of concurrent connections without thread-per-request overhead.

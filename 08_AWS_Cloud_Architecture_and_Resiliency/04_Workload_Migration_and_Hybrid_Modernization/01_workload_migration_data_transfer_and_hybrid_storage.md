@@ -13,7 +13,7 @@ This playbook covers:
 
 ## Architecture Blueprint: Migration & Hybrid Storage Engine
 
-![Workload Migration and Hybrid Storage](images/aws_migration_and_hybrid_storage_architecture.svg)
+[![Workload Migration and Hybrid Storage](images/aws_migration_and_hybrid_storage_architecture.svg)](images/aws_migration_and_hybrid_storage_architecture.svg)
 
 ```
 ========================================================================================================================

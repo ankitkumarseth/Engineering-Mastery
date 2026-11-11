@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 700" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="100%" height="100%">
   <defs>
     <linearGradient id="bgGradApi6" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#0d1117" />
@@ -23,132 +23,147 @@
   </defs>
 
   <!-- Background -->
-  <rect width="1100" height="700" fill="url(#bgGradApi6)" rx="12" stroke="#30363d" stroke-width="2"/>
+  <rect width="1200" height="900" fill="url(#bgGradApi6)" rx="12" stroke="#30363d" stroke-width="2"/>
 
   <!-- Title & Subtitle -->
-  <text x="40" y="45" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f0f6fc">Modern API Protocols Matrix: REST vs. gRPC vs. GraphQL</text>
-  <text x="40" y="70" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e">Engineering Decision Matrix: Serialization Formats, Transport Efficiency, Over/Under-Fetching, and Production Workloads</text>
+  <text x="40" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="700" fill="#f0f6fc">Modern API Protocols Matrix: REST vs. gRPC vs. GraphQL</text>
+  <text x="40" y="78" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" fill="#8b949e">Engineering Decision Matrix: Serialization Formats, Transport Efficiency, Over/Under-Fetching, and Production Workloads</text>
 
   <!-- 3 Protocol Cards -->
   <g transform="translate(40, 105)">
     <!-- Column 1: REST -->
     <g transform="translate(0, 0)">
-      <rect width="320" height="380" rx="8" fill="url(#cardGradApi6)" stroke="#238636" stroke-width="2"/>
-      <rect width="320" height="6" rx="3" fill="url(#restGrad)"/>
-      <text x="20" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#3fb950">1. REST (JSON over HTTP)</text>
-      <text x="20" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Universal Public &amp; Partner Standard</text>
+      <rect width="350" height="480" rx="8" fill="url(#cardGradApi6)" stroke="#238636" stroke-width="2"/>
+      <rect width="350" height="6" rx="3" fill="url(#restGrad)"/>
+      <text x="20" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="700" fill="#3fb950">1. REST (JSON over HTTP)</text>
+      <text x="20" y="56" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Universal Public &amp; Partner Standard</text>
 
       <!-- Code Box -->
-      <rect x="15" y="70" width="290" height="75" rx="4" fill="#161b22" stroke="#30363d"/>
-      <text x="25" y="90" font-family="monospace" font-size="9.5" fill="#7ee787">GET /v1/orders/123</text>
-      <text x="25" y="106" font-family="monospace" font-size="9" fill="#8b949e">{"id": 123, "status": "PAID",</text>
-      <text x="25" y="120" font-family="monospace" font-size="9" fill="#8b949e"> "amount": 100.0, "tax": 10.0}</text>
-      <text x="25" y="134" font-family="monospace" font-size="8.5" fill="#e3b341">Wire Size: ~240 Bytes (Text JSON)</text>
+      <g transform="translate(15, 75)">
+        <rect width="320" height="95" rx="4" fill="#161b22" stroke="#30363d"/>
+        <text x="15" y="24" font-family="monospace" font-size="13" font-weight="700" fill="#7ee787">GET /v1/orders/123</text>
+        <text x="15" y="46" font-family="monospace" font-size="13" fill="#8b949e">{"id": 123, "status": "PAID",</text>
+        <text x="15" y="68" font-family="monospace" font-size="13" fill="#8b949e"> "amount": 100.0, "tax": 10.0}</text>
+        <text x="15" y="88" font-family="monospace" font-size="13" fill="#e3b341">Wire Size: ~240 Bytes (Text JSON)</text>
+      </g>
 
-      <text x="20" y="170" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#f0f6fc">Core Architectural Strengths:</text>
-      <text x="20" y="190" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#3fb950">✓ Universal Tooling: Supported by 100%</text>
-      <text x="30" y="206" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">of browsers, gateways, and languages.</text>
-      <text x="20" y="226" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#7ee787">✓ Cacheable: Edge proxies (Cloudflare, Varnish)</text>
-      <text x="30" y="242" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">cache GET requests natively via ETags.</text>
-      <text x="20" y="262" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#c9d1d9">✓ Human-Readable: Trivial debugging.</text>
+      <g transform="translate(15, 185)">
+        <text x="5" y="24" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="700" fill="#f0f6fc">Core Architectural Strengths:</text>
+        <text x="5" y="50" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#3fb950">✓ Universal: Supported by 100% of browsers</text>
+        <text x="5" y="74" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#7ee787">✓ Cacheable: Edge proxies (Cloudflare, Akamai)</text>
+        <text x="20" y="96" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">cache GET requests natively via ETags</text>
+        <text x="5" y="122" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">✓ Human-Readable: Easy network debugging</text>
 
-      <text x="20" y="290" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#f0f6fc">Weaknesses:</text>
-      <text x="20" y="308" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#f85149">❌ Over/Under-Fetching: Fixed schemas.</text>
-      <text x="20" y="326" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#f85149">❌ High Wire Overhead: Textual keys repeated.</text>
+        <text x="5" y="156" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="700" fill="#f0f6fc">Trade-Offs &amp; Bottlenecks:</text>
+        <text x="5" y="182" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#f85149">❌ Over/Under-Fetching: Fixed schemas</text>
+        <text x="5" y="206" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#f85149">❌ High Wire Overhead: Repeated JSON keys</text>
 
-      <text x="20" y="355" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" font-weight="700" fill="#3fb950">✅ Ideal: Public APIs, B2B Partner Portals</text>
+        <text x="5" y="246" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13.5" font-weight="700" fill="#3fb950">✓ Best for: Public APIs &amp; B2B Partner Portals</text>
+      </g>
     </g>
 
     <!-- Column 2: gRPC -->
-    <g transform="translate(350, 0)">
-      <rect width="320" height="380" rx="8" fill="url(#cardGradApi6)" stroke="#388bfd" stroke-width="2"/>
-      <rect width="320" height="6" rx="3" fill="url(#grpcGrad)"/>
-      <text x="20" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#58a6ff">2. gRPC (Protobuf / HTTP/2)</text>
-      <text x="20" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Internal High-Throughput Service Mesh</text>
+    <g transform="translate(425, 0)">
+      <rect width="350" height="480" rx="8" fill="url(#cardGradApi6)" stroke="#1f6feb" stroke-width="2"/>
+      <rect width="350" height="6" rx="3" fill="url(#grpcGrad)"/>
+      <text x="20" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="700" fill="#58a6ff">2. gRPC (HTTP/2 + Protobuf)</text>
+      <text x="20" y="56" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Internal Mesh High-Performance RPC</text>
 
       <!-- Code Box -->
-      <rect x="15" y="70" width="290" height="75" rx="4" fill="#161b22" stroke="#30363d"/>
-      <text x="25" y="90" font-family="monospace" font-size="9.5" fill="#79c0ff">rpc GetOrder(OrderReq) → Order</text>
-      <text x="25" y="106" font-family="monospace" font-size="9" fill="#8b949e">message Order { int64 id = 1;</text>
-      <text x="25" y="120" font-family="monospace" font-size="9" fill="#8b949e">  string status = 2; double amt = 3; }</text>
-      <text x="25" y="134" font-family="monospace" font-size="8.5" fill="#7ee787">Wire Size: ~48 Bytes (80% Smaller!)</text>
+      <g transform="translate(15, 75)">
+        <rect width="320" height="95" rx="4" fill="#161b22" stroke="#30363d"/>
+        <text x="15" y="24" font-family="monospace" font-size="13" font-weight="700" fill="#79c0ff">rpc GetOrder(OrderReq) returns (Order)</text>
+        <text x="15" y="46" font-family="monospace" font-size="13" fill="#8b949e">Binary Protobuf Payload (Varint IDs)</text>
+        <text x="15" y="68" font-family="monospace" font-size="13" fill="#8b949e">[0x08, 0x7b, 0x10, 0x01, 0x1d, ...]</text>
+        <text x="15" y="88" font-family="monospace" font-size="13" font-weight="700" fill="#3fb950">Wire Size: ~28 Bytes (88% Smaller!)</text>
+      </g>
 
-      <text x="20" y="170" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#f0f6fc">Core Architectural Strengths:</text>
-      <text x="20" y="190" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#58a6ff">✓ Blazing Speed: Binary Protobuf is 7-10x</text>
-      <text x="30" y="206" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">faster to serialize than JSON.</text>
-      <text x="20" y="226" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#79c0ff">✓ HTTP/2 Multiplexing: Multiple concurrent</text>
-      <text x="30" y="242" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">RPCs over a single persistent TCP socket.</text>
-      <text x="20" y="262" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#7ee787">✓ Bidirectional Streaming: Client &amp; server streams.</text>
+      <g transform="translate(15, 185)">
+        <text x="5" y="24" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="700" fill="#f0f6fc">Core Architectural Strengths:</text>
+        <text x="5" y="50" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#58a6ff">✓ Blazing Speed: 7-10x faster serialization</text>
+        <text x="5" y="74" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#7ee787">✓ HTTP/2 Multiplexing: Multiple concurrent calls</text>
+        <text x="20" y="96" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">over a single persistent TCP connection</text>
+        <text x="5" y="122" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">✓ Native Streaming: Bi-directional streams</text>
 
-      <text x="20" y="290" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#f0f6fc">Weaknesses:</text>
-      <text x="20" y="308" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#f85149">❌ Browser Incompatible: Needs gRPC-web.</text>
-      <text x="20" y="326" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#f85149">❌ Non-human readable: Requires proto schema.</text>
+        <text x="5" y="156" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="700" fill="#f0f6fc">Trade-Offs &amp; Bottlenecks:</text>
+        <text x="5" y="182" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#f85149">❌ Poor Browser Support: Needs gRPC-Web</text>
+        <text x="5" y="206" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#f85149">❌ Binary Payloads: Difficult raw Wireshark debug</text>
 
-      <text x="20" y="355" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" font-weight="700" fill="#58a6ff">✅ Ideal: Internal Microservice-to-Microservice</text>
+        <text x="5" y="246" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13.5" font-weight="700" fill="#58a6ff">✓ Best for: East-West Microservice Mesh &amp; Tier-0</text>
+      </g>
     </g>
 
     <!-- Column 3: GraphQL -->
-    <g transform="translate(700, 0)">
-      <rect width="320" height="380" rx="8" fill="url(#cardGradApi6)" stroke="#da3633" stroke-width="2"/>
-      <rect width="320" height="6" rx="3" fill="url(#gqlGrad)"/>
-      <text x="20" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#f85149">3. GraphQL (Client Query)</text>
-      <text x="20" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Frontend-Driven Aggregation Layer</text>
+    <g transform="translate(810, 0)">
+      <rect width="350" height="480" rx="8" fill="url(#cardGradApi6)" stroke="#da3633" stroke-width="2"/>
+      <rect width="350" height="6" rx="3" fill="url(#gqlGrad)"/>
+      <text x="20" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="700" fill="#f85149">3. GraphQL (Declarative Query)</text>
+      <text x="20" y="56" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Complex UI Aggregation &amp; BFF</text>
 
       <!-- Code Box -->
-      <rect x="15" y="70" width="290" height="75" rx="4" fill="#161b22" stroke="#30363d"/>
-      <text x="25" y="88" font-family="monospace" font-size="9" fill="#f85149">query { order(id: 123) {</text>
-      <text x="25" y="102" font-family="monospace" font-size="9" fill="#f85149">  status, user { name }</text>
-      <text x="25" y="116" font-family="monospace" font-size="9" fill="#f85149">}}</text>
-      <text x="25" y="132" font-family="monospace" font-size="8.5" fill="#7ee787">Returns ONLY requested fields!</text>
+      <g transform="translate(15, 75)">
+        <rect width="320" height="95" rx="4" fill="#161b22" stroke="#30363d"/>
+        <text x="15" y="24" font-family="monospace" font-size="13" font-weight="700" fill="#f85149">query { order(id: 123) {</text>
+        <text x="15" y="46" font-family="monospace" font-size="13" fill="#8b949e">  id status items { title } } }</text>
+        <text x="15" y="68" font-family="monospace" font-size="13" fill="#7ee787">Returns exactly requested fields</text>
+        <text x="15" y="88" font-family="monospace" font-size="13" fill="#79c0ff">Zero over-fetching; 1 network round-trip</text>
+      </g>
 
-      <text x="20" y="170" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#f0f6fc">Core Architectural Strengths:</text>
-      <text x="20" y="190" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#3fb950">✓ Zero Over/Under-Fetching: Client selects</text>
-      <text x="30" y="206" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">exact fields required for active screen.</text>
-      <text x="20" y="226" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#7ee787">✓ Multi-Service Aggregation: Combines data</text>
-      <text x="30" y="242" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">from 5 services in a single round-trip.</text>
-      <text x="20" y="262" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#c9d1d9">✓ Strongly Typed Schema: GraphQL SDL.</text>
+      <g transform="translate(15, 185)">
+        <text x="5" y="24" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="700" fill="#f0f6fc">Core Architectural Strengths:</text>
+        <text x="5" y="50" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#3fb950">✓ Zero Over-Fetching: Mobile clients request</text>
+        <text x="20" y="74" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">only active screen fields, saving battery</text>
+        <text x="5" y="98" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#7ee787">✓ Multi-Service Aggregation: Joins 5 services</text>
+        <text x="20" y="122" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">into a single unified client payload</text>
 
-      <text x="20" y="290" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#f0f6fc">Weaknesses:</text>
-      <text x="20" y="308" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#f85149">❌ Resolver N+1 Trap: Requires DataLoader.</text>
-      <text x="20" y="326" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#f85149">❌ HTTP Caching Breakdown: All calls are POST.</text>
+        <text x="5" y="156" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="700" fill="#f0f6fc">Trade-Offs &amp; Bottlenecks:</text>
+        <text x="5" y="182" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#f85149">❌ Resolver N+1 Trap: Requires DataLoader</text>
+        <text x="5" y="206" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#f85149">❌ CDN Caching Breakdown: All calls POST</text>
 
-      <text x="20" y="355" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" font-weight="700" fill="#f85149">✅ Ideal: Mobile &amp; Web BFF UI Aggregations</text>
+        <text x="5" y="246" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13.5" font-weight="700" fill="#f85149">✓ Best for: Mobile &amp; Web BFF UI Aggregations</text>
+      </g>
     </g>
   </g>
 
   <!-- Bottom Comparison Banner: Production Architecture Topology -->
-  <g transform="translate(40, 505)">
-    <rect width="1020" height="175" rx="8" fill="url(#cardGradApi6)" stroke="#30363d" stroke-width="1.5"/>
-    <text x="25" y="30" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#f0f6fc">The Staff Architecture Synthesis: Where Each Protocol Belongs</text>
+  <g transform="translate(40, 605)">
+    <rect width="1120" height="270" rx="8" fill="url(#cardGradApi6)" stroke="#30363d" stroke-width="2"/>
+    <text x="25" y="36" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#f0f6fc">The Staff Architecture Synthesis: Where Each Protocol Belongs</text>
+    <text x="25" y="58" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Production topology guidelines across distributed microservice tiers</text>
 
-    <g transform="translate(25, 45)">
+    <g transform="translate(20, 72)">
       <!-- Tier 1 -->
-      <rect width="310" height="115" rx="6" fill="#161b22" stroke="#238636"/>
-      <text x="15" y="22" font-family="monospace" font-size="11" font-weight="700" fill="#3fb950">Perimeter / Public Tier</text>
-      <text x="15" y="44" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#c9d1d9">Standard: <tspan fill="#3fb950" font-weight="700">REST (JSON/OpenAPI)</tspan></text>
-      <text x="15" y="64" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#8b949e">• Highest developer reach</text>
-      <text x="15" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#8b949e">• Edge CDN caching (Cloudflare)</text>
-      <text x="15" y="96" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#8b949e">• Standard OAuth2 / WAF security</text>
-    </g>
+      <g transform="translate(0, 0)">
+        <rect width="340" height="180" rx="6" fill="#161b22" stroke="#238636"/>
+        <text x="15" y="26" font-family="monospace" font-size="14" font-weight="700" fill="#3fb950">Perimeter / Public Tier</text>
+        <text x="15" y="54" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">Standard: <tspan fill="#3fb950" font-weight="700">REST (JSON / OpenAPI)</tspan></text>
+        <text x="15" y="80" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">• Highest external developer reach</text>
+        <text x="15" y="104" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">• Edge CDN caching (Cloudflare, Akamai)</text>
+        <text x="15" y="128" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">• Standard OAuth2 / WAF security perimeter</text>
+        <text x="15" y="156" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#7ee787">✓ Zero external client integration friction</text>
+      </g>
 
-    <g transform="translate(355, 45)">
       <!-- Tier 2 -->
-      <rect width="310" height="115" rx="6" fill="#161b22" stroke="#da3633"/>
-      <text x="15" y="22" font-family="monospace" font-size="11" font-weight="700" fill="#f85149">UI / Experience Tier</text>
-      <text x="15" y="44" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#c9d1d9">Standard: <tspan fill="#f85149" font-weight="700">GraphQL / Mobile BFF</tspan></text>
-      <text x="15" y="64" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#8b949e">• Single call fetches screen data</text>
-      <text x="15" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#8b949e">• Eliminates mobile battery drain</text>
-      <text x="15" y="96" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#8b949e">• Schema stitching across backends</text>
-    </g>
+      <g transform="translate(365, 0)">
+        <rect width="350" height="180" rx="6" fill="#161b22" stroke="#da3633"/>
+        <text x="15" y="26" font-family="monospace" font-size="14" font-weight="700" fill="#f85149">UI / Experience Tier</text>
+        <text x="15" y="54" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">Standard: <tspan fill="#f85149" font-weight="700">GraphQL / Mobile BFF</tspan></text>
+        <text x="15" y="80" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">• Single round-trip fetches complete screen data</text>
+        <text x="15" y="104" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">• Eliminates mobile battery &amp; radio drain</text>
+        <text x="15" y="128" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">• Flexible field selection for UI experiments</text>
+        <text x="15" y="156" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#7ee787">✓ Frontend team decoupled from backend schema</text>
+      </g>
 
-    <g transform="translate(685, 45)">
       <!-- Tier 3 -->
-      <rect width="310" height="115" rx="6" fill="#161b22" stroke="#1f6feb"/>
-      <text x="15" y="22" font-family="monospace" font-size="11" font-weight="700" fill="#58a6ff">Internal Mesh / RPC Tier</text>
-      <text x="15" y="44" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#c9d1d9">Standard: <tspan fill="#58a6ff" font-weight="700">gRPC (HTTP/2 + Protobuf)</tspan></text>
-      <text x="15" y="64" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#8b949e">• Microsecond serialization speed</text>
-      <text x="15" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#8b949e">• 80% smaller network wire footprint</text>
-      <text x="15" y="96" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#8b949e">• Strict Proto contract enforcement</text>
+      <g transform="translate(735, 0)">
+        <rect width="345" height="180" rx="6" fill="#161b22" stroke="#1f6feb"/>
+        <text x="15" y="26" font-family="monospace" font-size="14" font-weight="700" fill="#58a6ff">Internal Mesh / RPC Tier</text>
+        <text x="15" y="54" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">Standard: <tspan fill="#58a6ff" font-weight="700">gRPC (HTTP/2 + Protobuf)</tspan></text>
+        <text x="15" y="80" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">• Microsecond Protobuf serialization speed</text>
+        <text x="15" y="104" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">• 80% smaller network wire footprint</text>
+        <text x="15" y="128" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">• Strict Proto contract enforcement across teams</text>
+        <text x="15" y="156" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#7ee787">✓ Extreme high-throughput, low-latency calls</text>
+      </g>
     </g>
   </g>
 </svg>

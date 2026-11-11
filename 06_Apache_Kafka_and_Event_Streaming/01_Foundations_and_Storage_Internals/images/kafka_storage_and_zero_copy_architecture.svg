@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 740" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="100%" height="100%">
   <defs>
     <linearGradient id="bgGradK1" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#0d1117" />
@@ -29,215 +29,147 @@
   </defs>
 
   <!-- Background -->
-  <rect width="1100" height="740" fill="url(#bgGradK1)" rx="12" stroke="#30363d" stroke-width="2"/>
+  <rect width="1200" height="900" fill="url(#bgGradK1)" rx="12" stroke="#30363d" stroke-width="2"/>
 
   <!-- Title & Subtitle -->
-  <text x="40" y="45" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f0f6fc">Kafka Storage Internals: Commit Log Segments &amp; OS Zero-Copy I/O</text>
-  <text x="40" y="70" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e">First-Principles Architecture: Memory-Mapped Sparse Indexes, High Watermark Quorums, and sendfile(2) Mechanics</text>
+  <text x="40" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="700" fill="#f0f6fc">Kafka Storage Internals: Commit Log Segments &amp; OS Zero-Copy I/O</text>
+  <text x="40" y="78" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" fill="#8b949e">First-Principles Architecture: Memory-Mapped Sparse Indexes, High Watermark Quorums, and sendfile(2) Mechanics</text>
 
   <!-- Section 1: Storage Segment Anatomy (Left Column) -->
-  <g transform="translate(40, 100)">
-    <rect width="500" height="370" rx="8" fill="url(#cardGradK1)" stroke="#30363d" stroke-width="1.5"/>
-    <rect width="500" height="6" rx="3" fill="url(#orangeGradK)"/>
-    <text x="25" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#f0883e">1. Partition Commit Log &amp; Sparse Index Internals</text>
-    <text x="25" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">On-disk layout inside /var/lib/kafka/data/orders-0/</text>
+  <g transform="translate(40, 105)">
+    <rect width="545" height="495" rx="8" fill="url(#cardGradK1)" stroke="#d29922" stroke-width="2"/>
+    <rect width="545" height="6" rx="3" fill="url(#orangeGradK)"/>
+    <text x="25" y="36" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#f0883e">1. Partition Commit Log &amp; Sparse Index Internals</text>
+    <text x="25" y="58" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">On-disk segment structure inside /var/lib/kafka/data/orders-0/</text>
 
     <!-- Visual Segment Representation -->
-    <g transform="translate(25, 70)">
+    <g transform="translate(20, 75)">
       <!-- .log file -->
-      <rect width="450" height="95" rx="6" fill="#161b22" stroke="#d29922"/>
-      <text x="15" y="22" font-family="monospace" font-size="11" font-weight="700" fill="#e3b341">00000000000000000000.log (Append-Only Data File)</text>
+      <rect width="505" height="110" rx="6" fill="#161b22" stroke="#d29922"/>
+      <text x="15" y="26" font-family="monospace" font-size="13" font-weight="700" fill="#e3b341">00000000000000000000.log (Append-Only Log File)</text>
       
       <!-- Offsets -->
-      <g transform="translate(15, 35)">
+      <g transform="translate(15, 38)">
         <g transform="translate(0, 0)">
-          <rect width="70" height="45" rx="4" fill="#21262d" stroke="#30363d"/>
-          <text x="8" y="18" font-family="monospace" font-size="9" fill="#8b949e">Offset 0</text>
-          <text x="8" y="34" font-family="monospace" font-size="8.5" fill="#3fb950">Pos: 0B</text>
+          <rect width="105" height="55" rx="4" fill="#21262d" stroke="#30363d"/>
+          <text x="10" y="24" font-family="monospace" font-size="13" fill="#8b949e">Offset 0</text>
+          <text x="10" y="44" font-family="monospace" font-size="13" fill="#3fb950">Pos: 0B</text>
         </g>
-
-        <g transform="translate(75, 0)">
-          <rect width="70" height="45" rx="4" fill="#21262d" stroke="#30363d"/>
-          <text x="8" y="18" font-family="monospace" font-size="9" fill="#8b949e">Offset 1</text>
-          <text x="8" y="34" font-family="monospace" font-size="8.5" fill="#3fb950">Pos: 420B</text>
+        <g transform="translate(115, 0)">
+          <rect width="105" height="55" rx="4" fill="#21262d" stroke="#30363d"/>
+          <text x="10" y="24" font-family="monospace" font-size="13" fill="#8b949e">Offset 1</text>
+          <text x="10" y="44" font-family="monospace" font-size="13" fill="#3fb950">Pos: 420B</text>
         </g>
-
-        <g transform="translate(150, 0)">
-          <rect width="70" height="45" rx="4" fill="#21262d" stroke="#30363d"/>
-          <text x="8" y="18" font-family="monospace" font-size="9" fill="#8b949e">Offset 2</text>
-          <text x="8" y="34" font-family="monospace" font-size="8.5" fill="#3fb950">Pos: 860B</text>
+        <g transform="translate(230, 0)">
+          <rect width="105" height="55" rx="4" fill="#21262d" stroke="#30363d"/>
+          <text x="10" y="24" font-family="monospace" font-size="13" fill="#8b949e">Offset 2</text>
+          <text x="10" y="44" font-family="monospace" font-size="13" fill="#3fb950">Pos: 860B</text>
         </g>
-
-        <g transform="translate(225, 0)">
-          <rect width="70" height="45" rx="4" fill="#21262d" stroke="#30363d"/>
-          <text x="8" y="18" font-family="monospace" font-size="9" fill="#8b949e">Offset 3</text>
-          <text x="8" y="34" font-family="monospace" font-size="8.5" fill="#3fb950">Pos: 1290B</text>
-        </g>
-
-        <!-- Uncommitted / LEO section -->
-        <g transform="translate(300, 0)">
-          <rect width="120" height="45" rx="4" fill="#1f6feb" fill-opacity="0.15" stroke="#388bfd"/>
-          <text x="10" y="18" font-family="monospace" font-size="9" fill="#79c0ff">Offset 4 (Uncommitted)</text>
-          <text x="10" y="34" font-family="monospace" font-size="8.5" fill="#79c0ff">LEO = 5</text>
+        <g transform="translate(345, 0)">
+          <rect width="130" height="55" rx="4" fill="#1f6feb" fill-opacity="0.15" stroke="#388bfd"/>
+          <text x="10" y="24" font-family="monospace" font-size="13" fill="#79c0ff">Offset 3 (LEO)</text>
+          <text x="10" y="44" font-family="monospace" font-size="13" fill="#58a6ff">Pos: 1290B</text>
         </g>
       </g>
     </g>
 
-    <!-- HW and LEO indicators -->
-    <g transform="translate(25, 175)">
-      <line x1="318" y1="0" x2="318" y2="35" stroke="#3fb950" stroke-width="2" stroke-dasharray="3,3"/>
-      <text x="250" y="48" font-family="monospace" font-size="10" font-weight="700" fill="#3fb950">▲ High Watermark (HW=4)</text>
-      <text x="250" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#8b949e">Committed to all ISR nodes</text>
-
-      <line x1="440" y1="0" x2="440" y2="35" stroke="#388bfd" stroke-width="2" stroke-dasharray="3,3"/>
-      <text x="390" y="48" font-family="monospace" font-size="10" font-weight="700" fill="#58a6ff">▲ Log End Offset (LEO=5)</text>
-    </g>
-
-    <!-- .index and .timeindex boxes -->
-    <g transform="translate(25, 250)">
-      <g transform="translate(0, 0)">
-        <rect width="215" height="100" rx="6" fill="#161b22" stroke="#30363d"/>
-        <text x="12" y="20" font-family="monospace" font-size="10" font-weight="700" fill="#58a6ff">.index (Sparse Offset Index)</text>
-        <text x="12" y="38" font-family="monospace" font-size="9" fill="#8b949e">Entry: [Offset: 4B, Position: 4B]</text>
-        <text x="12" y="54" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#c9d1d9">• Indexed every 4096 bytes</text>
-        <text x="12" y="70" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#c9d1d9">• Kept in OS page cache (mmap)</text>
-        <text x="12" y="86" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#3fb950">• O(log N) binary search lookup</text>
-      </g>
-
-      <g transform="translate(235, 0)">
-        <rect width="215" height="100" rx="6" fill="#161b22" stroke="#30363d"/>
-        <text x="12" y="20" font-family="monospace" font-size="10" font-weight="700" fill="#d29922">.timeindex (Timestamp Index)</text>
-        <text x="12" y="38" font-family="monospace" font-size="9" fill="#8b949e">Entry: [Timestamp: 8B, Offset: 4B]</text>
-        <text x="12" y="54" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#c9d1d9">• Used for time-based search</text>
-        <text x="12" y="70" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#c9d1d9">• consumer.offsetsForTimes()</text>
-        <text x="12" y="86" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#f0883e">• Log retention cleanup policy</text>
-      </g>
-    </g>
-  </g>
-
-  <!-- Section 2: Zero-Copy Kernel Architecture (Right Column) -->
-  <g transform="translate(560, 100)">
-    <rect width="500" height="370" rx="8" fill="url(#cardGradK1)" stroke="#30363d" stroke-width="1.5"/>
-    <rect width="500" height="6" rx="3" fill="url(#greenGradK)"/>
-    <text x="25" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#3fb950">2. Kernel Zero-Copy (sendfile) vs. Traditional I/O</text>
-    <text x="25" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Bypassing JVM Heap and Eliminating CPU Context Switches</text>
-
-    <!-- Traditional vs Zero-Copy Comparison Boxes -->
-    <g transform="translate(25, 70)">
-      <!-- Traditional Box -->
-      <rect width="450" height="120" rx="6" fill="#161b22" stroke="#da3633"/>
-      <text x="15" y="20" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" font-weight="700" fill="#f85149">Traditional I/O (read + write): 4 Context Switches + 4 Memory Copies</text>
+    <!-- .index file -->
+    <g transform="translate(20, 205)">
+      <rect width="505" height="125" rx="6" fill="#161b22" stroke="#388bfd"/>
+      <text x="15" y="26" font-family="monospace" font-size="13" font-weight="700" fill="#58a6ff">00000000000000000000.index (Sparse Offset Index via mmap)</text>
       
-      <g transform="translate(15, 35)">
-        <!-- Box 1: Disk -->
-        <g transform="translate(0, 0)">
-          <rect width="90" height="65" rx="4" fill="#0d1117" stroke="#30363d"/>
-          <text x="8" y="20" font-family="monospace" font-size="9" fill="#8b949e">Disk Storage</text>
-          <text x="8" y="38" font-family="monospace" font-size="8" fill="#f85149">DMA Copy 1</text>
-          <text x="8" y="52" font-family="monospace" font-size="8" fill="#c9d1d9">→ Page Cache</text>
-        </g>
-
-        <!-- Box 2: Kernel Buffer -->
-        <g transform="translate(110, 0)">
-          <rect width="105" height="65" rx="4" fill="#0d1117" stroke="#30363d"/>
-          <text x="8" y="20" font-family="monospace" font-size="9" fill="#8b949e">Kernel Buffer</text>
-          <text x="8" y="38" font-family="monospace" font-size="8" fill="#f85149">CPU Copy 2</text>
-          <text x="8" y="52" font-family="monospace" font-size="8" fill="#f85149">→ User Space!</text>
-        </g>
-
-        <!-- Box 3: JVM Heap -->
-        <g transform="translate(235, 0)">
-          <rect width="95" height="65" rx="4" fill="#0d1117" stroke="#da3633"/>
-          <text x="8" y="20" font-family="monospace" font-size="9" fill="#f85149">JVM Heap (4B)</text>
-          <text x="8" y="38" font-family="monospace" font-size="8" fill="#f85149">CPU Copy 3</text>
-          <text x="8" y="52" font-family="monospace" font-size="8" fill="#c9d1d9">→ Socket Buf</text>
-        </g>
-
-        <!-- Box 4: NIC Buffer -->
-        <g transform="translate(350, 0)">
-          <rect width="85" height="65" rx="4" fill="#0d1117" stroke="#30363d"/>
-          <text x="8" y="20" font-family="monospace" font-size="9" fill="#8b949e">NIC Buffer</text>
-          <text x="8" y="38" font-family="monospace" font-size="8" fill="#3fb950">DMA Copy 4</text>
-          <text x="8" y="52" font-family="monospace" font-size="8" fill="#c9d1d9">→ Wire/Network</text>
-        </g>
+      <g transform="translate(15, 38)">
+        <rect width="475" height="70" rx="4" fill="#0d1117" stroke="#30363d"/>
+        <text x="15" y="26" font-family="monospace" font-size="13" fill="#79c0ff">Index Entry: [Relative Offset (4B)] -&gt; [Physical Position (4B)]</text>
+        <text x="15" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Records indexed every index.interval.bytes = 4096 (Sparse)</text>
       </g>
+    </g>
 
-      <!-- Zero-Copy Box -->
-      <g transform="translate(0, 135)">
-        <rect width="450" height="140" rx="6" fill="#161b22" stroke="#238636"/>
-        <text x="15" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" font-weight="700" fill="#3fb950">Kafka Zero-Copy (sendfile): 2 Context Switches + 0 CPU Copies!</text>
-        
-        <g transform="translate(15, 38)">
-          <!-- OS Page Cache Box -->
-          <g transform="translate(0, 0)">
-            <rect width="130" height="75" rx="4" fill="#0d1117" stroke="#238636"/>
-            <text x="10" y="20" font-family="monospace" font-size="9.5" font-weight="700" fill="#7ee787">OS Page Cache</text>
-            <text x="10" y="36" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="8.5" fill="#8b949e">File segments reside</text>
-            <text x="10" y="50" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="8.5" fill="#8b949e">in kernel memory</text>
-            <text x="10" y="64" font-family="monospace" font-size="8.5" fill="#3fb950">DMA Transfer</text>
-          </g>
+    <!-- Lookup Flow Explanation -->
+    <g transform="translate(20, 345)">
+      <rect width="505" height="130" rx="6" fill="#161b22" stroke="#30363d"/>
+      <text x="15" y="26" font-family="monospace" font-size="13" font-weight="700" fill="#7ee787">O(1) Memory Lookup Flow for Target Offset:</text>
+      <text x="15" y="52" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">1. Binary search memory-mapped .index file (direct OS page cache)</text>
+      <text x="15" y="76" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">2. Find largest index offset &lt;= target offset (nearest disk position)</text>
+      <text x="15" y="100" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#3fb950">3. Linear scan .log file for only ~4KB to locate exact target record</text>
+    </g>
+  </g>
 
-          <!-- Direct sendfile line -->
-          <path d="M 135 38 L 295 38" fill="none" stroke="#3fb950" stroke-width="2.5" marker-end="url(#arrowGreenK1)"/>
-          <text x="155" y="30" font-family="monospace" font-size="9" font-weight="700" fill="#3fb950">sendfile() Syscall</text>
-          <text x="150" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="8" fill="#8b949e">Zero JVM Heap Overhead!</text>
+  <!-- Section 2: Zero-Copy Mechanics (Right Column) -->
+  <g transform="translate(615, 105)">
+    <rect width="545" height="495" rx="8" fill="url(#cardGradK1)" stroke="#238636" stroke-width="2"/>
+    <rect width="545" height="6" rx="3" fill="url(#greenGradK)"/>
+    <text x="25" y="36" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#3fb950">2. OS Page Cache &amp; Zero-Copy I/O Mechanics</text>
+    <text x="25" y="58" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Eliminating user-space context switches via Linux sendfile(2)</text>
 
-          <!-- NIC Buffer Box -->
-          <g transform="translate(305, 0)">
-            <rect width="125" height="75" rx="4" fill="#0d1117" stroke="#238636"/>
-            <text x="10" y="20" font-family="monospace" font-size="9.5" font-weight="700" fill="#7ee787">NIC Buffer (Wire)</text>
-            <text x="10" y="36" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="8.5" fill="#8b949e">Scatter-gather DMA</text>
-            <text x="10" y="50" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="8.5" fill="#8b949e">reads kernel memory</text>
-            <text x="10" y="64" font-family="monospace" font-size="8.5" fill="#3fb950">Direct Socket Stream</text>
-          </g>
-        </g>
+    <!-- Standard I/O (Traditional) -->
+    <g transform="translate(20, 75)">
+      <rect width="505" height="185" rx="6" fill="#161b22" stroke="#da3633"/>
+      <text x="15" y="26" font-family="monospace" font-size="13" font-weight="700" fill="#f85149">Standard I/O: 4 Context Switches + 3 CPU Copies</text>
+      
+      <g transform="translate(15, 38)">
+        <rect width="475" height="130" rx="4" fill="#0d1117" stroke="#30363d"/>
+        <text x="15" y="24" font-family="monospace" font-size="13" fill="#e3b341">Disk -&gt; [DMA] -&gt; OS Page Cache -&gt; [CPU] -&gt; App Buffer (JVM)</text>
+        <text x="15" y="48" font-family="monospace" font-size="13" fill="#e3b341">App Buffer (JVM) -&gt; [CPU] -&gt; Socket Buffer -&gt; [DMA] -&gt; NIC</text>
+        <text x="15" y="76" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">• 2 System Calls: read() + write()</text>
+        <text x="15" y="98" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#f85149">• High CPU usage, massive JVM heap pressure, and GC pause risk</text>
+      </g>
+    </g>
+
+    <!-- Zero-Copy (Kafka sendfile) -->
+    <g transform="translate(20, 275)">
+      <rect width="505" height="200" rx="6" fill="#161b22" stroke="#238636"/>
+      <text x="15" y="26" font-family="monospace" font-size="13" font-weight="700" fill="#3fb950">Kafka Zero-Copy: 2 Context Switches + 0 CPU Copies</text>
+      
+      <g transform="translate(15, 38)">
+        <rect width="475" height="145" rx="4" fill="#0d1117" stroke="#238636"/>
+        <text x="15" y="26" font-family="monospace" font-size="13" fill="#7ee787">Disk -&gt; [DMA] -&gt; OS Page Cache -&gt; [DMA Scatter-Gather] -&gt; NIC</text>
+        <text x="15" y="56" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Single syscall: FileChannel.transferTo() / sendfile(2)</text>
+        <text x="15" y="80" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Zero JVM memory touched: data streams direct from kernel cache</text>
+        <text x="15" y="104" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#3fb950">• Saturation of multi-gigabit NICs at near line-rate speed</text>
       </g>
     </g>
   </g>
 
-  <!-- Section 3: In-Sync Replicas (ISR) & Quorum Mechanics (Bottom Banner) -->
-  <g transform="translate(40, 490)">
-    <rect width="1020" height="220" rx="8" fill="url(#cardGradK1)" stroke="#1f6feb" stroke-width="1.5"/>
-    <text x="25" y="30" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#58a6ff">3. Cluster Topology &amp; In-Sync Replicas (ISR) Quorum Mechanics</text>
+  <!-- Section 3: ISR & Quorum Mechanics (Bottom Banner) -->
+  <g transform="translate(40, 620)">
+    <rect width="1120" height="255" rx="8" fill="url(#cardGradK1)" stroke="#1f6feb" stroke-width="2"/>
+    <rect width="1120" height="6" rx="3" fill="url(#blueGradK)"/>
+    <text x="25" y="36" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#58a6ff">3. Cluster Topology &amp; In-Sync Replicas (ISR) Quorum Mechanics</text>
+    <text x="25" y="58" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Leader High Watermark (HW), Log End Offset (LEO), and replica.lag.time.max.ms eviction</text>
 
-    <g transform="translate(25, 45)">
+    <g transform="translate(20, 72)">
       <!-- Broker 1 (Leader) -->
       <g transform="translate(0, 0)">
-        <rect width="300" height="150" rx="6" fill="#161b22" stroke="#388bfd"/>
-        <rect width="300" height="24" rx="4" fill="#1f6feb" fill-opacity="0.2"/>
-        <text x="15" y="17" font-family="monospace" font-size="11" font-weight="700" fill="#58a6ff">Broker 101: Partition Leader</text>
-        <text x="15" y="44" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#c9d1d9">• Receives all Producer writes</text>
-        <text x="15" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#c9d1d9">• Serves standard Consumer reads</text>
-        <text x="15" y="80" font-family="monospace" font-size="10" fill="#79c0ff">LEO = 100 | HW = 98</text>
-        <text x="15" y="100" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">Tracks follower fetch heartbeats</text>
-        <text x="15" y="118" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">replica.lag.time.max.ms = 30000</text>
-        <text x="15" y="136" font-family="monospace" font-size="9.5" fill="#3fb950">Status: HEALTHY (ISR Member)</text>
+        <rect width="345" height="165" rx="6" fill="#161b22" stroke="#388bfd"/>
+        <text x="15" y="26" font-family="monospace" font-size="14" font-weight="700" fill="#58a6ff">Broker 101: Partition Leader</text>
+        <text x="15" y="52" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Receives all Producer writes</text>
+        <text x="15" y="74" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Serves standard Consumer reads</text>
+        <text x="15" y="100" font-family="monospace" font-size="13" fill="#79c0ff">LEO = 100 | High Watermark = 98</text>
+        <text x="15" y="126" font-family="monospace" font-size="13" fill="#7ee787">replica.lag.time.max.ms = 30000</text>
+        <text x="15" y="148" font-family="monospace" font-size="13" font-weight="700" fill="#3fb950">Status: HEALTHY (Leader)</text>
       </g>
 
       <!-- Broker 2 (Follower 1) -->
-      <g transform="translate(340, 0)">
-        <rect width="300" height="150" rx="6" fill="#161b22" stroke="#238636"/>
-        <rect width="300" height="24" rx="4" fill="#238636" fill-opacity="0.2"/>
-        <text x="15" y="17" font-family="monospace" font-size="11" font-weight="700" fill="#3fb950">Broker 102: Follower (In-Sync)</text>
-        <text x="15" y="44" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#c9d1d9">• Issues FetchRequests to Leader</text>
-        <text x="15" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#c9d1d9">• Replicates log sequentially</text>
-        <text x="15" y="80" font-family="monospace" font-size="10" fill="#7ee787">LEO = 98 | HW = 98</text>
-        <text x="15" y="100" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">Last fetched 120ms ago (&lt; 30s)</text>
-        <text x="15" y="118" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">Eligible for Leader Election</text>
-        <text x="15" y="136" font-family="monospace" font-size="9.5" fill="#3fb950">Status: IN-SYNC (ISR Member)</text>
+      <g transform="translate(365, 0)">
+        <rect width="350" height="165" rx="6" fill="#161b22" stroke="#238636"/>
+        <text x="15" y="26" font-family="monospace" font-size="14" font-weight="700" fill="#3fb950">Broker 102: Follower (In-Sync)</text>
+        <text x="15" y="52" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Continuously fetches from Leader</text>
+        <text x="15" y="74" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Replicates log sequentially to disk</text>
+        <text x="15" y="100" font-family="monospace" font-size="13" fill="#7ee787">LEO = 98 | High Watermark = 98</text>
+        <text x="15" y="126" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">Last fetched 120ms ago (&lt; 30s threshold)</text>
+        <text x="15" y="148" font-family="monospace" font-size="13" font-weight="700" fill="#3fb950">Status: IN-SYNC (ISR Member)</text>
       </g>
 
-      <!-- Broker 3 (Follower 2 - Out of Sync) -->
-      <g transform="translate(680, 0)">
-        <rect width="300" height="150" rx="6" fill="#161b22" stroke="#da3633"/>
-        <rect width="300" height="24" rx="4" fill="#da3633" fill-opacity="0.2"/>
-        <text x="15" y="17" font-family="monospace" font-size="11" font-weight="700" fill="#f85149">Broker 103: Follower (Lagging)</text>
-        <text x="15" y="44" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#c9d1d9">• Network partition / GC stall</text>
-        <text x="15" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#c9d1d9">• Fell behind Leader LEO</text>
-        <text x="15" y="80" font-family="monospace" font-size="10" fill="#f85149">LEO = 45 (Behind by 55 records!)</text>
-        <text x="15" y="100" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#f85149">Evicted from ISR after 30s timeout</text>
-        <text x="15" y="118" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">unclean.leader.election.enable=false</text>
-        <text x="15" y="136" font-family="monospace" font-size="9.5" fill="#f85149">Status: OUT-OF-SYNC (Kicked from ISR)</text>
+      <!-- Broker 3 (Follower 2 - Lagging) -->
+      <g transform="translate(735, 0)">
+        <rect width="345" height="165" rx="6" fill="#161b22" stroke="#da3633"/>
+        <text x="15" y="26" font-family="monospace" font-size="14" font-weight="700" fill="#f85149">Broker 103: Follower (Lagging)</text>
+        <text x="15" y="52" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Network stall / Long JVM GC pause</text>
+        <text x="15" y="74" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Fell behind Leader LEO by &gt; 30s</text>
+        <text x="15" y="100" font-family="monospace" font-size="13" fill="#f85149">LEO = 45 (Behind by 55 records!)</text>
+        <text x="15" y="126" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">unclean.leader.election.enable=false</text>
+        <text x="15" y="148" font-family="monospace" font-size="13" font-weight="700" fill="#f85149">Status: OUT-OF-SYNC (Evicted)</text>
       </g>
     </g>
   </g>

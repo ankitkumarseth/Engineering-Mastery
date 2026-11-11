@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 740" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="100%" height="100%">
   <defs>
     <linearGradient id="bgGradApi3" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#0d1117" />
@@ -20,125 +20,144 @@
       <stop offset="0%" stop-color="#238636" />
       <stop offset="100%" stop-color="#2ea043" />
     </linearGradient>
-
     <marker id="arrowBlueApi3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
       <path d="M 0 1 L 10 5 L 0 9 z" fill="#58a6ff" />
-    </marker>
-    <marker id="arrowRedApi3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f85149" />
-    </marker>
-    <marker id="arrowGreenApi3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 10 5 L 0 9 z" fill="#3fb950" />
     </marker>
   </defs>
 
   <!-- Background -->
-  <rect width="1100" height="740" fill="url(#bgGradApi3)" rx="12" stroke="#30363d" stroke-width="2"/>
+  <rect width="1200" height="900" fill="url(#bgGradApi3)" rx="12" stroke="#30363d" stroke-width="2"/>
 
   <!-- Title & Subtitle -->
-  <text x="40" y="45" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f0f6fc">Distributed Idempotency Architecture: The Stripe Pattern</text>
-  <text x="40" y="70" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e">Guaranteeing Exactly-Once Execution Semantics Across Unreliable Networks via Distributed Locks and SHA-256 Fingerprints</text>
+  <text x="40" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="700" fill="#f0f6fc">Distributed Idempotency Architecture: The Stripe Pattern</text>
+  <text x="40" y="78" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" fill="#8b949e">Guaranteeing Exactly-Once Execution Across Unreliable Networks via Distributed Locks and SHA-256 Fingerprints</text>
 
   <!-- Step 1: Ingress with Idempotency-Key Header -->
   <g transform="translate(40, 105)">
-    <rect width="250" height="360" rx="8" fill="url(#cardGradApi3)" stroke="#30363d" stroke-width="1.5"/>
-    <rect width="250" height="6" rx="3" fill="url(#clientGradApi)"/>
-    <text x="20" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#58a6ff">1. Client Request Ingress</text>
-    <text x="20" y="55" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Payment / Mutation Call</text>
+    <rect width="320" height="480" rx="8" fill="url(#cardGradApi3)" stroke="#1f6feb" stroke-width="2"/>
+    <rect width="320" height="6" rx="3" fill="url(#clientGradApi)"/>
+    <text x="20" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="700" fill="#58a6ff">1. Client Request Ingress</text>
+    <text x="20" y="56" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Payment / Mutation API Call</text>
 
-    <rect x="15" y="75" width="220" height="95" rx="6" fill="#161b22" stroke="#30363d"/>
-    <text x="25" y="96" font-family="monospace" font-size="10" fill="#7ee787">POST /v1/charges</text>
-    <text x="25" y="114" font-family="monospace" font-size="9.5" fill="#e3b341">Idempotency-Key:</text>
-    <text x="25" y="128" font-family="monospace" font-size="9" fill="#79c0ff">"idem_key_984a-7bc"</text>
-    <text x="25" y="146" font-family="monospace" font-size="9" fill="#8b949e">{"amount": 1000, "cc": 4242}</text>
+    <rect x="15" y="75" width="290" height="115" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="15" y="26" font-family="monospace" font-size="13" font-weight="700" fill="#7ee787">POST /v1/charges</text>
+    <text x="15" y="50" font-family="monospace" font-size="13" fill="#e3b341">Idempotency-Key:</text>
+    <text x="15" y="72" font-family="monospace" font-size="13" fill="#79c0ff">"idem_key_984a-7bc"</text>
+    <text x="15" y="98" font-family="monospace" font-size="13" fill="#8b949e">{"amount": 1000, "cc": 4242}</text>
 
     <!-- Fingerprint Box -->
-    <rect x="15" y="185" width="220" height="75" rx="6" fill="#161b22" stroke="#388bfd"/>
-    <text x="25" y="206" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#79c0ff">Payload Fingerprint</text>
-    <text x="25" y="224" font-family="monospace" font-size="9" fill="#c9d1d9">H = SHA-256(body)</text>
-    <text x="25" y="242" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">Detects payload mutation</text>
+    <g transform="translate(15, 205)">
+      <rect width="290" height="95" rx="6" fill="#161b22" stroke="#388bfd"/>
+      <text x="15" y="26" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#79c0ff">Payload Fingerprint Hash</text>
+      <text x="15" y="52" font-family="monospace" font-size="13" fill="#c9d1d9">H = SHA-256(request_body)</text>
+      <text x="15" y="78" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">Guards against body mutations</text>
+    </g>
 
-    <text x="20" y="285" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#c9d1d9">Idempotency Filter:</text>
-    <text x="20" y="305" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#8b949e">Intercepts request before</text>
-    <text x="20" y="322" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#8b949e">controller execution.</text>
-    <text x="20" y="342" font-family="monospace" font-size="10" fill="#7ee787">Redis Key: idem:{key}</text>
+    <g transform="translate(15, 315)">
+      <text x="5" y="24" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#c9d1d9">Idempotency Interceptor:</text>
+      <text x="5" y="50" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">• Intercepts request before controller</text>
+      <text x="5" y="74" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">• Redis Distributed Key:</text>
+      <text x="5" y="98" font-family="monospace" font-size="13" fill="#7ee787">idem:{tenant}:{idem_key}</text>
+      <text x="5" y="124" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#3fb950">✓ Atomic state check in Redis</text>
+    </g>
   </g>
 
   <!-- Arrow 1 -> 2 -->
-  <line x1="290" y1="285" x2="350" y2="285" stroke="#58a6ff" stroke-width="2.5" marker-end="url(#arrowBlueApi3)"/>
+  <path d="M 370 345 L 395 345" fill="none" stroke="#58a6ff" stroke-width="2.5" marker-end="url(#arrowBlueApi3)"/>
 
   <!-- Step 2: Redis State Machine -->
-  <g transform="translate(350, 105)">
-    <rect width="400" height="360" rx="8" fill="url(#cardGradApi3)" stroke="#da3633" stroke-width="2"/>
-    <rect width="400" height="6" rx="3" fill="url(#redisGradApi)"/>
-    <text x="25" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#f85149">2. Redis Distributed Lock &amp; Cache</text>
-    <text x="25" y="55" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Atomic inspection of key state</text>
+  <g transform="translate(410, 105)">
+    <rect width="430" height="480" rx="8" fill="url(#cardGradApi3)" stroke="#d29922" stroke-width="2"/>
+    <rect width="430" height="6" rx="3" fill="url(#redisGradApi)"/>
+    <text x="20" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="700" fill="#f85149">2. Redis Distributed Lock &amp; State</text>
+    <text x="20" y="56" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">SETNX atomic reservation &amp; branch triage</text>
 
-    <!-- Branch A: Completed -->
-    <rect x="20" y="75" width="360" height="70" rx="6" fill="#161b22" stroke="#238636"/>
-    <text x="35" y="98" font-family="monospace" font-size="11" font-weight="700" fill="#3fb950">BRANCH A: State == COMPLETED</text>
-    <text x="35" y="118" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#c9d1d9">Key exists with cached HTTP response.</text>
-    <text x="35" y="134" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#7ee787">✓ Returns cached payload immediately (&lt; 1ms)! Zero DB load.</text>
+    <!-- Redis Command -->
+    <g transform="translate(15, 75)">
+      <rect width="400" height="95" rx="6" fill="#161b22" stroke="#da3633"/>
+      <text x="12" y="24" font-family="monospace" font-size="13" font-weight="700" fill="#e3b341">SET idem:{key} '{"state":"PENDING", ...}'</text>
+      <text x="12" y="48" font-family="monospace" font-size="13" font-weight="700" fill="#e3b341">    NX EX 120</text>
+      <text x="12" y="76" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">Acquires 120s distributed lease lock atomically</text>
+    </g>
 
-    <!-- Branch B: Processing (In-Flight Duplicate) -->
-    <rect x="20" y="155" width="360" height="85" rx="6" fill="#161b22" stroke="#e3b341"/>
-    <text x="35" y="178" font-family="monospace" font-size="11" font-weight="700" fill="#e3b341">BRANCH B: State == PROCESSING</text>
-    <text x="35" y="198" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#c9d1d9">Another concurrent thread is actively executing!</text>
-    <text x="35" y="215" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#f85149">⚠️ Action: Reject with HTTP 409 Conflict</text>
-    <text x="35" y="230" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">(or poll with timeout until completed)</text>
+    <!-- Branch Outcomes -->
+    <g transform="translate(15, 185)">
+      <!-- Branch A: Lock Acquired -->
+      <g transform="translate(0, 0)">
+        <rect width="400" height="75" rx="6" fill="#161b22" stroke="#238636"/>
+        <text x="12" y="24" font-family="monospace" font-size="13" font-weight="700" fill="#3fb950">Branch A: Key Did NOT Exist (Returns OK)</text>
+        <text x="12" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">→ First-time request. Proceed to DB processing.</text>
+      </g>
 
-    <!-- Branch C: New Lock -->
-    <rect x="20" y="250" width="360" height="95" rx="6" fill="#161b22" stroke="#388bfd"/>
-    <text x="35" y="272" font-family="monospace" font-size="11" font-weight="700" fill="#79c0ff">BRANCH C: Key Not Found (First Arrival)</text>
-    <text x="35" y="292" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#c9d1d9">Acquires distributed lock atomically:</text>
-    <text x="35" y="310" font-family="monospace" font-size="10" fill="#7ee787">SET idem:{key} {state:PROCESSING, hash:H}</text>
-    <text x="35" y="326" font-family="monospace" font-size="10" fill="#7ee787">    NX EX 120 (120-sec lock timeout)</text>
+      <!-- Branch B: Key Exists & PENDING -->
+      <g transform="translate(0, 85)">
+        <rect width="400" height="95" rx="6" fill="#161b22" stroke="#d29922"/>
+        <text x="12" y="24" font-family="monospace" font-size="13" font-weight="700" fill="#e3b341">Branch B: Key Exists &amp; State == PENDING</text>
+        <text x="12" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#f85149">Concurrent in-flight execution in progress!</text>
+        <text x="12" y="74" font-family="monospace" font-size="13" fill="#f85149">→ Return HTTP 409 Conflict (or poll lock)</text>
+      </g>
+
+      <!-- Branch C: Key Exists & COMPLETED -->
+      <g transform="translate(0, 190)">
+        <rect width="400" height="90" rx="6" fill="#161b22" stroke="#388bfd"/>
+        <text x="12" y="24" font-family="monospace" font-size="13" font-weight="700" fill="#58a6ff">Branch C: Key Exists &amp; State == COMPLETED</text>
+        <text x="12" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#7ee787">✓ Return cached HTTP status &amp; response body!</text>
+        <text x="12" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">Zero DB query; zero double-billing risk.</text>
+      </g>
+    </g>
   </g>
 
   <!-- Arrow 2 -> 3 -->
-  <line x1="750" y1="285" x2="810" y2="285" stroke="#58a6ff" stroke-width="2.5" marker-end="url(#arrowBlueApi3)"/>
+  <path d="M 850 345 L 875 345" fill="none" stroke="#58a6ff" stroke-width="2.5" marker-end="url(#arrowBlueApi3)"/>
 
   <!-- Step 3: Transaction Execution & Cache -->
-  <g transform="translate(810, 105)">
-    <rect width="250" height="360" rx="8" fill="url(#cardGradApi3)" stroke="#238636" stroke-width="1.5"/>
-    <rect width="250" height="6" rx="3" fill="url(#dbGradApi)"/>
-    <text x="20" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#3fb950">3. Execution &amp; Cache</text>
-    <text x="20" y="55" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Database &amp; Storage</text>
+  <g transform="translate(890, 105)">
+    <rect width="270" height="480" rx="8" fill="url(#cardGradApi3)" stroke="#238636" stroke-width="2"/>
+    <rect width="270" height="6" rx="3" fill="url(#dbGradApi)"/>
+    <text x="20" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="700" fill="#3fb950">3. Execution &amp; Cache</text>
+    <text x="20" y="56" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Database &amp; Storage</text>
 
     <!-- DB Transaction -->
-    <rect x="15" y="75" width="220" height="85" rx="6" fill="#161b22" stroke="#30363d"/>
-    <text x="25" y="98" font-family="monospace" font-size="11" fill="#7ee787">@Transactional</text>
-    <text x="25" y="118" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#c9d1d9">1. Charge customer card</text>
-    <text x="25" y="134" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#c9d1d9">2. Insert payment row</text>
-    <text x="25" y="150" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#c9d1d9">3. Commit transaction</text>
+    <g transform="translate(15, 75)">
+      <rect width="240" height="120" rx="6" fill="#161b22" stroke="#30363d"/>
+      <text x="12" y="24" font-family="monospace" font-size="13" font-weight="700" fill="#7ee787">@Transactional</text>
+      <text x="12" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">1. Charge customer card</text>
+      <text x="12" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">2. Insert payment row</text>
+      <text x="12" y="92" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">3. Commit transaction</text>
+    </g>
 
     <!-- Update Redis -->
-    <rect x="15" y="175" width="220" height="95" rx="6" fill="#161b22" stroke="#238636"/>
-    <text x="25" y="196" font-family="monospace" font-size="11" font-weight="700" fill="#3fb950">Update Redis Cache</text>
-    <text x="25" y="214" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">Transitions state and caches:</text>
-    <text x="25" y="232" font-family="monospace" font-size="9" fill="#7ee787">SET idem:{key} {</text>
-    <text x="25" y="246" font-family="monospace" font-size="9" fill="#7ee787"> state: COMPLETED,</text>
-    <text x="25" y="260" font-family="monospace" font-size="9" fill="#7ee787"> status: 201, body: {...}} EX 86400</text>
+    <g transform="translate(15, 210)">
+      <rect width="240" height="140" rx="6" fill="#161b22" stroke="#238636"/>
+      <text x="12" y="24" font-family="monospace" font-size="13" font-weight="700" fill="#3fb950">Update Redis State</text>
+      <text x="12" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">Transition state to:</text>
+      <text x="12" y="72" font-family="monospace" font-size="13" fill="#7ee787">SET idem:{key} {</text>
+      <text x="12" y="92" font-family="monospace" font-size="13" fill="#7ee787"> state: COMPLETED,</text>
+      <text x="12" y="112" font-family="monospace" font-size="13" fill="#7ee787"> code: 201, ...} EX 86400</text>
+    </g>
 
-    <text x="20" y="295" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#c9d1d9">Return Response:</text>
-    <text x="20" y="315" font-family="monospace" font-size="10.5" fill="#7ee787">HTTP 201 Created</text>
-    <text x="20" y="335" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">Cached for 24-hour replay</text>
+    <g transform="translate(15, 365)">
+      <text x="5" y="24" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#c9d1d9">Return Response:</text>
+      <text x="5" y="50" font-family="monospace" font-size="13" font-weight="700" fill="#7ee787">HTTP 201 Created</text>
+      <text x="5" y="74" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">Cached for 24-hour instant replay</text>
+    </g>
   </g>
 
   <!-- Bottom Panel: Fingerprint Mismatch Security Guard -->
-  <g transform="translate(40, 485)">
-    <rect width="1020" height="220" rx="8" fill="url(#cardGradApi3)" stroke="#e3b341" stroke-width="1.5"/>
-    <text x="25" y="30" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#e3b341">The Critical Edge Case: Idempotency Key Reused with Different Payload</text>
+  <g transform="translate(40, 605)">
+    <rect width="1120" height="270" rx="8" fill="url(#cardGradApi3)" stroke="#e3b341" stroke-width="2"/>
+    <text x="25" y="36" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#e3b341">The Critical Security Guard: Idempotency Key Reused with Different Payload</text>
+    <text x="25" y="58" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Preventing rogue callers from silently hijacking cached outcomes with altered inputs</text>
 
-    <g transform="translate(25, 45)">
-      <rect width="970" height="155" rx="6" fill="#161b22" stroke="#30363d"/>
-      <text x="20" y="24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11.5" font-weight="700" fill="#f85149">⚠️ The Attack / Bug Scenario:</text>
-      <text x="20" y="46" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#c9d1d9">A rogue client sends <tspan fill="#e3b341" font-family="monospace">Idempotency-Key: "order-123"</tspan> with payload <tspan fill="#79c0ff" font-family="monospace">{"amount": 100}</tspan>.</text>
-      <text x="20" y="66" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#c9d1d9">Later, the client sends identical key <tspan fill="#e3b341" font-family="monospace">Idempotency-Key: "order-123"</tspan>, but mutates payload to <tspan fill="#f85149" font-family="monospace">{"amount": 5000}</tspan>!</text>
+    <g transform="translate(20, 72)">
+      <rect width="1075" height="175" rx="6" fill="#161b22" stroke="#30363d"/>
+      <text x="20" y="28" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="700" fill="#f85149">⚠️ The Attack / Bug Scenario:</text>
+      <text x="20" y="54" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13.5" fill="#c9d1d9">A client sends <tspan fill="#e3b341" font-family="monospace">Idempotency-Key: "order-123"</tspan> with payload <tspan fill="#79c0ff" font-family="monospace">{"amount": 100}</tspan>.</text>
+      <text x="20" y="78" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13.5" fill="#c9d1d9">Later, the client sends identical key <tspan fill="#e3b341" font-family="monospace">Idempotency-Key: "order-123"</tspan>, but changes payload to <tspan fill="#f85149" font-family="monospace">{"amount": 5000}</tspan>!</text>
 
-      <text x="20" y="92" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11.5" font-weight="700" fill="#3fb950">🛡️ The Antidote: Payload SHA-256 Fingerprint Comparison</text>
-      <text x="20" y="114" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Filter compares incoming <tspan fill="#79c0ff" font-family="monospace">SHA-256(new_body)</tspan> against stored <tspan fill="#79c0ff" font-family="monospace">hash</tspan>. If hashes mismatch:</text>
-      <text x="20" y="134" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#f85149">→ REJECT immediately with <tspan fill="#f85149" font-family="monospace">HTTP 400 Bad Request</tspan> (<tspan fill="#e3b341" font-family="monospace">idempotency_key_reused_with_different_payload</tspan>).</text>
+      <text x="20" y="112" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="700" fill="#3fb950">🛡️ The Antidote: Payload SHA-256 Fingerprint Comparison</text>
+      <text x="20" y="136" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13.5" fill="#8b949e">Interceptor hashes new body and compares against stored hash in Redis. If mismatch:</text>
+      <text x="20" y="160" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13.5" font-weight="700" fill="#f85149">→ REJECT immediately with HTTP 400 Bad Request (<tspan fill="#e3b341" font-family="monospace">idempotency_key_reused_with_different_payload</tspan>).</text>
     </g>
   </g>
 </svg>

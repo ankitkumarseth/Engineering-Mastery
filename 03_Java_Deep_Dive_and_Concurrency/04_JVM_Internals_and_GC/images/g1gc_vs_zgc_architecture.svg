@@ -1,123 +1,166 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="100%" height="100%">
   <defs>
     <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0f172a"/>
-      <stop offset="100%" stop-color="#1e293b"/>
+      <stop offset="0%" stop-color="#0d1117" />
+      <stop offset="100%" stop-color="#161b22" />
     </linearGradient>
-    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
-      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.4"/>
-    </filter>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#21262d" />
+      <stop offset="100%" stop-color="#161b22" />
+    </linearGradient>
   </defs>
 
   <!-- Background -->
-  <rect width="960" height="540" fill="url(#bgGrad)"/>
+  <rect width="1200" height="900" fill="url(#bgGrad)" rx="12" stroke="#30363d" stroke-width="2"/>
 
   <!-- Title & Subtitle -->
-  <text x="480" y="38" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="700" fill="#f8fafc">G1GC vs. Generational ZGC Architecture</text>
-  <text x="480" y="62" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#94a3b8">Region Partitioning &amp; SATB Evacuation vs. Colored Pointers &amp; Self-Healing Load Barriers</text>
+  <text x="50" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="700" fill="#f0f6fc">G1GC vs. Generational ZGC Architecture</text>
+  <text x="50" y="78" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" fill="#8b949e">Region Partitioning &amp; SATB Evacuation vs. Colored Pointers &amp; Self-Healing Load Barriers</text>
 
-  <!-- Left: G1GC Architecture -->
-  <g transform="translate(30, 85)">
-    <rect x="0" y="0" width="435" height="425" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5" filter="url(#shadow)"/>
-    <text x="217" y="28" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="15" font-weight="700" fill="#60a5fa">G1GC (Garbage-First) — Default Since Java 9</text>
+  <!-- LEFT PANEL: G1GC Architecture -->
+  <g transform="translate(50, 110)">
+    <rect width="525" height="750" rx="10" fill="url(#cardGrad)" stroke="#1f6feb" stroke-width="2"/>
+    <rect width="525" height="6" rx="3" fill="#1f6feb"/>
+    
+    <text x="25" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#58a6ff">G1GC (Garbage-First) — Default Since Java 9</text>
+    <text x="25" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" fill="#8b949e">Region-based incremental collector aiming for bounded STW pauses</text>
 
     <!-- Region Grid Diagram -->
-    <rect x="15" y="45" width="405" height="150" rx="6" fill="#0f172a" stroke="#334155"/>
-    <text x="25" y="65" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" fill="#94a3b8">Heap Divided into ~2048 Non-Contiguous Regions (1MB–32MB)</text>
+    <rect x="25" y="85" width="475" height="190" rx="8" fill="#161b22" stroke="#30363d"/>
+    <text x="40" y="112" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" font-weight="700" fill="#f0f6fc">Heap: ~2,048 Independent Regions (1MB - 32MB)</text>
 
-    <!-- Region Cells (5x3 Grid) -->
+    <!-- Grid of Regions (5 columns x 2 rows) -->
     <!-- Row 1 -->
-    <rect x="25" y="75" width="40" height="32" rx="3" fill="#065f46" stroke="#10b981"/><text x="45" y="96" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#a7f3d0">E</text>
-    <rect x="72" y="75" width="40" height="32" rx="3" fill="#1e3a8a" stroke="#3b82f6"/><text x="92" y="96" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#bfdbfe">O</text>
-    <rect x="119" y="75" width="40" height="32" rx="3" fill="#065f46" stroke="#10b981"/><text x="139" y="96" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#a7f3d0">E</text>
-    <rect x="166" y="75" width="40" height="32" rx="3" fill="#854d0e" stroke="#eab308"/><text x="186" y="96" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#fef08a">S</text>
-    <rect x="213" y="75" width="40" height="32" rx="3" fill="#334155" stroke="#64748b"/><text x="233" y="96" text-anchor="middle" font-family="monospace" font-size="11" fill="#94a3b8">Free</text>
-    <rect x="260" y="75" width="70" height="32" rx="3" fill="#701a75" stroke="#d946ef"/><text x="295" y="96" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#f5d0fe">H (Hum)</text>
-    <rect x="337" y="75" width="70" height="32" rx="3" fill="#701a75" stroke="#d946ef"/><text x="372" y="96" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#f5d0fe">H (Cont)</text>
+    <rect x="40" y="125" width="45" height="40" rx="4" fill="#122c1d" stroke="#238636"/><text x="62" y="150" text-anchor="middle" font-family="monospace" font-size="14" font-weight="700" fill="#3fb950">E</text>
+    <rect x="95" y="125" width="45" height="40" rx="4" fill="#12243d" stroke="#1f6feb"/><text x="117" y="150" text-anchor="middle" font-family="monospace" font-size="14" font-weight="700" fill="#58a6ff">O</text>
+    <rect x="150" y="125" width="45" height="40" rx="4" fill="#122c1d" stroke="#238636"/><text x="172" y="150" text-anchor="middle" font-family="monospace" font-size="14" font-weight="700" fill="#3fb950">E</text>
+    <rect x="205" y="125" width="45" height="40" rx="4" fill="#2d2206" stroke="#d29922"/><text x="227" y="150" text-anchor="middle" font-family="monospace" font-size="14" font-weight="700" fill="#e3b341">S</text>
+    <rect x="260" y="125" width="45" height="40" rx="4" fill="#0d1117" stroke="#30363d"/><text x="282" y="150" text-anchor="middle" font-family="monospace" font-size="12" fill="#8b949e">Free</text>
+    <rect x="315" y="125" width="90" height="40" rx="4" fill="#3c1e3d" stroke="#d2a8ff"/><text x="360" y="150" text-anchor="middle" font-family="monospace" font-size="13" font-weight="700" fill="#d2a8ff">Humongous</text>
 
     <!-- Row 2 -->
-    <rect x="25" y="113" width="40" height="32" rx="3" fill="#1e3a8a" stroke="#3b82f6"/><text x="45" y="134" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#bfdbfe">O</text>
-    <rect x="72" y="113" width="40" height="32" rx="3" fill="#065f46" stroke="#10b981"/><text x="92" y="134" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#a7f3d0">E</text>
-    <rect x="119" y="113" width="40" height="32" rx="3" fill="#334155" stroke="#64748b"/><text x="139" y="134" text-anchor="middle" font-family="monospace" font-size="11" fill="#94a3b8">Free</text>
-    <rect x="166" y="113" width="40" height="32" rx="3" fill="#1e3a8a" stroke="#3b82f6"/><text x="186" y="134" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#bfdbfe">O</text>
-    <rect x="213" y="113" width="40" height="32" rx="3" fill="#065f46" stroke="#10b981"/><text x="233" y="134" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#a7f3d0">E</text>
-    <rect x="260" y="113" width="40" height="32" rx="3" fill="#854d0e" stroke="#eab308"/><text x="280" y="134" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#fef08a">S</text>
-    <rect x="307" y="113" width="100" height="32" rx="3" fill="#1e293b" stroke="#38bdf8" stroke-dasharray="2,2"/>
-    <text x="357" y="133" text-anchor="middle" font-family="monospace" font-size="10" fill="#38bdf8">RSet (Card Ref)</text>
+    <rect x="40" y="175" width="45" height="40" rx="4" fill="#12243d" stroke="#1f6feb"/><text x="62" y="200" text-anchor="middle" font-family="monospace" font-size="14" font-weight="700" fill="#58a6ff">O</text>
+    <rect x="95" y="175" width="45" height="40" rx="4" fill="#122c1d" stroke="#238636"/><text x="117" y="200" text-anchor="middle" font-family="monospace" font-size="14" font-weight="700" fill="#3fb950">E</text>
+    <rect x="150" y="175" width="45" height="40" rx="4" fill="#0d1117" stroke="#30363d"/><text x="172" y="200" text-anchor="middle" font-family="monospace" font-size="12" fill="#8b949e">Free</text>
+    <rect x="205" y="175" width="45" height="40" rx="4" fill="#12243d" stroke="#1f6feb"/><text x="227" y="200" text-anchor="middle" font-family="monospace" font-size="14" font-weight="700" fill="#58a6ff">O</text>
+    <rect x="260" y="175" width="45" height="40" rx="4" fill="#2d2206" stroke="#d29922"/><text x="282" y="200" text-anchor="middle" font-family="monospace" font-size="14" font-weight="700" fill="#e3b341">S</text>
+    <rect x="315" y="175" width="165" height="40" rx="4" fill="#0d1117" stroke="#38bdf8" stroke-dasharray="3,3"/><text x="397" y="200" text-anchor="middle" font-family="monospace" font-size="12.5" fill="#79c0ff">RSet (Card Table Ref)</text>
 
     <!-- Legend -->
-    <text x="25" y="165" font-family="-apple-system, sans-serif" font-size="10" fill="#cbd5e1"><tspan fill="#34d399">■ E</tspan>=Eden  <tspan fill="#facc15">■ S</tspan>=Survivor  <tspan fill="#60a5fa">■ O</tspan>=Old  <tspan fill="#e879f9">■ H</tspan>=Humongous (>50% region)</text>
-    <text x="25" y="183" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">RSet (Remembered Set) tracks inter-region incoming pointers via Card Table.</text>
+    <text x="40" y="240" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#f0f6fc">
+      <tspan fill="#3fb950">■ E</tspan>=Eden  <tspan fill="#e3b341">■ S</tspan>=Survivor  <tspan fill="#58a6ff">■ O</tspan>=Old  <tspan fill="#d2a8ff">■ H</tspan>=Humongous (&gt;50% region size)
+    </text>
+    <text x="40" y="262" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">
+      Remembered Sets (RSet) track cross-region references so regions collect independently.
+    </text>
 
-    <!-- Core Mechanism -->
-    <rect x="15" y="205" width="405" height="105" rx="6" fill="#0f172a" stroke="#38bdf8"/>
-    <text x="25" y="225" font-family="monospace" font-size="11" font-weight="700" fill="#38bdf8">Mechanics: SATB &amp; Pause-Target Evacuation</text>
-    <text x="25" y="244" font-family="-apple-system, sans-serif" font-size="10.5" fill="#cbd5e1">• Concurrent Marking: Snapshot-At-The-Beginning (SATB) via Write Barrier.</text>
-    <text x="25" y="261" font-family="-apple-system, sans-serif" font-size="10.5" fill="#cbd5e1">• Mixed GC: Collects all Eden/Survivor + Top garbage Old regions.</text>
-    <text x="25" y="278" font-family="-apple-system, sans-serif" font-size="10.5" fill="#cbd5e1">• Evacuation Pause (STW): Copies live objects into free regions (compacts).</text>
-    <text x="25" y="295" font-family="-apple-system, sans-serif" font-size="10" fill="#f87171">⚠ STW Pause: Typically 50ms – 200ms depending on heap/live set size.</text>
+    <!-- Mechanics Box -->
+    <rect x="25" y="295" width="475" height="215" rx="8" fill="#161b22" stroke="#1f6feb" stroke-width="1.5"/>
+    <text x="40" y="325" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#58a6ff">SATB &amp; Evacuation Mechanics</text>
 
-    <!-- Tradeoffs / Tuning -->
-    <rect x="15" y="320" width="405" height="90" rx="6" fill="#0f172a" stroke="#475569"/>
-    <text x="25" y="340" font-family="monospace" font-size="11" font-weight="700" fill="#cbd5e1">Key Flags &amp; Failure Mode:</text>
-    <text x="25" y="358" font-family="monospace" font-size="10" fill="#93c5fd">-XX:MaxGCPauseMillis=200 -XX:InitiatingHeapOccupancyPercent=45</text>
-    <text x="25" y="375" font-family="-apple-system, sans-serif" font-size="10" fill="#fca5a5">Failure: Evacuation Failure (to-space exhausted) -> Degenerates to Full GC</text>
-    <text x="25" y="392" font-family="-apple-system, sans-serif" font-size="10" fill="#cbd5e1">where single-threaded/parallel STW sweeps entire heap (multi-second freeze!).</text>
+    <text x="40" y="355" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" font-weight="600" fill="#f0f6fc">• Concurrent Marking (SATB):</text>
+    <text x="55" y="377" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Snapshot-At-The-Beginning write barrier logs overwritten references to ensure live objects aren't missed.</text>
+
+    <text x="40" y="407" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" font-weight="600" fill="#f0f6fc">• Mixed Collection:</text>
+    <text x="55" y="429" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Evacuates all Eden/Survivor regions plus selected high-garbage Old regions.</text>
+
+    <text x="40" y="459" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" font-weight="600" fill="#ff7b72">• Stop-The-World (STW) Evacuation:</text>
+    <text x="55" y="481" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#ff7b72">Copies live objects to free regions. Pauses: 50ms - 250ms (scales with live data size).</text>
+
+    <!-- Tuning & Failure Modes -->
+    <rect x="25" y="530" width="475" height="195" rx="8" fill="#161b22" stroke="#da3633" stroke-width="1.5"/>
+    <text x="40" y="560" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#f85149">Tuning Flags &amp; Full GC Failure Trap</text>
+
+    <text x="40" y="590" font-family="monospace" font-size="13" font-weight="700" fill="#79c0ff">-XX:MaxGCPauseMillis=200 -XX:InitiatingHeapOccupancyPercent=45</text>
+    
+    <text x="40" y="622" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" font-weight="700" fill="#f85149">⚠️ Evacuation Failure (To-Space Exhaustion):</text>
+    <text x="40" y="646" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#f0f6fc">
+      If free regions are exhausted while copying during evacuation, G1GC falls back
+    </text>
+    <text x="40" y="668" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">
+      to a catastrophic, single-threaded or parallel <tspan font-weight="700" fill="#ff7b72">Full GC</tspan> that freezes the JVM
+    </text>
+    <text x="40" y="690" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#ff7b72">
+      for several seconds to tens of seconds!
+    </text>
   </g>
 
-  <!-- Right: ZGC Architecture -->
-  <g transform="translate(495, 85)">
-    <rect x="0" y="0" width="435" height="425" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1.5" filter="url(#shadow)"/>
-    <text x="217" y="28" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="15" font-weight="700" fill="#34d399">ZGC (Generational) — Modern Low-Latency (Java 21+)</text>
+  <!-- RIGHT PANEL: Generational ZGC Architecture -->
+  <g transform="translate(625, 110)">
+    <rect width="525" height="750" rx="10" fill="url(#cardGrad)" stroke="#238636" stroke-width="2"/>
+    <rect width="525" height="6" rx="3" fill="#238636"/>
 
-    <!-- Colored Pointer 64-bit Reference Layout -->
-    <rect x="15" y="45" width="405" height="150" rx="6" fill="#0f172a" stroke="#334155"/>
-    <text x="25" y="65" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" fill="#a7f3d0">Colored Pointers (Metadata Embedded in 64-bit Address)</text>
+    <text x="25" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#3fb950">ZGC (Generational) — Modern Sub-Millisecond GC</text>
+    <text x="25" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" fill="#8b949e">Ultra-low latency collector with strictly &lt; 1ms pauses up to 16TB</text>
+
+    <!-- 64-bit Colored Pointer Layout -->
+    <rect x="25" y="85" width="475" height="190" rx="8" fill="#161b22" stroke="#30363d"/>
+    <text x="40" y="112" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" font-weight="700" fill="#3fb950">Colored Pointers (Metadata Embedded in 64-bit Address)</text>
 
     <!-- 64-bit Pointer Breakdown -->
-    <g transform="translate(25, 75)">
+    <g transform="translate(40, 128)">
       <!-- Unused 16 bits -->
-      <rect x="0" y="0" width="70" height="32" rx="3" fill="#334155" stroke="#64748b"/>
-      <text x="35" y="16" text-anchor="middle" font-family="monospace" font-size="8" fill="#94a3b8">Unused</text>
-      <text x="35" y="27" text-anchor="middle" font-family="monospace" font-size="8" fill="#cbd5e1">16 bits</text>
+      <rect x="0" y="0" width="85" height="38" rx="4" fill="#21262d" stroke="#30363d"/>
+      <text x="42" y="19" text-anchor="middle" font-family="monospace" font-size="11" fill="#8b949e">Unused</text>
+      <text x="42" y="32" text-anchor="middle" font-family="monospace" font-size="10" fill="#6e7681">16 bits</text>
 
       <!-- Colored Bits (4 bits) -->
-      <rect x="75" y="0" width="30" height="32" rx="2" fill="#059669" stroke="#10b981"/>
-      <text x="90" y="20" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#ffffff">M0</text>
+      <rect x="92" y="0" width="36" height="38" rx="3" fill="#122c1d" stroke="#238636"/>
+      <text x="110" y="24" text-anchor="middle" font-family="monospace" font-size="12" font-weight="700" fill="#3fb950">M0</text>
 
-      <rect x="108" y="0" width="30" height="32" rx="2" fill="#047857" stroke="#10b981"/>
-      <text x="123" y="20" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#ffffff">M1</text>
+      <rect x="133" y="0" width="36" height="38" rx="3" fill="#122c1d" stroke="#238636"/>
+      <text x="151" y="24" text-anchor="middle" font-family="monospace" font-size="12" font-weight="700" fill="#3fb950">M1</text>
 
-      <rect x="141" y="0" width="32" height="32" rx="2" fill="#2563eb" stroke="#3b82f6"/>
-      <text x="157" y="20" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#ffffff">Rem</text>
+      <rect x="174" y="0" width="40" height="38" rx="3" fill="#12243d" stroke="#1f6feb"/>
+      <text x="194" y="24" text-anchor="middle" font-family="monospace" font-size="12" font-weight="700" fill="#58a6ff">Rem</text>
 
-      <rect x="176" y="0" width="28" height="32" rx="2" fill="#d97706" stroke="#f59e0b"/>
-      <text x="190" y="20" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#ffffff">Fin</text>
+      <rect x="219" y="0" width="36" height="38" rx="3" fill="#2d2206" stroke="#d29922"/>
+      <text x="237" y="24" text-anchor="middle" font-family="monospace" font-size="12" font-weight="700" fill="#e3b341">Fin</text>
 
-      <!-- Object Offset (44 bits -> 16 TB heap) -->
-      <rect x="208" y="0" width="170" height="32" rx="3" fill="#1e3a8a" stroke="#38bdf8"/>
-      <text x="293" y="16" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#e0f2fe">Object Address / Offset</text>
-      <text x="293" y="27" text-anchor="middle" font-family="monospace" font-size="8" fill="#93c5fd">44 bits (Supports up to 16 TB)</text>
+      <!-- Object Offset (44 bits) -->
+      <rect x="262" y="0" width="180" height="38" rx="4" fill="#12243d" stroke="#38bdf8"/>
+      <text x="352" y="19" text-anchor="middle" font-family="monospace" font-size="12" font-weight="700" fill="#79c0ff">Object Address</text>
+      <text x="352" y="32" text-anchor="middle" font-family="monospace" font-size="10" fill="#8b949e">44 bits (Supports up to 16 TB!)</text>
     </g>
 
-    <!-- Pointer Explanation -->
-    <text x="25" y="130" font-family="-apple-system, sans-serif" font-size="10" fill="#cbd5e1"><tspan fill="#34d399">M0/M1</tspan>: Marked0/Marked1  <tspan fill="#60a5fa">Rem</tspan>: Remapped  <tspan fill="#f59e0b">Fin</tspan>: Finalizable</text>
-    <text x="25" y="148" font-family="-apple-system, sans-serif" font-size="10" fill="#cbd5e1">Address masking &amp; virtual memory page aliasing map all colored</text>
-    <text x="25" y="164" font-family="-apple-system, sans-serif" font-size="10" fill="#cbd5e1">states to the exact same physical memory page without OS context switch.</text>
+    <text x="40" y="195" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#f0f6fc">
+      <tspan fill="#3fb950">M0/M1</tspan>: Marked0/Marked1  <tspan fill="#58a6ff">Rem</tspan>: Remapped  <tspan fill="#e3b341">Fin</tspan>: Finalizable
+    </text>
+    <text x="40" y="220" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">
+      Virtual memory page aliasing maps colored pointer variations to the exact same physical RAM page.
+    </text>
+    <text x="40" y="240" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#7ee787">
+      Zero OS context switch or system call needed when reading marked references!
+    </text>
 
-    <!-- Load Barrier & Self-Healing -->
-    <rect x="15" y="205" width="405" height="105" rx="6" fill="#0f172a" stroke="#10b981"/>
-    <text x="25" y="225" font-family="monospace" font-size="11" font-weight="700" fill="#34d399">Load Barrier (Read Barrier) &amp; Self-Healing</text>
-    <text x="25" y="244" font-family="-apple-system, sans-serif" font-size="10.5" fill="#cbd5e1">• App thread reads obj reference: JIT emits a 2-3 instruction test.</text>
-    <text x="25" y="261" font-family="-apple-system, sans-serif" font-size="10.5" fill="#cbd5e1">• If color matches "good" color -> fast path (zero overhead!).</text>
-    <text x="25" y="278" font-family="-apple-system, sans-serif" font-size="10.5" fill="#cbd5e1">• If "bad" (relocated obj) -> slow path: updates pointer to new copy (Self-Heal).</text>
-    <text x="25" y="295" font-family="-apple-system, sans-serif" font-size="10" fill="#34d399">✓ STW Pause: Sub-millisecond (&lt;1ms) regardless of heap size (16MB to 16TB)!</text>
+    <!-- Load Barrier & Self-Healing Box -->
+    <rect x="25" y="295" width="475" height="215" rx="8" fill="#161b22" stroke="#238636" stroke-width="1.5"/>
+    <text x="40" y="325" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#3fb950">Load Barrier &amp; Self-Healing Pointers</text>
 
-    <!-- Java 21 Generational ZGC & Flags -->
-    <rect x="15" y="320" width="405" height="90" rx="6" fill="#0f172a" stroke="#475569"/>
-    <text x="25" y="340" font-family="monospace" font-size="11" font-weight="700" fill="#cbd5e1">Java 21 Generational ZGC (JEP 439):</text>
-    <text x="25" y="358" font-family="monospace" font-size="10" fill="#86efac">-XX:+UseZGC -XX:+ZGenerational</text>
-    <text x="25" y="375" font-family="-apple-system, sans-serif" font-size="10" fill="#cbd5e1">Splits Young vs. Old generation. Eliminates "allocation stall" under</text>
-    <text x="25" y="392" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">heavy write-rate workloads by collecting short-lived objects aggressively.</text>
+    <text x="40" y="355" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" font-weight="600" fill="#f0f6fc">• JIT Emitted Load Barrier:</text>
+    <text x="55" y="377" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">When app dereferences a pointer, JIT executes a fast 2-3 instruction test against good color mask.</text>
+
+    <text x="40" y="407" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" font-weight="600" fill="#7ee787">• Fast Path (Good Color):</text>
+    <text x="55" y="429" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Pointer is valid. Execution continues immediately with zero latency overhead.</text>
+
+    <text x="40" y="459" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" font-weight="600" fill="#3fb950">• Self-Healing Slow Path (Bad Color):</text>
+    <text x="55" y="481" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#f0f6fc">Locates relocated copy in forwarding table, updates pointer in-place to new address!</text>
+
+    <!-- Generational ZGC & Flags -->
+    <rect x="25" y="530" width="475" height="195" rx="8" fill="#161b22" stroke="#238636" stroke-width="1.5"/>
+    <text x="40" y="560" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#3fb950">Java 21 Generational ZGC (JEP 439)</text>
+
+    <text x="40" y="590" font-family="monospace" font-size="13" font-weight="700" fill="#7ee787">-XX:+UseZGC -XX:+ZGenerational</text>
+
+    <text x="40" y="622" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" font-weight="700" fill="#3fb950">🚀 Eliminates Allocation Stalls:</text>
+    <text x="40" y="646" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#f0f6fc">
+      Separates young and old generation collections. Young gen is collected frequently
+    </text>
+    <text x="40" y="668" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">
+      and concurrently, eliminating allocation stalls even under heavy write pressure.
+    </text>
+    <text x="40" y="690" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#7ee787">
+      ✓ STW Pauses strictly &lt; 1ms regardless of whether heap is 32GB or 16TB!
+    </text>
   </g>
 </svg>

@@ -8,7 +8,7 @@ At the Staff and Principal Engineer level, you are expected to design security f
 
 ## Architecture Blueprint: Zero Trust Mesh & Dynamic Secrets
 
-![Zero Trust Architecture and mTLS](images/zero_trust_mtls_and_cryptography_architecture.svg)
+[![Zero Trust Architecture and mTLS](images/zero_trust_mtls_and_cryptography_architecture.svg)](images/zero_trust_mtls_and_cryptography_architecture.svg)
 
 ```
 ========================================================================================================================

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 920" width="100%" height="100%">
   <defs>
     <!-- Dark Mode Palette Filters & Gradients -->
     <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -33,200 +33,199 @@
   </defs>
 
   <!-- Background Canvas -->
-  <rect width="1200" height="760" fill="#0d1117"/>
-  <rect x="15" y="15" width="1170" height="730" rx="12" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <rect width="1200" height="920" fill="#0d1117"/>
+  <rect x="15" y="15" width="1170" height="890" rx="12" fill="none" stroke="#30363d" stroke-width="1.5"/>
 
   <!-- Title Header -->
   <g transform="translate(40, 48)">
     <text font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="24" font-weight="700" fill="#f0f6fc">Security Architecture &amp; Identity Foundations: Concept Map</text>
-    <text y="24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8b949e">First-principles map: Authentication (AuthN), Authorization (AuthZ), Transport Encryption (mTLS), and Federation (SAML vs OIDC)</text>
+    <text y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#8b949e">First-principles map: Authentication (AuthN), Authorization (AuthZ), Transport Encryption (mTLS), and Federation (SAML vs OIDC)</text>
   </g>
 
   <!-- TOP 4 PILLARS -->
   <!-- Pillar 1: Authentication (AuthN) -->
   <g transform="translate(40, 95)" filter="url(#cardShadow)">
-    <rect width="265" height="230" rx="10" fill="url(#blueGrad)" stroke="#58a6ff" stroke-width="1.5"/>
-    <rect x="0" y="0" width="265" height="38" rx="10" fill="#1f6feb" fill-opacity="0.25"/>
-    <text x="14" y="24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#58a6ff">1. Authentication (AuthN)</text>
+    <rect width="265" height="260" rx="10" fill="url(#blueGrad)" stroke="#58a6ff" stroke-width="1.5"/>
+    <rect x="0" y="0" width="265" height="42" rx="10" fill="#1f6feb" fill-opacity="0.25"/>
+    <text x="16" y="27" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#58a6ff">1. Authentication (AuthN)</text>
     
-    <text x="14" y="60" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" font-weight="600" fill="#f0f6fc">Core Question: &quot;Who are you?&quot;</text>
-    <text x="14" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Verifies and asserts identity proof.</text>
+    <text x="16" y="66" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="600" fill="#f0f6fc">Core Question: "Who are you?"</text>
+    <text x="16" y="86" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Verifies &amp; asserts identity proof.</text>
     
-    <line x1="14" y1="92" x2="251" y2="92" stroke="#30363d" stroke-width="1"/>
+    <line x1="16" y1="98" x2="249" y2="98" stroke="#30363d" stroke-width="1"/>
     
-    <text x="14" y="112" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" font-weight="600" fill="#79c0ff">• OpenID Connect (OIDC):</text>
-    <text x="24" y="128" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">Issues signed <tspan fill="#58a6ff" font-weight="600">ID Token</tspan> (JWT) for client.</text>
+    <text x="16" y="122" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#79c0ff">• OpenID Connect (OIDC):</text>
+    <text x="26" y="142" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#c9d1d9">Issues signed <tspan fill="#58a6ff" font-weight="700">ID Token</tspan> (JWT).</text>
     
-    <text x="14" y="150" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" font-weight="600" fill="#79c0ff">• SAML 2.0 (Enterprise SSO):</text>
-    <text x="24" y="166" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">XML assertions with digital signatures.</text>
+    <text x="16" y="170" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#79c0ff">• SAML 2.0 (SSO):</text>
+    <text x="26" y="190" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#c9d1d9">XML assertions with signatures.</text>
     
-    <text x="14" y="188" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" font-weight="600" fill="#79c0ff">• Multi-Factor (MFA / FIDO2):</text>
-    <text x="24" y="204" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">Hardware WebAuthn / Passkeys (PFS).</text>
+    <text x="16" y="218" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#79c0ff">• MFA / FIDO2 Passkeys:</text>
+    <text x="26" y="238" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#c9d1d9">Hardware-backed WebAuthn.</text>
   </g>
 
   <!-- Pillar 2: Authorization (AuthZ) -->
   <g transform="translate(325, 95)" filter="url(#cardShadow)">
-    <rect width="265" height="230" rx="10" fill="url(#greenGrad)" stroke="#3fb950" stroke-width="1.5"/>
-    <rect x="0" y="0" width="265" height="38" rx="10" fill="#238636" fill-opacity="0.25"/>
-    <text x="14" y="24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#3fb950">2. Authorization (AuthZ)</text>
+    <rect width="265" height="260" rx="10" fill="url(#greenGrad)" stroke="#3fb950" stroke-width="1.5"/>
+    <rect x="0" y="0" width="265" height="42" rx="10" fill="#238636" fill-opacity="0.25"/>
+    <text x="16" y="27" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#3fb950">2. Authorization (AuthZ)</text>
     
-    <text x="14" y="60" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" font-weight="600" fill="#f0f6fc">Core Question: &quot;What can you do?&quot;</text>
-    <text x="14" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Grants specific scopes &amp; permissions.</text>
+    <text x="16" y="66" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="600" fill="#f0f6fc">Core Question: "What can you do?"</text>
+    <text x="16" y="86" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Grants specific scopes &amp; rights.</text>
     
-    <line x1="14" y1="92" x2="251" y2="92" stroke="#30363d" stroke-width="1"/>
+    <line x1="16" y1="98" x2="249" y2="98" stroke="#30363d" stroke-width="1"/>
     
-    <text x="14" y="112" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" font-weight="600" fill="#56d364">• OAuth 2.0 (RFC 6749):</text>
-    <text x="24" y="128" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">Delegated authorization (<tspan fill="#3fb950" font-weight="600">Access Token</tspan>).</text>
+    <text x="16" y="122" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#56d364">• OAuth 2.0 (RFC 6749):</text>
+    <text x="26" y="142" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#c9d1d9">Delegated <tspan fill="#3fb950" font-weight="700">Access Token</tspan>.</text>
     
-    <text x="14" y="150" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" font-weight="600" fill="#56d364">• Scopes &amp; Audiences (`aud`):</text>
-    <text x="24" y="166" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">Restricts token to target API resource.</text>
+    <text x="16" y="170" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#56d364">• Scopes &amp; Audiences (`aud`):</text>
+    <text x="26" y="190" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#c9d1d9">Restricts token to target API.</text>
     
-    <text x="14" y="188" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" font-weight="600" fill="#56d364">• Policy Engines (ABAC / OPA):</text>
-    <text x="24" y="204" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">Dynamic attributes (User, Tenant, IP, Time).</text>
+    <text x="16" y="218" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#56d364">• Dynamic ABAC / OPA:</text>
+    <text x="26" y="238" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#c9d1d9">User, Tenant, IP, Time policies.</text>
   </g>
 
   <!-- Pillar 3: Transport & Network Security -->
   <g transform="translate(610, 95)" filter="url(#cardShadow)">
-    <rect width="265" height="230" rx="10" fill="url(#purpleGrad)" stroke="#bc8cff" stroke-width="1.5"/>
-    <rect x="0" y="0" width="265" height="38" rx="10" fill="#8957e5" fill-opacity="0.25"/>
-    <text x="14" y="24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#bc8cff">3. Transport &amp; Identity (mTLS)</text>
+    <rect width="265" height="260" rx="10" fill="url(#purpleGrad)" stroke="#bc8cff" stroke-width="1.5"/>
+    <rect x="0" y="0" width="265" height="42" rx="10" fill="#8957e5" fill-opacity="0.25"/>
+    <text x="16" y="27" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#bc8cff">3. Transport &amp; Identity (mTLS)</text>
     
-    <text x="14" y="60" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" font-weight="600" fill="#f0f6fc">Core Question: &quot;Is the wire secure?&quot;</text>
-    <text x="14" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Bi-directional Layer 4 cryptographic proof.</text>
+    <text x="16" y="66" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="600" fill="#f0f6fc">Core Question: "Is wire secure?"</text>
+    <text x="16" y="86" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Layer 4 cryptographic handshake.</text>
     
-    <line x1="14" y1="92" x2="251" y2="92" stroke="#30363d" stroke-width="1"/>
+    <line x1="16" y1="98" x2="249" y2="98" stroke="#30363d" stroke-width="1"/>
     
-    <text x="14" y="112" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" font-weight="600" fill="#d2a8ff">• One-Way TLS 1.3:</text>
-    <text x="24" y="128" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">Client verifies server cert; pipe encrypted.</text>
+    <text x="16" y="122" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#d2a8ff">• One-Way TLS 1.3:</text>
+    <text x="26" y="142" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#c9d1d9">Client verifies server cert.</text>
     
-    <text x="14" y="150" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" font-weight="600" fill="#d2a8ff">• Mutual TLS (mTLS):</text>
-    <text x="24" y="166" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">Both parties verify X.509 client &amp; server certs.</text>
+    <text x="16" y="170" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#d2a8ff">• Mutual TLS (mTLS):</text>
+    <text x="26" y="190" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#c9d1d9">Both verify X.509 certs.</text>
     
-    <text x="14" y="188" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" font-weight="600" fill="#d2a8ff">• SPIFFE / SPIRE Workload ID:</text>
-    <text x="24" y="204" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">Automated, short-lived X.509 SVID rotation.</text>
+    <text x="16" y="218" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#d2a8ff">• SPIFFE / SPIRE Workload:</text>
+    <text x="26" y="238" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#c9d1d9">Short-lived X.509 SVID rotation.</text>
   </g>
 
   <!-- Pillar 4: Cryptography & Zero Trust -->
   <g transform="translate(895, 95)" filter="url(#cardShadow)">
-    <rect width="265" height="230" rx="10" fill="url(#orangeGrad)" stroke="#f0883e" stroke-width="1.5"/>
-    <rect x="0" y="0" width="265" height="38" rx="10" fill="#d29922" fill-opacity="0.25"/>
-    <text x="14" y="24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#f0883e">4. Cryptography &amp; Zero Trust</text>
+    <rect width="265" height="260" rx="10" fill="url(#orangeGrad)" stroke="#f0883e" stroke-width="1.5"/>
+    <rect x="0" y="0" width="265" height="42" rx="10" fill="#d29922" fill-opacity="0.25"/>
+    <text x="16" y="27" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#f0883e">4. Cryptography &amp; Zero Trust</text>
     
-    <text x="14" y="60" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" font-weight="600" fill="#f0f6fc">Core Tenet: &quot;Never Trust, Always Verify&quot;</text>
-    <text x="14" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Assumes internal network is hostile.</text>
+    <text x="16" y="66" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="600" fill="#f0f6fc">Core Tenet: "Never Trust, Verify"</text>
+    <text x="16" y="86" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Assumes internal network hostile.</text>
     
-    <line x1="14" y1="92" x2="251" y2="92" stroke="#30363d" stroke-width="1"/>
+    <line x1="16" y1="98" x2="249" y2="98" stroke="#30363d" stroke-width="1"/>
     
-    <text x="14" y="112" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" font-weight="600" fill="#ffa657">• AES-256-GCM (AEAD):</text>
-    <text x="24" y="128" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">Confidentiality + 128-bit integrity tag.</text>
+    <text x="16" y="122" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#ffa657">• AES-256-GCM (AEAD):</text>
+    <text x="26" y="142" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#c9d1d9">128-bit integrity auth tag.</text>
     
-    <text x="14" y="150" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" font-weight="600" fill="#ffa657">• Envelope Encryption:</text>
-    <text x="24" y="166" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">HSM KEK/CMK wraps local plaintext DEK.</text>
+    <text x="16" y="170" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#ffa657">• Envelope Encryption:</text>
+    <text x="26" y="190" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#c9d1d9">HSM KEK wraps local DEK.</text>
     
-    <text x="14" y="188" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" font-weight="600" fill="#ffa657">• Password Hashing (Argon2id):</text>
-    <text x="24" y="204" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">Memory-hard defense against GPU cracking.</text>
+    <text x="16" y="218" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#ffa657">• Argon2id Hash:</text>
+    <text x="26" y="238" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#c9d1d9">Memory-hard GPU crack defense.</text>
   </g>
 
   <!-- SECTION 2: THE END-TO-END ENTERPRISE ARCHITECTURE FLOW -->
-  <g transform="translate(40, 345)" filter="url(#cardShadow)">
-    <rect width="1120" height="235" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
-    <text x="20" y="28" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#f0f6fc">Unified Enterprise Architecture Flow: How the Protocols Interact in Production</text>
-    <text x="20" y="46" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Traces an end-to-end request from client login to microservice token exchange and backend storage.</text>
+  <g transform="translate(40, 375)" filter="url(#cardShadow)">
+    <rect width="1120" height="280" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <text x="24" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#f0f6fc">Unified Enterprise Architecture Flow: How Protocols Interact in Production</text>
+    <text x="24" y="54" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">End-to-end request from client login to API gateway, microservice token exchange, and persistence</text>
 
     <!-- Node 1: User / Browser / Mobile App -->
-    <g transform="translate(30, 75)">
-      <rect width="140" height="125" rx="8" fill="#0d1117" stroke="#58a6ff" stroke-width="1.5"/>
-      <text x="70" y="24" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" font-weight="700" fill="#58a6ff">User / Client</text>
-      <text x="70" y="44" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">Browser / SPA / Mobile</text>
-      <line x1="12" y1="56" x2="128" y2="56" stroke="#21262d" stroke-width="1"/>
-      <text x="70" y="74" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">PKCE Auth Code</text>
-      <text x="70" y="90" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">Holds ID Token</text>
-      <text x="70" y="106" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#3fb950" font-weight="600">Bearer Access Token</text>
+    <g transform="translate(25, 75)">
+      <rect width="165" height="175" rx="8" fill="#0d1117" stroke="#58a6ff" stroke-width="1.5"/>
+      <text x="82" y="28" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#58a6ff">User / Client</text>
+      <text x="82" y="50" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">SPA / Mobile App</text>
+      <line x1="14" y1="62" x2="151" y2="62" stroke="#21262d" stroke-width="1"/>
+      <text x="82" y="86" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#c9d1d9">PKCE Auth Code</text>
+      <text x="82" y="112" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#c9d1d9">Holds ID Token</text>
+      <text x="82" y="142" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#3fb950" font-weight="700">Bearer Access Token</text>
     </g>
 
     <!-- Arrow 1: To IdP -->
-    <path d="M 170 115 L 235 115" stroke="#58a6ff" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrowBlue)"/>
-    <text x="202" y="108" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9" font-weight="600" fill="#58a6ff">1. OIDC / SAML</text>
+    <path d="M 190 120 L 235 120" stroke="#58a6ff" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arrowBlue)"/>
+    <text x="212" y="110" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" font-weight="700" fill="#58a6ff">1. OIDC</text>
 
     <!-- Node 2: Identity Provider (IdP) -->
     <g transform="translate(245, 75)">
-      <rect width="150" height="125" rx="8" fill="#0d1117" stroke="#388bfd" stroke-width="1.5"/>
-      <text x="75" y="24" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" font-weight="700" fill="#79c0ff">Identity Provider (IdP)</text>
-      <text x="75" y="44" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">Okta / Keycloak / Entra</text>
-      <line x1="12" y1="56" x2="138" y2="56" stroke="#21262d" stroke-width="1"/>
-      <text x="75" y="74" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">Issues RS256 Tokens</text>
-      <text x="75" y="90" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">Publishes JWKS</text>
-      <text x="75" y="106" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9" fill="#8b949e">/.well-known/jwks.json</text>
+      <rect width="165" height="175" rx="8" fill="#0d1117" stroke="#388bfd" stroke-width="1.5"/>
+      <text x="82" y="28" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#79c0ff">Identity Provider</text>
+      <text x="82" y="50" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">Okta / Keycloak / Entra</text>
+      <line x1="14" y1="62" x2="151" y2="62" stroke="#21262d" stroke-width="1"/>
+      <text x="82" y="86" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#c9d1d9">Issues RS256 Tokens</text>
+      <text x="82" y="112" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#c9d1d9">Publishes JWKS</text>
+      <text x="82" y="142" text-anchor="middle" font-family="monospace" font-size="11" fill="#8b949e">/.well-known/jwks.json</text>
     </g>
 
     <!-- Arrow 2: To API Gateway -->
-    <path d="M 170 150 L 465 150" stroke="#3fb950" stroke-width="2" marker-end="url(#arrowGreen)"/>
-    <text x="320" y="142" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" font-weight="600" fill="#3fb950">2. HTTPS + Bearer JWT</text>
+    <path d="M 190 180 L 465 180" stroke="#3fb950" stroke-width="2" marker-end="url(#arrowGreen)"/>
+    <text x="330" y="172" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" font-weight="700" fill="#3fb950">2. HTTPS + Bearer JWT</text>
 
     <!-- Node 3: API Gateway -->
     <g transform="translate(475, 75)">
-      <rect width="165" height="125" rx="8" fill="#0d1117" stroke="#238636" stroke-width="1.5"/>
-      <text x="82" y="24" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" font-weight="700" fill="#3fb950">API Gateway / Envoy</text>
-      <text x="82" y="44" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">Edge Ingress Enforcement</text>
-      <line x1="12" y1="56" x2="153" y2="56" stroke="#21262d" stroke-width="1"/>
-      <text x="82" y="74" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">Validates JWT Signature</text>
-      <text x="82" y="90" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">Rate Limiting &amp; WAF</text>
-      <text x="82" y="106" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#bc8cff" font-weight="600">Originates mTLS Mesh</text>
+      <rect width="180" height="175" rx="8" fill="#0d1117" stroke="#238636" stroke-width="1.5"/>
+      <text x="90" y="28" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#3fb950">API Gateway / Envoy</text>
+      <text x="90" y="50" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">Edge Perimeter Security</text>
+      <line x1="14" y1="62" x2="166" y2="62" stroke="#21262d" stroke-width="1"/>
+      <text x="90" y="86" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#c9d1d9">Validates Signature</text>
+      <text x="90" y="112" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#c9d1d9">WAF &amp; Rate Limits</text>
+      <text x="90" y="142" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#bc8cff" font-weight="700">Originates mTLS Mesh</text>
     </g>
 
     <!-- Arrow 3: To Service A -->
-    <path d="M 640 137 L 705 137" stroke="#bc8cff" stroke-width="2" marker-end="url(#arrow)"/>
-    <text x="672" y="128" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9" font-weight="600" fill="#bc8cff">3. mTLS</text>
+    <path d="M 655 160 L 710 160" stroke="#bc8cff" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="682" y="150" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" font-weight="700" fill="#bc8cff">3. mTLS</text>
 
-    <!-- Node 4: Microservice A (Edge Domain) -->
-    <g transform="translate(715, 75)">
-      <rect width="165" height="125" rx="8" fill="#0d1117" stroke="#8957e5" stroke-width="1.5"/>
-      <text x="82" y="24" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" font-weight="700" fill="#bc8cff">Microservice A (Orders)</text>
-      <text x="82" y="44" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">SPIFFE: spiffe://cluster/orders</text>
-      <line x1="12" y1="56" x2="153" y2="56" stroke="#21262d" stroke-width="1"/>
-      <text x="82" y="74" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">ABAC Policy (OPA)</text>
-      <text x="82" y="90" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">RFC 8693 Token Exchange</text>
-      <text x="82" y="106" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9" fill="#e3b341">Delegates act + sub claim</text>
+    <!-- Node 4: Microservice A -->
+    <g transform="translate(720, 75)">
+      <rect width="185" height="175" rx="8" fill="#0d1117" stroke="#8957e5" stroke-width="1.5"/>
+      <text x="92" y="28" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#bc8cff">Microservice A (Orders)</text>
+      <text x="92" y="50" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">spiffe://cluster/orders</text>
+      <line x1="14" y1="62" x2="171" y2="62" stroke="#21262d" stroke-width="1"/>
+      <text x="92" y="86" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#c9d1d9">ABAC Policy (OPA)</text>
+      <text x="92" y="112" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#c9d1d9">RFC 8693 Token Exch.</text>
+      <text x="92" y="142" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#e3b341">Delegates act + sub</text>
     </g>
 
     <!-- Arrow 4: To Service B -->
-    <path d="M 880 137 L 945 137" stroke="#bc8cff" stroke-width="2" marker-end="url(#arrow)"/>
-    <text x="912" y="128" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9" font-weight="600" fill="#bc8cff">4. mTLS</text>
+    <path d="M 905 160 L 950 160" stroke="#bc8cff" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="927" y="150" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" font-weight="700" fill="#bc8cff">4. mTLS</text>
 
-    <!-- Node 5: Microservice B & DB -->
-    <g transform="translate(955, 75)">
-      <rect width="140" height="125" rx="8" fill="#0d1117" stroke="#d29922" stroke-width="1.5"/>
-      <text x="70" y="24" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" font-weight="700" fill="#f0883e">Service B (Payments)</text>
-      <text x="70" y="44" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">Zero-Trust Cell</text>
-      <line x1="12" y1="56" x2="128" y2="56" stroke="#21262d" stroke-width="1"/>
-      <text x="70" y="74" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">Vault Dynamic DB Lease</text>
-      <text x="70" y="90" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">AES-256 Envelope Encrypt</text>
-      <text x="70" y="106" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#3fb950">Immediate PDK Wipe</text>
+    <!-- Node 5: Microservice B -->
+    <g transform="translate(960, 75)">
+      <rect width="145" height="175" rx="8" fill="#0d1117" stroke="#d29922" stroke-width="1.5"/>
+      <text x="72" y="28" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#f0883e">Service B</text>
+      <text x="72" y="50" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">Payments Cell</text>
+      <line x1="14" y1="62" x2="131" y2="62" stroke="#21262d" stroke-width="1"/>
+      <text x="72" y="86" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#c9d1d9">Vault Dynamic DB</text>
+      <text x="72" y="112" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#c9d1d9">Envelope Encrypt</text>
+      <text x="72" y="142" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#3fb950" font-weight="700">Immediate Wipe</text>
     </g>
   </g>
 
   <!-- BOTTOM COMPARISON SUMMARY TABLE -->
-  <g transform="translate(40, 595)">
-    <rect width="1120" height="135" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
-    <text x="20" y="24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#f0f6fc">Architectural Cheat Sheet: Core Protocol Decisions at a Glance</text>
+  <g transform="translate(40, 680)">
+    <rect width="1120" height="205" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <text x="24" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="700" fill="#f0f6fc">Architectural Cheat Sheet: Core Protocol Decisions at a Glance</text>
     
-    <!-- Table Header Line -->
-    <line x1="20" y1="36" x2="1100" y2="36" stroke="#30363d" stroke-width="1"/>
+    <line x1="24" y1="46" x2="1096" y2="46" stroke="#30363d" stroke-width="1"/>
     
     <!-- Row 1 -->
-    <text x="20" y="56" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#58a6ff">SAML 2.0 vs OIDC:</text>
-    <text x="170" y="56" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#c9d1d9">SAML 2.0 = Heavy XML, enterprise web browser redirects (Okta, Workday). OIDC = Lightweight JSON/JWT, built for mobile apps, SPAs &amp; modern REST APIs.</text>
+    <text x="24" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#58a6ff">SAML 2.0 vs OIDC:</text>
+    <text x="180" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" fill="#c9d1d9">SAML 2.0 = Heavy XML, enterprise browser SSO (Okta, Workday). OIDC = Lightweight JSON/JWT, built for mobile apps, SPAs &amp; REST APIs.</text>
 
     <!-- Row 2 -->
-    <text x="20" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#3fb950">OAuth 2.0 vs OIDC:</text>
-    <text x="170" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#c9d1d9">OAuth 2.0 is <tspan fill="#3fb950" font-weight="600">Authorization ONLY</tspan> (gives a valet key to access resources). OIDC adds the <tspan fill="#58a6ff" font-weight="600">Identity layer</tspan> on top (<tspan font-family="monospace">OIDC = OAuth 2.0 + ID Token</tspan>).</text>
+    <text x="24" y="110" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#3fb950">OAuth 2.0 vs OIDC:</text>
+    <text x="180" y="110" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" fill="#c9d1d9">OAuth 2.0 is <tspan fill="#3fb950" font-weight="700">Authorization ONLY</tspan> (delegated access token). OIDC adds the <tspan fill="#58a6ff" font-weight="700">Identity layer</tspan> on top (<tspan font-family="monospace">OIDC = OAuth 2.0 + ID Token</tspan>).</text>
 
     <!-- Row 3 -->
-    <text x="20" y="104" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#bc8cff">TLS vs mTLS:</text>
-    <text x="170" y="104" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#c9d1d9">One-way TLS authenticates the server only. Mutual TLS (mTLS) cryptographically verifies <tspan fill="#bc8cff" font-weight="600">both client and server certificates</tspan> at Layer 4 (zero-trust backbone).</text>
+    <text x="24" y="146" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#bc8cff">TLS vs mTLS:</text>
+    <text x="180" y="146" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" fill="#c9d1d9">One-way TLS authenticates server only. Mutual TLS (mTLS) cryptographically verifies <tspan fill="#bc8cff" font-weight="700">both client &amp; server certificates</tspan> at Layer 4.</text>
 
     <!-- Row 4 -->
-    <text x="20" y="124" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#f0883e">JWT vs Opaque Token:</text>
-    <text x="170" y="124" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#c9d1d9">JWT is stateless &amp; verifiable locally (trade-off: revocation lag). Opaque is a reference UUID (instant revocation, trade-off: IdP database lookup per call).</text>
+    <text x="24" y="182" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#f0883e">JWT vs Opaque:</text>
+    <text x="180" y="182" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" fill="#c9d1d9">JWT is stateless &amp; verified locally (zero DB lookup). Opaque is a reference UUID (instant revocation, requires DB/Redis lookup per call).</text>
   </g>
 </svg>

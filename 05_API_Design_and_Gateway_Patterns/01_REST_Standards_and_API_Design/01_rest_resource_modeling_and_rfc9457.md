@@ -8,7 +8,7 @@ Representational State Transfer (REST) is the universal protocol foundation for 
 
 In 2008, Leonard Richardson formulated a 4-tier model to categorize the architectural maturity of web services:
 
-![Richardson Maturity Model and REST Semantics](images/richardson_maturity_and_rest_semantics.svg)
+[![Richardson Maturity Model and REST Semantics](images/richardson_maturity_and_rest_semantics.svg)](images/richardson_maturity_and_rest_semantics.svg)
 
 ### The Four Tiers of REST Maturity
 

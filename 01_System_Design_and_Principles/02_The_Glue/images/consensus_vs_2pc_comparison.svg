@@ -26,38 +26,38 @@
 
     <!-- Point 1: Goal -->
     <g transform="translate(20, 80)">
-      <text x="0" y="0" font-family="-apple-system, sans-serif" font-size="13" font-weight="700" fill="#60a5fa">🎯 Core Objective:</text>
-      <text x="0" y="20" font-family="-apple-system, sans-serif" font-size="13" fill="#e2e8f0">Replicate the EXACT SAME state machine</text>
-      <text x="0" y="38" font-family="-apple-system, sans-serif" font-size="13" fill="#cbd5e1">across identical redundant nodes.</text>
+      <text x="0" y="0" font-family="-apple-system, sans-serif" font-size="13.5" font-weight="700" fill="#60a5fa">🎯 Core Objective:</text>
+      <text x="0" y="20" font-family="-apple-system, sans-serif" font-size="13.5" fill="#e2e8f0">Replicate the EXACT SAME state machine</text>
+      <text x="0" y="38" font-family="-apple-system, sans-serif" font-size="13.5" fill="#cbd5e1">across identical redundant nodes.</text>
     </g>
 
     <!-- Point 2: Quorum Rule -->
     <g transform="translate(20, 145)">
-      <text x="0" y="0" font-family="-apple-system, sans-serif" font-size="13" font-weight="700" fill="#60a5fa">⚖️ Voting Rule:</text>
+      <text x="0" y="0" font-family="-apple-system, sans-serif" font-size="13.5" font-weight="700" fill="#60a5fa">⚖️ Voting Rule:</text>
       <text x="0" y="20" font-family="-apple-system, sans-serif" font-size="14" font-weight="700" fill="#34d399">STRICT MAJORITY (⌊N/2⌋ + 1)</text>
-      <text x="0" y="38" font-family="-apple-system, sans-serif" font-size="13" fill="#cbd5e1">In a 5-node cluster, only 3 votes needed to commit.</text>
+      <text x="0" y="38" font-family="-apple-system, sans-serif" font-size="13.5" fill="#cbd5e1">In a 5-node cluster, only 3 votes needed to commit.</text>
     </g>
 
     <!-- Point 3: Liveness & Blocking -->
     <g transform="translate(20, 210)">
-      <text x="0" y="0" font-family="-apple-system, sans-serif" font-size="13" font-weight="700" fill="#60a5fa">🛡️ Liveness &amp; Fault Tolerance:</text>
+      <text x="0" y="0" font-family="-apple-system, sans-serif" font-size="13.5" font-weight="700" fill="#60a5fa">🛡️ Liveness &amp; Fault Tolerance:</text>
       <text x="0" y="20" font-family="-apple-system, sans-serif" font-size="14" font-weight="700" fill="#34d399">NON-BLOCKING (Tolerates crashes!)</text>
-      <text x="0" y="38" font-family="-apple-system, sans-serif" font-size="13" fill="#cbd5e1">If 2 nodes crash or disconnect, the remaining 3</text>
-      <text x="0" y="56" font-family="-apple-system, sans-serif" font-size="13" fill="#cbd5e1">nodes continue processing writes seamlessly.</text>
+      <text x="0" y="38" font-family="-apple-system, sans-serif" font-size="13.5" fill="#cbd5e1">If 2 nodes crash or disconnect, the remaining 3</text>
+      <text x="0" y="56" font-family="-apple-system, sans-serif" font-size="13.5" fill="#cbd5e1">nodes continue processing writes seamlessly.</text>
     </g>
 
     <!-- Point 4: Failure Mode -->
     <g transform="translate(20, 290)">
-      <text x="0" y="0" font-family="-apple-system, sans-serif" font-size="13" font-weight="700" fill="#60a5fa">⚠️ Failure Condition:</text>
-      <text x="0" y="20" font-family="-apple-system, sans-serif" font-size="13" fill="#cbd5e1">Halts progress only if a strict majority</text>
-      <text x="0" y="38" font-family="-apple-system, sans-serif" font-size="13" fill="#cbd5e1">(≥ 3 of 5 nodes) crashes simultaneously.</text>
+      <text x="0" y="0" font-family="-apple-system, sans-serif" font-size="13.5" font-weight="700" fill="#60a5fa">⚠️ Failure Condition:</text>
+      <text x="0" y="20" font-family="-apple-system, sans-serif" font-size="13.5" fill="#cbd5e1">Halts progress only if a strict majority</text>
+      <text x="0" y="38" font-family="-apple-system, sans-serif" font-size="13.5" fill="#cbd5e1">(≥ 3 of 5 nodes) crashes simultaneously.</text>
     </g>
 
     <!-- Point 5: Where Used -->
     <g transform="translate(20, 355)">
       <rect x="0" y="0" width="395" height="58" rx="6" fill="#0f172a" stroke="#334155"/>
-      <text x="15" y="24" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#93c5fd">Production Standards:</text>
-      <text x="15" y="44" font-family="-apple-system, sans-serif" font-size="12" fill="#cbd5e1">etcd (Kubernetes), ZooKeeper, CockroachDB, Spanner</text>
+      <text x="15" y="24" font-family="-apple-system, sans-serif" font-size="13" font-weight="700" fill="#93c5fd">Production Standards:</text>
+      <text x="15" y="44" font-family="-apple-system, sans-serif" font-size="13" fill="#cbd5e1">etcd (Kubernetes), ZooKeeper, CockroachDB, Spanner</text>
     </g>
   </g>
 
@@ -71,38 +71,38 @@
 
     <!-- Point 1: Goal -->
     <g transform="translate(20, 80)">
-      <text x="0" y="0" font-family="-apple-system, sans-serif" font-size="13" font-weight="700" fill="#fb7185">🎯 Core Objective:</text>
-      <text x="0" y="20" font-family="-apple-system, sans-serif" font-size="13" fill="#e2e8f0">Coordinate DIFFERENT heterogeneous services</text>
-      <text x="0" y="38" font-family="-apple-system, sans-serif" font-size="13" fill="#cbd5e1">to commit or abort ALL-OR-NOTHING.</text>
+      <text x="0" y="0" font-family="-apple-system, sans-serif" font-size="13.5" font-weight="700" fill="#fb7185">🎯 Core Objective:</text>
+      <text x="0" y="20" font-family="-apple-system, sans-serif" font-size="13.5" fill="#e2e8f0">Coordinate DIFFERENT heterogeneous services</text>
+      <text x="0" y="38" font-family="-apple-system, sans-serif" font-size="13.5" fill="#cbd5e1">to commit or abort ALL-OR-NOTHING.</text>
     </g>
 
     <!-- Point 2: Quorum Rule -->
     <g transform="translate(20, 145)">
-      <text x="0" y="0" font-family="-apple-system, sans-serif" font-size="13" font-weight="700" fill="#fb7185">⚖️ Voting Rule:</text>
+      <text x="0" y="0" font-family="-apple-system, sans-serif" font-size="13.5" font-weight="700" fill="#fb7185">⚖️ Voting Rule:</text>
       <text x="0" y="20" font-family="-apple-system, sans-serif" font-size="14" font-weight="700" fill="#f87171">100% UNANIMOUS CONSENT</text>
-      <text x="0" y="38" font-family="-apple-system, sans-serif" font-size="13" fill="#cbd5e1">EVERY participant must vote YES. 1 NO = Abort.</text>
+      <text x="0" y="38" font-family="-apple-system, sans-serif" font-size="13.5" fill="#cbd5e1">EVERY participant must vote YES. 1 NO = Abort.</text>
     </g>
 
     <!-- Point 3: Liveness & Blocking -->
     <g transform="translate(20, 210)">
-      <text x="0" y="0" font-family="-apple-system, sans-serif" font-size="13" font-weight="700" fill="#fb7185">🛡️ Liveness &amp; Fault Tolerance:</text>
+      <text x="0" y="0" font-family="-apple-system, sans-serif" font-size="13.5" font-weight="700" fill="#fb7185">🛡️ Liveness &amp; Fault Tolerance:</text>
       <text x="0" y="20" font-family="-apple-system, sans-serif" font-size="14" font-weight="700" fill="#f87171">BLOCKING (Single Point of Failure!)</text>
-      <text x="0" y="38" font-family="-apple-system, sans-serif" font-size="13" fill="#cbd5e1">If Coordinator crashes during Phase 2, all</text>
-      <text x="0" y="56" font-family="-apple-system, sans-serif" font-size="13" fill="#cbd5e1">participants are left holding locks indefinitely!</text>
+      <text x="0" y="38" font-family="-apple-system, sans-serif" font-size="13.5" fill="#cbd5e1">If Coordinator crashes during Phase 2, all</text>
+      <text x="0" y="56" font-family="-apple-system, sans-serif" font-size="13.5" fill="#cbd5e1">participants are left holding locks indefinitely!</text>
     </g>
 
     <!-- Point 4: Failure Mode -->
     <g transform="translate(20, 290)">
-      <text x="0" y="0" font-family="-apple-system, sans-serif" font-size="13" font-weight="700" fill="#fb7185">⚠️ Failure Condition:</text>
-      <text x="0" y="20" font-family="-apple-system, sans-serif" font-size="13" fill="#cbd5e1">If even ONE node crashes or slows down,</text>
-      <text x="0" y="38" font-family="-apple-system, sans-serif" font-size="13" fill="#cbd5e1">the entire transaction stalls and fails.</text>
+      <text x="0" y="0" font-family="-apple-system, sans-serif" font-size="13.5" font-weight="700" fill="#fb7185">⚠️ Failure Condition:</text>
+      <text x="0" y="20" font-family="-apple-system, sans-serif" font-size="13.5" fill="#cbd5e1">If even ONE node crashes or slows down,</text>
+      <text x="0" y="38" font-family="-apple-system, sans-serif" font-size="13.5" fill="#cbd5e1">the entire transaction stalls and fails.</text>
     </g>
 
     <!-- Point 5: Where Used -->
     <g transform="translate(20, 355)">
       <rect x="0" y="0" width="395" height="58" rx="6" fill="#0f172a" stroke="#334155"/>
-      <text x="15" y="24" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#fda4af">Production Standards:</text>
-      <text x="15" y="44" font-family="-apple-system, sans-serif" font-size="12" fill="#cbd5e1">XA Transactions, Distributed Relational DB cross-partition tx</text>
+      <text x="15" y="24" font-family="-apple-system, sans-serif" font-size="13" font-weight="700" fill="#fda4af">Production Standards:</text>
+      <text x="15" y="44" font-family="-apple-system, sans-serif" font-size="13" fill="#cbd5e1">XA Transactions, Distributed Relational DB cross-partition tx</text>
     </g>
   </g>
 </svg>

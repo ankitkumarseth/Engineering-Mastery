@@ -12,7 +12,7 @@ This playbook breaks down the deep mechanics of:
 
 ## Architecture Blueprint: Enterprise DevSecOps Pipeline
 
-![Enterprise CI/CD AppSec Pipeline](images/owasp_api_security_and_cicd_pipeline.svg)
+[![Enterprise CI/CD AppSec Pipeline](images/owasp_api_security_and_cicd_pipeline.svg)](images/owasp_api_security_and_cicd_pipeline.svg)
 
 ```
 ========================================================================================================================

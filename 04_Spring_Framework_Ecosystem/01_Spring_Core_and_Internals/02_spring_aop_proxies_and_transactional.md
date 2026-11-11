@@ -46,7 +46,7 @@ Spring AOP does not modify target bytecodes at compile time by default; instead,
 
 The single most prevalent production bug in Spring enterprise applications is the **AOP self-invocation bypass**:
 
-![Spring AOP Proxy and Self-Invocation Trap](images/aop_proxy_and_transactional_trap.svg)
+[![Spring AOP Proxy and Self-Invocation Trap](images/aop_proxy_and_transactional_trap.svg)](images/aop_proxy_and_transactional_trap.svg)
 
 ### The Failure Mechanics
 Consider this standard service implementation:

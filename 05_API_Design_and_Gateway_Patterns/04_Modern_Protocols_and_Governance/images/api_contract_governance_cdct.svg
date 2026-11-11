@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 700" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="100%" height="100%">
   <defs>
     <linearGradient id="bgGradGov" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#0d1117" />
@@ -16,169 +16,170 @@
       <stop offset="0%" stop-color="#238636" />
       <stop offset="100%" stop-color="#2ea043" />
     </linearGradient>
-    <marker id="arrowGov" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 8 5 L 0 9 z" fill="#58a6ff"/>
+    <marker id="arrowGov" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#58a6ff"/>
     </marker>
-    <marker id="arrowGreen" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 8 5 L 0 9 z" fill="#3fb950"/>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#3fb950"/>
     </marker>
   </defs>
 
   <!-- Background -->
-  <rect width="1100" height="700" fill="url(#bgGradGov)" rx="12" stroke="#30363d" stroke-width="2"/>
+  <rect width="1200" height="900" fill="url(#bgGradGov)" rx="12" stroke="#30363d" stroke-width="2"/>
 
   <!-- Title & Subtitle -->
-  <text x="40" y="45" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f0f6fc">API Contract Governance &amp; Consumer-Driven Contract Testing</text>
-  <text x="40" y="70" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e">Contract-First CI/CD Pipeline, SemVer Breaking-Change Guardrails, and Pact CDCT Workflow</text>
+  <text x="40" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="700" fill="#f0f6fc">API Contract Governance &amp; Consumer-Driven Contract Testing</text>
+  <text x="40" y="78" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" fill="#8b949e">Contract-First CI/CD Pipeline, SemVer Breaking-Change Guardrails, and Pact CDCT Workflow</text>
 
-  <!-- Section 1: Contract-First Design Pipeline vs Code-First Trap -->
-  <g transform="translate(40, 100)">
-    <rect width="1020" height="250" rx="8" fill="url(#cardGradGov)" stroke="#1f6feb" stroke-width="2"/>
-    <rect width="1020" height="6" rx="3" fill="url(#contractGrad)"/>
-    <text x="25" y="30" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#58a6ff">1. Enterprise Contract-First API Lifecycle (Single Source of Truth)</text>
-    <text x="25" y="50" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">OpenAPI 3.0 / Protobuf IDL defined and reviewed before a single line of backend application code is written</text>
+  <!-- Section 1: Contract-First Design Pipeline -->
+  <g transform="translate(40, 105)">
+    <rect width="1120" height="375" rx="8" fill="url(#cardGradGov)" stroke="#1f6feb" stroke-width="2"/>
+    <rect width="1120" height="6" rx="3" fill="url(#contractGrad)"/>
+    <text x="25" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="700" fill="#58a6ff">1. Enterprise Contract-First API Lifecycle (Single Source of Truth)</text>
+    <text x="25" y="56" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">OpenAPI 3.0 / Protobuf IDL defined and reviewed before application code is written</text>
 
-    <!-- Step 1: Spec -->
-    <g transform="translate(25, 75)">
-      <rect width="170" height="150" rx="6" fill="#161b22" stroke="#30363d"/>
-      <rect width="170" height="24" rx="4" fill="#1f6feb" fill-opacity="0.2"/>
-      <text x="12" y="17" font-family="monospace" font-size="11" font-weight="700" fill="#58a6ff">1. API Specification</text>
-      <text x="12" y="42" font-family="monospace" font-size="10" fill="#79c0ff">openapi.yaml</text>
-      <text x="12" y="58" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">• Paths &amp; Schemas</text>
-      <text x="12" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">• RFC 9457 errors</text>
-      <text x="12" y="90" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">• Status Codes</text>
-      <text x="12" y="115" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#8b949e">Versioned in Git</text>
-      <text x="12" y="132" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9" fill="#3fb950">Peer-reviewed by API guild</text>
-    </g>
-
-    <!-- Arrow 1 to 2 -->
-    <line x1="202" y1="150" x2="225" y2="150" stroke="#58a6ff" stroke-width="2" marker-end="url(#arrowGov)"/>
-
-    <!-- Step 2: Automated Governance Linters -->
-    <g transform="translate(235, 75)">
-      <rect width="180" height="150" rx="6" fill="#161b22" stroke="#30363d"/>
-      <rect width="180" height="24" rx="4" fill="#d29922" fill-opacity="0.2"/>
-      <text x="12" y="17" font-family="monospace" font-size="11" font-weight="700" fill="#d29922">2. CI Lint &amp; Guardrails</text>
-      <text x="12" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" font-weight="700" fill="#e3b341">Spectral Linter</text>
-      <text x="12" y="58" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">• kebab-case URLs</text>
-      <text x="12" y="72" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">• Mandatory descriptions</text>
-      <text x="12" y="92" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" font-weight="700" fill="#f85149">oasdiff Breaking Check</text>
-      <text x="12" y="108" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">• Detects field deletions</text>
-      <text x="12" y="124" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">• Blocks PR if breaking</text>
-    </g>
-
-    <!-- Arrow 2 to 3 -->
-    <line x1="422" y1="150" x2="445" y2="150" stroke="#58a6ff" stroke-width="2" marker-end="url(#arrowGov)"/>
-
-    <!-- Step 3: Code Generation Engine -->
-    <g transform="translate(455, 75)">
-      <rect width="175" height="150" rx="6" fill="#161b22" stroke="#30363d"/>
-      <rect width="175" height="24" rx="4" fill="#388bfd" fill-opacity="0.2"/>
-      <text x="12" y="17" font-family="monospace" font-size="11" font-weight="700" fill="#79c0ff">3. Code Generation</text>
-      <text x="12" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" font-weight="700" fill="#c9d1d9">openapi-generator</text>
-      <text x="12" y="60" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#3fb950">Server Stubs (Java):</text>
-      <text x="12" y="76" font-family="monospace" font-size="9" fill="#8b949e">OrdersApi.java (Interface)</text>
-      <text x="12" y="92" font-family="monospace" font-size="9" fill="#8b949e">OrderDTO.java (Record)</text>
-      <text x="12" y="112" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#58a6ff">Client SDKs:</text>
-      <text x="12" y="128" font-family="monospace" font-size="9" fill="#8b949e">TypeScript, Python, Go</text>
-    </g>
-
-    <!-- Arrow 3 to 4 -->
-    <line x1="637" y1="150" x2="660" y2="150" stroke="#58a6ff" stroke-width="2" marker-end="url(#arrowGov)"/>
-
-    <!-- Step 4: Provider Implementation & Consumers -->
-    <g transform="translate(670, 75)">
-      <rect width="325" height="150" rx="6" fill="#161b22" stroke="#238636"/>
-      <rect width="325" height="24" rx="4" fill="#238636" fill-opacity="0.2"/>
-      <text x="12" y="17" font-family="monospace" font-size="11" font-weight="700" fill="#3fb950">4. Implementation &amp; Consumption</text>
-      <g transform="translate(12, 35)">
-        <rect width="145" height="98" rx="4" fill="#0d1117" stroke="#30363d"/>
-        <text x="10" y="20" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" font-weight="700" fill="#7ee787">Backend Provider</text>
-        <text x="10" y="40" font-family="monospace" font-size="8.5" fill="#c9d1d9">implements OrdersApi</text>
-        <text x="10" y="58" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9" fill="#8b949e">• Compiler enforces</text>
-        <text x="10" y="72" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9" fill="#8b949e">  exact contract match</text>
-        <text x="10" y="86" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9" fill="#3fb950">Zero manual drift!</text>
+    <!-- 5 Pipeline Steps -->
+    <g transform="translate(20, 75)">
+      <!-- Step 1: Spec -->
+      <g transform="translate(0, 0)">
+        <rect width="195" height="265" rx="6" fill="#161b22" stroke="#30363d"/>
+        <rect width="195" height="28" rx="4" fill="#1f6feb" fill-opacity="0.2"/>
+        <text x="12" y="20" font-family="monospace" font-size="13" font-weight="700" fill="#58a6ff">1. API Specification</text>
+        <text x="12" y="52" font-family="monospace" font-size="13" fill="#79c0ff">openapi.yaml</text>
+        <text x="12" y="78" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Paths &amp; Schemas</text>
+        <text x="12" y="104" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• RFC 9457 errors</text>
+        <text x="12" y="130" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Status Codes</text>
+        <text x="12" y="165" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">Git Versioned</text>
+        <text x="12" y="195" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#3fb950">Peer-reviewed by API Guild</text>
       </g>
-      <g transform="translate(168, 35)">
-        <rect width="145" height="98" rx="4" fill="#0d1117" stroke="#30363d"/>
-        <text x="10" y="20" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" font-weight="700" fill="#58a6ff">Frontend Consumers</text>
-        <text x="10" y="40" font-family="monospace" font-size="8.5" fill="#c9d1d9">import { OrdersClient }</text>
-        <text x="10" y="58" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9" fill="#8b949e">• Strongly typed SDK</text>
-        <text x="10" y="72" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9" fill="#8b949e">• Auto-complete fields</text>
-        <text x="10" y="86" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9" fill="#58a6ff">Instant compile check</text>
+
+      <!-- Arrow 1 to 2 -->
+      <path d="M 200 135 L 220 135" fill="none" stroke="#58a6ff" stroke-width="2.5" marker-end="url(#arrowGov)"/>
+
+      <!-- Step 2: Linters -->
+      <g transform="translate(225, 0)">
+        <rect width="195" height="265" rx="6" fill="#161b22" stroke="#30363d"/>
+        <rect width="195" height="28" rx="4" fill="#d29922" fill-opacity="0.2"/>
+        <text x="12" y="20" font-family="monospace" font-size="13" font-weight="700" fill="#e3b341">2. CI Lint &amp; Guard</text>
+        <text x="12" y="52" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#e3b341">Spectral Linter</text>
+        <text x="12" y="78" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">• kebab-case URLs</text>
+        <text x="12" y="104" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">• Mandatory docs</text>
+        <text x="12" y="130" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">• No 200 with error</text>
+        <text x="12" y="165" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#f85149">Optic Breaking Check</text>
+        <text x="12" y="195" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#f85149">Blocks PR on breaking change</text>
+      </g>
+
+      <!-- Arrow 2 to 3 -->
+      <path d="M 425 135 L 445 135" fill="none" stroke="#58a6ff" stroke-width="2.5" marker-end="url(#arrowGov)"/>
+
+      <!-- Step 3: Code Gen -->
+      <g transform="translate(450, 0)">
+        <rect width="195" height="265" rx="6" fill="#161b22" stroke="#30363d"/>
+        <rect width="195" height="28" rx="4" fill="#238636" fill-opacity="0.2"/>
+        <text x="12" y="20" font-family="monospace" font-size="13" font-weight="700" fill="#3fb950">3. Code Generation</text>
+        <text x="12" y="52" font-family="monospace" font-size="13" fill="#7ee787">openapi-generator</text>
+        <text x="12" y="78" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Java Interfaces</text>
+        <text x="12" y="104" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• DTO Records</text>
+        <text x="12" y="130" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• TypeScript SDKs</text>
+        <text x="12" y="165" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">Zero manual typing</text>
+        <text x="12" y="195" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#3fb950">Compile-time contract safety</text>
+      </g>
+
+      <!-- Arrow 3 to 4 -->
+      <path d="M 650 135 L 670 135" fill="none" stroke="#58a6ff" stroke-width="2.5" marker-end="url(#arrowGov)"/>
+
+      <!-- Step 4: Mock Servers -->
+      <g transform="translate(675, 0)">
+        <rect width="195" height="265" rx="6" fill="#161b22" stroke="#30363d"/>
+        <rect width="195" height="28" rx="4" fill="#8957e5" fill-opacity="0.2"/>
+        <text x="12" y="20" font-family="monospace" font-size="13" font-weight="700" fill="#a371f7">4. Mock Servers</text>
+        <text x="12" y="52" font-family="monospace" font-size="13" fill="#d2a8ff">Prism Mock Server</text>
+        <text x="12" y="78" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Serves dynamic mock</text>
+        <text x="12" y="104" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Validates contracts</text>
+        <text x="12" y="130" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">• Instant dev testing</text>
+        <text x="12" y="165" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">Parallel development:</text>
+        <text x="12" y="195" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#7ee787">Frontend starts Day 1!</text>
+      </g>
+
+      <!-- Arrow 4 to 5 -->
+      <path d="M 875 135 L 895 135" fill="none" stroke="#58a6ff" stroke-width="2.5" marker-end="url(#arrowGov)"/>
+
+      <!-- Step 5: Gateway Sync -->
+      <g transform="translate(900, 0)">
+        <rect width="180" height="265" rx="6" fill="#161b22" stroke="#30363d"/>
+        <rect width="180" height="28" rx="4" fill="#1f6feb" fill-opacity="0.2"/>
+        <text x="12" y="20" font-family="monospace" font-size="13" font-weight="700" fill="#58a6ff">5. Gateway Sync</text>
+        <text x="12" y="52" font-family="monospace" font-size="13" fill="#79c0ff">Kong / Apigee</text>
+        <text x="12" y="78" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Routes configured</text>
+        <text x="12" y="104" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Rate limits applied</text>
+        <text x="12" y="130" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• OAuth scopes locked</text>
+        <text x="12" y="165" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">Published directly to:</text>
+        <text x="12" y="195" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#3fb950">Developer Portal</text>
       </g>
     </g>
   </g>
 
-  <!-- Section 2: Consumer-Driven Contract Testing (Pact Workflow) -->
-  <g transform="translate(40, 375)">
-    <rect width="1020" height="285" rx="8" fill="url(#cardGradGov)" stroke="#238636" stroke-width="2"/>
-    <rect width="1020" height="6" rx="3" fill="url(#pactGrad)"/>
-    <text x="25" y="30" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#3fb950">2. Consumer-Driven Contract Testing (CDCT) with Pact</text>
-    <text x="25" y="50" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Consumers declare expectations; Providers verify contracts against real controllers without fragile E2E environments</text>
+  <!-- Section 2: CDCT Workflow with Pact -->
+  <g transform="translate(40, 505)">
+    <rect width="1120" height="370" rx="8" fill="url(#cardGradGov)" stroke="#238636" stroke-width="2"/>
+    <rect width="1120" height="6" rx="3" fill="url(#pactGrad)"/>
+    <text x="25" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="700" fill="#3fb950">2. Consumer-Driven Contract Testing (CDCT) with Pact</text>
+    <text x="25" y="56" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Preventing integration failures across microservices without brittle, slow end-to-end environments</text>
 
-    <!-- Consumer Side Box -->
-    <g transform="translate(25, 75)">
-      <rect width="280" height="185" rx="6" fill="#161b22" stroke="#1f6feb"/>
-      <rect width="280" height="24" rx="4" fill="#1f6feb" fill-opacity="0.2"/>
-      <text x="15" y="17" font-family="monospace" font-size="11" font-weight="700" fill="#58a6ff">A. Consumer (Checkout Service)</text>
-      <text x="15" y="44" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" font-weight="700" fill="#c9d1d9">1. Writes Unit Test with Pact DSL:</text>
-      <text x="15" y="62" font-family="monospace" font-size="8.5" fill="#79c0ff">uponReceiving("get order 123")</text>
-      <text x="15" y="76" font-family="monospace" font-size="8.5" fill="#79c0ff">.withPath("/v1/orders/123")</text>
-      <text x="15" y="90" font-family="monospace" font-size="8.5" fill="#79c0ff">.willRespondWith(200, status="PAID")</text>
+    <!-- 3 CDCT Columns -->
+    <g transform="translate(20, 75)">
+      <!-- Consumer Column -->
+      <g transform="translate(0, 0)">
+        <rect width="340" height="265" rx="6" fill="#161b22" stroke="#388bfd"/>
+        <rect width="340" height="28" rx="4" fill="#1f6feb" fill-opacity="0.2"/>
+        <text x="15" y="20" font-family="monospace" font-size="13" font-weight="700" fill="#58a6ff">A. Consumer (Checkout CI)</text>
+        <text x="15" y="50" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#c9d1d9">1. Executes Unit Test with Pact Mock:</text>
+        <text x="15" y="74" font-family="monospace" font-size="13" fill="#7ee787">mockProvider.given("Order 12 exists")</text>
+        <text x="15" y="96" font-family="monospace" font-size="13" fill="#7ee787">  .uponReceiving("GET /orders/12")</text>
+        <text x="15" y="118" font-family="monospace" font-size="13" fill="#7ee787">  .willRespondWith(200, status="PAID")</text>
+        
+        <text x="15" y="152" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#c9d1d9">2. Generates Contract JSON:</text>
+        <text x="15" y="176" font-family="monospace" font-size="13" fill="#3fb950">checkout-orderservice-pact.json</text>
+        <text x="15" y="204" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">• Only asserts fields Checkout actually uses!</text>
+        <text x="15" y="228" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#7ee787">• Ignores unused fields (Tolerant Reader pattern)</text>
+      </g>
 
-      <text x="15" y="116" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" font-weight="700" fill="#c9d1d9">2. Generates Contract File:</text>
-      <text x="15" y="132" font-family="monospace" font-size="9" fill="#3fb950">checkout-orderservice-pact.json</text>
-      <text x="15" y="152" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">• Only asserts fields Checkout actually uses!</text>
-      <text x="15" y="168" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">• Ignores unused fields (Tolerant Reader)</text>
+      <!-- Pact Broker Column -->
+      <g transform="translate(370, 0)">
+        <rect width="340" height="265" rx="6" fill="#161b22" stroke="#d29922"/>
+        <rect width="340" height="28" rx="4" fill="#d29922" fill-opacity="0.2"/>
+        <text x="15" y="20" font-family="monospace" font-size="13" font-weight="700" fill="#e3b341">B. Central Pact Broker</text>
+        <text x="15" y="50" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">Contract Repository &amp; Compatibility Matrix</text>
+
+        <!-- Sub box: Contract Matrix -->
+        <g transform="translate(15, 62)">
+          <rect width="310" height="110" rx="4" fill="#0d1117" stroke="#30363d"/>
+          <text x="15" y="26" font-family="monospace" font-size="13" fill="#8b949e">Consumer: Checkout (v2.4.1)</text>
+          <text x="15" y="50" font-family="monospace" font-size="13" fill="#8b949e">Provider: OrderService (v3.1.0)</text>
+          <text x="15" y="74" font-family="monospace" font-size="13" font-weight="700" fill="#3fb950">Status: VERIFIED_SUCCESSFUL</text>
+          <text x="15" y="98" font-family="monospace" font-size="13" fill="#79c0ff">Pact: [id, status, amount]</text>
+        </g>
+
+        <text x="15" y="200" font-family="monospace" font-size="13" font-weight="700" fill="#e3b341">can-i-deploy CLI Tool</text>
+        <text x="15" y="228" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">Queries broker matrix before production release</text>
+      </g>
+
+      <!-- Provider Column -->
+      <g transform="translate(740, 0)">
+        <rect width="340" height="265" rx="6" fill="#161b22" stroke="#238636"/>
+        <rect width="340" height="28" rx="4" fill="#238636" fill-opacity="0.2"/>
+        <text x="15" y="20" font-family="monospace" font-size="13" font-weight="700" fill="#3fb950">C. Provider (OrderService CI)</text>
+        <text x="15" y="50" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#c9d1d9">1. Pulls Latest Verified Pacts:</text>
+        <text x="15" y="74" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">Fetches all consumer pacts from broker</text>
+
+        <text x="15" y="106" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#c9d1d9">2. Replays Against Real Controllers:</text>
+        <text x="15" y="130" font-family="monospace" font-size="13" fill="#7ee787">@PactValidationAgainstControllers</text>
+        <text x="15" y="154" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">Replays requests against Spring MockMVC</text>
+
+        <text x="15" y="190" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#c9d1d9">3. Publishes Verification:</text>
+        <text x="15" y="214" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#3fb950">✓ Green: Safe to deploy to prod</text>
+        <text x="15" y="238" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#f85149">❌ Red: Breaks Checkout! Build fails.</text>
+      </g>
     </g>
-
-    <!-- Central Pact Broker -->
-    <g transform="translate(370, 75)">
-      <rect width="280" height="185" rx="6" fill="#161b22" stroke="#d29922"/>
-      <rect width="280" height="24" rx="4" fill="#d29922" fill-opacity="0.2"/>
-      <text x="15" y="17" font-family="monospace" font-size="11" font-weight="700" fill="#e3b341">B. Central Pact Broker</text>
-      <text x="15" y="44" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#c9d1d9">Contract Repository &amp; Matrix</text>
-
-      <!-- Sub box: Contract Matrix -->
-      <rect x="15" y="56" width="250" height="75" rx="4" fill="#0d1117" stroke="#30363d"/>
-      <text x="25" y="74" font-family="monospace" font-size="8.5" fill="#8b949e">Consumer: Checkout (v2.4.1)</text>
-      <text x="25" y="88" font-family="monospace" font-size="8.5" fill="#8b949e">Provider: OrderService (v3.1.0)</text>
-      <text x="25" y="104" font-family="monospace" font-size="8.5" fill="#3fb950">Status: VERIFIED_SUCCESSFUL</text>
-      <text x="25" y="118" font-family="monospace" font-size="8.5" fill="#79c0ff">Pact: [id, status, amount]</text>
-
-      <text x="15" y="150" font-family="monospace" font-size="10" font-weight="700" fill="#e3b341">can-i-deploy CLI Tool</text>
-      <text x="15" y="168" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">Queries broker before production rollout</text>
-    </g>
-
-    <!-- Provider Side Box -->
-    <g transform="translate(715, 75)">
-      <rect width="280" height="185" rx="6" fill="#161b22" stroke="#238636"/>
-      <rect width="280" height="24" rx="4" fill="#238636" fill-opacity="0.2"/>
-      <text x="15" y="17" font-family="monospace" font-size="11" font-weight="700" fill="#3fb950">C. Provider (Order Service CI)</text>
-      <text x="15" y="44" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" font-weight="700" fill="#c9d1d9">1. Pulls Latest Verified Pacts:</text>
-      <text x="15" y="60" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">Fetches all consumer pacts from broker</text>
-
-      <text x="15" y="85" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" font-weight="700" fill="#c9d1d9">2. Replays Requests Locally:</text>
-      <text x="15" y="102" font-family="monospace" font-size="8.5" fill="#7ee787">@PactValidationAgainstControllers</text>
-      <text x="15" y="116" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#8b949e">Replays requests against Spring MockMVC</text>
-
-      <text x="15" y="142" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" font-weight="700" fill="#c9d1d9">3. Publishes Verification:</text>
-      <text x="15" y="160" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#3fb950">✓ Green: Safe to deploy to prod</text>
-      <text x="15" y="174" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#f85149">❌ Red: Breaks Checkout! Build fails.</text>
-    </g>
-
-    <!-- Connecting Arrows -->
-    <!-- From Consumer to Broker (Publish Pact) -->
-    <path d="M 305 160 L 370 160" fill="none" stroke="#58a6ff" stroke-width="2" marker-end="url(#arrowGov)"/>
-    <text x="312" y="152" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9" fill="#58a6ff">Publish Pact</text>
-
-    <!-- From Broker to Provider (Pull Contracts) -->
-    <path d="M 650 145 L 715 145" fill="none" stroke="#e3b341" stroke-width="2" marker-end="url(#arrowGov)"/>
-    <text x="656" y="137" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9" fill="#e3b341">Pull Pacts</text>
-
-    <!-- From Provider to Broker (Publish Verification) -->
-    <path d="M 715 190 L 650 190" fill="none" stroke="#3fb950" stroke-width="2" marker-end="url(#arrowGreen)"/>
-    <text x="655" y="204" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9" fill="#3fb950">Publish Verification</text>
   </g>
 </svg>

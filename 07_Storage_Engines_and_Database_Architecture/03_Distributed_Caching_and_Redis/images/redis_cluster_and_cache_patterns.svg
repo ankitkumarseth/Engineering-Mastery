@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 740" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="100%" height="100%">
   <defs>
     <linearGradient id="bgGradRed" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#0d1117" />
@@ -23,173 +23,172 @@
     <marker id="arrowBlueR" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
       <path d="M 0 1 L 10 5 L 0 9 z" fill="#58a6ff" />
     </marker>
-    <marker id="arrowRedR" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f85149" />
-    </marker>
     <marker id="arrowGreenR" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
       <path d="M 0 1 L 10 5 L 0 9 z" fill="#3fb950" />
     </marker>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#010409" flood-opacity="0.8"/>
+    </filter>
   </defs>
 
   <!-- Background -->
-  <rect width="1100" height="740" fill="url(#bgGradRed)" rx="12" stroke="#30363d" stroke-width="2"/>
+  <rect width="1200" height="900" fill="url(#bgGradRed)" rx="12" stroke="#30363d" stroke-width="2"/>
 
   <!-- Title & Subtitle -->
-  <text x="40" y="45" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f0f6fc">Distributed Caching Architecture &amp; Redis Cluster Topology</text>
-  <text x="40" y="70" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e">Cache Topologies, Failure Mode Defense (Stampede/Avalanche), and 16,384 Hash Slot Sharding</text>
+  <g transform="translate(40, 45)">
+    <text font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="700" fill="#f0f6fc">Distributed Caching Architecture &amp; Redis Cluster Topology</text>
+    <text y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" fill="#8b949e">Cache Topologies, Failure Defense (Stampede/Avalanche/Penetration) &amp; 16,384 Hash Slot Sharding</text>
+  </g>
 
-  <!-- Section 1: Caching Patterns & Failure Mode Defense (Left Column) -->
-  <g transform="translate(40, 100)">
-    <rect width="500" height="375" rx="8" fill="url(#cardGradRed)" stroke="#da3633" stroke-width="2"/>
-    <rect width="500" height="6" rx="3" fill="url(#redGradR)"/>
-    <text x="25" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#f85149">1. Cache Failure Modes &amp; Resilient Defenses</text>
-    <text x="25" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Eliminating Database Overload from Stampede, Avalanche &amp; Penetration</text>
+  <!-- SECTION 1: Caching Patterns & Failure Mode Defense (Left Column) -->
+  <g transform="translate(40, 105)" filter="url(#shadow)">
+    <rect width="545" height="475" rx="10" fill="url(#cardGradRed)" stroke="#da3633" stroke-width="2"/>
+    <rect width="545" height="6" rx="3" fill="url(#redGradR)"/>
+    <text x="24" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#f85149">1. Cache Failure Modes &amp; Resilient Defenses</text>
+    <text x="24" y="56" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Eliminating Database Overload from Stampede, Avalanche &amp; Penetration</text>
 
-    <g transform="translate(20, 72)">
+    <g transform="translate(20, 75)">
       <!-- Failure Mode 1: Cache Stampede -->
       <g transform="translate(0, 0)">
-        <rect width="460" height="85" rx="6" fill="#161b22" stroke="#da3633"/>
-        <text x="15" y="20" font-family="monospace" font-size="10.5" font-weight="700" fill="#f85149">A. Cache Stampede (Thundering Herd / Dog-Piling)</text>
-        <text x="15" y="38" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="9.5" fill="#c9d1d9">• Symptom: Hot key expires; 10,000 concurrent threads miss cache and slam DB!</text>
-        <text x="15" y="54" font-family="monospace" font-size="9" fill="#3fb950">✓ Defense 1: Mutex Lock (Only 1 thread queries DB; others wait/retry)</text>
-        <text x="15" y="70" font-family="monospace" font-size="9" fill="#7ee787">✓ Defense 2: XFetch (Probabilistic background refresh before TTL expires)</text>
+        <rect width="505" height="115" rx="6" fill="#0d1117" stroke="#da3633" stroke-width="1.5"/>
+        <text x="16" y="24" font-family="monospace" font-size="14" font-weight="700" fill="#f85149">A. Cache Stampede (Thundering Herd / Dog-Piling)</text>
+        <text x="16" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Hot key expires; 10,000 threads miss cache and slam DB!</text>
+        <text x="16" y="70" font-family="monospace" font-size="13" fill="#3fb950">✓ Defense 1: Mutex Lock (1 thread queries DB; others wait)</text>
+        <text x="16" y="94" font-family="monospace" font-size="13" fill="#7ee787">✓ Defense 2: XFetch (Probabilistic background early refresh)</text>
       </g>
 
       <!-- Failure Mode 2: Cache Avalanche -->
-      <g transform="translate(0, 95)">
-        <rect width="460" height="85" rx="6" fill="#161b22" stroke="#d29922"/>
-        <text x="15" y="20" font-family="monospace" font-size="10.5" font-weight="700" fill="#e3b341">B. Cache Avalanche (Synchronized TTL Expiration)</text>
-        <text x="15" y="38" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="9.5" fill="#c9d1d9">• Symptom: 500,000 keys cached with identical 1h TTL expire at exact same sec!</text>
-        <text x="15" y="54" font-family="monospace" font-size="9" fill="#3fb950">✓ Defense: TTL Jitter Formula: TTL = Base_TTL + rand(0, Jitter_Delta)</text>
-        <text x="15" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="9" fill="#8b949e">  Evenly disperses expirations across time window (e.g., 3600s ± 300s).</text>
+      <g transform="translate(0, 130)">
+        <rect width="505" height="115" rx="6" fill="#0d1117" stroke="#d29922" stroke-width="1.5"/>
+        <text x="16" y="24" font-family="monospace" font-size="14" font-weight="700" fill="#e3b341">B. Cache Avalanche (Synchronized TTL Expiration)</text>
+        <text x="16" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• 500,000 keys cached with identical 1h TTL expire at exact same sec!</text>
+        <text x="16" y="72" font-family="monospace" font-size="13" fill="#3fb950">✓ Defense: TTL Jitter = Base_TTL + rand(0, Jitter_Delta)</text>
+        <text x="16" y="96" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#8b949e">Disperses expirations smoothly across time window (e.g. 3600s ± 300s).</text>
       </g>
 
       <!-- Failure Mode 3: Cache Penetration -->
-      <g transform="translate(0, 190)">
-        <rect width="460" height="85" rx="6" fill="#161b22" stroke="#1f6feb"/>
-        <text x="15" y="20" font-family="monospace" font-size="10.5" font-weight="700" fill="#58a6ff">C. Cache Penetration (Non-Existent Keys Target DB)</text>
-        <text x="15" y="38" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="9.5" fill="#c9d1d9">• Symptom: Malicious/buggy queries for non-existent IDs bypass cache to hit DB.</text>
-        <text x="15" y="54" font-family="monospace" font-size="9" fill="#3fb950">✓ Defense 1: In-Memory Bloom Filter upfront (Rejects non-existent keys in RAM)</text>
-        <text x="15" y="70" font-family="monospace" font-size="9" fill="#7ee787">✓ Defense 2: Cache NULL Values with short TTL (e.g., 60s)</text>
+      <g transform="translate(0, 260)">
+        <rect width="505" height="120" rx="6" fill="#0d1117" stroke="#1f6feb" stroke-width="1.5"/>
+        <text x="16" y="24" font-family="monospace" font-size="14" font-weight="700" fill="#58a6ff">C. Cache Penetration (Non-Existent Keys Target DB)</text>
+        <text x="16" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Malicious / missing IDs bypass cache and hammer database.</text>
+        <text x="16" y="72" font-family="monospace" font-size="13" fill="#3fb950">✓ Defense 1: In-Memory Bloom Filter (Rejects missing keys in RAM)</text>
+        <text x="16" y="96" font-family="monospace" font-size="13" fill="#7ee787">✓ Defense 2: Cache NULL Values with short TTL (e.g. 60s)</text>
       </g>
     </g>
   </g>
 
-  <!-- Section 2: Redis Single-Threaded Reactor (Right Column) -->
-  <g transform="translate(560, 100)">
-    <rect width="500" height="375" rx="8" fill="url(#cardGradRed)" stroke="#1f6feb" stroke-width="2"/>
-    <rect width="500" height="6" rx="3" fill="url(#blueGradR)"/>
-    <text x="25" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#58a6ff">2. Redis Engine: Epoll Event Loop &amp; In-Memory Physics</text>
-    <text x="25" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Why Single-Threaded Command Execution Outperforms Multi-Threaded Engines</text>
+  <!-- SECTION 2: Redis Single-Threaded Reactor (Right Column) -->
+  <g transform="translate(615, 105)" filter="url(#shadow)">
+    <rect width="545" height="475" rx="10" fill="url(#cardGradRed)" stroke="#1f6feb" stroke-width="2"/>
+    <rect width="545" height="6" rx="3" fill="url(#blueGradR)"/>
+    <text x="24" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#58a6ff">2. Redis Engine: Epoll Event Loop &amp; In-Memory Physics</text>
+    <text x="24" y="56" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Why Single-Threaded Command Execution Outperforms Multi-Threaded Engines</text>
 
     <!-- Epoll Reactor Visual -->
-    <g transform="translate(20, 72)">
-      <rect width="460" height="120" rx="6" fill="#161b22" stroke="#30363d"/>
-      <text x="15" y="20" font-family="monospace" font-size="10.5" font-weight="700" fill="#79c0ff">Linux epoll I/O Multiplexing &amp; Event Loop</text>
+    <g transform="translate(20, 75)">
+      <rect width="505" height="145" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+      <text x="16" y="24" font-family="monospace" font-size="14" font-weight="700" fill="#79c0ff">Linux epoll I/O Multiplexing &amp; Event Loop</text>
       
       <!-- Sockets to Event Loop flow -->
-      <g transform="translate(15, 34)">
+      <g transform="translate(14, 40)">
         <g transform="translate(0, 0)">
-          <rect width="115" height="50" rx="4" fill="#0d1117" stroke="#388bfd"/>
-          <text x="8" y="18" font-family="monospace" font-size="8.5" fill="#79c0ff">10,000 Client</text>
-          <text x="8" y="32" font-family="monospace" font-size="8" fill="#8b949e">TCP Sockets</text>
-          <text x="8" y="44" font-family="monospace" font-size="7.5" fill="#3fb950">Non-blocking</text>
+          <rect width="130" height="55" rx="4" fill="#0d1117" stroke="#388bfd"/>
+          <text x="10" y="20" font-family="monospace" font-size="12.5" fill="#79c0ff">10,000 Sockets</text>
+          <text x="10" y="36" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#8b949e">Client Connections</text>
+          <text x="10" y="48" font-family="monospace" font-size="11.5" fill="#3fb950">Non-blocking</text>
         </g>
 
         <!-- Arrow -->
-        <path d="M 120 25 L 155 25" stroke="#388bfd" stroke-width="2" marker-end="url(#arrowBlueR)"/>
+        <path d="M 135 28 L 175 28" stroke="#388bfd" stroke-width="2" marker-end="url(#arrowBlueR)"/>
 
-        <g transform="translate(160, 0)">
-          <rect width="125" height="50" rx="4" fill="#0d1117" stroke="#388bfd"/>
-          <text x="8" y="18" font-family="monospace" font-size="8.5" font-weight="700" fill="#79c0ff">epoll_wait()</text>
-          <text x="8" y="32" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#8b949e">Kernel notifies only</text>
-          <text x="8" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#8b949e">active I/O sockets</text>
+        <g transform="translate(180, 0)">
+          <rect width="145" height="55" rx="4" fill="#0d1117" stroke="#388bfd"/>
+          <text x="10" y="20" font-family="monospace" font-size="12.5" font-weight="700" fill="#79c0ff">epoll_wait()</text>
+          <text x="10" y="36" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#8b949e">Kernel notifies only</text>
+          <text x="10" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#8b949e">ready I/O descriptors</text>
         </g>
 
         <!-- Arrow -->
-        <path d="M 290 25 L 325 25" stroke="#3fb950" stroke-width="2" marker-end="url(#arrowGreenR)"/>
+        <path d="M 330 28 L 365 28" stroke="#3fb950" stroke-width="2" marker-end="url(#arrowGreenR)"/>
 
-        <g transform="translate(330, 0)">
-          <rect width="100" height="50" rx="4" fill="#0d1117" stroke="#238636"/>
-          <text x="8" y="18" font-family="monospace" font-size="8.5" font-weight="700" fill="#3fb950">Event Loop</text>
-          <text x="8" y="32" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8" fill="#7ee787">1 Core Executes</text>
-          <text x="8" y="44" font-family="monospace" font-size="7.5" fill="#3fb950">ZERO Lock Waits</text>
+        <g transform="translate(370, 0)">
+          <rect width="105" height="55" rx="4" fill="#0d1117" stroke="#238636"/>
+          <text x="10" y="20" font-family="monospace" font-size="12.5" font-weight="700" fill="#3fb950">Event Loop</text>
+          <text x="10" y="36" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#7ee787">1 Core Exec</text>
+          <text x="10" y="48" font-family="monospace" font-size="11.5" fill="#3fb950">Zero Locks</text>
         </g>
       </g>
-      <text x="15" y="106" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="9" fill="#3fb950">Zero Context Switches • Pure RAM L1/L2 Cache Locality • Atomic Commands</text>
+      <text x="16" y="128" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#3fb950">Zero Context Switches • L1/L2 Cache Locality • Native Atomic Commands</text>
     </g>
 
     <!-- Eviction Policy Box -->
-    <g transform="translate(20, 205)">
-      <rect width="460" height="150" rx="6" fill="#161b22" stroke="#1f6feb"/>
-      <text x="15" y="20" font-family="monospace" font-size="10.5" font-weight="700" fill="#58a6ff">Memory Eviction Policies (maxmemory-policy)</text>
+    <g transform="translate(20, 240)">
+      <rect width="505" height="215" rx="6" fill="#161b22" stroke="#1f6feb" stroke-width="1.5"/>
+      <text x="16" y="24" font-family="monospace" font-size="14" font-weight="700" fill="#58a6ff">Memory Eviction Policies (maxmemory-policy)</text>
 
-      <g transform="translate(15, 34)">
+      <g transform="translate(14, 40)">
         <g transform="translate(0, 0)">
-          <rect width="205" height="100" rx="4" fill="#0d1117" stroke="#30363d"/>
-          <text x="10" y="18" font-family="monospace" font-size="9.5" font-weight="700" fill="#79c0ff">allkeys-lru (Approx. LRU)</text>
-          <text x="10" y="34" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• Samples 5 random keys in RAM</text>
-          <text x="10" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• Evicts lowest 24-bit LRU clock</text>
-          <text x="10" y="64" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#3fb950">✓ 99% accuracy of true LRU</text>
-          <text x="10" y="78" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#3fb950">✓ Zero pointer memory overhead!</text>
-          <text x="10" y="92" font-family="monospace" font-size="8" fill="#7ee787">Best for: Power-law access skew</text>
+          <rect width="230" height="150" rx="4" fill="#0d1117" stroke="#30363d"/>
+          <text x="12" y="22" font-family="monospace" font-size="13" font-weight="700" fill="#79c0ff">allkeys-lru (Approx. LRU)</text>
+          <text x="12" y="46" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#c9d1d9">• Samples 5 random keys in RAM</text>
+          <text x="12" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#c9d1d9">• Evicts lowest 24-bit clock</text>
+          <text x="12" y="94" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#3fb950">✓ 99% accuracy of true LRU</text>
+          <text x="12" y="116" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#3fb950">✓ Zero linked list memory bloat!</text>
+          <text x="12" y="138" font-family="monospace" font-size="12" fill="#7ee787">Best for: Power-law access skew</text>
         </g>
 
-        <g transform="translate(220, 0)">
-          <rect width="205" height="100" rx="4" fill="#0d1117" stroke="#30363d"/>
-          <text x="10" y="18" font-family="monospace" font-size="9.5" font-weight="700" fill="#e3b341">allkeys-lfu (Frequency)</text>
-          <text x="10" y="34" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• 8-bit Morris logarithmic counter</text>
-          <text x="10" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• Decays counter over time</text>
-          <text x="10" y="64" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#3fb950">✓ Protects against one-off scans</text>
-          <text x="10" y="78" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#8b949e">• Retains persistently hot keys</text>
-          <text x="10" y="92" font-family="monospace" font-size="8" fill="#e3b341">Best for: True frequency caching</text>
+        <g transform="translate(247, 0)">
+          <rect width="230" height="150" rx="4" fill="#0d1117" stroke="#30363d"/>
+          <text x="12" y="22" font-family="monospace" font-size="13" font-weight="700" fill="#e3b341">allkeys-lfu (Frequency)</text>
+          <text x="12" y="46" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#c9d1d9">• 8-bit Morris logarithmic counter</text>
+          <text x="12" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#c9d1d9">• Decays counter over time</text>
+          <text x="12" y="94" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#3fb950">✓ Protects against one-off scans</text>
+          <text x="12" y="116" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#8b949e">• Keeps persistently hot keys</text>
+          <text x="12" y="138" font-family="monospace" font-size="12" fill="#e3b341">Best for: Long-term frequency</text>
         </g>
       </g>
     </g>
   </g>
 
-  <!-- Section 3: Redis Cluster & Hash Slots (Bottom Banner) -->
-  <g transform="translate(40, 495)">
-    <rect width="1020" height="215" rx="8" fill="url(#cardGradRed)" stroke="#d29922" stroke-width="2"/>
-    <rect width="1020" height="6" rx="3" fill="url(#goldGradR)"/>
-    <text x="25" y="30" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#e3b341">3. Redis Cluster: 16,384 Hash Slot Sharding &amp; Gossip Protocol</text>
-    <text x="25" y="50" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">CRC16 Hash Slot Mapping, Smart Client Caching, and MOVED vs. ASK Redirections</text>
+  <!-- SECTION 3: Redis Cluster & Hash Slots (Bottom Row) -->
+  <g transform="translate(40, 605)" filter="url(#shadow)">
+    <rect width="1120" height="260" rx="10" fill="url(#cardGradRed)" stroke="#d29922" stroke-width="2"/>
+    <rect width="1120" height="6" rx="3" fill="url(#goldGradR)"/>
+    <text x="24" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#e3b341">3. Redis Cluster: 16,384 Hash Slot Sharding &amp; Gossip Protocol</text>
+    <text x="24" y="56" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">CRC16 Hash Slot Mapping, Smart Client Caching &amp; MOVED vs ASK Redirections</text>
 
-    <g transform="translate(25, 68)">
+    <g transform="translate(20, 72)">
       <!-- Shard 1 -->
       <g transform="translate(0, 0)">
-        <rect width="310" height="125" rx="6" fill="#161b22" stroke="#388bfd"/>
-        <text x="15" y="20" font-family="monospace" font-size="11" font-weight="700" fill="#58a6ff">Master Node A (Slots 0..5460)</text>
-        <text x="15" y="38" font-family="monospace" font-size="9" fill="#79c0ff">CRC16(key) % 16384 in [0..5460]</text>
-        <text x="15" y="56" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• Key: "user:101" -> Slot 2450</text>
-        <text x="15" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#3fb950">✓ Direct client write to Master A</text>
-        <text x="15" y="86" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#8b949e">• Asynchronous replication to Replica A1</text>
-        <text x="15" y="102" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#3fb950">✓ Replica promoted on Master failure</text>
-        <text x="15" y="116" font-family="monospace" font-size="8" fill="#58a6ff">Active Shard 1 / 3</text>
+        <rect width="345" height="165" rx="6" fill="#161b22" stroke="#388bfd" stroke-width="1.5"/>
+        <text x="16" y="24" font-family="monospace" font-size="14" font-weight="700" fill="#58a6ff">Master Node A (Slots 0..5460)</text>
+        <text x="16" y="48" font-family="monospace" font-size="12" fill="#79c0ff">CRC16(key) % 16384 -> [0..5460]</text>
+        <text x="16" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Key: "user:101" -> Slot 2450</text>
+        <text x="16" y="94" font-family="monospace" font-size="13" fill="#3fb950">✓ Direct client write to Master A</text>
+        <text x="16" y="116" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#8b949e">Async replication to Replica A1.</text>
+        <text x="16" y="142" font-family="monospace" font-size="12" fill="#58a6ff">Active Shard 1 / 3</text>
       </g>
 
       <!-- Shard 2 -->
-      <g transform="translate(345, 0)">
-        <rect width="320" height="125" rx="6" fill="#161b22" stroke="#238636"/>
-        <text x="15" y="20" font-family="monospace" font-size="11" font-weight="700" fill="#3fb950">Master Node B (Slots 5461..10922)</text>
-        <text x="15" y="38" font-family="monospace" font-size="9" fill="#7ee787">CRC16(key) % 16384 in [5461..10922]</text>
-        <text x="15" y="56" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#c9d1d9">• Key: "{account:99}.balance" -> Slot 7120</text>
-        <text x="15" y="70" font-family="monospace" font-size="8.5" fill="#e3b341">Hash Tag {...} forces slot co-location!</text>
-        <text x="15" y="86" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#3fb950">✓ Enables atomic multi-key MGET/Transactions</text>
-        <text x="15" y="102" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#8b949e">• Gossip PING/PONG heartbeats every 1s</text>
-        <text x="15" y="116" font-family="monospace" font-size="8" fill="#3fb950">Active Shard 2 / 3</text>
+      <g transform="translate(365, 0)">
+        <rect width="360" height="165" rx="6" fill="#161b22" stroke="#238636" stroke-width="1.5"/>
+        <text x="16" y="24" font-family="monospace" font-size="14" font-weight="700" fill="#3fb950">Master Node B (Slots 5461..10922)</text>
+        <text x="16" y="48" font-family="monospace" font-size="12" fill="#7ee787">CRC16(key) % 16384 -> [5461..10922]</text>
+        <text x="16" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Key: "{account:99}.balance"</text>
+        <text x="16" y="94" font-family="monospace" font-size="13" fill="#e3b341">Hash Tag {...} forces co-location!</text>
+        <text x="16" y="118" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#3fb950">✓ Enables atomic multi-key MGET</text>
+        <text x="16" y="142" font-family="monospace" font-size="12" fill="#3fb950">Active Shard 2 / 3</text>
       </g>
 
-      <!-- Shard 3 & Redirections -->
-      <g transform="translate(685, 0)">
-        <rect width="310" height="125" rx="6" fill="#161b22" stroke="#d29922"/>
-        <text x="15" y="20" font-family="monospace" font-size="11" font-weight="700" fill="#e3b341">Master Node C &amp; Redirections</text>
-        <text x="15" y="38" font-family="monospace" font-size="9" fill="#f0883e">Client Redirection Mechanics:</text>
-        <text x="15" y="56" font-family="monospace" font-size="8.5" fill="#f85149">MOVED &lt;slot&gt; &lt;ip:port&gt;</text>
-        <text x="15" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#8b949e">  Permanent migration; client updates slot map.</text>
-        <text x="15" y="86" font-family="monospace" font-size="8.5" fill="#e3b341">ASK &lt;slot&gt; &lt;ip:port&gt;</text>
-        <text x="15" y="100" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" fill="#8b949e">  Temporary re-route during active slot rebalance.</text>
-        <text x="15" y="116" font-family="monospace" font-size="8" fill="#3fb950">Zero Centralized Proxy Bottleneck!</text>
+      <!-- Shard 3 -->
+      <g transform="translate(745, 0)">
+        <rect width="335" height="165" rx="6" fill="#161b22" stroke="#d29922" stroke-width="1.5"/>
+        <text x="16" y="24" font-family="monospace" font-size="14" font-weight="700" fill="#e3b341">Master Node C &amp; Routing</text>
+        <text x="16" y="48" font-family="monospace" font-size="13" fill="#f85149">MOVED &lt;slot&gt; &lt;ip:port&gt;</text>
+        <text x="16" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#8b949e">Permanent migration; update slot map.</text>
+        <text x="16" y="94" font-family="monospace" font-size="13" fill="#e3b341">ASK &lt;slot&gt; &lt;ip:port&gt;</text>
+        <text x="16" y="116" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#8b949e">Temporary re-route during slot rebalance.</text>
+        <text x="16" y="142" font-family="monospace" font-size="12" fill="#7ee787">✓ Zero centralized proxy bottleneck</text>
       </g>
     </g>
   </g>

@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 740" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="100%" height="100%">
   <defs>
     <linearGradient id="bgGradK4" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#0d1117" />
@@ -29,125 +29,126 @@
   </defs>
 
   <!-- Background -->
-  <rect width="1100" height="740" fill="url(#bgGradK4)" rx="12" stroke="#30363d" stroke-width="2"/>
+  <rect width="1200" height="900" fill="url(#bgGradK4)" rx="12" stroke="#30363d" stroke-width="2"/>
 
   <!-- Title & Subtitle -->
-  <text x="40" y="45" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#f0f6fc">Kafka Streams, Connect CDC &amp; DDIA Event Architecture</text>
-  <text x="40" y="70" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e">Stream-Table Duality, Embedded RocksDB State Stores, Debezium WAL Capture, and Distributed Log Foundations</text>
+  <text x="40" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="700" fill="#f0f6fc">Kafka Streams, Connect CDC &amp; DDIA Event Architecture</text>
+  <text x="40" y="78" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" fill="#8b949e">Stream-Table Duality, Embedded RocksDB State Stores, Debezium WAL Capture, and Distributed Log Foundations</text>
 
   <!-- Section 1: Kafka Connect & Debezium CDC (Left Column) -->
-  <g transform="translate(40, 100)">
-    <rect width="500" height="375" rx="8" fill="url(#cardGradK4)" stroke="#1f6feb" stroke-width="2"/>
-    <rect width="500" height="6" rx="3" fill="url(#cdcGrad)"/>
-    <text x="25" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#58a6ff">1. Kafka Connect &amp; Debezium CDC Pipeline</text>
-    <text x="25" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Transactional Outbox Elimination of Dual-Write Hazards</text>
+  <g transform="translate(40, 105)">
+    <rect width="545" height="495" rx="8" fill="url(#cardGradK4)" stroke="#1f6feb" stroke-width="2"/>
+    <rect width="545" height="6" rx="3" fill="url(#cdcGrad)"/>
+    <text x="25" y="36" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#58a6ff">1. Kafka Connect &amp; Debezium CDC Pipeline</text>
+    <text x="25" y="58" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Transactional Outbox Elimination of Dual-Write Hazards</text>
 
     <!-- Database WAL Box -->
     <g transform="translate(20, 75)">
-      <rect width="460" height="80" rx="6" fill="#161b22" stroke="#30363d"/>
-      <text x="15" y="22" font-family="monospace" font-size="11" font-weight="700" fill="#79c0ff">Source RDBMS (Postgres WAL / Oracle Redo Log)</text>
-      <text x="15" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">• Application commits local DB transaction + Outbox table</text>
-      <text x="15" y="60" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#3fb950">✓ 100% atomic in single ACID transaction (Zero dual-write!)</text>
+      <rect width="505" height="100" rx="6" fill="#161b22" stroke="#30363d"/>
+      <text x="15" y="26" font-family="monospace" font-size="13" font-weight="700" fill="#79c0ff">Source RDBMS (Postgres WAL / Oracle Redo Log)</text>
+      <text x="15" y="50" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Application commits local DB transaction + Outbox table</text>
+      <text x="15" y="74" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#3fb950">✓ 100% atomic in single ACID transaction (Zero dual-writes!)</text>
     </g>
 
     <!-- Arrow down -->
-    <line x1="250" y1="160" x2="250" y2="195" stroke="#58a6ff" stroke-width="2" marker-end="url(#arrowBlueK4)"/>
-    <text x="260" y="182" font-family="monospace" font-size="9" fill="#58a6ff">Tails WAL Bytes (Zero App Query!)</text>
+    <path d="M 272 185 L 272 215" fill="none" stroke="#58a6ff" stroke-width="2.5" marker-end="url(#arrowBlueK4)"/>
+    <text x="290" y="205" font-family="monospace" font-size="13" fill="#58a6ff">Tails WAL Stream (Zero DB CPU Poll!)</text>
 
     <!-- Debezium Connector Task -->
-    <g transform="translate(20, 200)">
-      <rect width="460" height="150" rx="6" fill="#161b22" stroke="#1f6feb"/>
-      <rect width="460" height="24" rx="4" fill="#1f6feb" fill-opacity="0.2"/>
-      <text x="15" y="17" font-family="monospace" font-size="11" font-weight="700" fill="#58a6ff">Debezium CDC Worker (Distributed Connect)</text>
-      <text x="15" y="44" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#c9d1d9">Converts row mutations into structured event envelops:</text>
+    <g transform="translate(20, 225)">
+      <rect width="505" height="245" rx="6" fill="#161b22" stroke="#1f6feb"/>
+      <rect width="505" height="28" rx="4" fill="#1f6feb" fill-opacity="0.2"/>
+      <text x="15" y="20" font-family="monospace" font-size="13" font-weight="700" fill="#58a6ff">Debezium CDC Worker (Distributed Connect)</text>
+      <text x="15" y="50" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">Converts raw WAL byte stream into structured JSON/Avro events:</text>
       
       <!-- Inner Envelope Box -->
-      <g transform="translate(15, 54)">
-        <rect width="430" height="82" rx="4" fill="#0d1117" stroke="#30363d"/>
-        <text x="12" y="20" font-family="monospace" font-size="9" fill="#7ee787">op: "c" (Create), "u" (Update), "d" (Delete)</text>
-        <text x="12" y="36" font-family="monospace" font-size="9" fill="#8b949e">before: {...} (Previous row state)</text>
-        <text x="12" y="52" font-family="monospace" font-size="9" fill="#79c0ff">after:  {...} (New row state)</text>
-        <text x="12" y="70" font-family="monospace" font-size="8.5" fill="#e3b341">Deletes emit Tombstone (key, null) to Kafka!</text>
+      <g transform="translate(15, 62)">
+        <rect width="475" height="115" rx="4" fill="#0d1117" stroke="#30363d"/>
+        <text x="12" y="24" font-family="monospace" font-size="13" fill="#7ee787">op: "c" (Create), "u" (Update), "d" (Delete)</text>
+        <text x="12" y="48" font-family="monospace" font-size="13" fill="#8b949e">before: {...} (Previous row state for diffing)</text>
+        <text x="12" y="72" font-family="monospace" font-size="13" fill="#79c0ff">after:  {...} (New row snapshot payload)</text>
+        <text x="12" y="96" font-family="monospace" font-size="13" fill="#e3b341">source: {lsn: 1849204, ts_ms: 1731304920}</text>
       </g>
+      <text x="15" y="205" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#7ee787">✓ Guaranteed at-least-once delivery; records offset per partition</text>
+      <text x="15" y="228" font-family="monospace" font-size="13" fill="#79c0ff">Publishes to topic: dbserver1.inventory.customers</text>
     </g>
   </g>
 
   <!-- Section 2: Kafka Streams & RocksDB (Right Column) -->
-  <g transform="translate(560, 100)">
-    <rect width="500" height="375" rx="8" fill="url(#cardGradK4)" stroke="#d29922" stroke-width="2"/>
-    <rect width="500" height="6" rx="3" fill="url(#streamsGrad)"/>
-    <text x="25" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#f0883e">2. Kafka Streams &amp; RocksDB State Stores</text>
-    <text x="25" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">Stream-Table Duality &amp; Embedded LSM-Tree Off-Heap Storage</text>
+  <g transform="translate(615, 105)">
+    <rect width="545" height="495" rx="8" fill="url(#cardGradK4)" stroke="#d29922" stroke-width="2"/>
+    <rect width="545" height="6" rx="3" fill="url(#streamsGrad)"/>
+    <text x="25" y="36" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#f0883e">2. Kafka Streams: Dualities &amp; RocksDB</text>
+    <text x="25" y="58" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Stream-Table Duality (KStream vs KTable) &amp; Embedded State Stores</text>
 
-    <!-- Duality Box -->
+    <!-- KStream vs KTable Box -->
     <g transform="translate(20, 75)">
-      <rect width="460" height="120" rx="6" fill="#161b22" stroke="#30363d"/>
-      <text x="15" y="20" font-family="monospace" font-size="10.5" font-weight="700" fill="#e3b341">Stream-Table Duality (KStream &amp; KTable)</text>
-      <text x="15" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">• <tspan font-family="monospace" fill="#79c0ff">KStream</tspan>: Insert-only unbounded stream of factual events.</text>
-      <text x="15" y="58" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">• <tspan font-family="monospace" fill="#3fb950">KTable</tspan>: Changelog table; key updates overwrite previous value.</text>
-      <text x="15" y="76" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">• <tspan font-family="monospace" fill="#e3b341">GlobalKTable</tspan>: Fully replicated local cache for broadcast joins.</text>
-      <text x="15" y="98" font-family="monospace" font-size="9" fill="#3fb950">Stream → Aggregate → Table | Table → Changelog → Stream</text>
+      <rect width="505" height="150" rx="6" fill="#161b22" stroke="#d29922"/>
+      <text x="15" y="26" font-family="monospace" font-size="13" font-weight="700" fill="#e3b341">Stream-Table Duality (Martin Kleppmann DDIA)</text>
+      <text x="15" y="52" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• <tspan font-family="monospace" font-weight="700" fill="#79c0ff">KStream</tspan>: Append-only stream of fact changes (Insert/Fact)</text>
+      <text x="15" y="76" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• <tspan font-family="monospace" font-weight="700" fill="#7ee787">KTable</tspan>: Current state snapshot by key (Update/Upsert)</text>
+      <text x="15" y="104" font-family="monospace" font-size="13" fill="#3fb950">A stream is changelog of a table; a table is snapshot of a stream</text>
+      <text x="15" y="130" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">Stateful transformations: .groupByKey().aggregate().windowedBy()</text>
     </g>
 
-    <!-- RocksDB & Changelog Box -->
-    <g transform="translate(20, 205)">
-      <rect width="460" height="150" rx="6" fill="#161b22" stroke="#d29922"/>
-      <text x="15" y="20" font-family="monospace" font-size="10.5" font-weight="700" fill="#e3b341">Embedded RocksDB State Store &amp; Changelog</text>
-      <text x="15" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" fill="#c9d1d9">State stored in off-heap C++ RocksDB instance (Zero JVM GC!).</text>
+    <!-- RocksDB State Store Box -->
+    <g transform="translate(20, 240)">
+      <rect width="505" height="230" rx="6" fill="#161b22" stroke="#238636"/>
+      <rect width="505" height="28" rx="4" fill="#238636" fill-opacity="0.2"/>
+      <text x="15" y="20" font-family="monospace" font-size="13" font-weight="700" fill="#3fb950">Embedded RocksDB State Store (Out-of-Heap Storage)</text>
+      <text x="15" y="52" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">Embedded C++ LSM storage engine inside JVM process:</text>
       
-      <!-- Inner Storage Engine Box -->
-      <g transform="translate(15, 48)">
-        <rect width="430" height="88" rx="4" fill="#0d1117" stroke="#30363d"/>
-        <text x="12" y="20" font-family="monospace" font-size="9" fill="#79c0ff">Mutations written to: Local RocksDB (SSTables / MemTable)</text>
-        <text x="12" y="36" font-family="monospace" font-size="9" fill="#e3b341">Backup: Async write to compacted topic: app-state-changelog</text>
-        <text x="12" y="54" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#c9d1d9">Crash Recovery: Rehydrates RocksDB from changelog topic.</text>
-        <text x="12" y="72" font-family="monospace" font-size="8.5" fill="#3fb950">num.standby.replicas = 1 (Warm standby for sub-sec failover!)</text>
+      <!-- Inner Features -->
+      <g transform="translate(15, 62)">
+        <rect width="475" height="105" rx="4" fill="#0d1117" stroke="#30363d"/>
+        <text x="12" y="24" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#7ee787">1. Off-heap storage: immune to JVM GC pauses</text>
+        <text x="12" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">2. Local SSD caching for sub-millisecond table joins</text>
+        <text x="12" y="72" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#79c0ff">3. Backed by remote compacted Kafka changelog topic</text>
+        <text x="12" y="94" font-family="monospace" font-size="13" fill="#3fb950">Crash Recovery: Fast restore from local disk + changelog</text>
       </g>
+      <text x="15" y="195" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#e3b341">num.standby.replicas = 1 (Warm standby replicas for instant failover!)</text>
     </g>
   </g>
 
   <!-- Section 3: DDIA Distributed Log vs. Message Broker (Bottom Banner) -->
-  <g transform="translate(40, 495)">
-    <rect width="1020" height="215" rx="8" fill="url(#cardGradK4)" stroke="#238636" stroke-width="2"/>
-    <rect width="1020" height="6" rx="3" fill="url(#ddiaGrad)"/>
-    <text x="25" y="30" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#3fb950">3. DDIA Foundations: Distributed Commit Log (Kafka) vs. Message Broker (RabbitMQ)</text>
-    <text x="25" y="50" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" fill="#8b949e">First-Principles Paradigm Comparison from Martin Kleppmann's Designing Data-Intensive Applications</text>
+  <g transform="translate(40, 620)">
+    <rect width="1120" height="255" rx="8" fill="url(#cardGradK4)" stroke="#238636" stroke-width="2"/>
+    <rect width="1120" height="6" rx="3" fill="url(#ddiaGrad)"/>
+    <text x="25" y="36" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#3fb950">3. DDIA Foundations: Distributed Commit Log (Kafka) vs. Message Broker (RabbitMQ)</text>
+    <text x="25" y="58" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">First-principles architectural comparison from Martin Kleppmann's Designing Data-Intensive Applications</text>
 
-    <g transform="translate(25, 68)">
+    <g transform="translate(20, 72)">
       <!-- Metric 1: Consumption Mechanics -->
       <g transform="translate(0, 0)">
-        <rect width="310" height="125" rx="6" fill="#161b22" stroke="#30363d"/>
-        <text x="15" y="20" font-family="monospace" font-size="11" font-weight="700" fill="#58a6ff">Consumption Semantics</text>
-        <text x="15" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#f85149">RabbitMQ: Destructive</text>
-        <text x="25" y="58" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#8b949e">• Ack removes message from queue</text>
-        <text x="25" y="72" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#8b949e">• Impossible to replay historical data</text>
-        <text x="15" y="94" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#3fb950">Kafka: Immutable Retention</text>
-        <text x="25" y="110" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#8b949e">• Consumers move independent offsets</text>
-        <text x="25" y="124" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#8b949e">• Replay from offset 0 anytime!</text>
+        <rect width="345" height="165" rx="6" fill="#161b22" stroke="#30363d"/>
+        <text x="15" y="24" font-family="monospace" font-size="14" font-weight="700" fill="#58a6ff">Consumption Semantics</text>
+        <text x="15" y="50" font-family="monospace" font-size="13" fill="#f85149">RabbitMQ: Destructive Read</text>
+        <text x="15" y="72" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">• Ack deletes message immediately</text>
+        <text x="15" y="94" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">• Cannot replay historical stream</text>
+        <text x="15" y="122" font-family="monospace" font-size="13" fill="#3fb950">Kafka: Immutable Retention</text>
+        <text x="15" y="146" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#7ee787">• Independent consumer offsets; replay anytime!</text>
       </g>
 
       <!-- Metric 2: Concurrency & Order -->
-      <g transform="translate(345, 0)">
-        <rect width="310" height="125" rx="6" fill="#161b22" stroke="#30363d"/>
-        <text x="15" y="20" font-family="monospace" font-size="11" font-weight="700" fill="#e3b341">Ordering &amp; Scaling</text>
-        <text x="15" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#f85149">RabbitMQ: Competing Consumers</text>
-        <text x="25" y="58" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#8b949e">• Multiple workers pull from 1 queue</text>
-        <text x="25" y="72" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#f85149">• Message processing order is LOST!</text>
-        <text x="15" y="94" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#3fb950">Kafka: Partitioned Order</text>
-        <text x="25" y="110" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#8b949e">• Strict total order per partition</text>
-        <text x="25" y="124" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#3fb950">• Scales out horizontally per partition</text>
+      <g transform="translate(365, 0)">
+        <rect width="350" height="165" rx="6" fill="#161b22" stroke="#d29922"/>
+        <text x="15" y="24" font-family="monospace" font-size="14" font-weight="700" fill="#e3b341">Ordering &amp; Concurrency</text>
+        <text x="15" y="50" font-family="monospace" font-size="13" fill="#f85149">RabbitMQ: Competing Consumers</text>
+        <text x="15" y="72" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">• Workers pull from same queue in parallel</text>
+        <text x="15" y="94" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#f85149">• Strict chronological order is LOST!</text>
+        <text x="15" y="122" font-family="monospace" font-size="13" fill="#3fb950">Kafka: Partitioned Total Order</text>
+        <text x="15" y="146" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#7ee787">• 1 Consumer per partition = strict total order</text>
       </g>
 
       <!-- Metric 3: Architecture Model -->
-      <g transform="translate(685, 0)">
-        <rect width="310" height="125" rx="6" fill="#161b22" stroke="#30363d"/>
-        <text x="15" y="20" font-family="monospace" font-size="11" font-weight="700" fill="#3fb950">Kappa vs. Lambda</text>
-        <text x="15" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#8b949e">Lambda: Dual Codebase</text>
-        <text x="25" y="58" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#8b949e">• Batch (Hadoop/Spark) + Speed (Storm)</text>
-        <text x="25" y="72" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#8b949e">• High maintenance synchronization</text>
-        <text x="15" y="94" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10.5" fill="#3fb950">Kappa: Single Stream Engine</text>
-        <text x="25" y="110" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#8b949e">• Everything is an event stream</text>
-        <text x="25" y="124" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="9.5" fill="#3fb950">• Batch = streaming historical log!</text>
+      <g transform="translate(735, 0)">
+        <rect width="345" height="165" rx="6" fill="#161b22" stroke="#238636"/>
+        <text x="15" y="24" font-family="monospace" font-size="14" font-weight="700" fill="#3fb950">Kappa vs. Lambda</text>
+        <text x="15" y="50" font-family="monospace" font-size="13" fill="#8b949e">Lambda: Dual Batch + Speed</text>
+        <text x="15" y="72" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">• Batch (Hadoop/Spark) + Speed (Flink)</text>
+        <text x="15" y="94" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">• High maintenance duplicate business logic</text>
+        <text x="15" y="122" font-family="monospace" font-size="13" fill="#3fb950">Kappa: Single Event Stream Engine</text>
+        <text x="15" y="146" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#7ee787">• Everything is a stream; batch = replay log</text>
       </g>
     </g>
   </g>

@@ -8,7 +8,7 @@ Spring Boot's widespread adoption is fueled by its opinionated "convention over 
 
 Auto-configuration is not magic; it is a deterministic conditional scanning and configuration engine:
 
-![Spring Boot 3 Auto-Configuration and AOT Engine](images/spring_boot_3_autoconfiguration_engine.svg)
+[![Spring Boot 3 Auto-Configuration and AOT Engine](images/spring_boot_3_autoconfiguration_engine.svg)](images/spring_boot_3_autoconfiguration_engine.svg)
 
 ### The Invocation Chain
 1. Application entry point is annotated with `@SpringBootApplication`, which is a meta-annotation composed of:

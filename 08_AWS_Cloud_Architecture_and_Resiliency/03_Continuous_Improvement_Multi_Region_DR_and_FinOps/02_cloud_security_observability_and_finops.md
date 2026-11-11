@@ -12,7 +12,7 @@ This playbook covers:
 
 ## Architecture Blueprint: Cryptography, Security & FinOps Engine
 
-![Disaster Recovery Security and FinOps](images/aws_disaster_recovery_security_and_finops.svg)
+[![Disaster Recovery Security and FinOps](images/aws_disaster_recovery_security_and_finops.svg)](images/aws_disaster_recovery_security_and_finops.svg)
 
 ```
 ========================================================================================================================

@@ -1,126 +1,152 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="100%" height="100%">
   <defs>
     <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0f172a"/>
-      <stop offset="100%" stop-color="#1e293b"/>
+      <stop offset="0%" stop-color="#0d1117" />
+      <stop offset="100%" stop-color="#161b22" />
     </linearGradient>
-    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
-      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.4"/>
-    </filter>
-    <marker id="arrowBlue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#21262d" />
+      <stop offset="100%" stop-color="#161b22" />
+    </linearGradient>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#58a6ff"/>
     </marker>
-    <marker id="arrowGreen" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 10 5 L 0 9 z" fill="#34d399"/>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#3fb950"/>
     </marker>
-    <marker id="arrowRed" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f87171"/>
+    <marker id="arrowRed" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f85149"/>
     </marker>
   </defs>
 
   <!-- Background -->
-  <rect width="1000" height="560" fill="url(#bgGrad)" rx="10"/>
+  <rect width="1200" height="900" fill="url(#bgGrad)" rx="12" stroke="#30363d" stroke-width="2"/>
 
   <!-- Title & Subtitle -->
-  <text x="500" y="38" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="700" fill="#f8fafc">ConcurrentHashMap Evolution: Java 7 Segments vs Java 8+ Per-Bin Locking</text>
-  <text x="500" y="62" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#94a3b8">Lock-Free CAS Reads &amp; Inserts + Fine-Grained Synchronized Bin Heads + Striped CounterCell Size</text>
+  <text x="50" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="700" fill="#f0f6fc">ConcurrentHashMap Evolution: Java 7 Segments vs. Java 8+ Per-Bin Locking</text>
+  <text x="50" y="78" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" fill="#8b949e">Lock-Free CAS Reads &amp; Inserts • Fine-Grained Synchronized Bin Heads • Striped CounterCell Sizing</text>
 
-  <!-- Left: Java 7 Architecture (Coarse Striping) -->
-  <g transform="translate(35, 85)">
-    <rect x="0" y="0" width="270" height="450" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
-    <text x="135" y="30" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="15" font-weight="700" fill="#94a3b8">Java 7: Segment Striping</text>
-    <text x="135" y="48" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="11" fill="#64748b">Segment[] extends ReentrantLock</text>
+  <!-- LEFT PANEL: Java 7 Architecture (Coarse Striping) -->
+  <g transform="translate(50, 110)">
+    <rect width="410" height="750" rx="10" fill="url(#cardGrad)" stroke="#da3633" stroke-width="2"/>
+    <rect width="410" height="6" rx="3" fill="#da3633"/>
+    
+    <text x="25" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#f85149">Java 7: Segment Striping</text>
+    <text x="25" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" fill="#8b949e">Segment&lt;K,V&gt;[] extends ReentrantLock</text>
 
     <!-- Segment 0 -->
-    <rect x="20" y="70" width="230" height="75" rx="6" fill="#0f172a" stroke="#475569"/>
-    <text x="35" y="93" font-family="monospace" font-size="12" font-weight="700" fill="#cbd5e1">Segment[0] (Lock)</text>
-    <rect x="35" y="105" width="200" height="28" rx="4" fill="#1e293b" stroke="#334155"/>
-    <text x="45" y="123" font-family="monospace" font-size="10" fill="#94a3b8">HashEntry[] (Table 0..n)</text>
+    <rect x="25" y="85" width="360" height="110" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="40" y="115" font-family="monospace" font-size="14" font-weight="700" fill="#79c0ff">Segment[0] (ReentrantLock)</text>
+    <rect x="40" y="130" width="330" height="48" rx="4" fill="#0d1117" stroke="#30363d"/>
+    <text x="55" y="160" font-family="monospace" font-size="13" fill="#8b949e">HashEntry&lt;K,V&gt;[] (Table 0..n)</text>
 
-    <!-- Segment 1 -->
-    <rect x="20" y="160" width="230" height="75" rx="6" fill="#0f172a" stroke="#ef4444" stroke-width="1.5"/>
-    <text x="35" y="183" font-family="monospace" font-size="12" font-weight="700" fill="#f87171">Segment[1] (LOCKED 🔒)</text>
-    <rect x="35" y="195" width="200" height="28" rx="4" fill="#7f1d1d" stroke="#ef4444"/>
-    <text x="45" y="213" font-family="monospace" font-size="10" fill="#fca5a5">All keys in this segment blocked</text>
+    <!-- Segment 1 (Locked) -->
+    <rect x="25" y="215" width="360" height="120" rx="6" fill="#161b22" stroke="#da3633" stroke-width="2"/>
+    <text x="40" y="245" font-family="monospace" font-size="14" font-weight="700" fill="#f85149">Segment[1] (LOCKED 🔒)</text>
+    <rect x="40" y="260" width="330" height="58" rx="4" fill="#3c1e1e" stroke="#da3633"/>
+    <text x="55" y="285" font-family="monospace" font-size="13" font-weight="700" fill="#ff7b72">All keys in Segment 1 BLOCKED</text>
+    <text x="55" y="305" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#ffa198">Threads waiting for Segment 1 lock stall</text>
 
     <!-- Segment 15 -->
-    <rect x="20" y="250" width="230" height="75" rx="6" fill="#0f172a" stroke="#475569"/>
-    <text x="35" y="273" font-family="monospace" font-size="12" font-weight="700" fill="#cbd5e1">Segment[15] (Lock)</text>
-    <rect x="35" y="285" width="200" height="28" rx="4" fill="#1e293b" stroke="#334155"/>
-    <text x="45" y="303" font-family="monospace" font-size="10" fill="#94a3b8">HashEntry[] (Table 0..n)</text>
+    <rect x="25" y="355" width="360" height="110" rx="6" fill="#161b22" stroke="#30363d"/>
+    <text x="40" y="385" font-family="monospace" font-size="14" font-weight="700" fill="#79c0ff">Segment[15] (ReentrantLock)</text>
+    <rect x="40" y="400" width="330" height="48" rx="4" fill="#0d1117" stroke="#30363d"/>
+    <text x="55" y="430" font-family="monospace" font-size="13" fill="#8b949e">HashEntry&lt;K,V&gt;[] (Table 0..n)</text>
 
-    <text x="25" y="360" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" fill="#f87171">⚠️ Inefficiencies:</text>
-    <text x="25" y="380" font-family="-apple-system, sans-serif" font-size="10.5" fill="#94a3b8">• Concurrency limited to 16 by default</text>
-    <text x="25" y="400" font-family="-apple-system, sans-serif" font-size="10.5" fill="#94a3b8">• Heavy memory footprint per Segment</text>
-    <text x="25" y="420" font-family="-apple-system, sans-serif" font-size="10.5" fill="#94a3b8">• ReentrantLock instance overhead</text>
+    <!-- Bottlenecks Callout -->
+    <rect x="25" y="485" width="360" height="240" rx="8" fill="#161b22" stroke="#da3633"/>
+    <text x="40" y="515" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#f85149">⚠️ Architectural Inefficiencies</text>
+    
+    <text x="40" y="545" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" font-weight="600" fill="#e6edf3">• Fixed Concurrency Level:</text>
+    <text x="55" y="567" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Default 16 segments. Max 16 concurrent writers regardless of core count.</text>
+
+    <text x="40" y="602" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" font-weight="600" fill="#e6edf3">• Heavy Memory Footprint:</text>
+    <text x="55" y="624" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">16 Segment instances + Sync objects created even for tiny maps.</text>
+
+    <text x="40" y="659" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" font-weight="600" fill="#e6edf3">• Global Lock Contention:</text>
+    <text x="55" y="681" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">size() and isEmpty() acquire locks across ALL segments consecutively.</text>
   </g>
 
-  <!-- Right: Java 8+ Architecture (Lock-Free + Bin Locking) -->
-  <g transform="translate(330, 85)">
-    <rect x="0" y="0" width="635" height="450" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5" filter="url(#shadow)"/>
-    <text x="317" y="30" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="16" font-weight="700" fill="#60a5fa">Java 8+: CAS + Per-Bin synchronized Lock + CounterCell</text>
-    <text x="317" y="48" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="11" fill="#93c5fd">Zero Lock overhead for reads; Writes lock only the single target bucket head</text>
+  <!-- RIGHT PANEL: Java 8+ Architecture (CAS + Fine-Grained Locking) -->
+  <g transform="translate(490, 110)">
+    <rect width="660" height="750" rx="10" fill="url(#cardGrad)" stroke="#1f6feb" stroke-width="2"/>
+    <rect width="660" height="6" rx="3" fill="#1f6feb"/>
+
+    <text x="30" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#58a6ff">Java 8+: CAS + Per-Bin synchronized Lock + CounterCell</text>
+    <text x="30" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" fill="#8b949e">Zero lock overhead for reads; writes lock only the single target bucket head</text>
 
     <!-- Table Array -->
-    <g transform="translate(25, 70)">
-      <rect x="0" y="0" width="165" height="240" rx="6" fill="#0f172a" stroke="#334155"/>
-      <text x="82" y="25" text-anchor="middle" font-family="monospace" font-size="12" font-weight="700" fill="#38bdf8">Node&lt;K,V&gt;[] table</text>
+    <g transform="translate(30, 85)">
+      <rect width="210" height="390" rx="8" fill="#161b22" stroke="#30363d"/>
+      <text x="105" y="32" text-anchor="middle" font-family="monospace" font-size="14" font-weight="700" fill="#79c0ff">Node&lt;K,V&gt;[] table</text>
 
       <!-- Bin 0: Empty CAS -->
-      <rect x="15" y="40" width="135" height="32" rx="4" fill="#064e3b" stroke="#34d399"/>
-      <text x="25" y="60" font-family="monospace" font-size="11" fill="#a7f3d0">[0] Empty (null)</text>
+      <rect x="15" y="50" width="180" height="65" rx="6" fill="#122c1d" stroke="#238636" stroke-width="1.5"/>
+      <text x="25" y="78" font-family="monospace" font-size="13" font-weight="700" fill="#3fb950">[0] Empty (null)</text>
+      <text x="25" y="100" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#7ee787">Lock-Free CAS Insert</text>
 
       <!-- Bin 1: Populated, locked -->
-      <rect x="15" y="85" width="135" height="32" rx="4" fill="#7f1d1d" stroke="#ef4444"/>
-      <text x="25" y="105" font-family="monospace" font-size="11" font-weight="700" fill="#fca5a5">[1] Head Node 🔒</text>
+      <rect x="15" y="130" width="180" height="75" rx="6" fill="#3c1e1e" stroke="#da3633" stroke-width="1.5"/>
+      <text x="25" y="158" font-family="monospace" font-size="13" font-weight="700" fill="#f85149">[1] Head Node 🔒</text>
+      <text x="25" y="178" font-family="monospace" font-size="12" fill="#ff7b72">synchronized(head)</text>
+      <text x="25" y="196" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11.5" fill="#ffa198">Only Bin 1 is locked!</text>
 
       <!-- Bin 2: Populated, unlocked -->
-      <rect x="15" y="130" width="135" height="32" rx="4" fill="#1e293b" stroke="#60a5fa"/>
-      <text x="25" y="150" font-family="monospace" font-size="11" fill="#93c5fd">[2] Head Node 🔓</text>
+      <rect x="15" y="220" width="180" height="65" rx="6" fill="#161b22" stroke="#58a6ff"/>
+      <text x="25" y="248" font-family="monospace" font-size="13" font-weight="700" fill="#58a6ff">[2] Head Node 🔓</text>
+      <text x="25" y="270" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#79c0ff">100% Unlocked for Read/Write</text>
 
       <!-- Bin 3: ForwardingNode -->
-      <rect x="15" y="175" width="135" height="32" rx="4" fill="#451a03" stroke="#f59e0b"/>
-      <text x="25" y="195" font-family="monospace" font-size="10" fill="#fcd34d">[3] ForwardingNode</text>
+      <rect x="15" y="300" width="180" height="70" rx="6" fill="#2d2206" stroke="#d29922"/>
+      <text x="25" y="328" font-family="monospace" font-size="13" font-weight="700" fill="#e3b341">[3] ForwardingNode</text>
+      <text x="25" y="352" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11.5" fill="#d29922">Concurrent resize (helpTransfer)</text>
     </g>
 
-    <!-- Scenario Callouts (Widened to 380px) -->
-    <!-- Case 1: Empty Bin Insert -->
-    <g transform="translate(225, 100)">
-      <rect x="0" y="0" width="385" height="50" rx="4" fill="#0f172a" stroke="#34d399" stroke-width="1"/>
-      <text x="15" y="20" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" fill="#34d399">1. Empty Bucket Insertion: Lock-Free CAS</text>
-      <text x="15" y="38" font-family="monospace" font-size="9.5" fill="#cbd5e1">casTabAt(tab, i, null, new Node(hash, key, val))</text>
-      <path d="M -25 15 L 0 15" fill="none" stroke="#34d399" stroke-width="1.5" marker-end="url(#arrowGreen)"/>
+    <!-- Scenarios Right Sub-Panel -->
+    <g transform="translate(260, 85)">
+      <!-- Case 1: Empty Bin Insert -->
+      <rect width="370" height="115" rx="8" fill="#161b22" stroke="#238636" stroke-width="1.5"/>
+      <text x="18" y="28" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#3fb950">1. Empty Bucket: Lock-Free CAS</text>
+      <text x="18" y="55" font-family="monospace" font-size="13" fill="#7ee787">casTabAt(tab, i, null, node)</text>
+      <text x="18" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Inserts head node via atomic hardware CAS.</text>
+      <text x="18" y="100" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Zero lock acquisition or thread descheduling.</text>
+      <line x1="-20" y1="58" x2="0" y2="58" stroke="#3fb950" stroke-width="2" marker-end="url(#arrowGreen)"/>
+
+      <!-- Case 2: Populated Bin Collision -->
+      <g transform="translate(0, 130)">
+        <rect width="370" height="125" rx="8" fill="#161b22" stroke="#da3633" stroke-width="1.5"/>
+        <text x="18" y="28" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#f85149">2. Collision: synchronized(firstNode)</text>
+        <text x="18" y="55" font-family="monospace" font-size="13" fill="#ff7b72">synchronized(node) { ... }</text>
+        <text x="18" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Synchronizes strictly on the bucket head node.</text>
+        <text x="18" y="100" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#c9d1d9">Bins 0, 2, 3..n remain 100% concurrently accessible!</text>
+        <line x1="-20" y1="62" x2="0" y2="62" stroke="#f85149" stroke-width="2" marker-end="url(#arrowRed)"/>
+      </g>
+
+      <!-- Case 3: Concurrent Reads -->
+      <g transform="translate(0, 270)">
+        <rect width="370" height="115" rx="8" fill="#161b22" stroke="#1f6feb" stroke-width="1.5"/>
+        <text x="18" y="28" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#58a6ff">3. Concurrent Reads: 100% Lock-Free</text>
+        <text x="18" y="55" font-family="monospace" font-size="13" fill="#79c0ff">volatile V val; volatile Node next;</text>
+        <text x="18" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Memory visibility guaranteed by volatile reads.</text>
+        <text x="18" y="100" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Never blocked by concurrent writes or tree traversals.</text>
+        <line x1="-20" y1="58" x2="0" y2="58" stroke="#58a6ff" stroke-width="2" marker-end="url(#arrowBlue)"/>
+      </g>
     </g>
 
-    <!-- Case 2: Populated Bin Write -->
-    <g transform="translate(225, 160)">
-      <rect x="0" y="0" width="385" height="55" rx="4" fill="#0f172a" stroke="#ef4444" stroke-width="1"/>
-      <text x="15" y="20" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" fill="#f87171">2. Collision / Existing Bin: synchronized(firstNode)</text>
-      <text x="15" y="38" font-family="-apple-system, sans-serif" font-size="10" fill="#cbd5e1">Locks ONLY Bin [1]. Bin [0], [2], [3]... remain 100% unlocked!</text>
-      <path d="M -25 15 L 0 15" fill="none" stroke="#ef4444" stroke-width="1.5" marker-end="url(#arrowRed)"/>
-    </g>
+    <!-- Bottom Striped CounterCell Box -->
+    <g transform="translate(30, 495)">
+      <rect width="600" height="230" rx="8" fill="#161b22" stroke="#8957e5" stroke-width="1.5"/>
+      <text x="25" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#d2a8ff">📊 High-Throughput Concurrent Sizing: CounterCell[] (LongAdder Principle)</text>
+      
+      <text x="25" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" fill="#e6edf3">Instead of bottlenecking all threads on a single shared AtomicLong variable,</text>
+      <text x="25" y="84" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" fill="#8b949e">ConcurrentHashMap maintains a base count and a dynamic array of striped CounterCells.</text>
 
-    <!-- Case 3: Concurrent Reads -->
-    <g transform="translate(225, 225)">
-      <rect x="0" y="0" width="385" height="50" rx="4" fill="#0f172a" stroke="#38bdf8" stroke-width="1"/>
-      <text x="15" y="20" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" fill="#38bdf8">3. Concurrent Reads (get()): 100% Lock-Free</text>
-      <text x="15" y="38" font-family="monospace" font-size="9.5" fill="#cbd5e1">volatile V val; volatile Node&lt;K,V&gt; next;</text>
-      <path d="M -25 15 L 0 15" fill="none" stroke="#38bdf8" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
-    </g>
+      <rect x="25" y="102" width="550" height="42" rx="6" fill="#0d1117" stroke="#30363d"/>
+      <text x="40" y="128" font-family="monospace" font-size="13.5" font-weight="700" fill="#58a6ff">size() = baseCount + ∑ CounterCell[i].value</text>
 
-    <!-- Striped CounterCell Box (Wrapped lines) -->
-    <g transform="translate(25, 325)">
-      <rect x="0" y="0" width="585" height="100" rx="6" fill="#0f172a" stroke="#a855f7" stroke-width="1.5"/>
-      <text x="20" y="22" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#c084fc">📊 Striped High-Throughput Sizing: CounterCell[] (LongAdder Principle)</text>
-      <text x="20" y="42" font-family="-apple-system, sans-serif" font-size="10.5" fill="#cbd5e1">
-        Instead of a single bottleneck AtomicLong for map.size(),
-      </text>
-      <text x="20" y="58" font-family="-apple-system, sans-serif" font-size="10.5" fill="#cbd5e1">
-        concurrent threads update separate striped CounterCells via CAS.
-      </text>
-      <text x="20" y="82" font-family="monospace" font-size="9.5" fill="#38bdf8">
-        sum() = baseCount + sum(CounterCell[i].value)  (Zero cache-line bouncing!)
-      </text>
+      <text x="25" y="170" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#c9d1d9">• Thread hash indexes into thread-specific CounterCell via CAS to increment.</text>
+      <text x="25" y="192" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#c9d1d9">• @jdk.internal.vm.annotation.Contended prevents CPU L1/L2 cache line bouncing.</text>
+      <text x="25" y="214" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#7ee787">✓ Delivers millions of concurrent increments/sec with zero thread contention!</text>
     </g>
   </g>
 </svg>

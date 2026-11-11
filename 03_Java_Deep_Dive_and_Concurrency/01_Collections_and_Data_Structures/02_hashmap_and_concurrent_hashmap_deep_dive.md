@@ -6,7 +6,7 @@ The internal mechanics of `HashMap` and `ConcurrentHashMap` are among the most f
 
 ## 1. HashMap Architecture & Bitwise Mechanics
 
-![HashMap Treeification Architecture](images/hashmap_treeification_architecture.svg)
+[![HashMap Treeification Architecture](images/hashmap_treeification_architecture.svg)](images/hashmap_treeification_architecture.svg)
 
 A `HashMap` stores key-value pairs in an internal array of nodes: `transient Node<K,V>[] table`.
 
@@ -105,7 +105,7 @@ Elements in a bucket partition cleanly into two sub-lists: **Low-List** (retaine
 
 ## 4. ConcurrentHashMap in Java 8+: Lock-Free & Per-Bin Locking
 
-![ConcurrentHashMap Java 8+ Architecture](images/concurrent_hashmap_java8_locking.svg)
+[![ConcurrentHashMap Java 8+ Architecture](images/concurrent_hashmap_java8_locking.svg)](images/concurrent_hashmap_java8_locking.svg)
 
 Java 7 used **Segment Striping** (`Segment<K,V>[] extends ReentrantLock`), locking 1 of 16 segments. Concurrency was capped at 16 by default.
 
