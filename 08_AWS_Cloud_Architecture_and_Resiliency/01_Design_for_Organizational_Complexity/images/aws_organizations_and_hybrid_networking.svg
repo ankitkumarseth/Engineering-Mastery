@@ -20,9 +20,6 @@
       <stop offset="0%" stop-color="#8957e5" />
       <stop offset="100%" stop-color="#a371f7" />
     </linearGradient>
-    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
-      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#010409" flood-opacity="0.8"/>
-    </filter>
   </defs>
 
   <!-- Background Canvas -->
@@ -35,7 +32,7 @@
   </g>
 
   <!-- SECTION 1: AWS Organizations & Identity Governance (Left Column) -->
-  <g transform="translate(40, 105)" filter="url(#shadow)">
+  <g transform="translate(40, 105)">
     <rect width="545" height="475" rx="10" fill="url(#cardGradAws1)" stroke="#ff9900" stroke-width="2"/>
     <rect width="545" height="6" rx="3" fill="url(#orgGrad)"/>
     <text x="24" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#ffb84d">1. Organizations, SCP Inheritance &amp; Identity</text>
@@ -71,7 +68,7 @@
   </g>
 
   <!-- SECTION 2: Hybrid Connectivity & Route 53 Resolver (Right Column) -->
-  <g transform="translate(615, 105)" filter="url(#shadow)">
+  <g transform="translate(615, 105)">
     <rect width="545" height="475" rx="10" fill="url(#cardGradAws1)" stroke="#1f6feb" stroke-width="2"/>
     <rect width="545" height="6" rx="3" fill="url(#netGrad)"/>
     <text x="24" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#58a6ff">2. Hybrid Direct Connect &amp; Route 53 DNS</text>
@@ -111,7 +108,7 @@
   </g>
 
   <!-- SECTION 3: Transit Gateway & Centralized Inspection VPC (Bottom Row) -->
-  <g transform="translate(40, 605)" filter="url(#shadow)">
+  <g transform="translate(40, 605)">
     <rect width="1120" height="260" rx="10" fill="url(#cardGradAws1)" stroke="#8957e5" stroke-width="2"/>
     <rect width="1120" height="6" rx="3" fill="url(#tgwGrad)"/>
     <text x="24" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#a371f7">3. Transit Gateway (TGW) Hub-and-Spoke &amp; Centralized Inspection VPC</text>

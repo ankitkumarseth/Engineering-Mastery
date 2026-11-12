@@ -26,9 +26,6 @@
     <marker id="arrowGreenR" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
       <path d="M 0 1 L 10 5 L 0 9 z" fill="#3fb950" />
     </marker>
-    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
-      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#010409" flood-opacity="0.8"/>
-    </filter>
   </defs>
 
   <!-- Background -->
@@ -41,7 +38,7 @@
   </g>
 
   <!-- SECTION 1: Caching Patterns & Failure Mode Defense (Left Column) -->
-  <g transform="translate(40, 105)" filter="url(#shadow)">
+  <g transform="translate(40, 105)">
     <rect width="545" height="475" rx="10" fill="url(#cardGradRed)" stroke="#da3633" stroke-width="2"/>
     <rect width="545" height="6" rx="3" fill="url(#redGradR)"/>
     <text x="24" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#f85149">1. Cache Failure Modes &amp; Resilient Defenses</text>
@@ -71,14 +68,14 @@
         <rect width="505" height="120" rx="6" fill="#0d1117" stroke="#1f6feb" stroke-width="1.5"/>
         <text x="16" y="24" font-family="monospace" font-size="14" font-weight="700" fill="#58a6ff">C. Cache Penetration (Non-Existent Keys Target DB)</text>
         <text x="16" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Malicious / missing IDs bypass cache and hammer database.</text>
-        <text x="16" y="72" font-family="monospace" font-size="13" fill="#3fb950">✓ Defense 1: In-Memory Bloom Filter (Rejects missing keys in RAM)</text>
+        <text x="16" y="72" font-family="monospace" font-size="12" fill="#3fb950">✓ Defense 1: Bloom Filter (Rejects missing keys in RAM)</text>
         <text x="16" y="96" font-family="monospace" font-size="13" fill="#7ee787">✓ Defense 2: Cache NULL Values with short TTL (e.g. 60s)</text>
       </g>
     </g>
   </g>
 
   <!-- SECTION 2: Redis Single-Threaded Reactor (Right Column) -->
-  <g transform="translate(615, 105)" filter="url(#shadow)">
+  <g transform="translate(615, 105)">
     <rect width="545" height="475" rx="10" fill="url(#cardGradRed)" stroke="#1f6feb" stroke-width="2"/>
     <rect width="545" height="6" rx="3" fill="url(#blueGradR)"/>
     <text x="24" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#58a6ff">2. Redis Engine: Epoll Event Loop &amp; In-Memory Physics</text>
@@ -151,7 +148,7 @@
   </g>
 
   <!-- SECTION 3: Redis Cluster & Hash Slots (Bottom Row) -->
-  <g transform="translate(40, 605)" filter="url(#shadow)">
+  <g transform="translate(40, 605)">
     <rect width="1120" height="260" rx="10" fill="url(#cardGradRed)" stroke="#d29922" stroke-width="2"/>
     <rect width="1120" height="6" rx="3" fill="url(#goldGradR)"/>
     <text x="24" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#e3b341">3. Redis Cluster: 16,384 Hash Slot Sharding &amp; Gossip Protocol</text>

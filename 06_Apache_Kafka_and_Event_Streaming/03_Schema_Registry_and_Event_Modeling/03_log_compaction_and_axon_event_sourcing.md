@@ -2,7 +2,7 @@
 
 ## 1. Architectural Foundations: Event Sourcing & Log Compaction
 
-In Tier-0 mission-critical financial systems (such as payment processing and card issuing at Mastercard scale), traditional CRUD architectures are rejected in favor of **Event Sourcing (ES)** and **Command Query Responsibility Segregation (CQRS)**.
+In Tier-0 mission-critical financial systems (such as high-volume payment processing and global card issuing), traditional CRUD architectures are rejected in favor of **Event Sourcing (ES)** and **Command Query Responsibility Segregation (CQRS)**.
 
 Instead of mutating table rows in place with SQL `UPDATE` statements—which destroys historical context and creates database write contention—every state change is recorded as an **immutable domain event** appended to an authoritative distributed log.
 
@@ -91,7 +91,7 @@ Axon DomainEventMessage<T>
 | Topic:        card-events-v1                                                  |
 | Key:          "card_98124" (Aggregate ID -> Guarantees Partition Pinning!)   |
 | Headers:      axon-message-id:            "urn:uuid:8b34f..."                 |
-|               axon-message-type:          "com.mastercard.events.CardCreated" |
+|               axon-message-type:          "com.enterprise.events.CardCreated" |
 |               axon-message-aggregate-id:  "card_98124"                       |
 |               axon-message-aggregate-seq: 42 (Aggregate Version)              |
 |               axon-message-timestamp:     1735689600000                       |
@@ -377,12 +377,12 @@ public class AxonKafkaAvroEventSourcingPOC {
 
 ## 7. Staff / Principal Interview Strategy
 
-### 7.1 The Mastercard Tier-0 Architecture Narrative
+### 7.1 Tier-0 Financial Systems Architecture Narrative
 When an interviewer asks: *"Describe a complex event-driven architecture you engineered that demanded strict consistency, high throughput, and zero data loss."*
 
 #### The Battle-Tested STAR Story Framework:
 - **Situation**:
-  - *"At Mastercard, we processed high-throughput financial transactions across millions of card accounts. Our core requirement was sub-50ms authorization response times, strict event-sourced auditability for compliance, and decoupled read projections for real-time fraud scoring and mobile apps."*
+  - *"In our Tier-0 payment infrastructure, we processed high-throughput financial transactions across millions of card accounts. Our core requirement was sub-50ms authorization response times, strict event-sourced auditability for compliance, and decoupled read projections for real-time fraud scoring and mobile apps."*
 - **Task**:
   - *"We needed to eliminate monolithic database write locks, guarantee that no two transactions could overdraw an account concurrently, and prevent breaking downstream consumers as schemas evolved."*
 - **Action**:

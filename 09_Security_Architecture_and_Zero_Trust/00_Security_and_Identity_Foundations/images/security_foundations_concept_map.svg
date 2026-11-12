@@ -18,9 +18,6 @@
       <stop offset="0%" stop-color="#d29922" stop-opacity="0.3"/>
       <stop offset="100%" stop-color="#161b22" stop-opacity="0.9"/>
     </linearGradient>
-    <filter id="cardShadow" x="-5%" y="-5%" width="110%" height="110%">
-      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#010409" flood-opacity="0.8"/>
-    </filter>
     <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
       <path d="M 0 1 L 8 5 L 0 9 z" fill="#8b949e"/>
     </marker>
@@ -44,7 +41,7 @@
 
   <!-- TOP 4 PILLARS -->
   <!-- Pillar 1: Authentication (AuthN) -->
-  <g transform="translate(40, 95)" filter="url(#cardShadow)">
+  <g transform="translate(40, 95)">
     <rect width="265" height="260" rx="10" fill="url(#blueGrad)" stroke="#58a6ff" stroke-width="1.5"/>
     <rect x="0" y="0" width="265" height="42" rx="10" fill="#1f6feb" fill-opacity="0.25"/>
     <text x="16" y="27" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#58a6ff">1. Authentication (AuthN)</text>
@@ -65,7 +62,7 @@
   </g>
 
   <!-- Pillar 2: Authorization (AuthZ) -->
-  <g transform="translate(325, 95)" filter="url(#cardShadow)">
+  <g transform="translate(325, 95)">
     <rect width="265" height="260" rx="10" fill="url(#greenGrad)" stroke="#3fb950" stroke-width="1.5"/>
     <rect x="0" y="0" width="265" height="42" rx="10" fill="#238636" fill-opacity="0.25"/>
     <text x="16" y="27" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#3fb950">2. Authorization (AuthZ)</text>
@@ -86,7 +83,7 @@
   </g>
 
   <!-- Pillar 3: Transport & Network Security -->
-  <g transform="translate(610, 95)" filter="url(#cardShadow)">
+  <g transform="translate(610, 95)">
     <rect width="265" height="260" rx="10" fill="url(#purpleGrad)" stroke="#bc8cff" stroke-width="1.5"/>
     <rect x="0" y="0" width="265" height="42" rx="10" fill="#8957e5" fill-opacity="0.25"/>
     <text x="16" y="27" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#bc8cff">3. Transport &amp; Identity (mTLS)</text>
@@ -107,7 +104,7 @@
   </g>
 
   <!-- Pillar 4: Cryptography & Zero Trust -->
-  <g transform="translate(895, 95)" filter="url(#cardShadow)">
+  <g transform="translate(895, 95)">
     <rect width="265" height="260" rx="10" fill="url(#orangeGrad)" stroke="#f0883e" stroke-width="1.5"/>
     <rect x="0" y="0" width="265" height="42" rx="10" fill="#d29922" fill-opacity="0.25"/>
     <text x="16" y="27" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#f0883e">4. Cryptography &amp; Zero Trust</text>
@@ -128,7 +125,7 @@
   </g>
 
   <!-- SECTION 2: THE END-TO-END ENTERPRISE ARCHITECTURE FLOW -->
-  <g transform="translate(40, 375)" filter="url(#cardShadow)">
+  <g transform="translate(40, 375)">
     <rect width="1120" height="280" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
     <text x="24" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#f0f6fc">Unified Enterprise Architecture Flow: How Protocols Interact in Production</text>
     <text x="24" y="54" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">End-to-end request from client login to API gateway, microservice token exchange, and persistence</text>

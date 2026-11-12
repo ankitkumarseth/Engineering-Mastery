@@ -223,8 +223,8 @@ public class StripeProcessor implements PaymentProcessor {
     public PaymentResult process(BigDecimal amount) { /* Stripe API call */ return new PaymentResult(true); }
 }
 
-public class MastercardProcessor implements PaymentProcessor {
-    public PaymentResult process(BigDecimal amount) { /* Switch ISO 8583 message */ return new PaymentResult(true); }
+public class PayPalProcessor implements PaymentProcessor {
+    public PaymentResult process(BigDecimal amount) { /* PayPal REST API call */ return new PaymentResult(true); }
 }
 
 // Creator Factory
@@ -248,7 +248,7 @@ public class ModernPaymentFactory {
 
     static {
         REGISTRY.put(PaymentProvider.STRIPE, StripeProcessor::new);
-        REGISTRY.put(PaymentProvider.MASTERCARD, MastercardProcessor::new);
+        REGISTRY.put(PaymentProvider.PAYPAL, PayPalProcessor::new);
     }
 
     public static PaymentProcessor getProcessor(PaymentProvider provider) {

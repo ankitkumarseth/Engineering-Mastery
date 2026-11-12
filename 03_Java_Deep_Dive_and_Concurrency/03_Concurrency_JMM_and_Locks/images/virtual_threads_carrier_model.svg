@@ -59,19 +59,22 @@
 
     <!-- Bottlenecks Callout Card -->
     <rect x="25" y="450" width="360" height="275" rx="8" fill="#161b22" stroke="#da3633"/>
-    <text x="40" y="480" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#f85149">⚠️ Architectural Scalability Limits</text>
+    <text x="40" y="478" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14.5" font-weight="700" fill="#f85149">⚠️ Architectural Scalability Limits</text>
     
-    <text x="40" y="512" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" font-weight="600" fill="#e6edf3">• 1MB Fixed Stack Per Thread:</text>
-    <text x="55" y="534" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">5,000 threads consume 5GB RAM solely for thread call stacks!</text>
+    <text x="40" y="504" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="600" fill="#e6edf3">• 1MB Fixed Stack Per Thread:</text>
+    <text x="55" y="524" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">5,000 threads consume 5GB RAM solely</text>
+    <text x="55" y="542" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">for thread call stack allocations.</text>
 
-    <text x="40" y="568" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" font-weight="600" fill="#e6edf3">• Expensive Context Switching:</text>
-    <text x="55" y="590" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Requires OS ring-0 privilege transitions and CPU L1/L2 cache flushes.</text>
+    <text x="40" y="566" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="600" fill="#e6edf3">• Expensive Context Switching:</text>
+    <text x="55" y="586" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">Requires OS ring-0 kernel transitions</text>
+    <text x="55" y="604" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">and CPU L1/L2 cache flushes.</text>
 
-    <text x="40" y="624" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" font-weight="600" fill="#e6edf3">• Complex Thread Pool Sizing:</text>
-    <text x="55" y="646" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Requires Little's Law, queue bounds, and reject policies.</text>
+    <text x="40" y="628" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="600" fill="#e6edf3">• Complex Thread Pool Sizing:</text>
+    <text x="55" y="648" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">Requires Little's Law tuning,</text>
+    <text x="55" y="666" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">queue bounds, and rejection policies.</text>
 
-    <text x="40" y="680" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" font-weight="600" fill="#e6edf3">• Thread-per-Request Fails:</text>
-    <text x="55" y="702" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#ff7b72">Cannot sustain 50,000+ concurrent connections.</text>
+    <text x="40" y="690" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="600" fill="#e6edf3">• Thread-per-Request Ceilings:</text>
+    <text x="55" y="710" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#ff7b72">Cannot sustain 50,000+ open sockets.</text>
   </g>
 
   <!-- RIGHT PANEL: Virtual Threads (M:N Loom Architecture) -->

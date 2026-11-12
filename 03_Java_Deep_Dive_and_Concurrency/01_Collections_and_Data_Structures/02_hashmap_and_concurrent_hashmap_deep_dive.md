@@ -17,7 +17,7 @@ By default, `HashMap` initializes with `DEFAULT_INITIAL_CAPACITY = 16` ($2^4$). 
 To map a 32-bit hash value into an array of length $N$:
 - Traditional modulo: $\text{index} = \text{hash} \pmod N$ (Extremely expensive on CPU arithmetic units, taking $\approx 10\text{–}20$ clock cycles).
 - **Bitwise Power-of-Two Masking**: When $N$ is strictly a power of two ($N = 2^k$), the modulo operation is mathematically identical to a bitwise AND with $N - 1$:
-  $$\text{hash} \pmod N \equiv \text{hash} \ \& \ (N - 1)$$
+  $$\text{hash} \pmod N \equiv \text{hash} \land (N - 1) \quad (\text{bitwise AND})$$
   A bitwise `&` executes in a **single CPU clock cycle** ($< 0.5\text{ ns}$).
 
 ```

@@ -61,7 +61,7 @@ An auto-configuration class is only activated if all its `@Conditional` guard cl
 
 ## 3. Anatomy of an Enterprise-Grade Custom Starter
 
-In large-scale organizations (such as Mastercard, Uber, or Netflix), platform teams build custom starters to standardize logging, security tokens, distributed tracing, and database multi-tenancy across hundreds of microservices.
+In large-scale organizations (such as Stripe, Uber, or Netflix), platform teams build custom starters to standardize logging, security tokens, distributed tracing, and database multi-tenancy across hundreds of microservices.
 
 ### The Clean Two-Module Architecture
 A production starter must be divided into two separate Maven/Gradle modules:

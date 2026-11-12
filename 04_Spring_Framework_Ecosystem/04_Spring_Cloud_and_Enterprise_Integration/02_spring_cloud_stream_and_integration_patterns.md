@@ -172,7 +172,7 @@ While Spring Cloud Stream handles macro-level streaming across broker boundaries
                        └───────────────────────────────────┘              │
                                      ┌────────────────────────────────────┴────────────────┐
                                      ▼                                                     ▼
-                           [ Visa High-Value Channel ]                           [ Mastercard Standard Channel ]
+                           [ Express High-Value Channel ]                        [ Standard Clearing Channel ]
                                      │                                                     │
                                      ▼                                                     ▼
                              Service Activator                                     Service Activator
@@ -196,13 +196,13 @@ public class EnterpriseIntegrationFlowConfig {
             .<PaymentPayload, EnrichedPayment>transform(payload ->
                 new EnrichedPayment(payload, UUID.randomUUID().toString()))
 
-            // 3. Router: Route based on card network
+            // 3. Router: Route based on settlement channel
             .<EnrichedPayment, String>route(EnrichedPayment::getNetwork, mapping -> mapping
-                .subFlowMapping("MASTERCARD", subflow -> subflow
-                    .handle(switchClient, "routeMastercardSwitch")
+                .subFlowMapping("EXPRESS", subflow -> subflow
+                    .handle(switchClient, "routeExpressSwitch")
                 )
-                .subFlowMapping("VISA", subflow -> subflow
-                    .handle(switchClient, "routeVisaSwitch")
+                .subFlowMapping("STANDARD", subflow -> subflow
+                    .handle(switchClient, "routeStandardSwitch")
                 )
                 .defaultOutputToParentFlow()
             )

@@ -23,9 +23,6 @@
     <marker id="arrowBlueOra" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
       <path d="M 0 1 L 10 5 L 0 9 z" fill="#58a6ff" />
     </marker>
-    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
-      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#010409" flood-opacity="0.8"/>
-    </filter>
   </defs>
 
   <!-- Background Canvas -->
@@ -38,7 +35,7 @@
   </g>
 
   <!-- SECTION 1: B-Tree Index & Clustering Factor (Left Column) -->
-  <g transform="translate(40, 105)" filter="url(#shadow)">
+  <g transform="translate(40, 105)">
     <rect width="545" height="475" rx="10" fill="url(#cardGradOra)" stroke="#1f6feb" stroke-width="2"/>
     <rect width="545" height="6" rx="3" fill="url(#blueGradOra)"/>
     <text x="24" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#58a6ff">1. B-Tree Index Hierarchy &amp; Clustering Factor</text>
@@ -101,14 +98,14 @@
       <rect width="505" height="145" rx="6" fill="#161b22" stroke="#d29922" stroke-width="1.5"/>
       <text x="16" y="24" font-family="monospace" font-size="14" font-weight="700" fill="#e3b341">Clustering Factor: The CBO Cost Crossover Point</text>
       <text x="16" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Measures how ordered table rows are relative to index leaf keys.</text>
-      <text x="16" y="72" font-family="monospace" font-size="13" fill="#3fb950">Good CF ≈ Total Table Blocks (Clustered: 1 disk read hits many rows)</text>
-      <text x="16" y="96" font-family="monospace" font-size="13" fill="#f85149">Bad CF  ≈ Total Table Rows   (Dispersed: Every index lookup forces 1 I/O!)</text>
+      <text x="16" y="72" font-family="monospace" font-size="11.5" fill="#3fb950">Good CF ≈ Total Blocks (Clustered: 1 I/O hits many rows)</text>
+      <text x="16" y="96" font-family="monospace" font-size="11.5" fill="#f85149">Bad CF  ≈ Total Rows   (Dispersed: Every lookup needs 1 I/O)</text>
       <text x="16" y="122" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#8b949e">High CF forces CBO to abandon Index Range Scan in favor of Full Table Scan.</text>
     </g>
   </g>
 
   <!-- SECTION 2: Partitioning & Pruning (Right Column) -->
-  <g transform="translate(615, 105)" filter="url(#shadow)">
+  <g transform="translate(615, 105)">
     <rect width="545" height="475" rx="10" fill="url(#cardGradOra)" stroke="#238636" stroke-width="2"/>
     <rect width="545" height="6" rx="3" fill="url(#greenGradOra)"/>
     <text x="24" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#3fb950">2. Partitioning Strategies &amp; Partition Pruning</text>
@@ -181,7 +178,7 @@
   </g>
 
   <!-- SECTION 3: Oracle HA/DR Architecture (Bottom Row) -->
-  <g transform="translate(40, 605)" filter="url(#shadow)">
+  <g transform="translate(40, 605)">
     <rect width="1120" height="260" rx="10" fill="url(#cardGradOra)" stroke="#d29922" stroke-width="2"/>
     <rect width="1120" height="6" rx="3" fill="url(#goldGradOra)"/>
     <text x="24" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#e3b341">3. Oracle Enterprise HA/DR: Active Data Guard vs Oracle Real Application Clusters (RAC)</text>
@@ -206,7 +203,7 @@
         <text x="16" y="48" font-family="monospace" font-size="13" fill="#7ee787">Active-Active Shared-Disk Clustering</text>
         <text x="16" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Global Cache Service (GCS) coordinates blocks</text>
         <text x="16" y="92" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Private 100GbE interconnect transfers RAM blocks</text>
-        <text x="16" y="118" font-family="monospace" font-size="13" fill="#e3b341">gc buffer busy acquire: interconnect contention</text>
+        <text x="16" y="118" font-family="monospace" font-size="12" fill="#e3b341">gc buffer busy: interconnect contention</text>
         <text x="16" y="142" font-family="monospace" font-size="12" fill="#7ee787">✓ Zero downtime node failure; FAN reroutes conns</text>
       </g>
 

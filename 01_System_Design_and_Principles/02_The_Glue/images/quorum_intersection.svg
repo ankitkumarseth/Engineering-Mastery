@@ -4,9 +4,6 @@
       <stop offset="0%" stop-color="#0f172a"/>
       <stop offset="100%" stop-color="#1e293b"/>
     </linearGradient>
-    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
-      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.4"/>
-    </filter>
   </defs>
 
   <!-- Background -->
@@ -30,21 +27,21 @@
 
   <!-- Node A (Read Only) -->
   <g transform="translate(90, 220)">
-    <circle cx="40" cy="40" r="36" fill="#1e293b" stroke="#3b82f6" stroke-width="2" filter="url(#shadow)"/>
+    <circle cx="40" cy="40" r="36" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
     <text x="40" y="37" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="14" font-weight="700" fill="#93c5fd">Node A</text>
     <text x="40" y="55" text-anchor="middle" font-family="monospace" font-size="13" fill="#64748b">v0</text>
   </g>
 
   <!-- Node B (Read Only) -->
   <g transform="translate(200, 220)">
-    <circle cx="40" cy="40" r="36" fill="#1e293b" stroke="#3b82f6" stroke-width="2" filter="url(#shadow)"/>
+    <circle cx="40" cy="40" r="36" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
     <text x="40" y="37" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="14" font-weight="700" fill="#93c5fd">Node B</text>
     <text x="40" y="55" text-anchor="middle" font-family="monospace" font-size="13" fill="#64748b">v0</text>
   </g>
 
   <!-- Node C (INTERSECTION NODE) -->
   <g transform="translate(435, 205)">
-    <circle cx="45" cy="50" r="48" fill="#78350f" stroke="#f59e0b" stroke-width="3" filter="url(#shadow)"/>
+    <circle cx="45" cy="50" r="48" fill="#78350f" stroke="#f59e0b" stroke-width="3"/>
     <text x="45" y="42" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="16" font-weight="800" fill="#fef08a">Node C</text>
     <text x="45" y="60" text-anchor="middle" font-family="monospace" font-size="13" font-weight="700" fill="#facc15">v1 (Latest!)</text>
     <text x="45" y="76" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="13" fill="#fde68a">Overlap</text>
@@ -52,14 +49,14 @@
 
   <!-- Node D (Write Only) -->
   <g transform="translate(680, 220)">
-    <circle cx="40" cy="40" r="36" fill="#1e293b" stroke="#10b981" stroke-width="2" filter="url(#shadow)"/>
+    <circle cx="40" cy="40" r="36" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
     <text x="40" y="37" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="14" font-weight="700" fill="#a7f3d0">Node D</text>
     <text x="40" y="55" text-anchor="middle" font-family="monospace" font-size="13" fill="#34d399">v1</text>
   </g>
 
   <!-- Node E (Write Only) -->
   <g transform="translate(790, 220)">
-    <circle cx="40" cy="40" r="36" fill="#1e293b" stroke="#10b981" stroke-width="2" filter="url(#shadow)"/>
+    <circle cx="40" cy="40" r="36" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
     <text x="40" y="37" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="14" font-weight="700" fill="#a7f3d0">Node E</text>
     <text x="40" y="55" text-anchor="middle" font-family="monospace" font-size="13" fill="#34d399">v1</text>
   </g>

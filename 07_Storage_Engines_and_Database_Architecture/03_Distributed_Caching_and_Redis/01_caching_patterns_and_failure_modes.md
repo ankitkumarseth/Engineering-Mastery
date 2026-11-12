@@ -114,7 +114,7 @@ $$\text{Trigger Background Refresh If:} \quad \Delta \cdot \beta \cdot (-\ln(\te
 #### The Defense: TTL Jitter Algorithm
 Never set fixed, uniform TTLs. Always add a pseudo-random jitter window:
 
-$$\text{TTL} = \text{Base\_TTL} + \text{UniformRandom}(0, \text{Jitter\_Delta})$$
+$$\text{TTL} = \text{BaseTTL} + \text{UniformRandom}(0, \text{JitterDelta})$$
 
 ```java
 // Example: 1-hour cache with 10% random jitter (3600s ± 360s)

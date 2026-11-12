@@ -116,7 +116,7 @@ In Spring Security 6:
 
 ## 4. OAuth2 Resource Server & Stateless JWT Architecture
 
-In high-scale cloud-native ecosystems (such as Mastercard microservices or AWS architectures), services do not maintain server-side sessions. Instead, they act as **OAuth2 Resource Servers**, validating incoming JSON Web Tokens (JWT) issued by an Identity Provider (IdP) like Keycloak, Okta, or AWS Cognito.
+In high-scale cloud-native ecosystems (such as enterprise financial microservices or AWS architectures), services do not maintain server-side sessions. Instead, they act as **OAuth2 Resource Servers**, validating incoming JSON Web Tokens (JWT) issued by an Identity Provider (IdP) like Keycloak, Okta, or AWS Cognito.
 
 ```
  Client (Mobile / Web)       Spring Boot Resource Server          IdP (Keycloak / Okta)
@@ -146,8 +146,8 @@ spring:
       resourceserver:
         jwt:
           # URL to fetch IdP Public Key Set (JWKS)
-          jwk-set-uri: https://idp.mastercard.internal/realms/enterprise/protocol/openid-connect/certs
-          issuer-uri: https://idp.mastercard.internal/realms/enterprise
+          jwk-set-uri: https://idp.enterprise.internal/realms/enterprise/protocol/openid-connect/certs
+          issuer-uri: https://idp.enterprise.internal/realms/enterprise
 ```
 
 ### 2. Custom Claim-to-Authority Converter
@@ -202,7 +202,7 @@ public JwtDecoder jwtDecoder(OAuth2ResourceServerProperties properties) {
     OAuth2TokenValidator<Jwt> defaultWithIssuer = JwtValidators.createDefaultWithIssuer(properties.getJwt().getIssuerUri());
     OAuth2TokenValidator<Jwt> audienceValidator = new DelegatingOAuth2TokenValidator<>(
         defaultWithIssuer,
-        new AudienceValidator("mastercard-payment-gateway")
+        new AudienceValidator("enterprise-payment-gateway")
     );
 
     jwtDecoder.setJwtValidator(audienceValidator);
@@ -285,7 +285,7 @@ public class SpringSecurityOAuth2JwtPOC {
             "preferred_username", "ankit.staff.lead",
             "scope", "payment:read payment:write",
             "realm_access", Map.of("roles", List.of("settlement_operator", "admin")),
-            "iss", "https://idp.mastercard.internal/realms/enterprise",
+            "iss", "https://idp.enterprise.internal/realms/enterprise",
             "exp", Instant.now().plusSeconds(3600)
         );
 

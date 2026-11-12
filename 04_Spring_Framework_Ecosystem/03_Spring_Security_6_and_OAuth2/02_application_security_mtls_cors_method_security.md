@@ -1,6 +1,6 @@
 # Transport & Application Security: mTLS, CORS Mechanics, CSRF & Method Security
 
-High-security enterprise architectures—particularly Tier-0 financial networks like Mastercard, banking rails, and defense systems—enforce defense-in-depth across the entire request lifecycle. In this masterclass, we explore **Mutual TLS (mTLS) with Spring Boot 3.1+ SSL bundles, the notorious CORS-vs-Security filter ordering trap, CSRF mechanics, and high-performance method-level security with Spring Expression Language (SpEL)**.
+High-security enterprise architectures—particularly Tier-0 financial networks, banking rails, and defense systems—enforce defense-in-depth across the entire request lifecycle. In this masterclass, we explore **Mutual TLS (mTLS) with Spring Boot 3.1+ SSL bundles, the notorious CORS-vs-Security filter ordering trap, CSRF mechanics, and high-performance method-level security with Spring Expression Language (SpEL)**.
 
 ---
 

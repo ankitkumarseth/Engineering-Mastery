@@ -41,7 +41,7 @@ paymentService.processPayment(amount, amt -> new BigDecimal("1.50"));           
 ```
 
 ### B. Enterprise Spring Strategy Pattern: The Map-Injection Idiom
-In high-scale enterprise architectures, strategies must be dynamically resolved at runtime (e.g., routing transactions based on payment network: `MASTERCARD`, `VISA`, `AMEX`):
+In high-scale enterprise architectures, strategies must be dynamically resolved at runtime (e.g., routing transactions based on payment network: `VISA`, `AMEX`, `DISCOVER`):
 
 ```java
 public interface PaymentNetworkHandler {

@@ -1,5 +1,9 @@
 # Kafka Connect, Debezium CDC & DDIA Distributed Log Architecture
 
+[![Kafka Streams, Connect CDC & DDIA Architecture](images/kafka_streams_connect_cdc_architecture.svg)](images/kafka_streams_connect_cdc_architecture.svg)
+
+---
+
 ## 1. Kafka Connect Architecture & Distributed Workers
 
 In enterprise architectures, integrating databases, cloud data warehouses, and key-value stores with Kafka manually (using custom producer/consumer microservices) is an anti-pattern. Custom implementations consistently fail to handle offset tracking, task rebalancing, converter serialization, and backpressure reliably.

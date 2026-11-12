@@ -1,8 +1,8 @@
-# Partitioning Strategies, Oracle Enterprise HA/DR & The Mastercard Architecture
+# Partitioning Strategies, Oracle Enterprise HA/DR & 3-AZ Resiliency Architecture
 
 In high-concurrency, mission-critical distributed payment systems, a database failure or replication delay can trigger catastrophic operational and financial impacts. At the Staff and Principal Engineer level, you are expected to understand the full continuum of database scalability and availability: from **table partitioning primitives and partition pruning mechanics** to **shared-everything clustering (Oracle RAC), physical block-level replication (Data Guard), and logical change data capture (GoldenGate)**.
 
-This playbook examines first-principles database replication physics and details why Mastercard's Tier-0 3-AZ active architectures abandoned GoldenGate logical replication in favor of Oracle Data Guard physical redo streaming.
+This playbook examines first-principles database replication physics and details why Tier-0 active-active-active 3-AZ architectures abandoned GoldenGate logical replication in favor of Oracle Data Guard physical redo streaming.
 
 ---
 
@@ -161,9 +161,9 @@ Enterprise database resiliency spans three primary architectural tiers:
 
 ---
 
-## 5. The Mastercard Architectural Battle Story: Why 3-AZ Active-Active-Active Abandoned GoldenGate for Data Guard
+## 5. Enterprise Architectural Case Study: Why 3-AZ Active Architectures Abandoned GoldenGate for Data Guard
 
-At Mastercard scale (processing tens of thousands of authorization messages per second across multi-region datacenters), designing the **3-AZ Active-Active-Active Resiliency Architecture** forced a profound architectural evaluation between **Oracle GoldenGate** logical replication and **Oracle Data Guard** physical replication.
+At Tier-1 financial network scale (processing tens of thousands of authorization messages per second across multi-datacenter Availability Zones), designing the **3-AZ Active-Active-Active Resiliency Architecture** forced a profound architectural evaluation between **Oracle GoldenGate** logical replication and **Oracle Data Guard** physical replication.
 
 ### 5.1 The Nuances & Failure Modes of GoldenGate in Production
 
@@ -205,11 +205,11 @@ GoldenGate is frequently marketed as the panacea for multi-datacenter active-act
 
 ### 5.2 The 3-AZ Active-Active-Active Decision: Transitioning to Data Guard Physical Replication
 
-To achieve **99.999% availability** with guaranteed zero data loss, Mastercard engineering transitioned from GoldenGate logical sync to an architecture grounded in **Oracle Data Guard physical block-level replication combined with intelligent traffic routing**:
+To achieve **99.999% availability** with guaranteed zero data loss, enterprise platform engineering transitioned from GoldenGate logical sync to an architecture grounded in **Oracle Data Guard physical block-level replication combined with intelligent traffic routing**:
 
 ```
 ========================================================================================================================
-                          MASTERCARD 3-AZ RESILIENCY: DATA GUARD PHYSICAL REPLICATION
+                          ENTERPRISE 3-AZ RESILIENCY: DATA GUARD PHYSICAL REPLICATION
 ========================================================================================================================
 
            AZ-1 (Primary Active Write)                      AZ-2 (Synchronous Physical Standby)
@@ -249,9 +249,9 @@ To achieve **99.999% availability** with guaranteed zero data loss, Mastercard e
 
 ## 6. Staff / Principal Interview STAR Narrative
 
-> **Interviewer**: *"You designed a high-throughput, multi-datacenter active architecture at Mastercard. Why did your team move away from logical replication tools like GoldenGate to physical Data Guard, and how did you handle cross-datacenter writes?"*
+> **Interviewer**: *"You designed a high-throughput, multi-datacenter active architecture for a Tier-1 financial network. Why did your team move away from logical replication tools like GoldenGate to physical Data Guard, and how did you handle cross-datacenter writes?"*
 
-- **Situation**: *"At Mastercard, we managed a Tier-0 payment ledger processing tens of thousands of financial transactions per second across multi-region datacenters. Our legacy setup attempted active-active multi-master replication using GoldenGate."*
+- **Situation**: *"In our Tier-0 payment ledger processing tens of thousands of financial transactions per second across multi-datacenter Availability Zones, our legacy setup attempted active-active multi-master replication using GoldenGate."*
 - **Task**: *"Under peak volume, we experienced severe replication lag spikes exceeding 15 minutes, and bi-directional conflict resolution (CDR) occasionally created silent data drift on cardholder balances. My mandate as Lead Systems Architect was to redesign the database topology to deliver 99.999% availability, zero data drift, and sub-second RPO/RTO across 3 Availability Zones."*
 - **Action**: 
   1. *Root-Cause Analysis*: *"We identified that GoldenGate's bottleneck was the logical SQL Replicat stage. While the primary applied changes via direct block memory writes, the target had to parse, plan, lock, and execute SQL statements, causing exponential lag during bursts."*

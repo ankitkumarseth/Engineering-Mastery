@@ -26,7 +26,7 @@ An API Gateway sits at the perimeter between the public internet and internal cl
 2. **Centralized Authentication & Token Introspection**: Validates incoming OAuth2 Bearer JWTs, checks signature against cached IdP JWK sets, and rejects unauthorized traffic before it enters the VPC.
 3. **Header Enrichment & Context Injection**: Extracts claims from the validated JWT and injects trusted internal headers for downstream microservices:
    - `X-User-Id: user-88491`
-   - `X-Tenant-Id: mastercard-us`
+   - `X-Tenant-Id: enterprise-us`
    - `X-User-Roles: ROLE_OPERATOR,ROLE_ADMIN`
    - Downstream microservices can trust these headers implicitly because the gateway strips any spoofed inbound client headers!
 4. **Dynamic Request Routing & Path Rewriting**: Dispatches `/v1/orders/**` to the Order Service cluster and `/v1/payments/**` to the Payment Service cluster.
@@ -65,7 +65,7 @@ X-RateLimit-Remaining: 0
 X-RateLimit-Reset: 1731252030
 
 {
-  "type": "https://api.mastercard.com/errors/rate-limit-exceeded",
+  "type": "https://api.enterprise.com/errors/rate-limit-exceeded",
   "title": "API Rate Limit Exceeded",
   "status": 429,
   "detail": "Quota of 1,000 requests per minute exceeded for API Key 'key_live_998'. Please wait 30 seconds before retrying.",

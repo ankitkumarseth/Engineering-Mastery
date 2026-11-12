@@ -391,7 +391,7 @@ When an interviewer asks: *"We partition orders by `merchantId`. On Black Friday
 #### The Architectural Solutions:
 1. **Salted Hash Keying**:
    - For high-volume hot keys, append a random or round-robin salt suffix:
-     $$\text{key} = \text{merchantId} + \text{"\_"} + \text{randomInt}(0, K)$$
+     $$\text{key} = \text{merchantId} + \text{"-"} + \text{randomInt}(0, K)$$
    - Distributes the high-volume merchant across $K$ sub-partitions, restoring horizontal consumer parallelization.
 2. **Two-Tier Topic Architecture**:
    - Route VIP / high-velocity merchants to a dedicated high-throughput topic (`orders-vip`) configured with higher partition counts and dedicated consumer pods.

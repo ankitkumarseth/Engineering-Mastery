@@ -44,8 +44,8 @@
     <!-- Store Buffer -->
     <rect x="25" y="135" width="475" height="95" rx="6" fill="#3c1e1e" stroke="#da3633" stroke-width="1.5"/>
     <text x="40" y="162" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#f85149">Store Buffer (Asynchronous Write FIFO)</text>
-    <text x="40" y="186" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#ff7b72">CPU writes immediately to buffer to avoid stalling on cache line ownership.</text>
-    <text x="40" y="208" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#ffa198">⚠️ Without StoreStore / StoreLoad fences, writes remain invisible to Core 1!</text>
+    <text x="40" y="184" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#ff7b72">CPU writes immediately to buffer to avoid stalling on cache ownership.</text>
+    <text x="40" y="206" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#ffa198">⚠️ Without StoreStore / StoreLoad fences, writes stay invisible to Core 1!</text>
 
     <!-- L1/L2 Cache -->
     <rect x="25" y="245" width="475" height="75" rx="6" fill="#161b22" stroke="#1f6feb"/>
@@ -67,8 +67,8 @@
     <!-- Invalidate Queue -->
     <rect x="25" y="135" width="475" height="95" rx="6" fill="#122c1d" stroke="#238636" stroke-width="1.5"/>
     <text x="40" y="162" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#3fb950">Invalidate Queue (Cache Invalidation FIFO)</text>
-    <text x="40" y="186" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#7ee787">Buffers MESI Invalidation messages from bus to avoid delaying Core 0.</text>
-    <text x="40" y="208" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#a7f3d0">⚠️ Without LoadLoad fence, CPU continues reading stale data from local L1 cache!</text>
+    <text x="40" y="184" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#7ee787">Buffers MESI Invalidation messages from bus to avoid delaying Core 0.</text>
+    <text x="40" y="206" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#a7f3d0">⚠️ Without LoadLoad fence, CPU reads stale data from local L1 cache!</text>
 
     <!-- L1/L2 Cache -->
     <rect x="25" y="245" width="475" height="75" rx="6" fill="#161b22" stroke="#238636"/>
@@ -118,8 +118,8 @@
     <text x="585" y="240" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#3fb950">
       ⚡ Happens-Before Invariant: Write(flag) ⤏ Read(flag)
     </text>
-    <text x="585" y="260" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#f0f6fc">
-      Because write(flag) HB read(flag), Core 1 is 100% guaranteed to see x == 42!
+    <text x="585" y="260" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#f0f6fc">
+      Because write(flag) HB read(flag), Core 1 is guaranteed to observe x == 42!
     </text>
   </g>
 </svg>

@@ -57,14 +57,17 @@
     <rect x="25" y="485" width="360" height="240" rx="8" fill="#161b22" stroke="#da3633"/>
     <text x="40" y="515" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#f85149">⚠️ Architectural Inefficiencies</text>
     
-    <text x="40" y="545" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" font-weight="600" fill="#e6edf3">• Fixed Concurrency Level:</text>
-    <text x="55" y="567" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Default 16 segments. Max 16 concurrent writers regardless of core count.</text>
+    <text x="40" y="542" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="600" fill="#e6edf3">• Fixed Concurrency Level:</text>
+    <text x="55" y="562" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">Default 16 segments. Max 16 concurrent</text>
+    <text x="55" y="580" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">writers regardless of available CPU cores.</text>
 
-    <text x="40" y="602" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" font-weight="600" fill="#e6edf3">• Heavy Memory Footprint:</text>
-    <text x="55" y="624" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">16 Segment instances + Sync objects created even for tiny maps.</text>
+    <text x="40" y="605" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="600" fill="#e6edf3">• Heavy Memory Footprint:</text>
+    <text x="55" y="625" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">16 Segment instances + sync objects</text>
+    <text x="55" y="643" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">created even for tiny maps.</text>
 
-    <text x="40" y="659" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" font-weight="600" fill="#e6edf3">• Global Lock Contention:</text>
-    <text x="55" y="681" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">size() and isEmpty() acquire locks across ALL segments consecutively.</text>
+    <text x="40" y="668" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="600" fill="#e6edf3">• Global Lock Contention:</text>
+    <text x="55" y="688" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">size() and isEmpty() acquire locks across</text>
+    <text x="55" y="706" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">ALL segments consecutively.</text>
   </g>
 
   <!-- RIGHT PANEL: Java 8+ Architecture (CAS + Fine-Grained Locking) -->
@@ -136,17 +139,17 @@
     <!-- Bottom Striped CounterCell Box -->
     <g transform="translate(30, 495)">
       <rect width="600" height="230" rx="8" fill="#161b22" stroke="#8957e5" stroke-width="1.5"/>
-      <text x="25" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#d2a8ff">📊 High-Throughput Concurrent Sizing: CounterCell[] (LongAdder Principle)</text>
+      <text x="25" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14.5" font-weight="700" fill="#d2a8ff">📊 High-Throughput Concurrent Sizing: CounterCell[] (LongAdder Principle)</text>
       
-      <text x="25" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" fill="#e6edf3">Instead of bottlenecking all threads on a single shared AtomicLong variable,</text>
-      <text x="25" y="84" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" fill="#8b949e">ConcurrentHashMap maintains a base count and a dynamic array of striped CounterCells.</text>
+      <text x="25" y="60" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#e6edf3">Instead of bottlenecking all threads on a single shared AtomicLong variable,</text>
+      <text x="25" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#8b949e">ConcurrentHashMap maintains a base count and a dynamic striped CounterCell array.</text>
 
-      <rect x="25" y="102" width="550" height="42" rx="6" fill="#0d1117" stroke="#30363d"/>
-      <text x="40" y="128" font-family="monospace" font-size="13.5" font-weight="700" fill="#58a6ff">size() = baseCount + ∑ CounterCell[i].value</text>
+      <rect x="25" y="100" width="550" height="40" rx="6" fill="#0d1117" stroke="#30363d"/>
+      <text x="40" y="125" font-family="monospace" font-size="13" font-weight="700" fill="#58a6ff">size() = baseCount + ∑ CounterCell[i].value</text>
 
-      <text x="25" y="170" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#c9d1d9">• Thread hash indexes into thread-specific CounterCell via CAS to increment.</text>
-      <text x="25" y="192" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#c9d1d9">• @jdk.internal.vm.annotation.Contended prevents CPU L1/L2 cache line bouncing.</text>
-      <text x="25" y="214" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#7ee787">✓ Delivers millions of concurrent increments/sec with zero thread contention!</text>
+      <text x="25" y="165" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#c9d1d9">• Thread hash indexes into thread-specific CounterCell via CAS to increment.</text>
+      <text x="25" y="187" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#c9d1d9">• @jdk.internal.vm.annotation.Contended prevents CPU cache line bouncing.</text>
+      <text x="25" y="209" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#7ee787">✓ Millions of concurrent increments/sec with zero thread contention!</text>
     </g>
   </g>
 </svg>

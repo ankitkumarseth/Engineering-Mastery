@@ -20,7 +20,7 @@ In Spring Boot 3 / Spring Framework 6:
 ```java
 // Spring Boot 3 Unified Observation
 Observation.createNotStarted("payment.process", observationRegistry)
-    .lowCardinalityKeyValue("tenant.id", "mastercard-us") // Metric tag (bounded values)
+    .lowCardinalityKeyValue("tenant.id", "enterprise-us") // Metric tag (bounded values)
     .highCardinalityKeyValue("order.id", orderId)         // Tracing tag (unbounded UUID)
     .observe(() -> executePayment(order));
 ```
@@ -269,7 +269,7 @@ public class ObservationAndMetricsPOC {
 
         // Single call creates Trace Span and Records Metric Timer
         String result = Observation.createNotStarted("settlement.authorize", registry)
-            .lowCardinalityKeyValue("route", "MASTERCARD_AUTH_SWITCH") // Low cardinality for Prometheus
+            .lowCardinalityKeyValue("route", "GLOBAL_AUTH_SWITCH") // Low cardinality for Prometheus
             .highCardinalityKeyValue("transaction.id", transactionId)   // High cardinality for Tracing
             .observe(() -> {
                 try {

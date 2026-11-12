@@ -4,6 +4,8 @@ In modern distributed systems, data storage choices determine the performance bo
 
 At the Staff and Principal Engineer level, you are expected to understand the hardware physics governing both engines: **Write Amplification vs. Read Amplification, doublewrite buffers, Bloom filter mathematics, SSTable compaction algorithms, and wide-column partition key clustering**.
 
+[![Storage Engine Internals: B-Trees vs. LSM-Trees](images/btree_vs_lsm_storage_engine_architecture.svg)](images/btree_vs_lsm_storage_engine_architecture.svg)
+
 ---
 
 ## 1. The Fundamental Architectural Conflict: B-Trees vs. LSM-Trees

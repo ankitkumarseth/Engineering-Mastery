@@ -87,14 +87,15 @@
     <g transform="translate(20, 75)">
       <rect width="505" height="175" rx="6" fill="#161b22" stroke="#da3633"/>
       <text x="15" y="26" font-family="monospace" font-size="13" font-weight="700" fill="#f85149">Legacy Eager Protocol (Stop-the-World Freeze)</text>
-      <text x="15" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#c9d1d9">1. Every consumer drops all assigned partitions immediately.</text>
-      <text x="15" y="76" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#f85149">2. All stream consumption ceases across the entire consumer group.</text>
-      <text x="15" y="100" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">3. Group Coordinator assigns partitions from scratch (latency spike).</text>
+      <text x="15" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#c9d1d9">1. Every consumer drops assigned partitions immediately.</text>
+      <text x="15" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#f85149">2. All consumption freezes across consumer group (STW).</text>
+      <text x="15" y="96" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#8b949e">3. Coordinator assigns partitions from scratch (latency spike).</text>
       
       <!-- Inner Box -->
-      <g transform="translate(15, 115)">
-        <rect width="475" height="45" rx="4" fill="#0d1117" stroke="#da3633"/>
-        <text x="12" y="28" font-family="monospace" font-size="13" fill="#f85149">Cluster paused for seconds/minutes during routine node rolling restarts!</text>
+      <g transform="translate(15, 112)">
+        <rect width="475" height="48" rx="4" fill="#0d1117" stroke="#da3633"/>
+        <text x="12" y="20" font-family="monospace" font-size="11.5" fill="#f85149">Cluster paused for seconds/minutes during routine</text>
+        <text x="12" y="38" font-family="monospace" font-size="11.5" fill="#f85149">broker node rolling restarts or scaling events!</text>
       </g>
     </g>
 
@@ -102,9 +103,9 @@
     <g transform="translate(20, 265)">
       <rect width="505" height="205" rx="6" fill="#161b22" stroke="#238636"/>
       <text x="15" y="26" font-family="monospace" font-size="13" font-weight="700" fill="#3fb950">CooperativeStickyAssignor (Incremental Rebalance)</text>
-      <text x="15" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#c9d1d9">1. Consumers keep processing unaffected partitions without pause.</text>
-      <text x="15" y="76" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#7ee787">2. Only migrating partitions are revoked in a short second phase.</text>
-      <text x="15" y="100" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">3. Preserves local state caches (RocksDB state stores in Kafka Streams).</text>
+      <text x="15" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#c9d1d9">1. Consumers keep processing unaffected partitions without pause.</text>
+      <text x="15" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#7ee787">2. Only migrating partitions are revoked in a short 2nd phase.</text>
+      <text x="15" y="96" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#8b949e">3. Preserves local state caches (embedded RocksDB in Streams).</text>
       
       <!-- Inner State Container -->
       <g transform="translate(15, 118)">

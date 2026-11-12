@@ -137,30 +137,30 @@
   <g transform="translate(40, 565)">
     <!-- Box 7: Ready in Singleton Pool -->
     <g transform="translate(0, 0)">
-      <rect width="640" height="295" rx="8" fill="url(#cardGrad)" stroke="#2ea043" stroke-width="2"/>
-      <rect width="640" height="6" rx="3" fill="url(#readyGrad)"/>
+      <rect width="610" height="295" rx="8" fill="url(#cardGrad)" stroke="#2ea043" stroke-width="2"/>
+      <rect width="610" height="6" rx="3" fill="url(#readyGrad)"/>
       <text x="25" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="700" fill="#3fb950">7. Live in Service (1st Level Cache: singletonObjects)</text>
-      <text x="25" y="65" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13.5" fill="#c9d1d9">Bean is fully initialized, proxy-wrapped (if advised), and cached in ConcurrentHashMap.</text>
-      <text x="25" y="95" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13.5" fill="#8b949e">Any caller requesting the bean via <tspan fill="#79c0ff" font-family="monospace">applicationContext.getBean()</tspan> or <tspan fill="#79c0ff" font-family="monospace">@Autowired</tspan></text>
-      <text x="25" y="125" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13.5" fill="#8b949e">receives the proxy instance directly from the singleton cache with zero reflection overhead.</text>
-      <text x="25" y="165" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13.5" fill="#7ee787">✓ Prototype beans skip caching and run through steps 1-6 upon each request.</text>
-      <text x="25" y="200" font-family="monospace" font-size="13" fill="#3fb950">Default Scope: Singleton (1 instance per Spring ApplicationContext container)</text>
+      <text x="25" y="65" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#c9d1d9">Bean is fully initialized, proxy-wrapped (if advised), and cached in ConcurrentHashMap.</text>
+      <text x="25" y="95" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#8b949e">Any caller requesting the bean via <tspan fill="#79c0ff" font-family="monospace">applicationContext.getBean()</tspan> or <tspan fill="#79c0ff" font-family="monospace">@Autowired</tspan></text>
+      <text x="25" y="125" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#8b949e">receives the proxy instance directly from the singleton cache with zero reflection overhead.</text>
+      <text x="25" y="165" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#7ee787">✓ Prototype beans skip caching and run through steps 1-6 upon each request.</text>
+      <text x="25" y="200" font-family="monospace" font-size="12.5" fill="#3fb950">Default Scope: Singleton (1 instance per Spring ApplicationContext container)</text>
     </g>
 
     <!-- Shutdown Arrow -->
-    <path d="M 645 150 L 675 150" fill="none" stroke="#f85149" stroke-width="2.5" marker-end="url(#arrow)"/>
-    <text x="645" y="135" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#f85149">Shutdown</text>
+    <path d="M 620 150 L 680 150" fill="none" stroke="#f85149" stroke-width="2.5" marker-end="url(#arrow)"/>
+    <text x="650" y="136" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#f85149">Shutdown</text>
 
     <!-- Box 8: Destruction -->
-    <g transform="translate(680, 0)">
-      <rect width="440" height="295" rx="8" fill="url(#cardGrad)" stroke="#da3633" stroke-width="2"/>
-      <rect width="440" height="6" rx="3" fill="url(#destroyGrad)"/>
+    <g transform="translate(690, 0)">
+      <rect width="430" height="295" rx="8" fill="url(#cardGrad)" stroke="#da3633" stroke-width="2"/>
+      <rect width="430" height="6" rx="3" fill="url(#destroyGrad)"/>
       <text x="25" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="700" fill="#f85149">8. Container Destruction</text>
-      <text x="25" y="65" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13.5" fill="#8b949e">Triggered on <tspan fill="#f85149" font-family="monospace">ApplicationContext.close()</tspan>:</text>
-      <text x="25" y="100" font-family="monospace" font-size="13" fill="#c9d1d9">1. @PreDestroy annotated methods</text>
-      <text x="25" y="130" font-family="monospace" font-size="13" fill="#79c0ff">2. DisposableBean.destroy()</text>
-      <text x="25" y="160" font-family="monospace" font-size="13" fill="#8b949e">3. custom destroyMethod in @Bean</text>
-      <text x="25" y="200" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13.5" fill="#f85149">Releases thread pools, DB connections, and locks gracefully</text>
+      <text x="25" y="65" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#8b949e">Triggered on <tspan fill="#f85149" font-family="monospace">ApplicationContext.close()</tspan>:</text>
+      <text x="25" y="100" font-family="monospace" font-size="12.5" fill="#c9d1d9">1. @PreDestroy annotated methods</text>
+      <text x="25" y="130" font-family="monospace" font-size="12.5" fill="#79c0ff">2. DisposableBean.destroy()</text>
+      <text x="25" y="160" font-family="monospace" font-size="12.5" fill="#8b949e">3. custom destroyMethod in @Bean</text>
+      <text x="25" y="200" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#f85149">Releases thread pools, DB connections, and locks gracefully</text>
     </g>
   </g>
 </svg>

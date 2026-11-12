@@ -4,9 +4,6 @@
       <stop offset="0%" stop-color="#0f172a"/>
       <stop offset="100%" stop-color="#1e293b"/>
     </linearGradient>
-    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
-      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.4"/>
-    </filter>
   </defs>
 
   <!-- Background -->
@@ -30,21 +27,21 @@
 
   <!-- Node A (Candidate) -->
   <g transform="translate(90, 220)">
-    <circle cx="40" cy="40" r="36" fill="#1e293b" stroke="#3b82f6" stroke-width="2" filter="url(#shadow)"/>
+    <circle cx="40" cy="40" r="36" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
     <text x="40" y="37" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="14" font-weight="700" fill="#93c5fd">Node A</text>
     <text x="40" y="55" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="13" fill="#38bdf8">Candidate</text>
   </g>
 
   <!-- Node B (Voter) -->
   <g transform="translate(200, 220)">
-    <circle cx="40" cy="40" r="36" fill="#1e293b" stroke="#3b82f6" stroke-width="2" filter="url(#shadow)"/>
+    <circle cx="40" cy="40" r="36" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
     <text x="40" y="37" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="14" font-weight="700" fill="#93c5fd">Node B</text>
     <text x="40" y="55" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="13" fill="#94a3b8">Votes A</text>
   </g>
 
   <!-- Node C (THE SHARED VOTER - CONFLICT!) -->
   <g transform="translate(435, 205)">
-    <circle cx="45" cy="50" r="48" fill="#450a0a" stroke="#ef4444" stroke-width="3" filter="url(#shadow)"/>
+    <circle cx="45" cy="50" r="48" fill="#450a0a" stroke="#ef4444" stroke-width="3"/>
     <text x="45" y="42" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="16" font-weight="800" fill="#fca5a5">Node C</text>
     <text x="45" y="60" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="13" font-weight="700" fill="#ef4444">1-Vote Limit!</text>
     <text x="45" y="76" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="13" fill="#fecaca">Tie-Breaker</text>
@@ -52,14 +49,14 @@
 
   <!-- Node D (Voter) -->
   <g transform="translate(680, 220)">
-    <circle cx="40" cy="40" r="36" fill="#1e293b" stroke="#d946ef" stroke-width="2" filter="url(#shadow)"/>
+    <circle cx="40" cy="40" r="36" fill="#1e293b" stroke="#d946ef" stroke-width="2"/>
     <text x="40" y="37" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="14" font-weight="700" fill="#f5d0fe">Node D</text>
     <text x="40" y="55" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="13" fill="#94a3b8">Votes E</text>
   </g>
 
   <!-- Node E (Candidate) -->
   <g transform="translate(790, 220)">
-    <circle cx="40" cy="40" r="36" fill="#1e293b" stroke="#d946ef" stroke-width="2" filter="url(#shadow)"/>
+    <circle cx="40" cy="40" r="36" fill="#1e293b" stroke="#d946ef" stroke-width="2"/>
     <text x="40" y="37" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="14" font-weight="700" fill="#f5d0fe">Node E</text>
     <text x="40" y="55" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="13" fill="#e879f9">Candidate</text>
   </g>

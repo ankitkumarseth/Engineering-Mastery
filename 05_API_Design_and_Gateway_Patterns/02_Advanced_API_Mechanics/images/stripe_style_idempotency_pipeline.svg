@@ -39,11 +39,14 @@
     <text x="20" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="700" fill="#58a6ff">1. Client Request Ingress</text>
     <text x="20" y="56" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Payment / Mutation API Call</text>
 
-    <rect x="15" y="75" width="290" height="115" rx="6" fill="#161b22" stroke="#30363d"/>
-    <text x="15" y="26" font-family="monospace" font-size="13" font-weight="700" fill="#7ee787">POST /v1/charges</text>
-    <text x="15" y="50" font-family="monospace" font-size="13" fill="#e3b341">Idempotency-Key:</text>
-    <text x="15" y="72" font-family="monospace" font-size="13" fill="#79c0ff">"idem_key_984a-7bc"</text>
-    <text x="15" y="98" font-family="monospace" font-size="13" fill="#8b949e">{"amount": 1000, "cc": 4242}</text>
+    <!-- Ingress Code Box -->
+    <g transform="translate(15, 75)">
+      <rect width="290" height="115" rx="6" fill="#161b22" stroke="#30363d"/>
+      <text x="15" y="26" font-family="monospace" font-size="13" font-weight="700" fill="#7ee787">POST /v1/charges</text>
+      <text x="15" y="50" font-family="monospace" font-size="13" fill="#e3b341">Idempotency-Key:</text>
+      <text x="15" y="72" font-family="monospace" font-size="13" fill="#79c0ff">"idem_key_984a-7bc"</text>
+      <text x="15" y="98" font-family="monospace" font-size="13" fill="#8b949e">{"amount": 1000, "cc": 4242}</text>
+    </g>
 
     <!-- Fingerprint Box -->
     <g transform="translate(15, 205)">

@@ -141,7 +141,7 @@ In distributed systems design, choosing the wrong communication protocol introdu
 ---
 
 ### 3. Enterprise Webhook Delivery Standard
-When designing asynchronous push notifications to external partners (e.g., Stripe, Mastercard, PayPal):
+When designing asynchronous push notifications to external partners (e.g., Stripe, Shopify, PayPal):
 1. **Cryptographic Signatures**: Always hash the payload using HMAC-SHA256 with a shared secret:
    `X-Signature-SHA256: t=1614552000,v1=5257a863e5b...`
    Recipients verify the signature to prevent tampering and replay attacks.

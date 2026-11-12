@@ -42,40 +42,40 @@
     <text x="40" y="112" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14.5" font-weight="700" fill="#79c0ff">1. Scaled Dot-Product Attention Equation</text>
 
     <rect x="40" y="125" width="445" height="42" rx="6" fill="#0d1117" stroke="#1f6feb"/>
-    <text x="262" y="152" text-anchor="middle" font-family="monospace" font-size="15" font-weight="700" fill="#58a6ff">Attention(Q, K, V) = softmax(Q · Kᵀ / √dₖ) · V</text>
+    <text x="262" y="152" text-anchor="middle" font-family="monospace" font-size="13.5" font-weight="700" fill="#58a6ff">Attention(Q, K, V) = softmax(Q · Kᵀ / √dₖ) · V</text>
 
-    <text x="40" y="192" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#f0f6fc">
+    <text x="40" y="192" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#f0f6fc">
       • <tspan font-weight="700" fill="#79c0ff">Q (Query)</tspan>: What the current token seeks from prior context.
     </text>
-    <text x="40" y="214" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">
-      • <tspan font-weight="700" fill="#7ee787">K (Key)</tspan> &amp; <tspan font-weight="700" fill="#e3b341">V (Value)</tspan>: Context representations stored in GPU HBM (KV Cache).
+    <text x="40" y="214" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#8b949e">
+      • <tspan font-weight="700" fill="#7ee787">K</tspan> &amp; <tspan font-weight="700" fill="#e3b341">V</tspan>: Context representations stored in GPU HBM (KV Cache).
     </text>
 
     <!-- O(N^2) Bottleneck & FlashAttention -->
     <rect x="25" y="250" width="475" height="160" rx="8" fill="#161b22" stroke="#da3633" stroke-width="1.5"/>
     <text x="40" y="278" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14.5" font-weight="700" fill="#f85149">2. O(N²) Quadratic Complexity &amp; FlashAttention</text>
 
-    <text x="40" y="306" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" fill="#f0f6fc">
+    <text x="40" y="306" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#f0f6fc">
       Standard Attention requires materializing an <tspan font-family="monospace" font-weight="700" fill="#f85149">N × N</tspan> attention matrix.
     </text>
-    <text x="40" y="328" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#ff7b72">
-      Doubling context (32k → 64k tokens) quadruples memory &amp; compute bandwidth!
+    <text x="40" y="328" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#ff7b72">
+      Doubling context (32k → 64k) quadruples memory &amp; compute bandwidth!
     </text>
-    <text x="40" y="354" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#7ee787">
+    <text x="40" y="352" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#7ee787">
       ⚡ <tspan font-weight="700" fill="#3fb950">FlashAttention (Dao et al.)</tspan>: Tiling algorithm computes softmax in fast
     </text>
-    <text x="40" y="374" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">
+    <text x="40" y="370" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">
       on-chip SRAM without materializing the N×N intermediate matrix in slow HBM.
     </text>
-    <text x="40" y="394" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#c9d1d9">
-      Reduces memory footprint from O(N²) to strictly O(N) linear in sequence length.
+    <text x="40" y="390" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#c9d1d9">
+      Reduces attention memory from O(N²) to strictly linear O(N).
     </text>
 
     <!-- Context Window Degradation ("Lost in the Middle") -->
     <rect x="25" y="425" width="475" height="160" rx="8" fill="#161b22" stroke="#d29922" stroke-width="1.5"/>
     <text x="40" y="452" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14.5" font-weight="700" fill="#e3b341">3. "Lost in the Middle" &amp; Attention Dilution</text>
 
-    <text x="40" y="480" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" fill="#f0f6fc">
+    <text x="40" y="478" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#f0f6fc">
       Empirical fact: LLMs exhibit U-shaped retrieval accuracy curves.
     </text>
 
@@ -92,11 +92,11 @@
       <text x="395" y="25" text-anchor="middle" font-family="monospace" font-size="12" font-weight="700" fill="#3fb950">Tail (88%)</text>
     </g>
 
-    <text x="40" y="558" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#8b949e">
-      Information placed in the middle 50% of prompt context suffers severe attention drop.
+    <text x="40" y="556" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">
+      Information in middle 50% of context suffers severe attention drop.
     </text>
-    <text x="40" y="576" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" font-weight="700" fill="#7ee787">
-      Staff Rule: Place critical instructions &amp; target code diffs at head or absolute tail!
+    <text x="40" y="574" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" font-weight="700" fill="#7ee787">
+      Staff Rule: Place critical diffs &amp; rules at head or absolute tail!
     </text>
 
     <!-- Prompt Caching (Prefix Caching) -->
@@ -109,8 +109,8 @@
     <text x="40" y="678" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#c9d1d9">
       • Cuts Time-To-First-Token (TTFT) from 2,800ms down to 180ms!
     </text>
-    <text x="40" y="700" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#7ee787">
-      • Reduces input token costs by up to 90% when caching architecture schemas.
+    <text x="40" y="700" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#7ee787">
+      • Reduces input token costs up to 90% via schema prefix caching.
     </text>
   </g>
 
@@ -126,12 +126,12 @@
     <rect x="25" y="85" width="475" height="115" rx="8" fill="#161b22" stroke="#da3633" stroke-width="1.5"/>
     <text x="40" y="112" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14.5" font-weight="700" fill="#f85149">Step 1: Raw Enterprise PR Diff Ingress</text>
 
-    <text x="40" y="138" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#f0f6fc">
+    <text x="40" y="138" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#f0f6fc">
       Enterprise PR: 42 files changed, +2,450 lines / -380 lines.
     </text>
-    <text x="40" y="160" font-family="monospace" font-size="12.5" fill="#ff7b72">Total Raw Token Footprint: ~68,000 tokens!</text>
-    <text x="40" y="182" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#8b949e">
-      Naive pasting causes context window overflow, extreme latency ($$$), and hallucination.
+    <text x="40" y="158" font-family="monospace" font-size="12" fill="#ff7b72">Total Raw Token Footprint: ~68,000 tokens!</text>
+    <text x="40" y="178" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">
+      Naive pasting causes context overflow, high latency, and hallucination.
     </text>
 
     <line x1="262" y1="200" x2="262" y2="225" stroke="#3fb950" stroke-width="2" marker-end="url(#arrowGreen)"/>
@@ -140,17 +140,17 @@
     <rect x="25" y="225" width="475" height="155" rx="8" fill="#161b22" stroke="#1f6feb" stroke-width="1.5"/>
     <text x="40" y="252" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14.5" font-weight="700" fill="#58a6ff">Step 2: Tree-Sitter AST Parse &amp; Symbol Call Graph</text>
 
-    <text x="40" y="280" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#f0f6fc">
+    <text x="40" y="278" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#f0f6fc">
       Tree-sitter parser builds Abstract Syntax Tree (AST) across modified files:
     </text>
-    <text x="40" y="304" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#c9d1d9">
-      • Identifies modified function bodies: <tspan font-family="monospace" fill="#79c0ff">processPayment()</tspan>, <tspan font-family="monospace" fill="#79c0ff">validateCard()</tspan>
+    <text x="40" y="300" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#c9d1d9">
+      • Identifies modified functions: <tspan font-family="monospace" fill="#79c0ff">processPayment()</tspan>, <tspan font-family="monospace" fill="#79c0ff">validateCard()</tspan>
     </text>
-    <text x="40" y="326" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#c9d1d9">
-      • Extracts immediate 1-hop upstream callers &amp; downstream dependencies.
+    <text x="40" y="322" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#c9d1d9">
+      • Extracts immediate 1-hop callers &amp; downstream dependencies.
     </text>
-    <text x="40" y="348" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#7ee787">
-      • Drops irrelevant test fixture data, boilerplate getters, and untouched methods.
+    <text x="40" y="344" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#7ee787">
+      • Drops irrelevant fixtures, getters, and untouched methods.
     </text>
 
     <line x1="262" y1="380" x2="262" y2="405" stroke="#3fb950" stroke-width="2" marker-end="url(#arrowGreen)"/>

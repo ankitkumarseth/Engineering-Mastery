@@ -80,7 +80,7 @@ For this reason, the legacy Implicit Flow and standard Authorization Code Flow a
 1. **`code_verifier`**: The client generates a high-entropy, cryptographically random string (between 43 and 128 characters) using characters `[A-Z]`, `[a-z]`, `[0-9]`, `-`, `_`, `.`, `~`.
 2. **`code_challenge`**: The client computes the SHA-256 hash of the `code_verifier` and URL-safe Base64 encodes it:
 
-$$\text{code\_challenge} = \text{Base64URL}\Big(\text{SHA-256}(\text{code\_verifier})\Big)$$
+$$\text{CodeChallenge} = \text{Base64URL}\Big(\text{SHA-256}(\text{CodeVerifier})\Big)$$
 
 3. **Immunity to Code Interception**: If an attacker intercepts the authorization code on a mobile OS redirect URI, they cannot exchange it for an access token because they do not know the unhashed `code_verifier` stored in client memory!
 

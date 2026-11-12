@@ -56,22 +56,24 @@
 
     <!-- Mechanics Box -->
     <rect x="25" y="295" width="475" height="215" rx="8" fill="#161b22" stroke="#1f6feb" stroke-width="1.5"/>
-    <text x="40" y="325" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#58a6ff">SATB &amp; Evacuation Mechanics</text>
+    <text x="40" y="322" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#58a6ff">SATB &amp; Evacuation Mechanics</text>
 
-    <text x="40" y="355" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" font-weight="600" fill="#f0f6fc">• Concurrent Marking (SATB):</text>
-    <text x="55" y="377" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Snapshot-At-The-Beginning write barrier logs overwritten references to ensure live objects aren't missed.</text>
+    <text x="40" y="348" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="600" fill="#f0f6fc">• Concurrent Marking (SATB):</text>
+    <text x="55" y="368" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">Snapshot-At-The-Beginning write barrier logs overwritten</text>
+    <text x="55" y="384" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">references to ensure live objects are never missed.</text>
 
-    <text x="40" y="407" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" font-weight="600" fill="#f0f6fc">• Mixed Collection:</text>
-    <text x="55" y="429" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Evacuates all Eden/Survivor regions plus selected high-garbage Old regions.</text>
+    <text x="40" y="408" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="600" fill="#f0f6fc">• Mixed Collection:</text>
+    <text x="55" y="426" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">Evacuates all Eden/Survivor regions + selected Old regions.</text>
 
-    <text x="40" y="459" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" font-weight="600" fill="#ff7b72">• Stop-The-World (STW) Evacuation:</text>
-    <text x="55" y="481" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#ff7b72">Copies live objects to free regions. Pauses: 50ms - 250ms (scales with live data size).</text>
+    <text x="40" y="450" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="600" fill="#ff7b72">• Stop-The-World (STW) Evacuation:</text>
+    <text x="55" y="470" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#ff7b72">Copies live objects to free regions.</text>
+    <text x="55" y="486" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#ff7b72">STW Pauses: 50ms - 250ms (scales with live data size).</text>
 
     <!-- Tuning & Failure Modes -->
     <rect x="25" y="530" width="475" height="195" rx="8" fill="#161b22" stroke="#da3633" stroke-width="1.5"/>
-    <text x="40" y="560" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#f85149">Tuning Flags &amp; Full GC Failure Trap</text>
+    <text x="40" y="558" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#f85149">Tuning Flags &amp; Full GC Failure Trap</text>
 
-    <text x="40" y="590" font-family="monospace" font-size="13" font-weight="700" fill="#79c0ff">-XX:MaxGCPauseMillis=200 -XX:InitiatingHeapOccupancyPercent=45</text>
+    <text x="40" y="586" font-family="monospace" font-size="11.5" font-weight="700" fill="#79c0ff">-XX:MaxGCPauseMillis=200 -XX:InitiatingHeapOccupancyPercent=45</text>
     
     <text x="40" y="622" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" font-weight="700" fill="#f85149">⚠️ Evacuation Failure (To-Space Exhaustion):</text>
     <text x="40" y="646" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#f0f6fc">
@@ -135,16 +137,18 @@
 
     <!-- Load Barrier & Self-Healing Box -->
     <rect x="25" y="295" width="475" height="215" rx="8" fill="#161b22" stroke="#238636" stroke-width="1.5"/>
-    <text x="40" y="325" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#3fb950">Load Barrier &amp; Self-Healing Pointers</text>
+    <text x="40" y="322" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#3fb950">Load Barrier &amp; Self-Healing Pointers</text>
 
-    <text x="40" y="355" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" font-weight="600" fill="#f0f6fc">• JIT Emitted Load Barrier:</text>
-    <text x="55" y="377" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">When app dereferences a pointer, JIT executes a fast 2-3 instruction test against good color mask.</text>
+    <text x="40" y="348" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="600" fill="#f0f6fc">• JIT Emitted Load Barrier:</text>
+    <text x="55" y="368" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">When app dereferences pointer, JIT executes a fast</text>
+    <text x="55" y="384" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">2-3 instruction test against good color mask.</text>
 
-    <text x="40" y="407" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" font-weight="600" fill="#7ee787">• Fast Path (Good Color):</text>
-    <text x="55" y="429" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Pointer is valid. Execution continues immediately with zero latency overhead.</text>
+    <text x="40" y="408" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="600" fill="#7ee787">• Fast Path (Good Color):</text>
+    <text x="55" y="426" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">Pointer is valid. Execution continues immediately with 0 overhead.</text>
 
-    <text x="40" y="459" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" font-weight="600" fill="#3fb950">• Self-Healing Slow Path (Bad Color):</text>
-    <text x="55" y="481" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#f0f6fc">Locates relocated copy in forwarding table, updates pointer in-place to new address!</text>
+    <text x="40" y="450" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="600" fill="#3fb950">• Self-Healing Slow Path (Bad Color):</text>
+    <text x="55" y="470" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#f0f6fc">Locates relocated copy in forwarding table and</text>
+    <text x="55" y="486" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#f0f6fc">updates pointer in-place to new address!</text>
 
     <!-- Generational ZGC & Flags -->
     <rect x="25" y="530" width="475" height="195" rx="8" fill="#161b22" stroke="#238636" stroke-width="1.5"/>
@@ -153,14 +157,14 @@
     <text x="40" y="590" font-family="monospace" font-size="13" font-weight="700" fill="#7ee787">-XX:+UseZGC -XX:+ZGenerational</text>
 
     <text x="40" y="622" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13.5" font-weight="700" fill="#3fb950">🚀 Eliminates Allocation Stalls:</text>
-    <text x="40" y="646" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#f0f6fc">
-      Separates young and old generation collections. Young gen is collected frequently
+    <text x="40" y="646" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" fill="#f0f6fc">
+      Separates young and old generation collections. Young gen is collected
     </text>
-    <text x="40" y="668" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">
-      and concurrently, eliminating allocation stalls even under heavy write pressure.
+    <text x="40" y="668" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#8b949e">
+      concurrently, eliminating allocation stalls under heavy write pressure.
     </text>
-    <text x="40" y="690" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#7ee787">
-      ✓ STW Pauses strictly &lt; 1ms regardless of whether heap is 32GB or 16TB!
+    <text x="40" y="690" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" font-weight="700" fill="#7ee787">
+      ✓ STW Pauses strictly &lt; 1ms from 32GB up to 16TB heaps!
     </text>
   </g>
 </svg>

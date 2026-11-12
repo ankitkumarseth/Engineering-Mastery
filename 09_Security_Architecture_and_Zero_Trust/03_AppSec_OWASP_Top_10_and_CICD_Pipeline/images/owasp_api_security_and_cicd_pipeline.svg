@@ -20,9 +20,6 @@
       <stop offset="0%" stop-color="#238636" />
       <stop offset="100%" stop-color="#2ea043" />
     </linearGradient>
-    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
-      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#010409" flood-opacity="0.8"/>
-    </filter>
   </defs>
 
   <!-- Background Canvas -->
@@ -35,7 +32,7 @@
   </g>
 
   <!-- SECTION 1: OWASP API #1: BOLA / IDOR Defense (Left Column) -->
-  <g transform="translate(40, 105)" filter="url(#shadow)">
+  <g transform="translate(40, 105)">
     <rect width="545" height="475" rx="10" fill="url(#cardGradSec3)" stroke="#da3633" stroke-width="2"/>
     <rect width="545" height="6" rx="3" fill="url(#bolaGrad)"/>
     <text x="24" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#ff7b72">1. OWASP API #1: Broken Object Level Auth (BOLA)</text>
@@ -57,23 +54,23 @@
       <g transform="translate(0, 170)">
         <rect width="505" height="215" rx="6" fill="#0d1117" stroke="#238636" stroke-width="1.5"/>
         <text x="16" y="24" font-family="monospace" font-size="14" font-weight="700" fill="#3fb950">THE ANTIDOTE: Contextual Tenant-Aware Database Isolation</text>
-        <text x="16" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Never rely on raw user-supplied IDs from HTTP path/query params!</text>
-        <text x="16" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Extract caller Identity &amp; Tenant ID directly from verified JWT claims.</text>
+        <text x="16" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#c9d1d9">• Never rely on raw user-supplied IDs from HTTP path/query params!</text>
+        <text x="16" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#c9d1d9">• Extract caller Identity &amp; Tenant ID from verified JWT claims.</text>
 
         <!-- Code Box -->
         <g transform="translate(14, 82)">
           <rect width="477" height="115" rx="4" fill="#161b22" stroke="#30363d" stroke-width="1"/>
-          <text x="12" y="22" font-family="monospace" font-size="13" font-weight="700" fill="#7ee787">Tenant-Aware Context Query (Automatic Multi-Tenant Barrier):</text>
-          <text x="12" y="48" font-family="monospace" font-size="13" fill="#58a6ff">SELECT * FROM accounts</text>
-          <text x="12" y="70" font-family="monospace" font-size="13" fill="#7ee787">WHERE id = :id AND tenant_id = :jwtTenant AND owner = :jwtUser;</text>
-          <text x="12" y="96" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#8b949e">Unmatched rows return HTTP 404 / 403; zero cross-tenant data leakage!</text>
+          <text x="12" y="22" font-family="monospace" font-size="12.5" font-weight="700" fill="#7ee787">Tenant-Aware Context Query (Multi-Tenant Barrier):</text>
+          <text x="12" y="48" font-family="monospace" font-size="12.5" fill="#58a6ff">SELECT * FROM accounts</text>
+          <text x="12" y="70" font-family="monospace" font-size="12" fill="#7ee787">WHERE id = :id AND tenant_id = :jwtTenant AND owner = :jwtUser;</text>
+          <text x="12" y="96" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#8b949e">Unmatched rows return HTTP 404/403; zero cross-tenant leakage!</text>
         </g>
       </g>
     </g>
   </g>
 
   <!-- SECTION 2: SSRF & Cloud Metadata IMDSv2 (Right Column) -->
-  <g transform="translate(615, 105)" filter="url(#shadow)">
+  <g transform="translate(615, 105)">
     <rect width="545" height="475" rx="10" fill="url(#cardGradSec3)" stroke="#d29922" stroke-width="2"/>
     <rect width="545" height="6" rx="3" fill="url(#ssrfGrad)"/>
     <text x="24" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#e3b341">2. SSRF &amp; Cloud Metadata Defense (IMDSv2)</text>
@@ -84,34 +81,34 @@
       <g transform="translate(0, 0)">
         <rect width="505" height="155" rx="6" fill="#0d1117" stroke="#da3633" stroke-width="1.5"/>
         <text x="16" y="24" font-family="monospace" font-size="14" font-weight="700" fill="#f85149">THE ATTACK: SSRF via Cloud Metadata (IMDSv1)</text>
-        <text x="16" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">1. Webhook accepts target URL: ?url=http://169.254.169.254/...</text>
-        <text x="16" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">2. Under IMDSv1, a simple HTTP GET steals EC2 IAM Role credentials!</text>
-        <text x="16" y="94" font-family="monospace" font-size="13" font-weight="700" fill="#f85149">❌ Attacker gains temporary IAM keys; exfiltrates cloud S3 buckets!</text>
+        <text x="16" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#c9d1d9">1. Webhook accepts target URL: ?url=http://169.254.169.254/...</text>
+        <text x="16" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#c9d1d9">2. Under IMDSv1, HTTP GET steals EC2 IAM Role credentials!</text>
+        <text x="16" y="94" font-family="monospace" font-size="12.5" font-weight="700" fill="#f85149">❌ Attacker gains temporary IAM keys; exfiltrates cloud S3 buckets!</text>
         <text x="16" y="118" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#8b949e">The exact attack vector responsible for the Capital One data breach.</text>
-        <text x="16" y="140" font-family="monospace" font-size="12" fill="#f85149">IMDSv1 has NO session token challenge and allows simple GET traversal</text>
+        <text x="16" y="140" font-family="monospace" font-size="11.5" fill="#f85149">IMDSv1 has NO session token challenge and allows simple GET traversal</text>
       </g>
 
       <!-- Defense Box -->
       <g transform="translate(0, 170)">
         <rect width="505" height="215" rx="6" fill="#0d1117" stroke="#238636" stroke-width="1.5"/>
         <text x="16" y="24" font-family="monospace" font-size="14" font-weight="700" fill="#3fb950">THE ANTIDOTE: AWS IMDSv2 Session Token Challenge</text>
-        <text x="16" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">IMDSv2 strictly enforces a session-oriented two-step challenge:</text>
+        <text x="16" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#c9d1d9">IMDSv2 strictly enforces a session-oriented two-step challenge:</text>
 
         <!-- 2-Step Box -->
         <g transform="translate(14, 62)">
           <rect width="477" height="135" rx="4" fill="#161b22" stroke="#30363d" stroke-width="1"/>
-          <text x="12" y="22" font-family="monospace" font-size="13" font-weight="700" fill="#58a6ff">Step 1: PUT Request to obtain Session Token</text>
-          <text x="12" y="42" font-family="monospace" font-size="12" fill="#c9d1d9">PUT /latest/api/token (Header: X-aws-ec2-metadata-token-ttl: 21600)</text>
-          <text x="12" y="68" font-family="monospace" font-size="13" font-weight="700" fill="#3fb950">Step 2: GET Request presenting Session Token</text>
-          <text x="12" y="88" font-family="monospace" font-size="12" fill="#c9d1d9">GET /latest/meta-data/iam/ (Header: X-aws-ec2-metadata-token: [token])</text>
-          <text x="12" y="116" font-family="monospace" font-size="12" fill="#7ee787">✓ Hop limit = 1 blocks proxy traversal; GET SSRFs cannot inject PUT headers</text>
+          <text x="12" y="22" font-family="monospace" font-size="12.5" font-weight="700" fill="#58a6ff">Step 1: PUT Request to obtain Session Token</text>
+          <text x="12" y="42" font-family="monospace" font-size="11.5" fill="#c9d1d9">PUT /latest/api/token (Header: X-aws-ec2-metadata-token-ttl: 21600)</text>
+          <text x="12" y="68" font-family="monospace" font-size="12.5" font-weight="700" fill="#3fb950">Step 2: GET Request presenting Session Token</text>
+          <text x="12" y="88" font-family="monospace" font-size="11.5" fill="#c9d1d9">GET /latest/meta-data/iam/ (Header: X-aws-ec2-metadata-token)</text>
+          <text x="12" y="116" font-family="monospace" font-size="11" fill="#7ee787">✓ Hop limit = 1 blocks proxies; GET SSRF cannot inject PUT headers</text>
         </g>
       </g>
     </g>
   </g>
 
   <!-- SECTION 3: Enterprise CI/CD AppSec Pipeline (Bottom Row) -->
-  <g transform="translate(40, 605)" filter="url(#shadow)">
+  <g transform="translate(40, 605)">
     <rect width="1120" height="260" rx="10" fill="url(#cardGradSec3)" stroke="#238636" stroke-width="2"/>
     <rect width="1120" height="6" rx="3" fill="url(#cicdGrad)"/>
     <text x="24" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#3fb950">3. Enterprise CI/CD Security Pipeline: SAST (Sonar/Checkmarx) &amp; SCA (Black Duck)</text>
@@ -134,7 +131,7 @@
         <rect width="360" height="165" rx="6" fill="#161b22" stroke="#238636" stroke-width="1.5"/>
         <text x="16" y="24" font-family="monospace" font-size="14" font-weight="700" fill="#3fb950">SCA (Software Composition)</text>
         <text x="16" y="48" font-family="monospace" font-size="13" fill="#7ee787">Black Duck / Snyk Transitive Scans</text>
-        <text x="16" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Detects Log4Shell, Spring4Shell in transitive dependencies</text>
+        <text x="16" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#c9d1d9">• Detects Log4Shell, Spring4Shell in deps</text>
         <text x="16" y="92" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• CVSS &gt;= 7.0 automatically breaks build</text>
         <text x="16" y="118" font-family="monospace" font-size="13" fill="#e3b341">License Governance: Blocks AGPL / GPL v3</text>
         <text x="16" y="142" font-family="monospace" font-size="12" fill="#7ee787">✓ Shields proprietary IP from copyleft disclosure</text>

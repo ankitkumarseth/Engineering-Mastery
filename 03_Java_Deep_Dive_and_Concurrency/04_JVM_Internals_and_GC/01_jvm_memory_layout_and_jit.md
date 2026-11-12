@@ -128,9 +128,9 @@ Because those 3 bits are always zeros, the JVM does not need to store them in me
 
 #### Bitwise Shift Mechanics
 1. **Compressing (Register $\to$ Heap Store)**:
-   $$\text{Compressed\_OOP} = \text{Raw\_Address} \gg 3$$
+   $$\text{CompressedOOP} = \text{RawAddress} \gg 3$$
 2. **Decompressing (Heap Load $\to$ Register Dereference)**:
-   $$\text{Raw\_Address} = \text{Compressed\_OOP} \ll 3$$
+   $$\text{RawAddress} = \text{CompressedOOP} \ll 3$$
 
 With a 32-bit integer register shifted left by 3 bits:
 $$\text{Max Addressable Space} = 2^{32} \times 2^3 = 2^{35}\text{ bytes} = 32\text{ GB}$$

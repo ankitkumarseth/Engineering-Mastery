@@ -20,9 +20,6 @@
       <stop offset="0%" stop-color="#238636" />
       <stop offset="100%" stop-color="#2ea043" />
     </linearGradient>
-    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
-      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#010409" flood-opacity="0.8"/>
-    </filter>
   </defs>
 
   <!-- Background Canvas -->
@@ -35,7 +32,7 @@
   </g>
 
   <!-- SECTION 1: Disaster Recovery Spectrum (Left Column) -->
-  <g transform="translate(40, 105)" filter="url(#shadow)">
+  <g transform="translate(40, 105)">
     <rect width="545" height="475" rx="10" fill="url(#cardGradAws3)" stroke="#da3633" stroke-width="2"/>
     <rect width="545" height="6" rx="3" fill="url(#drGrad)"/>
     <text x="24" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#f85149">1. Disaster Recovery Spectrum (RPO vs RTO)</text>
@@ -63,7 +60,7 @@
       <g transform="translate(0, 190)">
         <rect width="505" height="85" rx="6" fill="#0d1117" stroke="#1f6feb" stroke-width="1.5"/>
         <text x="16" y="22" font-family="monospace" font-size="14" font-weight="700" fill="#58a6ff">3. Warm Standby (Minutes)</text>
-        <text x="16" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Scaled-down fleet running 24/7 in DR region handling canary traffic.</text>
+        <text x="16" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#c9d1d9">• Scaled-down fleet running 24/7 in DR handling canary traffic.</text>
         <text x="16" y="68" font-family="monospace" font-size="12" fill="#58a6ff">Failover scales ASG capacity from 20% to 100% in minutes</text>
       </g>
 
@@ -79,7 +76,7 @@
   </g>
 
   <!-- SECTION 2: Cryptography & Network Security (Right Column) -->
-  <g transform="translate(615, 105)" filter="url(#shadow)">
+  <g transform="translate(615, 105)">
     <rect width="545" height="475" rx="10" fill="url(#cardGradAws3)" stroke="#1f6feb" stroke-width="2"/>
     <rect width="545" height="6" rx="3" fill="url(#secGrad)"/>
     <text x="24" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#58a6ff">2. Cryptography, KMS &amp; Threat Detection</text>
@@ -90,19 +87,19 @@
       <g transform="translate(0, 0)">
         <rect width="505" height="150" rx="6" fill="#0d1117" stroke="#1f6feb" stroke-width="1.5"/>
         <text x="16" y="24" font-family="monospace" font-size="14" font-weight="700" fill="#79c0ff">KMS Envelope Encryption: GenerateDataKey</text>
-        <text x="16" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">1. KMS returns Plaintext Data Key (PDK) + Encrypted Data Key (EDK).</text>
-        <text x="16" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">2. Application encrypts payload using PDK in local memory (AES-256-GCM).</text>
+        <text x="16" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#c9d1d9">1. KMS returns Plaintext Key (PDK) + Encrypted Key (EDK).</text>
+        <text x="16" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#c9d1d9">2. App encrypts payload using PDK in local RAM (AES-256-GCM).</text>
         <text x="16" y="94" font-family="monospace" font-size="13" font-weight="700" fill="#f85149">⚠️ CRITICAL: Application zeroes out PDK in RAM immediately!</text>
-        <text x="16" y="116" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">3. Stores [Ciphertext + EDK] together; KMS never touches payload.</text>
-        <text x="16" y="138" font-family="monospace" font-size="12" fill="#7ee787">✓ Bypasses KMS 4KB limit and eliminates KMS API rate throttling</text>
+        <text x="16" y="116" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#c9d1d9">3. Stores [Ciphertext + EDK] together; KMS never touches payload.</text>
+        <text x="16" y="138" font-family="monospace" font-size="11.5" fill="#7ee787">✓ Bypasses KMS 4KB limit and eliminates KMS API rate throttling</text>
       </g>
 
       <!-- Multi-Region CMKs -->
       <g transform="translate(0, 160)">
         <rect width="505" height="105" rx="6" fill="#0d1117" stroke="#388bfd" stroke-width="1.5"/>
         <text x="16" y="24" font-family="monospace" font-size="14" font-weight="700" fill="#58a6ff">Multi-Region CMKs (Primary &amp; Replicas)</text>
-        <text x="16" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Primary Key in us-east-1 replicated to eu-west-1 (Same Key Material).</text>
-        <text x="16" y="72" font-family="monospace" font-size="13" fill="#3fb950">✓ Encrypt in US -> Decrypt in EU directly with zero cross-region latency</text>
+        <text x="16" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#c9d1d9">• Primary Key replicated cross-region with identical key material.</text>
+        <text x="16" y="72" font-family="monospace" font-size="12" fill="#3fb950">✓ Encrypt in US -> Decrypt in EU with zero cross-region KMS latency</text>
         <text x="16" y="94" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#8b949e">Eliminates cross-region KMS network dependencies during DR failover.</text>
       </g>
 
@@ -110,15 +107,15 @@
       <g transform="translate(0, 275)">
         <rect width="505" height="105" rx="6" fill="#0d1117" stroke="#238636" stroke-width="1.5"/>
         <text x="16" y="24" font-family="monospace" font-size="14" font-weight="700" fill="#3fb950">Threat Detection: GuardDuty &amp; AWS WAF</text>
-        <text x="16" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• GuardDuty: ML threat analysis on VPC Flow, DNS, CloudTrail, EKS logs.</text>
-        <text x="16" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• AWS WAF: Rate-based rules (block IP exceeding 2,000 req/5min).</text>
+        <text x="16" y="48" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#c9d1d9">• GuardDuty: ML threat analysis on VPC, DNS, CloudTrail, EKS.</text>
+        <text x="16" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#c9d1d9">• AWS WAF: Rate-based rules (block IP exceeding 2,000 req/5min).</text>
         <text x="16" y="94" font-family="monospace" font-size="12" fill="#7ee787">✓ 100% agentless threat detection &amp; DDoS edge mitigation</text>
       </g>
     </g>
   </g>
 
   <!-- SECTION 3: FinOps & Observability Engine (Bottom Row) -->
-  <g transform="translate(40, 605)" filter="url(#shadow)">
+  <g transform="translate(40, 605)">
     <rect width="1120" height="260" rx="10" fill="url(#cardGradAws3)" stroke="#238636" stroke-width="2"/>
     <rect width="1120" height="6" rx="3" fill="url(#finGrad)"/>
     <text x="24" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#3fb950">3. FinOps Cost Optimization &amp; Cross-Account Observability</text>
@@ -141,7 +138,7 @@
         <rect width="360" height="165" rx="6" fill="#161b22" stroke="#238636" stroke-width="1.5"/>
         <text x="16" y="24" font-family="monospace" font-size="14" font-weight="700" fill="#3fb950">Spot Allocation &amp; Interruption</text>
         <text x="16" y="48" font-family="monospace" font-size="13" fill="#7ee787">price-capacity-optimized Strategy</text>
-        <text x="16" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Launches from pools with deepest spare capacity</text>
+        <text x="16" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#c9d1d9">• Launches from pools with deepest capacity</text>
         <text x="16" y="92" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#c9d1d9">• Cuts Spot interruption frequency by &gt; 80%</text>
         <text x="16" y="118" font-family="monospace" font-size="13" fill="#f85149">2-Min Interruption Handling via EventBridge:</text>
         <text x="16" y="142" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#8b949e">Drains ALB connections &amp; checkpoints cleanly.</text>

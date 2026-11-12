@@ -172,7 +172,7 @@ When an LLM generates a tool call:
 
 In standard sampling, the model samples tokens from its vocabulary of ~100k tokens according to the softmax probability distribution:
 
-$$P(w_t \mid w_{<t}) = \text{softmax}(z_t)$$
+$$P(w_t \mid w_{\lt t}) = \text{softmax}(z_t)$$
 
 If the model samples an unescaped newline or illegal character in the middle of a JSON string, downstream parsers throw `json.decoder.JSONDecodeError`.
 
@@ -417,7 +417,7 @@ if __name__ == "__main__":
     # - Invalid severity enum ('FATAL' instead of 'CRITICAL')
     # - Leading slash in file_path
     broken_llm_payload = {
-        "file_path": "/src/main/java/com/mastercard/PaymentService.java",
+        "file_path": "/src/main/java/com/enterprise/PaymentService.java",
         "start_line": 145,
         "end_line": 120,
         "severity": "FATAL",

@@ -23,7 +23,7 @@ In 2008, Leonard Richardson formulated a 4-tier model to categorize the architec
 
 #### Level 2: HTTP Verbs & Status Codes (Pragmatic Enterprise REST)
 - **Mechanics**: Uses standard HTTP methods according to RFC specifications (`GET`, `POST`, `PUT`, `PATCH`, `DELETE`) and leverages semantic HTTP status codes (`200`, `201`, `204`, `400`, `404`, `409`, `422`).
-- **Status**: **The architectural standard for 95% of modern enterprise APIs** (Stripe, GitHub, Twilio, AWS, Mastercard).
+- **Status**: **The architectural standard for 95% of modern enterprise APIs** (Stripe, GitHub, Twilio, AWS).
 
 #### Level 3: Hypermedia Controls (HATEOAS)
 - **Mechanics**: *Hypermedia As The Engine Of Application State*. Responses include relational hypermedia links (`_links`) instructing the client which state transitions are currently valid based on domain rules.
@@ -130,7 +130,7 @@ Using the correct HTTP status code is essential for intermediate proxies, edge c
 - **`201 Created`**: The resource was synchronously persisted. **Must** include a `Location` header pointing to the newly created URI:
   ```http
   HTTP/1.1 201 Created
-  Location: https://api.mastercard.com/v1/orders/ord_98421
+  Location: https://api.enterprise.com/v1/orders/ord_98421
   ```
 - **`202 Accepted`**: The request was validated and accepted, but processing has **not finished**. Used for asynchronous queues, Kafka ingestion, or batch jobs. Should return a link to a status poll endpoint:
   ```json
@@ -166,7 +166,7 @@ In 2023, the IETF ratified **RFC 9457 (Problem Details for HTTP APIs)**, officia
 
 ```json
 {
-  "type": "https://api.mastercard.com/errors/insufficient-credit-limit",
+  "type": "https://api.enterprise.com/errors/insufficient-credit-limit",
   "title": "Insufficient Credit Limit",
   "status": 409,
   "detail": "Requested authorization amount $12,500 exceeds available credit $8,200.",
@@ -208,7 +208,7 @@ public class GlobalApiExceptionHandler extends ResponseEntityExceptionHandler {
             HttpStatus.CONFLICT,
             ex.getMessage()
         );
-        problem.setType(URI.create("https://api.mastercard.com/errors/insufficient-funds"));
+        problem.setType(URI.create("https://api.enterprise.com/errors/insufficient-funds"));
         problem.setTitle("Insufficient Account Balance");
         problem.setInstance(URI.create(request.getRequestURI()));
         problem.setProperty("timestamp", Instant.now());
@@ -273,7 +273,7 @@ public class RestRfc9457ProblemDetailPOC {
 
         ProblemDetail problem = ProblemDetail.builder()
             .status(422)
-            .type("https://api.mastercard.com/errors/invalid-payment-payload")
+            .type("https://api.enterprise.com/errors/invalid-payment-payload")
             .title("Semantic Validation Failure")
             .detail("The currency code must match the merchant acquiring region.")
             .instance("/v1/payments/settlements/tx_4492")
