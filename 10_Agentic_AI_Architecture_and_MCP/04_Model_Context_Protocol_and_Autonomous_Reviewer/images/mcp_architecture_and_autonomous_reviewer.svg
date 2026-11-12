@@ -1,0 +1,170 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 860" width="100%" height="auto">
+  <defs>
+    <!-- Background Gradients -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#161b22"/>
+    </linearGradient>
+
+    <linearGradient id="panelGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#161b22"/>
+      <stop offset="100%" stop-color="#0d1117"/>
+    </linearGradient>
+
+    <linearGradient id="tealBar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1b7c83"/>
+      <stop offset="100%" stop-color="#39c5cf"/>
+    </linearGradient>
+
+    <linearGradient id="blueBar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1f6feb"/>
+      <stop offset="100%" stop-color="#58a6ff"/>
+    </linearGradient>
+
+    <linearGradient id="purpleBar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8957e5"/>
+      <stop offset="100%" stop-color="#bc8cff"/>
+    </linearGradient>
+
+    <linearGradient id="greenBar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#238636"/>
+      <stop offset="100%" stop-color="#3fb950"/>
+    </linearGradient>
+
+    <!-- Marker Arrowheads -->
+    <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <polygon points="0 0, 8 4, 0 8" fill="#58a6ff"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <polygon points="0 0, 8 4, 0 8" fill="#3fb950"/>
+    </marker>
+    <marker id="arrowTeal" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <polygon points="0 0, 8 4, 0 8" fill="#39c5cf"/>
+    </marker>
+  </defs>
+
+  <!-- Deep Canvas Background -->
+  <rect width="1200" height="860" fill="url(#bgGrad)"/>
+
+  <!-- TOP BANNER -->
+  <g transform="translate(40, 20)">
+    <rect width="1120" height="70" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <rect width="1120" height="4" rx="2" fill="url(#tealBar)"/>
+    <text x="24" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="20" font-weight="700" fill="#f0f6fc">Model Context Protocol (MCP) &amp; Autonomous Reviewer Architecture</text>
+    <text x="24" y="54" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">First-Principles Architecture: JSON-RPC 2.0 Primitives (Tools, Resources, Prompts), FastMCP Integration, LangGraph &amp; AWS Deployment</text>
+  </g>
+
+  <!-- ROW 1, PANEL 1: MCP Protocol Specification (Top Left) -->
+  <g transform="translate(40, 105)">
+    <rect width="545" height="345" rx="8" fill="url(#panelGrad)" stroke="#30363d" stroke-width="1.5"/>
+    <rect width="545" height="4" rx="2" fill="url(#tealBar)"/>
+    <text x="20" y="28" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#39c5cf">1. MCP Protocol Specification (Host-Client-Server)</text>
+
+    <!-- Subcard: Topology -->
+    <g transform="translate(18, 42)">
+      <rect width="509" height="135" rx="6" fill="#0d1117" stroke="#1b7c83" stroke-width="1.2"/>
+      <text x="14" y="22" font-family="monospace" font-size="12" font-weight="700" fill="#39c5cf">Host-Client-Server Architectural Topology</text>
+      <text x="14" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#c9d1d9">• Host (IDE / Claude Desktop / Agent runtime): Holds user context.</text>
+      <text x="14" y="64" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#c9d1d9">• Client: 1:1 connector inside Host negotiating capabilities.</text>
+      <text x="14" y="86" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#c9d1d9">• Server: Exposes Tools, Resources, and Prompts over standard pipes.</text>
+      <text x="14" y="108" font-family="monospace" font-size="11" fill="#7ee787">Transports: stdio (local subprocess pipes) | SSE/HTTP (remote servers)</text>
+      <text x="14" y="126" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#8b949e">Solves M×N integration problem: 1 standard protocol connects all tools to all models.</text>
+    </g>
+
+    <!-- Subcard: JSON-RPC 2.0 Wire Messages -->
+    <g transform="translate(18, 190)">
+      <rect width="509" height="140" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+      <text x="14" y="22" font-family="monospace" font-size="12" font-weight="700" fill="#79c0ff">JSON-RPC 2.0 Wire Protocol Mechanics</text>
+      <text x="14" y="42" font-family="monospace" font-size="11" fill="#8b949e">{"jsonrpc": "2.0", "method": "tools/call", "id": 104,</text>
+      <text x="14" y="60" font-family="monospace" font-size="11" fill="#8b949e"> "params": {"name": "create_card", "arguments": {"name": "Fix SQLi"}}}</text>
+      <text x="14" y="82" font-family="monospace" font-size="11" fill="#3fb950">&lt;-- {"jsonrpc": "2.0", "id": 104, "result": {"content": [{"text": "Card created"}]}}</text>
+      <text x="14" y="106" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">3 Core MCP Primitives: Tools (callable), Resources (read), Prompts (templates).</text>
+      <text x="14" y="126" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#8b949e">Built-in schema introspection via Pydantic model serialization.</text>
+    </g>
+  </g>
+
+  <!-- ROW 1, PANEL 2: FastMCP Implementation (Top Right) -->
+  <g transform="translate(615, 105)">
+    <rect width="545" height="345" rx="8" fill="url(#panelGrad)" stroke="#30363d" stroke-width="1.5"/>
+    <rect width="545" height="4" rx="2" fill="url(#blueBar)"/>
+    <text x="20" y="28" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#58a6ff">2. FastMCP Server: Tool Contracts &amp; Resource Providers</text>
+
+    <!-- Subcard: FastMCP Server Code -->
+    <g transform="translate(18, 42)">
+      <rect width="509" height="150" rx="6" fill="#0d1117" stroke="#1f6feb" stroke-width="1.2"/>
+      <text x="14" y="22" font-family="monospace" font-size="12" font-weight="700" fill="#79c0ff">Production FastMCP Python Definition</text>
+      <text x="14" y="44" font-family="monospace" font-size="11" fill="#f0f6fc">from mcp.server.fastmcp import FastMCP</text>
+      <text x="14" y="62" font-family="monospace" font-size="11" fill="#f0f6fc">mcp = FastMCP("Trello-PR-Manager")</text>
+      <text x="14" y="84" font-family="monospace" font-size="11" fill="#3fb950">@mcp.tool()</text>
+      <text x="14" y="102" font-family="monospace" font-size="11" fill="#f0f6fc">def log_vulnerability(cwe_id: int, file: str, line: int) -&gt; str:</text>
+      <text x="14" y="120" font-family="monospace" font-size="11" fill="#8b949e">    """Automatically creates tracking card on Trello security board."""</text>
+      <text x="14" y="138" font-family="monospace" font-size="11" fill="#7ee787">    return trello_client.create_card(name=f"CWE-{cwe_id}: {file}:{line}")</text>
+    </g>
+
+    <!-- Subcard: Security & Sandboxing -->
+    <g transform="translate(18, 205)">
+      <rect width="509" height="125" rx="6" fill="#0d1117" stroke="#d29922" stroke-width="1.2"/>
+      <text x="14" y="22" font-family="monospace" font-size="12" font-weight="700" fill="#e3b341">Enterprise Sandboxing &amp; Security Isolation</text>
+      <text x="14" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#c9d1d9">• Subprocess Execution: Runs as unprivileged non-root user.</text>
+      <text x="14" y="64" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#c9d1d9">• Environment Variable Isolation: Credentials loaded via secure Vault/KMS.</text>
+      <text x="14" y="86" font-family="monospace" font-size="11" fill="#3fb950">Input Validation: Pydantic rejects malformed paths (e.g. ../../etc/passwd).</text>
+      <text x="14" y="108" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#8b949e">Rate-limiting and timeout controls prevent infinite tool execution loops.</text>
+    </g>
+  </g>
+
+  <!-- FLOW ARROW DOWN: Joining Row 1 to Row 2 -->
+  <line x1="600" y1="450" x2="600" y2="475" stroke="#39c5cf" stroke-width="2" marker-end="url(#arrowTeal)"/>
+
+  <!-- ROW 2: AUTONOMOUS REVIEWER WORKFLOW & AWS CLOUD DEPLOYMENT -->
+  <g transform="translate(40, 485)">
+    <!-- PANEL 3: Autonomous PR-Reviewer Pipeline (Bottom Left) -->
+    <g transform="translate(0, 0)">
+      <rect width="545" height="345" rx="8" fill="url(#panelGrad)" stroke="#30363d" stroke-width="1.5"/>
+      <rect width="545" height="4" rx="2" fill="url(#purpleBar)"/>
+      <text x="20" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14.5" font-weight="700" fill="#bc8cff">3. Autonomous PR Reviewer Workflow (LangGraph + FastMCP)</text>
+      <text x="20" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#8b949e">End-to-End Git Diff Ingress to Automated Issue Remediation</text>
+
+      <rect x="18" y="56" width="509" height="60" rx="5" fill="#0d1117" stroke="#8957e5" stroke-width="1"/>
+      <text x="28" y="78" font-family="monospace" font-size="11.5" fill="#d2a8ff">GitHub Webhook (PR Open) -&gt; HMAC Verify -&gt; FastAPI Event Ingress</text>
+      <text x="28" y="98" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#8b949e">Triggers asynchronous LangGraph StateGraph review thread</text>
+
+      <g transform="translate(18, 126)">
+        <rect width="509" height="195" rx="5" fill="#0d1117" stroke="#30363d"/>
+        <text x="14" y="22" font-family="monospace" font-size="11.5" font-weight="700" fill="#3fb950">Multi-Agent Execution Pipeline:</text>
+        <text x="14" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">1. Ingress &amp; AST Slicing: Tree-sitter extracts changed methods from diff.</text>
+        <text x="14" y="62" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">2. Deterministic SAST: Semgrep &amp; Ruff run locally (zero-token security!).</text>
+        <text x="14" y="80" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">3. LangGraph Supervisor: Dispatches findings to LLM reasoning workers.</text>
+        <text x="14" y="98" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">4. FastMCP Action: Creates Trello tasks and posts line comments on GitHub.</text>
+        <text x="14" y="122" font-family="monospace" font-size="11" fill="#e3b341">Architectural Cost Savings:</text>
+        <text x="14" y="142" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#8b949e">Running local Semgrep first filters 85% of clean PRs without calling LLM APIs.</text>
+        <text x="14" y="160" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#8b949e">Average review cost: $0.004 per PR with sub-8 second execution turnaround.</text>
+        <text x="14" y="180" font-family="monospace" font-size="11" fill="#7ee787">✓ Zero corporate dependencies; completely reproducible portfolio project</text>
+      </g>
+    </g>
+
+    <!-- PANEL 4: Enterprise AWS Cloud Deployment (Bottom Right) -->
+    <g transform="translate(615, 0)">
+      <rect width="545" height="345" rx="8" fill="url(#panelGrad)" stroke="#30363d" stroke-width="1.5"/>
+      <rect width="545" height="4" rx="2" fill="url(#greenBar)"/>
+      <text x="20" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14.5" font-weight="700" fill="#3fb950">4. Live AWS Cloud Deployment Architecture</text>
+      <text x="20" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#8b949e">Production EC2 / Fargate Hosting for Interview Demonstrations</text>
+
+      <rect x="18" y="56" width="509" height="60" rx="5" fill="#0d1117" stroke="#238636" stroke-width="1"/>
+      <text x="28" y="78" font-family="monospace" font-size="11.5" fill="#7ee787">Internet -&gt; CloudFront / ALB (HTTPS) -&gt; AWS EC2 / Fargate Docker Container</text>
+      <text x="28" y="98" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#8b949e">Automated webhook processing with Redis Celery worker queue</text>
+
+      <g transform="translate(18, 126)">
+        <rect width="509" height="195" rx="5" fill="#0d1117" stroke="#30363d"/>
+        <text x="14" y="22" font-family="monospace" font-size="11.5" font-weight="700" fill="#3fb950">Production Infrastructure Specifications:</text>
+        <text x="14" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">1. Compute: AWS EC2 t4g.small (ARM Graviton) or ECS Fargate.</text>
+        <text x="14" y="62" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">2. Security: AWS Secrets Manager for GitHub &amp; Trello API tokens.</text>
+        <text x="14" y="80" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">3. Networking: Public ALB terminating TLS with ACM SSL certificate.</text>
+        <text x="14" y="98" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">4. Storage: Sqlite / PostgreSQL RDS for LangGraph durable checkpoints.</text>
+        <text x="14" y="122" font-family="monospace" font-size="11" fill="#bc8cff">Interview Demonstration Strategy:</text>
+        <text x="14" y="142" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#8b949e">During live Staff/Principal interview, create a PR on GitHub with intentional flaw.</text>
+        <text x="14" y="160" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#8b949e">Show reviewer bot trigger in real time, create Trello card, and post fix in 10s.</text>
+        <text x="14" y="180" font-family="monospace" font-size="11" fill="#7ee787">★ The ultimate proof of Staff-level Agentic AI architecture mastery</text>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,170 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 860" width="100%" height="auto">
+  <defs>
+    <!-- Background Gradients -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#161b22"/>
+    </linearGradient>
+
+    <linearGradient id="panelGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#161b22"/>
+      <stop offset="100%" stop-color="#0d1117"/>
+    </linearGradient>
+
+    <linearGradient id="purpleBar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8957e5"/>
+      <stop offset="100%" stop-color="#bc8cff"/>
+    </linearGradient>
+
+    <linearGradient id="blueBar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1f6feb"/>
+      <stop offset="100%" stop-color="#58a6ff"/>
+    </linearGradient>
+
+    <linearGradient id="greenBar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#238636"/>
+      <stop offset="100%" stop-color="#3fb950"/>
+    </linearGradient>
+
+    <linearGradient id="amberBar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#d29922"/>
+      <stop offset="100%" stop-color="#f0883e"/>
+    </linearGradient>
+
+    <!-- Marker Arrowheads -->
+    <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <polygon points="0 0, 8 4, 0 8" fill="#58a6ff"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <polygon points="0 0, 8 4, 0 8" fill="#3fb950"/>
+    </marker>
+    <marker id="arrowPurple" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <polygon points="0 0, 8 4, 0 8" fill="#bc8cff"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="1200" height="860" fill="url(#bgGrad)"/>
+
+  <!-- TOP HEADER -->
+  <g transform="translate(40, 20)">
+    <rect width="1120" height="70" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <rect width="1120" height="4" rx="2" fill="url(#purpleBar)"/>
+    <text x="24" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="20" font-weight="700" fill="#f0f6fc">Multi-Agent Systems &amp; LangGraph Stateful Orchestration Architecture</text>
+    <text x="24" y="54" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">First-Principles Architecture: Supervisor-Worker Routing, Cyclic StateGraph, Human-in-the-Loop Interrupts &amp; RAG Triad LLMOps</text>
+  </g>
+
+  <!-- ROW 1, PANEL 1: Agentic Design Patterns (Top Left) -->
+  <g transform="translate(40, 105)">
+    <rect width="545" height="345" rx="8" fill="url(#panelGrad)" stroke="#30363d" stroke-width="1.5"/>
+    <rect width="545" height="4" rx="2" fill="url(#blueBar)"/>
+    <text x="20" y="28" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#58a6ff">1. Agentic Design Patterns: ReAct vs Supervisor-Worker</text>
+
+    <!-- Subcard: Single-Agent ReAct Bottleneck -->
+    <g transform="translate(18, 42)">
+      <rect width="509" height="120" rx="6" fill="#0d1117" stroke="#f85149" stroke-width="1"/>
+      <text x="14" y="22" font-family="monospace" font-size="12" font-weight="700" fill="#f85149">Single-Agent ReAct Loop (Reason + Act Bottleneck)</text>
+      <text x="14" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#c9d1d9">• One monolithic agent calls tools in a tight loop until finished.</text>
+      <text x="14" y="64" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#c9d1d9">• Suffers from tool bloat: &gt;15 tools degrade model tool selection.</text>
+      <text x="14" y="86" font-family="monospace" font-size="11" fill="#8b949e">Loop: Thought -&gt; Action -&gt; Observation -&gt; Thought ... (Infinite Loop Risk!)</text>
+      <text x="14" y="106" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#f85149">Failure Mode: High hallucination rate on multi-step workflows; single failure aborts all.</text>
+    </g>
+
+    <!-- Subcard: Hierarchical Supervisor-Worker Architecture -->
+    <g transform="translate(18, 175)">
+      <rect width="509" height="155" rx="6" fill="#0d1117" stroke="#3fb950" stroke-width="1.5"/>
+      <text x="14" y="22" font-family="monospace" font-size="12" font-weight="700" fill="#3fb950">Hierarchical Supervisor-Worker Pattern (Enterprise Standard)</text>
+      <text x="14" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#c9d1d9">• Supervisor LLM plans task decomposition and delegates subtasks.</text>
+      <text x="14" y="64" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#c9d1d9">• Dedicated specialized worker agents with tightly scoped tools:</text>
+      <text x="14" y="86" font-family="monospace" font-size="11" fill="#79c0ff">Worker 1: CodeRetrievalAgent (AST RAG) | Worker 2: SASTSecurityAgent</text>
+      <text x="14" y="106" font-family="monospace" font-size="11" fill="#bc8cff">Worker 3: TaskManagerAgent (FastMCP Trello API) | Worker 4: ReviewValidator</text>
+      <text x="14" y="128" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#3fb950">Result: Isolated context windows, zero tool confusion, parallel sub-agent execution.</text>
+      <text x="14" y="146" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#8b949e">Supervisor inspects worker outputs and aggregates structured final PR review.</text>
+    </g>
+  </g>
+
+  <!-- ROW 1, PANEL 2: LangGraph Core Engine (Top Right) -->
+  <g transform="translate(615, 105)">
+    <rect width="545" height="345" rx="8" fill="url(#panelGrad)" stroke="#30363d" stroke-width="1.5"/>
+    <rect width="545" height="4" rx="2" fill="url(#purpleBar)"/>
+    <text x="20" y="28" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#bc8cff">2. LangGraph Engine: StateGraph &amp; Cyclic Control Flow</text>
+
+    <!-- Subcard: State Schema -->
+    <g transform="translate(18, 42)">
+      <rect width="509" height="135" rx="6" fill="#0d1117" stroke="#8957e5" stroke-width="1.2"/>
+      <text x="14" y="22" font-family="monospace" font-size="12" font-weight="700" fill="#bc8cff">Immutable Shared State: TypedDict / Pydantic AgentState</text>
+      <text x="14" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#c9d1d9">• All nodes read from and write state updates to a centralized graph state.</text>
+      <text x="14" y="64" font-family="monospace" font-size="11" fill="#79c0ff">class AgentState(TypedDict):</text>
+      <text x="14" y="82" font-family="monospace" font-size="11" fill="#c9d1d9">    messages: Annotated[list[BaseMessage], add_messages] # Append-only reducer</text>
+      <text x="14" y="100" font-family="monospace" font-size="11" fill="#c9d1d9">    pr_diff: str; security_findings: list[Finding]; approval_status: str</text>
+      <text x="14" y="122" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#3fb950">Deterministic State Reducers prevent race conditions in parallel branches.</text>
+    </g>
+
+    <!-- Subcard: Cyclic Graph Topology -->
+    <g transform="translate(18, 190)">
+      <rect width="509" height="140" rx="6" fill="#0d1117" stroke="#1f6feb" stroke-width="1.2"/>
+      <text x="14" y="22" font-family="monospace" font-size="12" font-weight="700" fill="#58a6ff">Cyclic Graph Topology &amp; Conditional Edge Routing</text>
+      <text x="14" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#c9d1d9">• Unlike DAGs (Airflow), LangGraph natively supports CYCLIC loops.</text>
+      <text x="14" y="64" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#c9d1d9">• Nodes are pure Python functions: `node_func(state: AgentState) -&gt; dict`.</text>
+      <text x="14" y="86" font-family="monospace" font-size="11" fill="#e3b341">workflow.add_conditional_edges("supervisor", should_continue, { ... })</text>
+      <text x="14" y="108" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#3fb950">Self-Correction Loop: If reviewer finds syntax flaw, edges route back to coder!</text>
+      <text x="14" y="126" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#8b949e">Execution terminates deterministically when routing condition points to END.</text>
+    </g>
+  </g>
+
+  <!-- FLOW ARROW DOWN: Joining Row 1 to Row 2 -->
+  <line x1="600" y1="450" x2="600" y2="475" stroke="#bc8cff" stroke-width="2" marker-end="url(#arrowPurple)"/>
+
+  <!-- ROW 2: HITL, PERSISTENCE & LLMOPS EVALUATION -->
+  <g transform="translate(40, 485)">
+    <!-- PANEL 3: Human-in-the-Loop & Time-Travel Checkpointing -->
+    <g transform="translate(0, 0)">
+      <rect width="545" height="345" rx="8" fill="url(#panelGrad)" stroke="#30363d" stroke-width="1.5"/>
+      <rect width="545" height="4" rx="2" fill="url(#amberBar)"/>
+      <text x="20" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14.5" font-weight="700" fill="#f0883e">3. Human-in-the-Loop (HITL) &amp; Time-Travel Checkpointing</text>
+      <text x="20" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#8b949e">Durable State Persistence with Postgres / Sqlite Checkpointer</text>
+
+      <rect x="18" y="56" width="509" height="60" rx="5" fill="#0d1117" stroke="#d29922" stroke-width="1"/>
+      <text x="28" y="78" font-family="monospace" font-size="11.5" fill="#e3b341">app = workflow.compile(checkpointer=MemorySaver(), interrupt_before=["apply_patch"])</text>
+      <text x="28" y="98" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#8b949e">Thread ID session pinning: isolates separate user review threads</text>
+
+      <g transform="translate(18, 126)">
+        <rect width="509" height="195" rx="5" fill="#0d1117" stroke="#30363d"/>
+        <text x="14" y="22" font-family="monospace" font-size="11.5" font-weight="700" fill="#3fb950">Enterprise Human-in-the-Loop Capabilities:</text>
+        <text x="14" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">1. Pause Execution: Graph executes autonomously until reaching `apply_patch`.</text>
+        <text x="14" y="62" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">2. Manual Approval Gate: Halts and alerts engineer via Slack / PR comment.</text>
+        <text x="14" y="80" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">3. State Modification: Human can edit the proposed code patch in the state!</text>
+        <text x="14" y="98" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">4. Resume Execution: Engineer clicks "Approve", graph resumes seamlessly.</text>
+        <text x="14" y="122" font-family="monospace" font-size="11" fill="#79c0ff">Time-Travel Debugging:</text>
+        <text x="14" y="142" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#8b949e">Every node step creates an immutable snapshot: `checkpoint_id: ckpt_09182`.</text>
+        <text x="14" y="160" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#8b949e">Engineers can rewind execution 3 steps back, branch, and re-run with new parameters.</text>
+        <text x="14" y="180" font-family="monospace" font-size="11" fill="#7ee787">✓ Critical protection against runaway autonomous write actions</text>
+      </g>
+    </g>
+
+    <!-- PANEL 4: Production LLMOps & Evaluation (Bottom Right) -->
+    <g transform="translate(615, 0)">
+      <rect width="545" height="345" rx="8" fill="url(#panelGrad)" stroke="#30363d" stroke-width="1.5"/>
+      <rect width="545" height="4" rx="2" fill="url(#greenBar)"/>
+      <text x="20" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14.5" font-weight="700" fill="#3fb950">4. Production LLMOps: The RAG Triad &amp; LLM-as-a-Judge</text>
+      <text x="20" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#8b949e">Automated Quality Gates &amp; Hallucination Prevention in CI/CD</text>
+
+      <rect x="18" y="56" width="509" height="60" rx="5" fill="#0d1117" stroke="#238636" stroke-width="1"/>
+      <text x="28" y="78" font-family="monospace" font-size="11.5" fill="#7ee787">The RAG Triad: Context Relevance + Faithfulness + Answer Relevance</text>
+      <text x="28" y="98" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#8b949e">Evaluated autonomously using LangSmith / TruLens metric assertions</text>
+
+      <g transform="translate(18, 126)">
+        <rect width="509" height="195" rx="5" fill="#0d1117" stroke="#30363d"/>
+        <text x="14" y="22" font-family="monospace" font-size="11.5" font-weight="700" fill="#3fb950">Evaluation Dimensions &amp; Math:</text>
+        <text x="14" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">1. Context Relevance: Did RAG retrieve noisy or pertinent code chunks?</text>
+        <text x="14" y="62" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">2. Faithfulness: Is the answer 100% grounded in retrieved context?</text>
+        <text x="14" y="80" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">   Faithfulness = (Verifiable Statements in Context) / (Total Claims)</text>
+        <text x="14" y="98" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">3. Answer Relevance: Does the generated review address the developer's PR?</text>
+        <text x="14" y="122" font-family="monospace" font-size="11" fill="#bc8cff">LLM-as-a-Judge CI/CD Quality Gate:</text>
+        <text x="14" y="142" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#8b949e">A dedicated evaluation judge model (Claude-3.5-Sonnet / GPT-4o) evaluates reviews.</text>
+        <text x="14" y="160" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#8b949e">If Faithfulness score &lt; 0.90, the agentic review is rejected automatically.</text>
+        <text x="14" y="180" font-family="monospace" font-size="11" fill="#7ee787">✓ Guarantees zero fabricated bug reports posted to PR comments</text>
+      </g>
+    </g>
+  </g>
+</svg>
