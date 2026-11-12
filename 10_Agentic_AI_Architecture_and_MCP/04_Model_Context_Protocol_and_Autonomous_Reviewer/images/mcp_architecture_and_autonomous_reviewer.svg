@@ -116,55 +116,53 @@
   <line x1="600" y1="450" x2="600" y2="475" stroke="#39c5cf" stroke-width="2" marker-end="url(#arrowTeal)"/>
 
   <!-- ROW 2: AUTONOMOUS REVIEWER WORKFLOW & AWS CLOUD DEPLOYMENT -->
+  <!-- PANEL 3: Autonomous PR-Reviewer Pipeline (Bottom Left) -->
   <g transform="translate(40, 485)">
-    <!-- PANEL 3: Autonomous PR-Reviewer Pipeline (Bottom Left) -->
-    <g transform="translate(0, 0)">
-      <rect width="545" height="345" rx="8" fill="url(#panelGrad)" stroke="#30363d" stroke-width="1.5"/>
-      <rect width="545" height="4" rx="2" fill="url(#purpleBar)"/>
-      <text x="20" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14.5" font-weight="700" fill="#bc8cff">3. Autonomous PR Reviewer Workflow (LangGraph + FastMCP)</text>
-      <text x="20" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#8b949e">End-to-End Git Diff Ingress to Automated Issue Remediation</text>
+    <rect width="545" height="345" rx="8" fill="url(#panelGrad)" stroke="#30363d" stroke-width="1.5"/>
+    <rect width="545" height="4" rx="2" fill="url(#purpleBar)"/>
+    <text x="20" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14.5" font-weight="700" fill="#bc8cff">3. Autonomous PR Reviewer Workflow (LangGraph + FastMCP)</text>
+    <text x="20" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#8b949e">End-to-End Git Diff Ingress to Automated Issue Remediation</text>
 
-      <rect x="18" y="56" width="509" height="60" rx="5" fill="#0d1117" stroke="#8957e5" stroke-width="1"/>
-      <text x="28" y="78" font-family="monospace" font-size="11.5" fill="#d2a8ff">GitHub Webhook (PR Open) -&gt; HMAC Verify -&gt; FastAPI Event Ingress</text>
-      <text x="28" y="98" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#8b949e">Triggers asynchronous LangGraph StateGraph review thread</text>
+    <rect x="18" y="56" width="509" height="60" rx="5" fill="#0d1117" stroke="#8957e5" stroke-width="1"/>
+    <text x="28" y="78" font-family="monospace" font-size="11.5" fill="#d2a8ff">GitHub Webhook (PR Open) -&gt; HMAC Verify -&gt; FastAPI Event Ingress</text>
+    <text x="28" y="98" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#8b949e">Triggers asynchronous LangGraph StateGraph review thread</text>
 
-      <g transform="translate(18, 126)">
-        <rect width="509" height="195" rx="5" fill="#0d1117" stroke="#30363d"/>
-        <text x="14" y="22" font-family="monospace" font-size="11.5" font-weight="700" fill="#3fb950">Multi-Agent Execution Pipeline:</text>
-        <text x="14" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">1. Ingress &amp; AST Slicing: Tree-sitter extracts changed methods from diff.</text>
-        <text x="14" y="62" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">2. Deterministic SAST: Semgrep &amp; Ruff run locally (zero-token security!).</text>
-        <text x="14" y="80" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">3. LangGraph Supervisor: Dispatches findings to LLM reasoning workers.</text>
-        <text x="14" y="98" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">4. FastMCP Action: Creates Trello tasks and posts line comments on GitHub.</text>
-        <text x="14" y="122" font-family="monospace" font-size="11" fill="#e3b341">Architectural Cost Savings:</text>
-        <text x="14" y="142" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#8b949e">Running local Semgrep first filters 85% of clean PRs without calling LLM APIs.</text>
-        <text x="14" y="160" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#8b949e">Average review cost: $0.004 per PR with sub-8 second execution turnaround.</text>
-        <text x="14" y="180" font-family="monospace" font-size="11" fill="#7ee787">✓ Zero corporate dependencies; completely reproducible portfolio project</text>
-      </g>
+    <g transform="translate(18, 126)">
+      <rect width="509" height="195" rx="5" fill="#0d1117" stroke="#30363d"/>
+      <text x="14" y="22" font-family="monospace" font-size="11.5" font-weight="700" fill="#3fb950">Multi-Agent Execution Pipeline:</text>
+      <text x="14" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">1. Ingress &amp; AST Slicing: Tree-sitter extracts changed methods from diff.</text>
+      <text x="14" y="62" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">2. Deterministic SAST: Semgrep &amp; Ruff run locally (zero-token security!).</text>
+      <text x="14" y="80" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">3. LangGraph Supervisor: Dispatches findings to LLM reasoning workers.</text>
+      <text x="14" y="98" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">4. FastMCP Action: Creates Trello tasks and posts line comments on GitHub.</text>
+      <text x="14" y="122" font-family="monospace" font-size="11" fill="#e3b341">Architectural Cost Savings:</text>
+      <text x="14" y="142" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#8b949e">Running local Semgrep first filters 85% of clean PRs without calling LLM APIs.</text>
+      <text x="14" y="160" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#8b949e">Average review cost: $0.004 per PR with sub-8 second execution turnaround.</text>
+      <text x="14" y="180" font-family="monospace" font-size="11" fill="#7ee787">✓ Zero corporate dependencies; completely reproducible portfolio project</text>
     </g>
+  </g>
 
-    <!-- PANEL 4: Enterprise AWS Cloud Deployment (Bottom Right) -->
-    <g transform="translate(615, 0)">
-      <rect width="545" height="345" rx="8" fill="url(#panelGrad)" stroke="#30363d" stroke-width="1.5"/>
-      <rect width="545" height="4" rx="2" fill="url(#greenBar)"/>
-      <text x="20" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14.5" font-weight="700" fill="#3fb950">4. Live AWS Cloud Deployment Architecture</text>
-      <text x="20" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#8b949e">Production EC2 / Fargate Hosting for Interview Demonstrations</text>
+  <!-- PANEL 4: Enterprise AWS Cloud Deployment (Bottom Right) -->
+  <g transform="translate(615, 485)">
+    <rect width="545" height="345" rx="8" fill="url(#panelGrad)" stroke="#30363d" stroke-width="1.5"/>
+    <rect width="545" height="4" rx="2" fill="url(#greenBar)"/>
+    <text x="20" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14.5" font-weight="700" fill="#3fb950">4. Live AWS Cloud Deployment Architecture</text>
+    <text x="20" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#8b949e">Production EC2 / Fargate Hosting for Interview Demonstrations</text>
 
-      <rect x="18" y="56" width="509" height="60" rx="5" fill="#0d1117" stroke="#238636" stroke-width="1"/>
-      <text x="28" y="78" font-family="monospace" font-size="11.5" fill="#7ee787">Internet -&gt; CloudFront / ALB (HTTPS) -&gt; AWS EC2 / Fargate Docker Container</text>
-      <text x="28" y="98" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#8b949e">Automated webhook processing with Redis Celery worker queue</text>
+    <rect x="18" y="56" width="509" height="60" rx="5" fill="#0d1117" stroke="#238636" stroke-width="1"/>
+    <text x="28" y="78" font-family="monospace" font-size="11.5" fill="#7ee787">Internet -&gt; CloudFront / ALB (HTTPS) -&gt; AWS EC2 / Fargate Docker Container</text>
+    <text x="28" y="98" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#8b949e">Automated webhook processing with Redis Celery worker queue</text>
 
-      <g transform="translate(18, 126)">
-        <rect width="509" height="195" rx="5" fill="#0d1117" stroke="#30363d"/>
-        <text x="14" y="22" font-family="monospace" font-size="11.5" font-weight="700" fill="#3fb950">Production Infrastructure Specifications:</text>
-        <text x="14" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">1. Compute: AWS EC2 t4g.small (ARM Graviton) or ECS Fargate.</text>
-        <text x="14" y="62" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">2. Security: AWS Secrets Manager for GitHub &amp; Trello API tokens.</text>
-        <text x="14" y="80" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">3. Networking: Public ALB terminating TLS with ACM SSL certificate.</text>
-        <text x="14" y="98" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">4. Storage: Sqlite / PostgreSQL RDS for LangGraph durable checkpoints.</text>
-        <text x="14" y="122" font-family="monospace" font-size="11" fill="#bc8cff">Interview Demonstration Strategy:</text>
-        <text x="14" y="142" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#8b949e">During live Staff/Principal interview, create a PR on GitHub with intentional flaw.</text>
-        <text x="14" y="160" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#8b949e">Show reviewer bot trigger in real time, create Trello card, and post fix in 10s.</text>
-        <text x="14" y="180" font-family="monospace" font-size="11" fill="#7ee787">★ The ultimate proof of Staff-level Agentic AI architecture mastery</text>
-      </g>
+    <g transform="translate(18, 126)">
+      <rect width="509" height="195" rx="5" fill="#0d1117" stroke="#30363d"/>
+      <text x="14" y="22" font-family="monospace" font-size="11.5" font-weight="700" fill="#3fb950">Production Infrastructure Specifications:</text>
+      <text x="14" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">1. Compute: AWS EC2 t4g.small (ARM Graviton) or ECS Fargate.</text>
+      <text x="14" y="62" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">2. Security: AWS Secrets Manager for GitHub &amp; Trello API tokens.</text>
+      <text x="14" y="80" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">3. Networking: Public ALB terminating TLS with ACM SSL certificate.</text>
+      <text x="14" y="98" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">4. Storage: Sqlite / PostgreSQL RDS for LangGraph durable checkpoints.</text>
+      <text x="14" y="122" font-family="monospace" font-size="11" fill="#bc8cff">Interview Demonstration Strategy:</text>
+      <text x="14" y="142" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#8b949e">During live Staff/Principal interview, create a PR on GitHub with intentional flaw.</text>
+      <text x="14" y="160" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#8b949e">Show reviewer bot trigger in real time, create Trello card, and post fix in 10s.</text>
+      <text x="14" y="180" font-family="monospace" font-size="11" fill="#7ee787">★ The ultimate proof of Staff-level Agentic AI architecture mastery</text>
     </g>
   </g>
 </svg>
