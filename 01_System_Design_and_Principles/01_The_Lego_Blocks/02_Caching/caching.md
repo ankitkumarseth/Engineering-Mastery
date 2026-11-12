@@ -135,7 +135,7 @@ flowchart TD
 1. **Cache Stampede Defense**:
    * **Mutex / Distributed Lock**: When a cache miss occurs, the first thread acquires a short-lived lock (e.g., Redis `SET key value NX PX 5000`) to query the database and populate the cache. Other threads wait, poll, or receive a slightly stale cached value.
    * **Probabilistic Early Expiration (XFetch Algorithm)**:
-     $$-\beta \times \delta \times \ln(\text{random}()) > \text{remaining\_ttl}$$
+     $$-\beta \times \delta \times \ln(\text{random}()) > \text{RemainingTTL}$$
      As the remaining TTL approaches zero, background worker threads have an increasing mathematical probability of refreshing the key asynchronously *before* it actually expires for clients.
 2. **Cache Penetration Defense**:
    * **Bloom Filters**: Place an in-memory Bloom filter in front of the cache. If the filter returns false (item definitely does not exist), immediately return `404 Not Found` without touching Redis or the database.
