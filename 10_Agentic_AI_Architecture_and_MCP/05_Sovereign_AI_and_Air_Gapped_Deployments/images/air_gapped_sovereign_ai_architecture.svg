@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 860" width="100%" height="auto">
+  <defs>
+    <!-- Background Gradients -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#161b22"/>
+    </linearGradient>
+
+    <linearGradient id="panelGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#161b22"/>
+      <stop offset="100%" stop-color="#0d1117"/>
+    </linearGradient>
+
+    <linearGradient id="crimsonBar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f85149"/>
+      <stop offset="100%" stop-color="#ff7b72"/>
+    </linearGradient>
+
+    <linearGradient id="blueBar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1f6feb"/>
+      <stop offset="100%" stop-color="#58a6ff"/>
+    </linearGradient>
+
+    <linearGradient id="purpleBar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8957e5"/>
+      <stop offset="100%" stop-color="#bc8cff"/>
+    </linearGradient>
+
+    <linearGradient id="tealBar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#238636"/>
+      <stop offset="100%" stop-color="#3fb950"/>
+    </linearGradient>
+
+    <!-- Marker Arrowheads -->
+    <marker id="arrowPurple" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <polygon points="0 0, 8 4, 0 8" fill="#bc8cff"/>
+    </marker>
+    <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <polygon points="0 0, 8 4, 0 8" fill="#58a6ff"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <polygon points="0 0, 8 4, 0 8" fill="#3fb950"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="1200" height="860" fill="url(#bgGrad)"/>
+
+  <!-- TOP HEADER -->
+  <g transform="translate(40, 20)">
+    <rect width="1120" height="70" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <rect width="1120" height="4" rx="2" fill="url(#crimsonBar)"/>
+    <text x="24" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="20" font-weight="700" fill="#f0f6fc">Air-Gapped Sovereign AI: Self-Hosted Inference &amp; Zero-Egress Architecture</text>
+    <text x="24" y="54" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#8b949e">First-Principles Design: Hardware Isolation, vLLM PagedAttention, QLoRA Adapter Fine-Tuning &amp; Stdio Tool Execution</text>
+  </g>
+
+  <!-- ROW 1, PANEL 1: Network Boundary & Zero-Egress VPC (Top Left) -->
+  <g transform="translate(40, 105)">
+    <rect width="545" height="345" rx="8" fill="url(#panelGrad)" stroke="#30363d" stroke-width="1.5"/>
+    <rect width="545" height="4" rx="2" fill="url(#crimsonBar)"/>
+    <text x="20" y="28" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#ff7b72">1. Network Boundary &amp; Zero-Egress VPC Isolation</text>
+
+    <!-- Subcard: Air-Gapped Network Topology -->
+    <g transform="translate(18, 42)">
+      <rect width="509" height="120" rx="6" fill="#0d1117" stroke="#f85149" stroke-width="1"/>
+      <text x="14" y="22" font-family="monospace" font-size="12" font-weight="700" fill="#f85149">Zero-Egress Private Subnet (No Internet Gateway / NAT)</text>
+      <text x="14" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">• Zero outbound routes to public Internet (0.0.0.0/0 route blocked).</text>
+      <text x="14" y="64" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">• Strict data sovereignty: compliant with PCI-DSS Tier 1, GDPR, HIPAA &amp; SOC 2.</text>
+      <text x="14" y="86" font-family="monospace" font-size="11" fill="#8b949e">Egress Rule: DENY ALL | Ingress: Internal Corporate Transit Gateway Only</text>
+      <text x="14" y="106" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#7ee787">✓ Zero proprietary code or PII leaves the hardware security boundary</text>
+    </g>
+
+    <!-- Subcard: Open-Weights Selection Strategy -->
+    <g transform="translate(18, 175)">
+      <rect width="509" height="155" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1.2"/>
+      <text x="14" y="22" font-family="monospace" font-size="12" font-weight="700" fill="#79c0ff">Foundational Open-Weights Tiering Matrix</text>
+      <text x="14" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">• Meta Llama 3.3 (70B Instruct): General enterprise reasoning &amp; planning.</text>
+      <text x="14" y="64" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">• Qwen 2.5 Coder (32B / 7B): Dedicated code AST analysis &amp; patch synthesis.</text>
+      <text x="14" y="86" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">• DeepSeek-R1 (Distill 14B / 32B): Multi-step Chain-of-Thought formal logic.</text>
+      <text x="14" y="108" font-family="monospace" font-size="11" fill="#bc8cff">Quantization: AWQ / GPTQ 4-bit allows 70B model serving on a single 48GB GPU</text>
+      <text x="14" y="128" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#8b949e">Weights mirrored to internal private Nexus / S3 mirror via air-gap diode</text>
+      <text x="14" y="146" font-family="monospace" font-size="11" fill="#7ee787">★ Full architectural parity with OpenAI/Anthropic at 90% lower TCO</text>
+    </g>
+  </g>
+
+  <!-- ROW 1, PANEL 2: Self-Hosted Inference (Top Right) -->
+  <g transform="translate(615, 105)">
+    <rect width="545" height="345" rx="8" fill="url(#panelGrad)" stroke="#30363d" stroke-width="1.5"/>
+    <rect width="545" height="4" rx="2" fill="url(#blueBar)"/>
+    <text x="20" y="28" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#58a6ff">2. High-Throughput Serving: vLLM &amp; PagedAttention</text>
+
+    <!-- Subcard: PagedAttention Memory Architecture -->
+    <g transform="translate(18, 42)">
+      <rect width="509" height="135" rx="6" fill="#0d1117" stroke="#1f6feb" stroke-width="1.2"/>
+      <text x="14" y="22" font-family="monospace" font-size="12" font-weight="700" fill="#58a6ff">PagedAttention: Virtual Memory for LLM KV-Cache</text>
+      <text x="14" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">• Naive Serving Bottleneck: Contiguous KV-cache wastes 60-80% VRAM (fragmentation).</text>
+      <text x="14" y="64" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">• vLLM Solution: Partitions KV-cache into non-contiguous physical blocks (pages).</text>
+      <text x="14" y="86" font-family="monospace" font-size="11" fill="#79c0ff">Block Table: Logical Tokens [0..15] -&gt; Physical VRAM Block #108</text>
+      <text x="14" y="108" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#3fb950">Result: 2x - 4x throughput increase; near-zero wasted memory per request.</text>
+      <text x="14" y="126" font-family="monospace" font-size="11" fill="#8b949e">Supports Continuous Batching (iteration-level scheduling vs request-level)</text>
+    </g>
+
+    <!-- Subcard: Private API Serving -->
+    <g transform="translate(18, 190)">
+      <rect width="509" height="140" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1.2"/>
+      <text x="14" y="22" font-family="monospace" font-size="12" font-weight="700" fill="#bc8cff">OpenAI-Compatible Local Endpoint Deployment</text>
+      <text x="14" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">• Exposes exact `/v1/chat/completions` API locally on private port 8000.</text>
+      <text x="14" y="64" font-family="monospace" font-size="11" fill="#e3b341">python3 -m vllm.entrypoints.openai.api_server --model Qwen2.5-Coder-32B</text>
+      <text x="14" y="86" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">• LangGraph agents swap endpoint seamlessly with zero application code changes:</text>
+      <text x="14" y="106" font-family="monospace" font-size="11" fill="#7ee787">client = ChatOpenAI(base_url="http://vllm-cluster.internal:8000/v1")</text>
+      <text x="14" y="126" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#8b949e">Automatic streaming with Server-Sent Events (SSE) across internal service mesh.</text>
+    </g>
+  </g>
+
+  <!-- FLOW ARROW DOWN: Joining Row 1 to Row 2 -->
+  <line x1="600" y1="450" x2="600" y2="475" stroke="#bc8cff" stroke-width="2" marker-end="url(#arrowPurple)"/>
+
+  <!-- ROW 2: PEFT FINE-TUNING & ZERO-EGRESS TOOLING -->
+  <!-- PANEL 3: Domain Adaptation: PEFT & QLoRA (Bottom Left) -->
+  <g transform="translate(40, 485)">
+    <rect width="545" height="345" rx="8" fill="url(#panelGrad)" stroke="#30363d" stroke-width="1.5"/>
+    <rect width="545" height="4" rx="2" fill="url(#purpleBar)"/>
+    <text x="20" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14.5" font-weight="700" fill="#bc8cff">3. Domain Adaptation: PEFT &amp; QLoRA Fine-Tuning</text>
+    <text x="20" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#8b949e">Specializing Open Models on Internal Codebases Without Pre-training Costs</text>
+
+    <!-- Code box: LoRA Math Formula -->
+    <rect x="18" y="56" width="509" height="62" rx="5" fill="#0d1117" stroke="#8957e5" stroke-width="1"/>
+    <text x="24" y="76" font-family="monospace" font-size="11" fill="#e3b341">Weight Update: W = W₀ + ΔW = W₀ + (α/r) · B · A</text>
+    <text x="24" y="94" font-family="monospace" font-size="10.5" fill="#79c0ff">Frozen Base: W₀ ∈ R^(d×k) | Low-Rank: B ∈ R^(d×r), A ∈ R^(r×k), r ≪ d</text>
+    <text x="24" y="110" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="10.5" fill="#8b949e">Freezes 99.8% of weights; trains only tiny adapter matrices</text>
+
+    <!-- Capabilities Subcard -->
+    <g transform="translate(18, 126)">
+      <rect width="509" height="195" rx="5" fill="#0d1117" stroke="#30363d"/>
+      <text x="14" y="22" font-family="monospace" font-size="11.5" font-weight="700" fill="#3fb950">Enterprise QLoRA &amp; Unsloth Architecture:</text>
+      <text x="14" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">1. 4-Bit NormalFloat (NF4): Information-theoretically optimal weight quantization.</text>
+      <text x="14" y="62" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">2. Double Quantization (DQ): Quantizes quantization constants, saving 0.37 bits/param.</text>
+      <text x="14" y="80" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">3. Paged Optimizers: Uses CUDA Unified Memory to prevent OOM spikes during backward pass.</text>
+      <text x="14" y="98" font-family="monospace" font-size="11" fill="#79c0ff">Unsloth Acceleration:</text>
+      <text x="14" y="118" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#8b949e">Manual OpenAI Triton kernels accelerate attention and cross-entropy 5x faster.</text>
+      <text x="14" y="136" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#8b949e">Fine-tunes a 32B model on internal Git commit history on a single 24GB/48GB GPU.</text>
+      <text x="14" y="156" font-family="monospace" font-size="11" fill="#bc8cff">Hot-Swappable Adapters: Base model serves different teams via dynamic LoRA IDs</text>
+      <text x="14" y="176" font-family="monospace" font-size="11" fill="#7ee787">✓ Cost: $0 API egress; models adapt precisely to proprietary frameworks</text>
+    </g>
+  </g>
+
+  <!-- PANEL 4: Zero-Egress Tooling Bus (Bottom Right) -->
+  <g transform="translate(615, 485)">
+    <rect width="545" height="345" rx="8" fill="url(#panelGrad)" stroke="#30363d" stroke-width="1.5"/>
+    <rect width="545" height="4" rx="2" fill="url(#tealBar)"/>
+    <text x="20" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14.5" font-weight="700" fill="#3fb950">4. Zero-Egress Tooling Bus &amp; Air-Gapped RAG</text>
+    <text x="20" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#8b949e">Hardware-Sandboxed Tool Execution &amp; Internal Vector Storage</text>
+
+    <!-- Subcard: Stdio IPC Tooling -->
+    <rect x="18" y="56" width="509" height="60" rx="5" fill="#0d1117" stroke="#238636" stroke-width="1"/>
+    <text x="24" y="78" font-family="monospace" font-size="11" fill="#7ee787">FastMCP Stdio Transport: Agent ──[stdin/stdout pipes]──▶ Local Tool</text>
+    <text x="24" y="98" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="10.5" fill="#8b949e">Zero network sockets created; zero attack surface for packet sniffing or MITM</text>
+
+    <!-- Subcard: Complete Air-Gapped Stack -->
+    <g transform="translate(18, 126)">
+      <rect width="509" height="195" rx="5" fill="#0d1117" stroke="#30363d"/>
+      <text x="14" y="22" font-family="monospace" font-size="11.5" font-weight="700" fill="#3fb950">Air-Gapped Autonomous Pipeline Architecture:</text>
+      <text x="14" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">1. Local AST &amp; SAST: Tree-sitter + Semgrep execute inside air-gapped container.</text>
+      <text x="14" y="62" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">2. Local Vector DB: Internal PostgreSQL `pgvector` store with HNSW index.</text>
+      <text x="14" y="80" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">3. Air-Gapped Embeddings: `BAAI/bge-large-en-v1.5` runs locally via ONNX Runtime.</text>
+      <text x="14" y="98" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11.5" fill="#c9d1d9">4. Air-Gapped Eval: Local LLM-as-a-Judge gates enforce &gt;0.90 Faithfulness.</text>
+      <text x="14" y="122" font-family="monospace" font-size="11" fill="#e3b341">Staff / Principal Defense Story:</text>
+      <text x="14" y="142" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#8b949e">"We run sovereign AI in an isolated VPC without Internet Gateways. vLLM with Paged-</text>
+      <text x="14" y="160" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#8b949e">Attention serves Qwen-2.5-Coder. FastMCP dispatches over stdio pipes to internal tools."</text>
+      <text x="14" y="180" font-family="monospace" font-size="11" fill="#7ee787">★ The definitive blueprint for enterprise compliance &amp; sovereign AI</text>
+    </g>
+  </g>
+</svg>
