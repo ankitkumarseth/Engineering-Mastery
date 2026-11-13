@@ -392,3 +392,17 @@ When asked: *"Should we invoke `commitSync()` after every message in our Kafka c
   - If network RTT is $5\text{ms}$, single-threaded consumer throughput is mathematically capped at:
     $$\text{Max Throughput} = \frac{1000\text{ms}}{5\text{ms}} = 200\text{ messages/second!}$$
 - Instead, propose **batch-level asynchronous commits (`commitAsync()`)** paired with transactional outbox, database unique constraints, or idempotent business keys downstream.
+
+### 7.3 The Infinite Replay Poison-Pill Outage & Two-Tier Error Boundaries
+When an interviewer asks: *"In a high-throughput financial batch consumer (5,000–9,000 TPS), a single corrupted or malformed payload causes the consumer container to NACK the batch and rewind the Kafka offset. This creates an infinite replay loop where consumer lag skyrockets into millions and threatens topic retention data loss. How do you design the failure architecture to prevent this?"*
+
+#### The Staff Engineering Response:
+- State the architectural principle: *"In large-scale multi-network event streams, data anomalies are inevitable. You must decouple payload anomalies from infrastructure outages by establishing a **Two-Tier Failure Philosophy**."*
+- **Tier 1: Record-Level Isolation (Bad Data / Poison Pills)**:
+  - Wrap per-record deserialization and business parsing in granular `try/catch` blocks inside the batch loop.
+  - If a message fails schema parsing or contains out-of-spec field values, capture a diagnostic payload snapshot in structured logs with MDC correlation identifiers (e.g., `transactionId`, `BRN`), increment a dedicated Micrometer error metric (`auth.malformed.dropped`), and safely drop or route the single malformed record to a Dead Letter Topic (DLT).
+  - The batch loop continues uninhibited, allowing the remaining 499 valid financial transactions to be processed and published.
+- **Tier 2: Batch-Level NACK & Offset Rewind (Systemic Infrastructure Failures Only)**:
+  - Preserve batch-level container throwing and offset rewinding strictly for systemic outages: database connection pool exhaustion, network partitions, or downstream Kafka broker unavailability.
+- **Commit on Batch Boundary**:
+  - The Kafka offset is committed once the batch boundary finishes. The pipeline moves forward smoothly, eliminating infinite replay deadlocks and preventing catastrophic topic retention data loss while preserving 100% data consistency for valid records.

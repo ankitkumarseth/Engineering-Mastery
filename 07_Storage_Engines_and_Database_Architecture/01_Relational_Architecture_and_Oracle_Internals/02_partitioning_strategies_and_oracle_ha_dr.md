@@ -159,6 +159,48 @@ Enterprise database resiliency spans three primary architectural tiers:
   2. **Data Pump**: Streams trail files across TCP/IP to the target system.
   3. **Replicat**: Parses trail files, constructs SQL DML statements (`INSERT`, `UPDATE`, `DELETE`), and executes them against the target database via standard SQL connections.
 
+### 4.4 High-Concurrency Distributed Work-Queues in Oracle: `SKIP LOCKED` & `ORA_HASH` Sharding
+
+In high-throughput microservice ecosystems (such as transaction matching engines, event reconcilers, or financial batch processors), multiple application instances frequently need to poll, lock, and process pending candidate records from a shared relational table. Without deliberate relational concurrency design, multiple instances querying the same pending rows encounter severe database failure modes:
+
+1. **Row Lock Contention (`enq: TX - row lock contention`)**: When Worker 1 and Worker 2 attempt to acquire locks on the same pending rows, Worker 2 is forced into an operating system sleep/wait state, stalling application threads.
+2. **Deadlocks (`ORA-00060: deadlock detected while waiting for resource`)**: When Worker 1 locks Row A and requests Row B, while Worker 2 locks Row B and requests Row A, Oracle terminates one session with `ORA-00060`.
+3. **Exadata RAC Interconnect Block Thrashing (Cache Fusion Ping-Pong)**: In an Oracle RAC cluster across data centers, if Instance 1 and Instance 2 modify rows located on the same physical 8KB data block, the block must be transferred back and forth across the private InfiniBand/RoCE interconnect (`gc buffer busy acquire`), destroying throughput.
+
+To achieve non-blocking, horizontally scalable database processing across multiple pods, architects leverage two primary patterns:
+
+#### Pattern 1: Deterministic Disjoint Worker Sharding (`ORA_HASH`)
+Instead of all workers querying the entire candidate table, the workload is partitioned deterministically using consistent hashing on tenant or entity identifiers:
+$$\text{Shard ID} = \text{ORA\_HASH}(\text{corp\_guid}, N-1)$$
+
+```sql
+SELECT fin_txn_guid, bnknt_ref_num 
+FROM fin_txn finTxn
+LEFT JOIN mtch_scp matchScope ON finTxn.guid = matchScope.fin_txn_guid
+WHERE ORA_HASH(finTxn.corp_guid, 15) = :workerShardId
+  AND finTxn.crte_dttm >= SYSDATE - 3
+  AND (matchScope.stat IS NULL OR matchScope.stat = 'UNMATCHED')
+FETCH FIRST 5000 ROWS ONLY;
+```
+- **Why It Eliminates Lock Contention**: Worker 1 (assigned Shard 0) and Worker 2 (assigned Shard 1) operate on **strictly disjoint row sets**. They never attempt to read or lock the same rows.
+- **Exadata RAC Optimization**: Paired with composite partitioning (Range Partitioning by Date + Hash Subpartitioning by `CORP_GUID`), each shard's rows are physically co-located in distinct database storage blocks, completely eliminating RAC Cache Fusion ping-pong.
+
+#### Pattern 2: Dynamic Non-Blocking Work-Queues (`SELECT ... FOR UPDATE SKIP LOCKED`)
+When corporate transaction volumes are skewed (e.g., a single enterprise account represents 60% of all traffic, making static hash partitioning uneven), architects deploy the native Oracle queue-worker pattern:
+
+```sql
+SELECT fin_txn_guid 
+FROM mtch_scp
+WHERE stat = 'PENDING_MATCH'
+  AND last_update_dttm <= SYSDATE - (1/24)
+FOR UPDATE SKIP LOCKED
+FETCH FIRST 2000 ROWS ONLY;
+```
+- **Kernel-Level Mechanics**:
+  - Worker 1 acquires exclusive row-level locks on 2,000 candidate records.
+  - When Worker 2 executes the identical query concurrently, Oracle's lock manager **silently skips the rows locked by Worker 1** and immediately returns the next 2,000 unlocked rows.
+  - Concurrency is 100% non-blocking. Workers dynamically consume work at their natural processing speed without waiting, serialization queues, or deadlocks.
+
 ---
 
 ## 5. Enterprise Architectural Case Study: Why 3-AZ Active Architectures Abandoned GoldenGate for Data Guard
